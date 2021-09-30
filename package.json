@@ -2,25 +2,35 @@
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
-    "test": "web-test-runner \"src/**/*.test.ts\""
+    "test": "web-test-runner \"src/**/*.test.ts\"",
+    "codegen": "openapi-generator-cli generate -g typescript-axios -i http://localhost:8000/swagger.json -o ./src/api"
   },
   "dependencies": {
-    "svelte": "^3.37.0"
+    "svelte": "^3.37.0",
+    "svelte-spa-router": "^3.2.0"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.4.6",
     "@snowpack/plugin-dotenv": "^2.2.0",
     "@snowpack/plugin-svelte": "^3.6.1",
     "@snowpack/plugin-typescript": "^1.2.1",
     "@snowpack/web-test-runner-plugin": "^0.2.2",
     "@testing-library/svelte": "^3.0.3",
     "@tsconfig/svelte": "^1.0.10",
+    "@types/axios": "^0.14.0",
     "@types/chai": "^4.2.17",
+    "@types/luxon": "^2.0.4",
     "@types/mocha": "^8.2.2",
     "@types/snowpack-env": "^2.3.3",
     "@web/test-runner": "^0.13.3",
+    "axios": "^0.21.4",
+    "carbon-components-svelte": "^0.44.4",
     "chai": "^4.3.4",
+    "isomorphic-fetch": "^3.0.0",
+    "luxon": "^2.0.2",
     "snowpack": "^3.8.7",
     "svelte-preprocess": "^4.7.2",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.4",
+    "url": "^0.11.0"
   }
 }
