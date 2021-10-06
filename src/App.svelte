@@ -1,11 +1,22 @@
 <script lang="ts">
-  import "carbon-components-svelte/css/g80.css";
+  import "carbon-components-svelte/css/g10.css";
   import Router from "svelte-spa-router";
-  import Orders from "./pages/orders/Orders.svelte";
+  import { wrap } from "svelte-spa-router/wrap";
+
   const routes = {
     // Exact path
-    "/orders": Orders,
-    
+    "/orders": wrap({
+      asyncComponent: () => import("./pages/orders/Orders.svelte"),
+    }),
+
+    "/orders/:orderId": wrap({
+      asyncComponent: () => import("./pages/orders/OrderDetail.svelte"),
+    }),
+
+    "/login": wrap({
+      asyncComponent: () => import("./pages/auth/Login.svelte"),
+    }),
+
     // Using named parameters, with last being optional
     // "/author/:first/:last?": Author,
 
@@ -18,9 +29,4 @@
   };
 </script>
 
-<main>
-  <Router {routes} />
-</main>
-
-<style>
-</style>
+<Router {routes} />

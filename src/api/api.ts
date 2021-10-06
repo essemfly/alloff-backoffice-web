@@ -24,106 +24,1116 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
- * @interface Order
+ * @interface AddOrderMemo
  */
-export interface Order {
+export interface AddOrderMemo {
     /**
      * 
      * @type {string}
-     * @memberof Order
+     * @memberof AddOrderMemo
      */
-    auto_id_0?: string;
+    body: string;
+}
+/**
+ * 
+ * @export
+ * @interface AddPaymentAdjustment
+ */
+export interface AddPaymentAdjustment {
     /**
      * 
      * @type {string}
-     * @memberof Order
+     * @memberof AddPaymentAdjustment
      */
-    iamport?: string;
+    method: AddPaymentAdjustmentMethodEnum;
     /**
      * 
      * @type {string}
-     * @memberof Order
+     * @memberof AddPaymentAdjustment
      */
-    payment?: string;
-    /**
-     * 
-     * @type {User}
-     * @memberof Order
-     */
-    user: User;
-    /**
-     * 
-     * @type {string}
-     * @memberof Order
-     */
-    id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Order
-     */
-    orderstatus: OrderOrderstatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof Order
-     */
-    ordertype: OrderOrdertypeEnum;
+    reason?: string;
     /**
      * 
      * @type {number}
-     * @memberof Order
+     * @memberof AddPaymentAdjustment
      */
-    totalprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Order
-     */
-    productprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Order
-     */
-    deliveryprice: number;
+    amount: number;
     /**
      * 
      * @type {string}
-     * @memberof Order
+     * @memberof AddPaymentAdjustment
      */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Order
-     */
-    updated: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Order
-     */
-    memo: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Order
-     */
-    deliverytrackingnumber: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Order
-     */
-    deliverytrackingurl: string;
+    bank_account_info?: string;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum OrderOrderstatusEnum {
+export enum AddPaymentAdjustmentMethodEnum {
+    CardCancel = 'CARD_CANCEL',
+    Cash = 'CASH'
+}
+
+/**
+ * 
+ * @export
+ * @interface Admin
+ */
+export interface Admin {
+    /**
+     * 
+     * @type {number}
+     * @memberof Admin
+     */
+    id?: number;
+    /**
+     * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+     * @type {string}
+     * @memberof Admin
+     */
+    username: string;
+    /**
+     * 
+     * @type {Profile}
+     * @memberof Admin
+     */
+    profile: Profile;
+    /**
+     * 
+     * @type {string}
+     * @memberof Admin
+     */
+    email?: string;
+}
+/**
+ * 
+ * @export
+ * @interface AlloffCategoriesFirst
+ */
+export interface AlloffCategoriesFirst {
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesFirst
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesFirst
+     */
+    imgurl?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesFirst
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof AlloffCategoriesFirst
+     */
+    level?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesFirst
+     */
+    parentid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesFirst
+     */
+    type?: AlloffCategoriesFirstTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesFirst
+     */
+    _id?: string;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum AlloffCategoriesFirstTypeEnum {
+    Normal = 'NORMAL',
+    NeedProcessing = 'NEED_PROCESSING',
+    DoNotShow = 'DO_NOT_SHOW'
+}
+
+/**
+ * 
+ * @export
+ * @interface AlloffCategoriesSecond
+ */
+export interface AlloffCategoriesSecond {
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesSecond
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesSecond
+     */
+    imgurl?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesSecond
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof AlloffCategoriesSecond
+     */
+    level?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesSecond
+     */
+    parentid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesSecond
+     */
+    type?: AlloffCategoriesSecondTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffCategoriesSecond
+     */
+    _id?: string;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum AlloffCategoriesSecondTypeEnum {
+    Normal = 'NORMAL',
+    NeedProcessing = 'NEED_PROCESSING',
+    DoNotShow = 'DO_NOT_SHOW'
+}
+
+/**
+ * 
+ * @export
+ * @interface ChangeStatus
+ */
+export interface ChangeStatus {
+    /**
+     * 
+     * @type {string}
+     * @memberof ChangeStatus
+     */
+    status: ChangeStatusStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChangeStatus
+     */
+    delivery_tracking_number?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChangeStatus
+     */
+    delivery_tracking_url?: string;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum ChangeStatusStatusEnum {
+    PaymentFinished = 'PAYMENT_FINISHED',
+    ProductPreparing = 'PRODUCT_PREPARING',
+    DeliveryPreparing = 'DELIVERY_PREPARING',
+    DeliveryStarted = 'DELIVERY_STARTED',
+    DeliveryFinished = 'DELIVERY_FINISHED',
+    ConfirmPayment = 'CONFIRM_PAYMENT',
+    CancelRequested = 'CANCEL_REQUESTED',
+    CancelPending = 'CANCEL_PENDING',
+    CancelFinished = 'CANCEL_FINISHED'
+}
+
+/**
+ * 
+ * @export
+ * @interface EmbeddedAlloffProductBrand
+ */
+export interface EmbeddedAlloffProductBrand {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    engname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    korname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    logoimgurl: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    onpopular: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    description: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    isopen: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    modulename: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    maxdiscountrate: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    numnewproducts: number;
+    /**
+     * 
+     * @type {Array<EmbeddedBrandSizeguide>}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    sizeguide?: Array<EmbeddedBrandSizeguide>;
+    /**
+     * 
+     * @type {Array<EmbeddedBrandCategory>}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    category?: Array<EmbeddedBrandCategory>;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    _id?: string;
+}
+/**
+ * 
+ * @export
+ * @interface EmbeddedAlloffProductFaults
+ */
+export interface EmbeddedAlloffProductFaults {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductFaults
+     */
+    image: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductFaults
+     */
+    description: string;
+}
+/**
+ * 
+ * @export
+ * @interface EmbeddedAlloffProductInstruction
+ */
+export interface EmbeddedAlloffProductInstruction {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductInstruction
+     */
+    title: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof EmbeddedAlloffProductInstruction
+     */
+    description: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof EmbeddedAlloffProductInstruction
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductInstruction
+     */
+    thumbnail?: string;
+}
+/**
+ * 
+ * @export
+ * @interface EmbeddedAlloffProductInventory
+ */
+export interface EmbeddedAlloffProductInventory {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedAlloffProductInventory
+     */
+    size: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EmbeddedAlloffProductInventory
+     */
+    quantity: number;
+}
+/**
+ * 
+ * @export
+ * @interface EmbeddedBrandCategory
+ */
+export interface EmbeddedBrandCategory {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandCategory
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandCategory
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandCategory
+     */
+    catidentifier: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandCategory
+     */
+    brandkeyname: string;
+}
+/**
+ * 
+ * @export
+ * @interface EmbeddedBrandSizeguide
+ */
+export interface EmbeddedBrandSizeguide {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandSizeguide
+     */
+    label: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandSizeguide
+     */
+    imgurl: string;
+}
+/**
+ * 
+ * @export
+ * @interface EmbeddedProductAlloffcategories
+ */
+export interface EmbeddedProductAlloffcategories {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EmbeddedProductAlloffcategories
+     */
+    touched: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EmbeddedProductAlloffcategories
+     */
+    done: boolean;
+    /**
+     * 
+     * @type {AlloffCategoriesFirst}
+     * @memberof EmbeddedProductAlloffcategories
+     */
+    first?: AlloffCategoriesFirst;
+    /**
+     * 
+     * @type {AlloffCategoriesSecond}
+     * @memberof EmbeddedProductAlloffcategories
+     */
+    second?: AlloffCategoriesSecond;
+}
+/**
+ * 
+ * @export
+ * @interface EmbeddedProductBrand
+ */
+export interface EmbeddedProductBrand {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductBrand
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductBrand
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductBrand
+     */
+    engname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductBrand
+     */
+    korname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductBrand
+     */
+    logoimgurl: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EmbeddedProductBrand
+     */
+    onpopular: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductBrand
+     */
+    description: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EmbeddedProductBrand
+     */
+    isopen: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductBrand
+     */
+    modulename: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EmbeddedProductBrand
+     */
+    maxdiscountrate: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EmbeddedProductBrand
+     */
+    numnewproducts: number;
+    /**
+     * 
+     * @type {Array<EmbeddedBrandSizeguide>}
+     * @memberof EmbeddedProductBrand
+     */
+    sizeguide?: Array<EmbeddedBrandSizeguide>;
+    /**
+     * 
+     * @type {Array<EmbeddedBrandCategory>}
+     * @memberof EmbeddedProductBrand
+     */
+    category?: Array<EmbeddedBrandCategory>;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductBrand
+     */
+    _id?: string;
+}
+/**
+ * 
+ * @export
+ * @interface EmbeddedProductCategory
+ */
+export interface EmbeddedProductCategory {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductCategory
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductCategory
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductCategory
+     */
+    catidentifier: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedProductCategory
+     */
+    brandkeyname: string;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse200
+ */
+export interface InlineResponse200 {
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse200
+     */
+    count: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200
+     */
+    next?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse200
+     */
+    previous?: string | null;
+    /**
+     * 
+     * @type {Array<OrderList>}
+     * @memberof InlineResponse200
+     */
+    results: Array<OrderList>;
+}
+/**
+ * 
+ * @export
+ * @interface OrderActionLog
+ */
+export interface OrderActionLog {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderActionLog
+     */
+    id?: number;
+    /**
+     * 
+     * @type {Admin}
+     * @memberof OrderActionLog
+     */
+    admin: Admin;
+    /**
+     * 
+     * @type {OrderAlimtalkLog}
+     * @memberof OrderActionLog
+     */
+    alimtalk?: OrderAlimtalkLog;
+    /**
+     * 
+     * @type {OrderStatusChangeLog}
+     * @memberof OrderActionLog
+     */
+    status_change?: OrderStatusChangeLog;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderActionLog
+     */
+    order_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderActionLog
+     */
+    action_type: OrderActionLogActionTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderActionLog
+     */
+    performed_at?: string;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OrderActionLogActionTypeEnum {
+    StatusChange = 'STATUS_CHANGE',
+    MemoAdd = 'MEMO_ADD',
+    MemoDelete = 'MEMO_DELETE',
+    PaymentAdjustment = 'PAYMENT_ADJUSTMENT',
+    RefundUpdate = 'REFUND_UPDATE'
+}
+
+/**
+ * 
+ * @export
+ * @interface OrderAlimtalkLog
+ */
+export interface OrderAlimtalkLog {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderAlimtalkLog
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderAlimtalkLog
+     */
+    order_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderAlimtalkLog
+     */
+    alimtalk_type: OrderAlimtalkLogAlimtalkTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderAlimtalkLog
+     */
+    request_id?: string | null;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OrderAlimtalkLogAlimtalkTypeEnum {
+    DeliveryStarted = 'DELIVERY_STARTED',
+    CancelFinished = 'CANCEL_FINISHED'
+}
+
+/**
+ * 
+ * @export
+ * @interface OrderItemAlloffproduct
+ */
+export interface OrderItemAlloffproduct {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemAlloffproduct
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemAlloffproduct
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemAlloffproduct
+     */
+    productgroupid: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrderItemAlloffproduct
+     */
+    description: Array<string>;
+    /**
+     * 
+     * @type {Array<EmbeddedAlloffProductFaults>}
+     * @memberof OrderItemAlloffproduct
+     */
+    faults: Array<EmbeddedAlloffProductFaults>;
+    /**
+     * 
+     * @type {Array<EmbeddedAlloffProductInventory>}
+     * @memberof OrderItemAlloffproduct
+     */
+    inventory: Array<EmbeddedAlloffProductInventory>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrderItemAlloffproduct
+     */
+    sizedescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrderItemAlloffproduct
+     */
+    canceldescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrderItemAlloffproduct
+     */
+    producttype: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrderItemAlloffproduct
+     */
+    deliverydescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrderItemAlloffproduct
+     */
+    images: Array<string>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderItemAlloffproduct
+     */
+    removed: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderItemAlloffproduct
+     */
+    soldout: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemAlloffproduct
+     */
+    originalprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemAlloffproduct
+     */
+    discountedprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemAlloffproduct
+     */
+    discountrate: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemAlloffproduct
+     */
+    templateId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemAlloffproduct
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemAlloffproduct
+     */
+    updated: string;
+    /**
+     * 
+     * @type {EmbeddedAlloffProductBrand}
+     * @memberof OrderItemAlloffproduct
+     */
+    brand: EmbeddedAlloffProductBrand;
+    /**
+     * 
+     * @type {EmbeddedAlloffProductInstruction}
+     * @memberof OrderItemAlloffproduct
+     */
+    instruction: EmbeddedAlloffProductInstruction;
+}
+/**
+ * 
+ * @export
+ * @interface OrderItemProduct
+ */
+export interface OrderItemProduct {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    productid: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    name: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrderItemProduct
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderItemProduct
+     */
+    removed?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderItemProduct
+     */
+    soldout?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    producturl: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemProduct
+     */
+    discountrate: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    updated: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemProduct
+     */
+    discountedprice: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderItemProduct
+     */
+    isupdated: boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrderItemProduct
+     */
+    canceldescription: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    originalprice: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrderItemProduct
+     */
+    deliverydescription: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    isimagecached: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    isnewlycrawled: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    sizeavailable: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemProduct
+     */
+    _id?: string;
+    /**
+     * 
+     * @type {EmbeddedProductBrand}
+     * @memberof OrderItemProduct
+     */
+    brand: EmbeddedProductBrand;
+    /**
+     * 
+     * @type {EmbeddedProductCategory}
+     * @memberof OrderItemProduct
+     */
+    category: EmbeddedProductCategory;
+    /**
+     * 
+     * @type {EmbeddedProductAlloffcategories}
+     * @memberof OrderItemProduct
+     */
+    alloffcategories: EmbeddedProductAlloffcategories;
+}
+/**
+ * 
+ * @export
+ * @interface OrderList
+ */
+export interface OrderList {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    id: string;
+    /**
+     * 
+     * @type {Payment}
+     * @memberof OrderList
+     */
+    payment?: Payment;
+    /**
+     * 
+     * @type {User}
+     * @memberof OrderList
+     */
+    user: User;
+    /**
+     * 
+     * @type {Refund}
+     * @memberof OrderList
+     */
+    refund?: Refund;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    orderstatus: OrderListOrderstatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    ordertype: OrderListOrdertypeEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderList
+     */
+    totalprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderList
+     */
+    productprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderList
+     */
+    deliveryprice: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    updated: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    memo: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    deliverytrackingnumber?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    deliverytrackingurl?: string;
+    /**
+     * 
+     * @type {Array<OrderOrders>}
+     * @memberof OrderList
+     */
+    orders: Array<OrderOrders>;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OrderListOrderstatusEnum {
     PaymentFinished = 'PAYMENT_FINISHED',
     ProductPreparing = 'PRODUCT_PREPARING',
     DeliveryPreparing = 'DELIVERY_PREPARING',
@@ -138,11 +1148,604 @@ export enum OrderOrderstatusEnum {
     * @export
     * @enum {string}
     */
-export enum OrderOrdertypeEnum {
+export enum OrderListOrdertypeEnum {
     NormalOrder = 'NORMAL_ORDER',
     TimedealOrder = 'TIMEDEAL_ORDER'
 }
 
+/**
+ * 
+ * @export
+ * @interface OrderMemo
+ */
+export interface OrderMemo {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderMemo
+     */
+    id?: number;
+    /**
+     * 
+     * @type {Admin}
+     * @memberof OrderMemo
+     */
+    admin: Admin;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderMemo
+     */
+    order_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderMemo
+     */
+    body: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderMemo
+     */
+    created_at?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderMemo
+     */
+    deleted_at?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrderOrders
+ */
+export interface OrderOrders {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderOrders
+     */
+    size: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderOrders
+     */
+    quantity: number;
+    /**
+     * 
+     * @type {OrderItemAlloffproduct}
+     * @memberof OrderOrders
+     */
+    alloffproduct?: OrderItemAlloffproduct;
+    /**
+     * 
+     * @type {OrderItemProduct}
+     * @memberof OrderOrders
+     */
+    product?: OrderItemProduct;
+}
+/**
+ * 
+ * @export
+ * @interface OrderPaymentAdjustment
+ */
+export interface OrderPaymentAdjustment {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderPaymentAdjustment
+     */
+    id?: number;
+    /**
+     * 
+     * @type {Admin}
+     * @memberof OrderPaymentAdjustment
+     */
+    admin: Admin;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderPaymentAdjustment
+     */
+    method: OrderPaymentAdjustmentMethodEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderPaymentAdjustment
+     */
+    order_id: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderPaymentAdjustment
+     */
+    previous_balance: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderPaymentAdjustment
+     */
+    amount: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderPaymentAdjustment
+     */
+    resulting_balance: number;
+    /**
+     * 
+     * @type {object}
+     * @memberof OrderPaymentAdjustment
+     */
+    pg_response?: object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderPaymentAdjustment
+     */
+    bank_account_info?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderPaymentAdjustment
+     */
+    reason: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderPaymentAdjustment
+     */
+    created_at?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderPaymentAdjustment
+     */
+    updated_at?: string;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OrderPaymentAdjustmentMethodEnum {
+    CardCancel = 'CARD_CANCEL',
+    Cash = 'CASH'
+}
+
+/**
+ * 
+ * @export
+ * @interface OrderRetrieve
+ */
+export interface OrderRetrieve {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    id: string;
+    /**
+     * 
+     * @type {Payment}
+     * @memberof OrderRetrieve
+     */
+    payment?: Payment;
+    /**
+     * 
+     * @type {User}
+     * @memberof OrderRetrieve
+     */
+    user: User;
+    /**
+     * 
+     * @type {Refund}
+     * @memberof OrderRetrieve
+     */
+    refund?: Refund;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof OrderRetrieve
+     */
+    iamport?: { [key: string]: string; };
+    /**
+     * 
+     * @type {Array<OrderPaymentAdjustment>}
+     * @memberof OrderRetrieve
+     */
+    payment_adjustments?: Array<OrderPaymentAdjustment>;
+    /**
+     * 
+     * @type {Array<OrderMemo>}
+     * @memberof OrderRetrieve
+     */
+    memos?: Array<OrderMemo>;
+    /**
+     * 
+     * @type {Array<OrderActionLog>}
+     * @memberof OrderRetrieve
+     */
+    logs?: Array<OrderActionLog>;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    orderstatus: OrderRetrieveOrderstatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    ordertype: OrderRetrieveOrdertypeEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderRetrieve
+     */
+    totalprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderRetrieve
+     */
+    productprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderRetrieve
+     */
+    deliveryprice: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    updated: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    memo: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    deliverytrackingnumber?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    deliverytrackingurl?: string;
+    /**
+     * 
+     * @type {Array<OrderOrders>}
+     * @memberof OrderRetrieve
+     */
+    orders: Array<OrderOrders>;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OrderRetrieveOrderstatusEnum {
+    PaymentFinished = 'PAYMENT_FINISHED',
+    ProductPreparing = 'PRODUCT_PREPARING',
+    DeliveryPreparing = 'DELIVERY_PREPARING',
+    DeliveryStarted = 'DELIVERY_STARTED',
+    DeliveryFinished = 'DELIVERY_FINISHED',
+    ConfirmPayment = 'CONFIRM_PAYMENT',
+    CancelRequested = 'CANCEL_REQUESTED',
+    CancelPending = 'CANCEL_PENDING',
+    CancelFinished = 'CANCEL_FINISHED'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OrderRetrieveOrdertypeEnum {
+    NormalOrder = 'NORMAL_ORDER',
+    TimedealOrder = 'TIMEDEAL_ORDER'
+}
+
+/**
+ * 
+ * @export
+ * @interface OrderStatusChangeLog
+ */
+export interface OrderStatusChangeLog {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderStatusChangeLog
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderStatusChangeLog
+     */
+    order_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderStatusChangeLog
+     */
+    status_from: OrderStatusChangeLogStatusFromEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderStatusChangeLog
+     */
+    status_to: OrderStatusChangeLogStatusToEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderStatusChangeLog
+     */
+    delivery_tracking_number_from?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderStatusChangeLog
+     */
+    delivery_tracking_url_from?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderStatusChangeLog
+     */
+    delivery_tracking_number_to?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderStatusChangeLog
+     */
+    delivery_tracking_url_to?: string | null;
+}
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OrderStatusChangeLogStatusFromEnum {
+    PaymentFinished = 'PAYMENT_FINISHED',
+    ProductPreparing = 'PRODUCT_PREPARING',
+    DeliveryPreparing = 'DELIVERY_PREPARING',
+    DeliveryStarted = 'DELIVERY_STARTED',
+    DeliveryFinished = 'DELIVERY_FINISHED',
+    ConfirmPayment = 'CONFIRM_PAYMENT',
+    CancelRequested = 'CANCEL_REQUESTED',
+    CancelPending = 'CANCEL_PENDING',
+    CancelFinished = 'CANCEL_FINISHED'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum OrderStatusChangeLogStatusToEnum {
+    PaymentFinished = 'PAYMENT_FINISHED',
+    ProductPreparing = 'PRODUCT_PREPARING',
+    DeliveryPreparing = 'DELIVERY_PREPARING',
+    DeliveryStarted = 'DELIVERY_STARTED',
+    DeliveryFinished = 'DELIVERY_FINISHED',
+    ConfirmPayment = 'CONFIRM_PAYMENT',
+    CancelRequested = 'CANCEL_REQUESTED',
+    CancelPending = 'CANCEL_PENDING',
+    CancelFinished = 'CANCEL_FINISHED'
+}
+
+/**
+ * 
+ * @export
+ * @interface Payment
+ */
+export interface Payment {
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    impuid: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    paymentstatus: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    pg: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    paymethod: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    merchantuid: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Payment
+     */
+    amount: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    buyername: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    buyermobile: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    buyeraddress: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    buyerpostcode: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    updated: string;
+}
+/**
+ * 
+ * @export
+ * @interface Profile
+ */
+export interface Profile {
+    /**
+     * 
+     * @type {string}
+     * @memberof Profile
+     */
+    name: string;
+}
+/**
+ * 
+ * @export
+ * @interface Refund
+ */
+export interface Refund {
+    /**
+     * 
+     * @type {string}
+     * @memberof Refund
+     */
+    id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Refund
+     */
+    orderid?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Refund
+     */
+    refunddeliveryprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Refund
+     */
+    refundprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Refund
+     */
+    refundamount: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Refund
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Refund
+     */
+    updated: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenObtainPair
+ */
+export interface TokenObtainPair {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenObtainPair
+     */
+    username: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenObtainPair
+     */
+    password: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateRefund
+ */
+export interface UpdateRefund {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateRefund
+     */
+    refund_amount: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateRefund
+     */
+    refund_delivery_price: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateRefund
+     */
+    refund_price: number;
+}
 /**
  * 
  * @export
@@ -206,6 +1809,104 @@ export interface User {
 }
 
 /**
+ * AdminUserApi - axios parameter creator
+ * @export
+ */
+export const AdminUserApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminUserMe: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/admin-user/me/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Basic required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AdminUserApi - functional programming interface
+ * @export
+ */
+export const AdminUserApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AdminUserApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async adminUserMe(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Admin>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.adminUserMe(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * AdminUserApi - factory interface
+ * @export
+ */
+export const AdminUserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AdminUserApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminUserMe(options?: any): AxiosPromise<Admin> {
+            return localVarFp.adminUserMe(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AdminUserApi - object-oriented interface
+ * @export
+ * @class AdminUserApi
+ * @extends {BaseAPI}
+ */
+export class AdminUserApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminUserApi
+     */
+    public adminUserMe(options?: any) {
+        return AdminUserApiFp(this.configuration).adminUserMe(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * OrdersApi - axios parameter creator
  * @export
  */
@@ -213,14 +1914,18 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          * 
-         * @param {Order} data 
+         * @param {string} id 
+         * @param {AddOrderMemo} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersCreate: async (data: Order, options: any = {}): Promise<RequestArgs> => {
+        ordersAddMemo: async (id: string, data: AddOrderMemo, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ordersAddMemo', 'id', id)
             // verify required parameter 'data' is not null or undefined
-            assertParamExists('ordersCreate', 'data', data)
-            const localVarPath = `/orders/`;
+            assertParamExists('ordersAddMemo', 'data', data)
+            const localVarPath = `/orders/{id}/add_memo/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -253,13 +1958,16 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} id 
+         * @param {AddPaymentAdjustment} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersDelete: async (id: string, options: any = {}): Promise<RequestArgs> => {
+        ordersAddPaymentAdjustment: async (id: string, data: AddPaymentAdjustment, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersDelete', 'id', id)
-            const localVarPath = `/orders/{id}/`
+            assertParamExists('ordersAddPaymentAdjustment', 'id', id)
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('ordersAddPaymentAdjustment', 'data', data)
+            const localVarPath = `/orders/{id}/add_payment_adjustment/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -268,7 +1976,7 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -278,9 +1986,55 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(data, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {ChangeStatus} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ordersChangeStatus: async (id: string, data: ChangeStatus, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ordersChangeStatus', 'id', id)
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('ordersChangeStatus', 'data', data)
+            const localVarPath = `/orders/{id}/change_status/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Basic required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(data, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -290,10 +2044,12 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} [search] A search term.
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersList: async (search?: string, options: any = {}): Promise<RequestArgs> => {
+        ordersList: async (search?: string, page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/orders/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -314,54 +2070,19 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['search'] = search;
             }
 
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {Order} data 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersPartialUpdate: async (id: string, data: Order, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersPartialUpdate', 'id', id)
-            // verify required parameter 'data' is not null or undefined
-            assertParamExists('ordersPartialUpdate', 'data', data)
-            const localVarPath = `/orders/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Basic required
-            // http basic authentication required
-            setBasicAuthToObject(localVarRequestOptions, configuration)
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(data, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -408,16 +2129,16 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} id 
-         * @param {Order} data 
+         * @param {UpdateRefund} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersUpdate: async (id: string, data: Order, options: any = {}): Promise<RequestArgs> => {
+        ordersUpdateRefund: async (id: string, data: UpdateRefund, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersUpdate', 'id', id)
+            assertParamExists('ordersUpdateRefund', 'id', id)
             // verify required parameter 'data' is not null or undefined
-            assertParamExists('ordersUpdate', 'data', data)
-            const localVarPath = `/orders/{id}/`
+            assertParamExists('ordersUpdateRefund', 'data', data)
+            const localVarPath = `/orders/{id}/update_refund/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -426,7 +2147,7 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -460,43 +2181,47 @@ export const OrdersApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {Order} data 
+         * @param {string} id 
+         * @param {AddOrderMemo} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersCreate(data: Order, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersCreate(data, options);
+        async ordersAddMemo(id: string, data: AddOrderMemo, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddOrderMemo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersAddMemo(id, data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @param {string} id 
+         * @param {AddPaymentAdjustment} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersDelete(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersDelete(id, options);
+        async ordersAddPaymentAdjustment(id: string, data: AddPaymentAdjustment, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddPaymentAdjustment>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersAddPaymentAdjustment(id, data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {ChangeStatus} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ordersChangeStatus(id: string, data: ChangeStatus, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChangeStatus>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersChangeStatus(id, data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @param {string} [search] A search term.
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersList(search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Order>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersList(search, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {Order} data 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ordersPartialUpdate(id: string, data: Order, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersPartialUpdate(id, data, options);
+        async ordersList(search?: string, page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersList(search, page, size, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -505,19 +2230,19 @@ export const OrdersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersRead(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>> {
+        async ordersRead(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderRetrieve>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.ordersRead(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @param {string} id 
-         * @param {Order} data 
+         * @param {UpdateRefund} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersUpdate(id: string, data: Order, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersUpdate(id, data, options);
+        async ordersUpdateRefund(id: string, data: UpdateRefund, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateRefund>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersUpdateRefund(id, data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -532,40 +2257,44 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
     return {
         /**
          * 
-         * @param {Order} data 
+         * @param {string} id 
+         * @param {AddOrderMemo} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersCreate(data: Order, options?: any): AxiosPromise<Order> {
-            return localVarFp.ordersCreate(data, options).then((request) => request(axios, basePath));
+        ordersAddMemo(id: string, data: AddOrderMemo, options?: any): AxiosPromise<AddOrderMemo> {
+            return localVarFp.ordersAddMemo(id, data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
+         * @param {AddPaymentAdjustment} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersDelete(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.ordersDelete(id, options).then((request) => request(axios, basePath));
+        ordersAddPaymentAdjustment(id: string, data: AddPaymentAdjustment, options?: any): AxiosPromise<AddPaymentAdjustment> {
+            return localVarFp.ordersAddPaymentAdjustment(id, data, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {ChangeStatus} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ordersChangeStatus(id: string, data: ChangeStatus, options?: any): AxiosPromise<ChangeStatus> {
+            return localVarFp.ordersChangeStatus(id, data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} [search] A search term.
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersList(search?: string, options?: any): AxiosPromise<Array<Order>> {
-            return localVarFp.ordersList(search, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {Order} data 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersPartialUpdate(id: string, data: Order, options?: any): AxiosPromise<Order> {
-            return localVarFp.ordersPartialUpdate(id, data, options).then((request) => request(axios, basePath));
+        ordersList(search?: string, page?: number, size?: number, options?: any): AxiosPromise<InlineResponse200> {
+            return localVarFp.ordersList(search, page, size, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -573,18 +2302,18 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersRead(id: string, options?: any): AxiosPromise<Order> {
+        ordersRead(id: string, options?: any): AxiosPromise<OrderRetrieve> {
             return localVarFp.ordersRead(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
-         * @param {Order} data 
+         * @param {UpdateRefund} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersUpdate(id: string, data: Order, options?: any): AxiosPromise<Order> {
-            return localVarFp.ordersUpdate(id, data, options).then((request) => request(axios, basePath));
+        ordersUpdateRefund(id: string, data: UpdateRefund, options?: any): AxiosPromise<UpdateRefund> {
+            return localVarFp.ordersUpdateRefund(id, data, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -598,47 +2327,51 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
 export class OrdersApi extends BaseAPI {
     /**
      * 
-     * @param {Order} data 
+     * @param {string} id 
+     * @param {AddOrderMemo} data 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
      */
-    public ordersCreate(data: Order, options?: any) {
-        return OrdersApiFp(this.configuration).ordersCreate(data, options).then((request) => request(this.axios, this.basePath));
+    public ordersAddMemo(id: string, data: AddOrderMemo, options?: any) {
+        return OrdersApiFp(this.configuration).ordersAddMemo(id, data, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
+     * @param {AddPaymentAdjustment} data 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
      */
-    public ordersDelete(id: string, options?: any) {
-        return OrdersApiFp(this.configuration).ordersDelete(id, options).then((request) => request(this.axios, this.basePath));
+    public ordersAddPaymentAdjustment(id: string, data: AddPaymentAdjustment, options?: any) {
+        return OrdersApiFp(this.configuration).ordersAddPaymentAdjustment(id, data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {ChangeStatus} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrdersApi
+     */
+    public ordersChangeStatus(id: string, data: ChangeStatus, options?: any) {
+        return OrdersApiFp(this.configuration).ordersChangeStatus(id, data, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} [search] A search term.
+     * @param {number} [page] A page number within the paginated result set.
+     * @param {number} [size] Number of results to return per page.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
      */
-    public ordersList(search?: string, options?: any) {
-        return OrdersApiFp(this.configuration).ordersList(search, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {Order} data 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrdersApi
-     */
-    public ordersPartialUpdate(id: string, data: Order, options?: any) {
-        return OrdersApiFp(this.configuration).ordersPartialUpdate(id, data, options).then((request) => request(this.axios, this.basePath));
+    public ordersList(search?: string, page?: number, size?: number, options?: any) {
+        return OrdersApiFp(this.configuration).ordersList(search, page, size, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -655,13 +2388,189 @@ export class OrdersApi extends BaseAPI {
     /**
      * 
      * @param {string} id 
-     * @param {Order} data 
+     * @param {UpdateRefund} data 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
      */
-    public ordersUpdate(id: string, data: Order, options?: any) {
-        return OrdersApiFp(this.configuration).ordersUpdate(id, data, options).then((request) => request(this.axios, this.basePath));
+    public ordersUpdateRefund(id: string, data: UpdateRefund, options?: any) {
+        return OrdersApiFp(this.configuration).ordersUpdateRefund(id, data, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * TokenApi - axios parameter creator
+ * @export
+ */
+export const TokenApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {TokenObtainPair} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenCreate: async (data: TokenObtainPair, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('tokenCreate', 'data', data)
+            const localVarPath = `/token/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Basic required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(data, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {object} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenRefreshCreate: async (data: object, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('tokenRefreshCreate', 'data', data)
+            const localVarPath = `/token/refresh/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Basic required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(data, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TokenApi - functional programming interface
+ * @export
+ */
+export const TokenApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TokenApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {TokenObtainPair} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tokenCreate(data: TokenObtainPair, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenCreate(data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {object} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tokenRefreshCreate(data: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenRefreshCreate(data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * TokenApi - factory interface
+ * @export
+ */
+export const TokenApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TokenApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {TokenObtainPair} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenCreate(data: TokenObtainPair, options?: any): AxiosPromise<object> {
+            return localVarFp.tokenCreate(data, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {object} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenRefreshCreate(data: object, options?: any): AxiosPromise<object> {
+            return localVarFp.tokenRefreshCreate(data, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TokenApi - object-oriented interface
+ * @export
+ * @class TokenApi
+ * @extends {BaseAPI}
+ */
+export class TokenApi extends BaseAPI {
+    /**
+     * 
+     * @param {TokenObtainPair} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenApi
+     */
+    public tokenCreate(data: TokenObtainPair, options?: any) {
+        return TokenApiFp(this.configuration).tokenCreate(data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {object} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenApi
+     */
+    public tokenRefreshCreate(data: object, options?: any) {
+        return TokenApiFp(this.configuration).tokenRefreshCreate(data, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

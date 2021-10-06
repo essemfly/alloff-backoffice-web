@@ -1,67 +1,129 @@
-import { OrderOrderstatusEnum, OrderOrdertypeEnum } from "../api";
+import {
+  ChangeStatus,
+  ChangeStatusStatusEnum,
+  OrderActionLogActionTypeEnum,
+  OrderListOrderstatusEnum,
+  OrderListOrdertypeEnum,
+  OrderRetrieveOrderstatusEnum,
+  OrderRetrieveOrdertypeEnum,
+  OrderStatusChangeLogStatusFromEnum,
+  OrderStatusChangeLogStatusToEnum,
+} from "../api";
 
-export const getTypeLabel = (ordertype: OrderOrdertypeEnum) => {
-  switch (ordertype) {
-    case OrderOrdertypeEnum.NormalOrder:
+export const getTypeLabel = (
+  ordertype: OrderListOrdertypeEnum | OrderRetrieveOrdertypeEnum
+) => {
+  switch (ordertype.toString()) {
+    case OrderListOrdertypeEnum.NormalOrder.toString():
       return "일반";
-    case OrderOrdertypeEnum.TimedealOrder:
+    case OrderListOrdertypeEnum.TimedealOrder.toString():
       return "타임딜";
   }
 };
 
-export const getTypeBadgeColor = (ordertype: OrderOrdertypeEnum) => {
-  switch (ordertype) {
-    case OrderOrdertypeEnum.NormalOrder:
+export const getTypeBadgeColor = (
+  ordertype: OrderListOrdertypeEnum | OrderRetrieveOrdertypeEnum
+) => {
+  switch (ordertype.toString()) {
+    case OrderListOrdertypeEnum.NormalOrder.toString():
       return "cool-gray";
-    case OrderOrdertypeEnum.TimedealOrder:
+    case OrderListOrdertypeEnum.TimedealOrder.toString():
       return "teal";
   }
 };
 
-export const getStatusLabel = (orderstatus: OrderOrderstatusEnum) => {
-  switch (orderstatus) {
-    case OrderOrderstatusEnum.PaymentFinished:
+export const getStatusLabel = (
+  orderstatus:
+    | OrderListOrderstatusEnum
+    | OrderRetrieveOrderstatusEnum
+    | OrderStatusChangeLogStatusFromEnum
+    | OrderStatusChangeLogStatusToEnum
+) => {
+  switch (orderstatus.toString()) {
+    case OrderListOrderstatusEnum.PaymentFinished.toString():
       return "결제완료";
-    case OrderOrderstatusEnum.CancelRequested:
+    case OrderListOrderstatusEnum.CancelRequested.toString():
       return "취소요청";
-    case OrderOrderstatusEnum.CancelPending:
+    case OrderListOrderstatusEnum.CancelPending.toString():
       return "취소진행중";
-    case OrderOrderstatusEnum.CancelFinished:
+    case OrderListOrderstatusEnum.CancelFinished.toString():
       return "취소완료";
-    case OrderOrderstatusEnum.DeliveryPreparing:
+    case OrderListOrderstatusEnum.DeliveryPreparing.toString():
       return "배송준비";
-    case OrderOrderstatusEnum.DeliveryStarted:
+    case OrderListOrderstatusEnum.DeliveryStarted.toString():
       return "배송시작";
-    case OrderOrderstatusEnum.DeliveryFinished:
+    case OrderListOrderstatusEnum.DeliveryFinished.toString():
       return "배송종료";
-    case OrderOrderstatusEnum.ConfirmPayment:
+    case OrderListOrderstatusEnum.ConfirmPayment.toString():
       return "구매확정";
-    case OrderOrderstatusEnum.ProductPreparing:
+    case OrderListOrderstatusEnum.ProductPreparing.toString():
       return "상품준비중";
     default:
       return "기타";
   }
 };
 
-export const getStatusBadgeColor = (orderstatus: OrderOrderstatusEnum) => {
-  switch (orderstatus) {
-    case OrderOrderstatusEnum.PaymentFinished:
+export const getStatusBadgeColor = (
+  orderstatus: OrderListOrderstatusEnum | OrderRetrieveOrderstatusEnum
+) => {
+  switch (orderstatus.toString()) {
+    case OrderListOrderstatusEnum.PaymentFinished.toString():
       return "gray";
-    case OrderOrderstatusEnum.ProductPreparing:
+    case OrderListOrderstatusEnum.ProductPreparing.toString():
       return "blue";
-    case OrderOrderstatusEnum.DeliveryPreparing:
+    case OrderListOrderstatusEnum.DeliveryPreparing.toString():
       return "teal";
-    case OrderOrderstatusEnum.DeliveryStarted:
+    case OrderListOrderstatusEnum.DeliveryStarted.toString():
       return "green";
-    case OrderOrderstatusEnum.DeliveryFinished:
+    case OrderListOrderstatusEnum.DeliveryFinished.toString():
       return "cyan";
-    case OrderOrderstatusEnum.ConfirmPayment:
+    case OrderListOrderstatusEnum.ConfirmPayment.toString():
       return "purple";
-    case OrderOrderstatusEnum.CancelRequested:
+    case OrderListOrderstatusEnum.CancelRequested.toString():
       return "magenta";
-    case OrderOrderstatusEnum.CancelPending:
+    case OrderListOrderstatusEnum.CancelPending.toString():
       return "red";
-    case OrderOrderstatusEnum.CancelFinished:
+    case OrderListOrderstatusEnum.CancelFinished.toString():
       return "high-contrast";
+  }
+};
+
+export const toChangeStatusEnum = (
+  status: OrderRetrieveOrderstatusEnum
+): ChangeStatusStatusEnum => {
+  switch (status) {
+    case OrderRetrieveOrderstatusEnum.PaymentFinished:
+      return ChangeStatusStatusEnum.PaymentFinished;
+    case OrderRetrieveOrderstatusEnum.ProductPreparing:
+      return ChangeStatusStatusEnum.ProductPreparing;
+    case OrderRetrieveOrderstatusEnum.DeliveryPreparing:
+      return ChangeStatusStatusEnum.DeliveryPreparing;
+    case OrderRetrieveOrderstatusEnum.DeliveryStarted:
+      return ChangeStatusStatusEnum.DeliveryStarted;
+    case OrderRetrieveOrderstatusEnum.DeliveryFinished:
+      return ChangeStatusStatusEnum.DeliveryFinished;
+    case OrderRetrieveOrderstatusEnum.ConfirmPayment:
+      return ChangeStatusStatusEnum.ConfirmPayment;
+    case OrderRetrieveOrderstatusEnum.CancelRequested:
+      return ChangeStatusStatusEnum.CancelRequested;
+    case OrderRetrieveOrderstatusEnum.CancelPending:
+      return ChangeStatusStatusEnum.CancelPending;
+    case OrderRetrieveOrderstatusEnum.CancelFinished:
+      return ChangeStatusStatusEnum.CancelFinished;
+  }
+};
+
+export const getLogTypeLabel = (logType: OrderActionLogActionTypeEnum) => {
+  switch (logType) {
+    case OrderActionLogActionTypeEnum.MemoAdd:
+      return "메모추가";
+    case OrderActionLogActionTypeEnum.MemoDelete:
+      return "메모삭제";
+    case OrderActionLogActionTypeEnum.PaymentAdjustment:
+      return "결제조정";
+    case OrderActionLogActionTypeEnum.RefundUpdate:
+      return "환불처리";
+    case OrderActionLogActionTypeEnum.StatusChange:
+      return "상태변경";
   }
 };

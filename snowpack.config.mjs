@@ -24,7 +24,7 @@ export default {
     // "bundle": true,
   },
   packageOptions: {
-    /* ... */
+    knownEntrypoints: ['svelte/transition'],
   },
   devOptions: {
     /* ... */
