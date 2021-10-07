@@ -20,8 +20,14 @@
         const base = `by ${log.admin.profile.name} (${
           log.admin.username
         }) at ${toLocaleDateTime(log.performed_at)}`;
+        const refund =
+          log.action_type === OrderActionLogActionTypeEnum.RefundUpdate &&
+          log.refund_update
+            ? `[REFUND: REFUND ${log.refund_update.refund_amount} / DEDUCT delivery ${log.refund_update.refund_delivery_price} fee ${log.refund_update.refund_price}] `
+            : "";
         const memo =
-          log.action_type === OrderActionLogActionTypeEnum.MemoAdd ||log.action_type === OrderActionLogActionTypeEnum.MemoDelete
+          log.action_type === OrderActionLogActionTypeEnum.MemoAdd ||
+          log.action_type === OrderActionLogActionTypeEnum.MemoDelete
             ? `[MEMO: ${log.detail ?? ""}]  `
             : "";
         const alimtalk = log.alimtalk
@@ -38,7 +44,7 @@
             log.status_change.delivery_tracking_number_to
             ? `[TRACKING: tracking ${log.status_change.delivery_tracking_number_from} -> ${log.status_change.delivery_tracking_number_to}] `
             : "";
-        return statusChange + trackingChange + alimtalk + memo + base;
+        return statusChange + refund + trackingChange + alimtalk + memo + base;
       })(),
     }))}
   />

@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { TabContent, TextInput, Button } from "carbon-components-svelte";
+  import { TabContent, TextInput, Button, Tag } from "carbon-components-svelte";
   import { OrderRetrieve, OrdersApi } from "../../../api";
   import OrderSection from "../components/OrderSection.svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { admin } from "../../../store";
+  import { numberWithCommas } from "../../../helpers/number";
   export let order: OrderRetrieve;
   export let mobile: boolean;
   export let api: OrdersApi;
@@ -55,6 +56,33 @@
     title="배송정보"
     menuItems={[
       {
+        text: "전체주소 복사",
+        onClick: () =>
+          navigator.clipboard.writeText(
+            `${order?.payment?.buyeraddress} (${order?.payment?.buyerpostcode})`
+          ),
+      },
+      {
+        text: "주소만 복사",
+        onClick: () =>
+          navigator.clipboard.writeText(order?.payment?.buyeraddress ?? ""),
+      },
+      {
+        text: "우편번호만 복사",
+        onClick: () =>
+          navigator.clipboard.writeText(order?.payment?.buyerpostcode ?? ""),
+      },
+      {
+        text: "이름 복사",
+        onClick: () =>
+          navigator.clipboard.writeText(order?.payment?.buyername ?? ""),
+      },
+      {
+        text: "휴대폰 복사",
+        onClick: () =>
+          navigator.clipboard.writeText(order?.payment?.buyermobile ?? ""),
+      },
+      {
         hide: order.memo === "",
         text: "요청사항 복사",
         onClick: () => navigator.clipboard.writeText(order.memo),
@@ -64,15 +92,24 @@
           !order.deliverytrackingnumber || order.deliverytrackingnumber === "",
         text: "송장번호 복사",
         onClick: () =>
-          navigator.clipboard.writeText(order.deliverytrackingnumber),
+          navigator.clipboard.writeText(order.deliverytrackingnumber ?? ""),
       },
       {
         hide: !order.deliverytrackingurl || order.deliverytrackingurl === "",
         text: "추적 URL 복사",
-        onClick: () => navigator.clipboard.writeText(order.deliverytrackingurl),
+        onClick: () =>
+          navigator.clipboard.writeText(order.deliverytrackingurl ?? ""),
       },
     ]}
     rows={[
+      {
+        header: "받는사람",
+        body: `${order?.payment?.buyername} (${order?.payment?.buyermobile})`,
+      },
+      {
+        header: "주소",
+        body: `${order?.payment?.buyeraddress} (${order?.payment?.buyerpostcode})`,
+      },
       { header: "요청사항", body: order.memo },
       { header: "송장번호", body: order.deliverytrackingnumber },
       {
@@ -82,6 +119,95 @@
       },
     ]}
   />
+  <div class="products">
+    <h4>상품 정보</h4>
+    {#each order.orders as o, i}
+      <div class="product-item" class:mobile>
+        <div class="product-info">
+          <OrderSection
+            title={`상품 #${i + 1}`}
+            smallTitle
+            menuItems={[
+              {
+                text: "상품명 복사",
+                onClick: () =>
+                  navigator.clipboard.writeText(
+                    (o.product ?? o.alloffproduct)?.name ?? ""
+                  ),
+              },
+              {
+                text: "브랜드 복사",
+                onClick: () =>
+                  navigator.clipboard.writeText(
+                    `${(o.product ?? o.alloffproduct)?.brand.korname} (${(o.product ?? o.alloffproduct)?.brand.keyname})`
+                  ),
+              },
+              {
+                text: "상품ID 복사",
+                onClick: () =>
+                  navigator.clipboard.writeText(
+                    `${o?.alloffproduct ? "alloffproduct" : "product"} - ${
+                      (o.product ?? o.alloffproduct)?._id
+                    }`
+                  ),
+              },
+            ]}
+            rows={[
+              {
+                header: "상품타입",
+                body: o.alloffproduct ? "타임딜상품" : "일반상품",
+                tagType: o.alloffproduct ? "green" : "purple",
+              },
+              {
+                header: "상품명",
+                body: (o.product ?? o.alloffproduct)?.name,
+              },
+              {
+                header: "사이즈",
+                body: o.size,
+              },
+              {
+                header: "수량",
+                body: `${o.quantity} EA`,
+              },
+              {
+                header: "브랜드",
+                body: `${(o.product ?? o.alloffproduct)?.brand.korname} (${
+                  (o.product ?? o.alloffproduct)?.brand.keyname
+                })`,
+              },
+              {
+                header: "상품 ID",
+                body: (o.product ?? o.alloffproduct)?._id,
+              },
+              {
+                header: "상품 URL",
+                href: o.product?.producturl ?? "",
+                body: o.product?.producturl ? "링크" : "",
+              },
+              {
+                header: "단가",
+                body: `${numberWithCommas(
+                  (o.product ?? o.alloffproduct)?.discountedprice ?? 0
+                )}원`,
+              },
+            ]}
+          />
+        </div>
+        <div>
+          <img
+            class="product-image"
+            class:mobile
+            src={(o.product ?? o.alloffproduct)?.images &&
+            (o.product ?? o.alloffproduct)?.images.length > 0
+              ? (o.product ?? o.alloffproduct).images[0]
+              : ""}
+            alt="product"
+          />
+        </div>
+      </div>
+    {/each}
+  </div>
   <div class="memo">
     <h4>관리자 메모</h4>
     <div class="memo-form">
@@ -118,6 +244,36 @@
 </TabContent>
 
 <style>
+  .products > h4 {
+    margin-bottom: 15px;
+  }
+
+  .product-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-bottom: 20px;
+  }
+
+  .product-item.mobile {
+    flex-direction: column;
+  }
+
+  .product-info {
+    flex-grow: 1;
+  }
+
+  .product-image {
+    width: 50vw;
+    min-width: 300px;
+    max-height: 400px;
+    object-fit: contain;
+  }
+
+  .product-image.mobile {
+    width: 100%;
+  }
+
   .memo {
     margin-top: 10px;
   }

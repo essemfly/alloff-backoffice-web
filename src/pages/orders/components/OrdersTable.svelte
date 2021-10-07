@@ -50,7 +50,14 @@
   headers={isMobile ? mobileHeaders : headers}
   rows={orders}
   sortable
-  on:click:row={(e) => window.open(`${window.location.href}orders/${e.detail.id}`, "_blank")}
+  on:click:row={(e) => {
+    const url = `orders/${e.detail.id}`;
+    if (isMobile) {
+      window.location.href = `orders/${e.detail.id}`;
+      return;
+    }
+    window.open(url, "_blank");
+  }}
 >
   <Toolbar>
     <ToolbarContent>
@@ -76,4 +83,3 @@
     {/if}
   </span>
 </DataTable>
-

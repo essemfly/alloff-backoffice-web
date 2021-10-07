@@ -10,6 +10,7 @@
   } from "carbon-components-svelte";
   import PiggyBank16 from "carbon-icons-svelte/lib/PiggyBank16";
   import Purchase16 from "carbon-icons-svelte/lib/Purchase16";
+  import { trim } from "lodash";
   import { AddPaymentAdjustmentMethodEnum } from "../../../api";
   import { numberWithCommas } from "../../../helpers/number";
 
@@ -43,7 +44,11 @@
 <ComposedModal
   bind:open
   on:submit={async () => {
-    await adjustPayment(reason, method, bank_account_info);
+    await adjustPayment(
+      reason,
+      method,
+      bank_account_info.trim() === "" ? undefined : bank_account_info
+    );
     open = false;
   }}
 >
@@ -51,7 +56,8 @@
   <ModalBody hasForm>
     <div class="modal-wrapper">
       <p>
-        환불 가능 금액 {numberWithCommas(amount)}원에 대한 환불을 진행합니다.
+        환불 가능 금액 <strong>{numberWithCommas(amount)}</strong>원에 대한
+        환불을 진행합니다.
       </p>
       <ContentSwitcher bind:selectedIndex={methodIndex}>
         <Switch>

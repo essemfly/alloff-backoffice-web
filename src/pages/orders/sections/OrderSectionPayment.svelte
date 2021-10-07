@@ -155,32 +155,6 @@
       title="결제정보"
       menuItems={[
         {
-          text: "전체주소 복사",
-          onClick: () =>
-            navigator.clipboard.writeText(
-              `${order.payment.buyeraddress} (${order.payment.buyerpostcode})`
-            ),
-        },
-        {
-          text: "주소만 복사",
-          onClick: () =>
-            navigator.clipboard.writeText(order.payment.buyeraddress),
-        },
-        {
-          text: "우편번호만 복사",
-          onClick: () =>
-            navigator.clipboard.writeText(order.payment.buyerpostcode),
-        },
-        {
-          text: "이름 복사",
-          onClick: () => navigator.clipboard.writeText(order.payment.buyername),
-        },
-        {
-          text: "휴대폰 복사",
-          onClick: () =>
-            navigator.clipboard.writeText(order.payment.buyermobile),
-        },
-        {
           text: "결제 ID 복사",
           onClick: () => navigator.clipboard.writeText(order.payment.id),
         },
@@ -189,14 +163,6 @@
         {
           header: "금액",
           body: `${numberWithCommas(order.payment.amount)}원`,
-        },
-        {
-          header: "받는사람",
-          body: `${order.payment.buyername} (${order.payment.buyermobile})`,
-        },
-        {
-          header: "주소",
-          body: `${order.payment.buyeraddress} (${order.payment.buyerpostcode})`,
         },
         { header: "결제 ID", body: order.payment.id },
       ]}

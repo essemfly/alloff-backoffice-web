@@ -30,7 +30,7 @@
   onMount(async () => {
     const adminUserApi = new AdminUserApi();
     try {
-      const { data } = await adminUserApi.adminUserMeRead();
+      const { data } = await adminUserApi.adminUserMe();
       admin.set(data);
     } catch {
       // DO NOTHING
@@ -49,14 +49,16 @@
   bind:isSideNavOpen
   persistentHamburgerMenu
 >
-  {$admin?.profile.name ?? ""}
+  {#if window.document.title.toLowerCase().includes("dev")}
+  <p class="dev">DEV</p>
+  {/if}
   <div slot="skip-to-content">
     <SkipToContent />
   </div>
 
   <HeaderNav>
     <HeaderNavItem
-      href="#/orders"
+      href="/orders"
       text="주문목록"
       isSelected={$location.pathname === "/orders"}
     />
@@ -66,7 +68,7 @@
     <SideNavItems>
       <SideNavLink
         icon={Receipt16}
-        href="#/orders"
+        href="/orders"
         text="주문목록"
         isSelected={$location.pathname === "/orders"}
       />
@@ -89,3 +91,12 @@
 <Content>
   <slot />
 </Content>
+
+<style>
+  .dev {
+    color: greenyellow;
+    font-weight: bold;
+    margin-right: 30px;
+    margin-left: -25px;
+  }
+</style>

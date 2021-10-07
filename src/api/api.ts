@@ -707,6 +707,12 @@ export interface OrderActionLog {
     status_change?: OrderStatusChangeLog;
     /**
      * 
+     * @type {OrderRefundUpdateLog}
+     * @memberof OrderActionLog
+     */
+    refund_update?: OrderRefundUpdateLog;
+    /**
+     * 
      * @type {string}
      * @memberof OrderActionLog
      */
@@ -1371,6 +1377,43 @@ export enum OrderPaymentAdjustmentMethodEnum {
     Cash = 'CASH'
 }
 
+/**
+ * 
+ * @export
+ * @interface OrderRefundUpdateLog
+ */
+export interface OrderRefundUpdateLog {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderRefundUpdateLog
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRefundUpdateLog
+     */
+    order_id: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderRefundUpdateLog
+     */
+    refund_delivery_price: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderRefundUpdateLog
+     */
+    refund_price: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderRefundUpdateLog
+     */
+    refund_amount: number;
+}
 /**
  * 
  * @export

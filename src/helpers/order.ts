@@ -1,9 +1,11 @@
+import { DateTime } from "luxon";
 import {
   ChangeStatus,
   ChangeStatusStatusEnum,
   OrderActionLogActionTypeEnum,
   OrderListOrderstatusEnum,
   OrderListOrdertypeEnum,
+  OrderRetrieve,
   OrderRetrieveOrderstatusEnum,
   OrderRetrieveOrdertypeEnum,
   OrderStatusChangeLogStatusFromEnum,
@@ -29,6 +31,38 @@ export const getTypeBadgeColor = (
       return "cool-gray";
     case OrderListOrdertypeEnum.TimedealOrder.toString():
       return "teal";
+  }
+};
+
+export const getOrderTimestampByStatus = (
+  orderstatus: OrderRetrieveOrderstatusEnum,
+  order: OrderRetrieve
+): DateTime | undefined => {
+  switch (orderstatus) {
+    case OrderRetrieveOrderstatusEnum.PaymentFinished:
+      return order.orderedAt ? DateTime.fromISO(order.orderedAt) : undefined;
+    case OrderRetrieveOrderstatusEnum.CancelRequested:
+      return order.cancelRequestedAt
+        ? DateTime.fromISO(order.cancelRequestedAt)
+        : undefined;
+    case OrderRetrieveOrderstatusEnum.CancelFinished:
+      return order.cancelFinishedAt
+        ? DateTime.fromISO(order.cancelFinishedAt)
+        : undefined;
+    case OrderRetrieveOrderstatusEnum.DeliveryStarted:
+      return order.deliveryStartedAt
+        ? DateTime.fromISO(order.deliveryStartedAt)
+        : undefined;
+    case OrderRetrieveOrderstatusEnum.DeliveryFinished:
+      return order.deliveryFinishedAt
+        ? DateTime.fromISO(order.deliveryFinishedAt)
+        : undefined;
+    case OrderRetrieveOrderstatusEnum.ConfirmPayment:
+      return order.confirmedAt
+        ? DateTime.fromISO(order.confirmedAt)
+        : undefined;
+    default:
+      return undefined;
   }
 };
 

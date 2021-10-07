@@ -10,6 +10,7 @@
     OrdersApi,
   } from "../../../api";
   import {
+    getOrderTimestampByStatus,
     getStatusBadgeColor,
     getStatusLabel,
     getTypeBadgeColor,
@@ -96,7 +97,21 @@
         ? status === OrderRetrieveOrderstatusEnum.PaymentFinished
           ? "high-contrast"
           : getStatusBadgeColor(status)
-        : undefined}>{getStatusLabel(status)}</SquareTag
+        : undefined}
+      ><div style="text-align: center;">
+        {getStatusLabel(status)}
+      </div>
+      <div>
+        {getOrderTimestampByStatus(status, order)
+          ?.setLocale("ko")
+          .toLocaleString({
+            month: "numeric",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            hour12: false,
+          }) ?? ""}
+      </div></SquareTag
     >
   {/each}
 </div>
