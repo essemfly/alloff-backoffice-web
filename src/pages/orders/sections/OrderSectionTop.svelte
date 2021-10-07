@@ -45,13 +45,18 @@
   ) => {
     if (!confirm("주문상태를 변경합니다: " + getStatusLabel(status))) return;
     submitting = true;
-    await api.ordersChangeStatus(order.id, {
-      status: toChangeStatusEnum(status),
-      delivery_tracking_number,
-      delivery_tracking_url,
-    });
-    submitting = false;
-    load();
+    try {
+      await api.ordersChangeStatus(order.id, {
+        status: toChangeStatusEnum(status),
+        delivery_tracking_number,
+        delivery_tracking_url,
+      });
+    } catch (e: any) {
+      alert("상태 변경 오류! " + e.response.data.message);
+    } finally {
+      submitting = false;
+      load();
+    }
   };
 
   const handleChangeOrderStatus = async (

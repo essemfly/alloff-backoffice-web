@@ -3,11 +3,14 @@
     "start": "snowpack dev",
     "build": "snowpack build",
     "test": "web-test-runner \"src/**/*.test.ts\"",
-    "codegen": "openapi-generator-cli generate -g typescript-axios -i http://localhost:8000/swagger.json -o ./src/api"
+    "codegen:local": "openapi-generator-cli generate -g typescript-axios -i http://localhost:8000/swagger.json -o ./src/api",
+    "codegen:prod": "openapi-generator-cli generate -g typescript-axios -i https://office.lett.io/swagger.json -o ./src/api",
+    "codegen:dev": "openapi-generator-cli generate -g typescript-axios -i https://office-dev.lett.io/swagger.json -o ./src/api",
+    "deploy:prod": "yarn codegen:prod && yarn build && aws s3 sync ./build s3://alloff-backoffice-prod",
+    "deploy:dev": "yarn codegen:dev && yarn build && aws s3 sync ./build s3://alloff-backoffice-dev"
   },
   "dependencies": {
-    "svelte": "^3.37.0",
-    "svelte-spa-router": "^3.2.0"
+    "svelte": "^3.37.0"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.4.6",
@@ -31,6 +34,7 @@
     "lodash": "^4.17.21",
     "luxon": "^2.0.2",
     "snowpack": "^3.8.7",
+    "svelte-navigator": "^3.1.5",
     "svelte-preprocess": "^4.7.2",
     "typescript": "^4.3.4",
     "url": "^0.11.0"

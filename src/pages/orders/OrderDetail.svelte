@@ -12,8 +12,9 @@
   import OrderSectionPg from "./sections/OrderSectionPG.svelte";
   import OrderSectionTop from "./sections/OrderSectionTop.svelte";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
+  import { onMount } from "svelte";
 
-  export let params: { orderId: string } = { orderId: "" };
+  export let orderId: string;
 
   let order: OrderRetrieve | undefined = undefined;
   let submitting = false;
@@ -25,15 +26,17 @@
 
   const load = async () => {
     loading = true;
-    const { data } = await api.ordersRead(params.orderId);
+    const { data } = await api.ordersRead(orderId);
     order = data;
     loading = false;
   };
 
-  load();
-
   $: mobile = size === "sm";
-  $: console.log(order);
+  $: {
+    if(orderId) {
+      load();
+    }
+  }
 </script>
 
 <LoggedInFrame>

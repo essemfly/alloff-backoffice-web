@@ -4,6 +4,7 @@
   import OrderSection from "../components/OrderSection.svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
   import { toLocaleDateTime } from "../../../helpers/datetime";
+  import { admin } from "../../../store";
   export let order: OrderRetrieve;
   export let mobile: boolean;
   export let api: OrdersApi;
@@ -18,11 +19,21 @@
     load();
   };
 
+  const deleteMemo = async (memoId: number) => {
+    submitting = true;
+    try {
+      await api.ordersDeleteMemo(order.id, { memo_id: memoId });
+    } catch (e: any) {
+      alert("메모를 삭제할 수 없습니다. " + e.response.data.message);
+    }
+    submitting = false;
+    load();
+  };
+
   let newMemo: string = "";
 </script>
 
-<TabContent  style="padding: 0;">
-	
+<TabContent style="padding: 0;">
   <OrderSection
     title="고객정보"
     menuItems={[
@@ -92,7 +103,14 @@
         <div class="memo-item" class:mobile>
           <caption>[{toLocaleDateTime(memo.created_at)}]&nbsp;</caption>
           {memo.body}&nbsp;
-          <h6>{memo.admin.profile.name} ({memo.admin.username})</h6>
+          <div class="memo-user noselect">
+            <h6>{memo.admin.profile.name} ({memo.admin.username})</h6>
+            {#if $admin && memo.admin.id === $admin.id}
+              <div class="memo-delete" on:click={() => deleteMemo(memo.id)}>
+                ❌
+              </div>
+            {/if}
+          </div>
         </div>
       {/each}
     </div>
@@ -116,11 +134,23 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-	line-height: 20px;
+    line-height: 20px;
   }
 
   .memo-item.mobile {
     flex-direction: column;
     align-items: start;
+  }
+
+  .memo-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .memo-delete {
+    margin-left: 3px;
+    font-size: 10px;
+    cursor: pointer;
   }
 </style>

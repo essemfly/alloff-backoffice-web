@@ -1,32 +1,21 @@
 <script lang="ts">
   import "carbon-components-svelte/css/g10.css";
-  import Router from "svelte-spa-router";
-  import { wrap } from "svelte-spa-router/wrap";
-
-  const routes = {
-    // Exact path
-    "/orders": wrap({
-      asyncComponent: () => import("./pages/orders/Orders.svelte"),
-    }),
-
-    "/orders/:orderId": wrap({
-      asyncComponent: () => import("./pages/orders/OrderDetail.svelte"),
-    }),
-
-    "/login": wrap({
-      asyncComponent: () => import("./pages/auth/Login.svelte"),
-    }),
-
-    // Using named parameters, with last being optional
-    // "/author/:first/:last?": Author,
-
-    // Wildcard parameter
-    // "/book/*": Book,
-
-    // Catch-all
-    // This is optional, but if present it must be the last
-    // "*": NotFound,
-  };
+  import { Router, Route } from "svelte-navigator";
+  import Orders from "./pages/orders/Orders.svelte";
+  import OrderDetail from "./pages/orders/OrderDetail.svelte";
+  import Login from "./pages/auth/Login.svelte";
 </script>
 
-<Router {routes} />
+<Router primary={false}>
+  <Route path="orders/*">
+    <Route path="/">
+      <Orders />
+    </Route>
+    <Route path=":id" let:params>
+      <OrderDetail orderId={params.id} />
+    </Route>
+  </Route>
+  <Route path="login">
+    <Login />
+  </Route>
+</Router>

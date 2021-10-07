@@ -34,10 +34,10 @@
       | "high-contrast";
   }
   export let title: string;
-  export let menuItems: MenuItem[] | undefined;
+  export let menuItems: MenuItem[] | undefined = undefined;
   export let rows: DetailRow[];
-  export let fontSize: number | undefined;
-  export let smallTitle: boolean | undefined;
+  export let fontSize: number | undefined = undefined;
+  export let smallTitle: boolean | undefined = undefined;
 </script>
 
 <div class="title" class:smallTitle>

@@ -271,6 +271,19 @@ export enum ChangeStatusStatusEnum {
 /**
  * 
  * @export
+ * @interface DeleteOrderMemo
+ */
+export interface DeleteOrderMemo {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteOrderMemo
+     */
+    memo_id: number;
+}
+/**
+ * 
+ * @export
  * @interface EmbeddedAlloffProductBrand
  */
 export interface EmbeddedAlloffProductBrand {
@@ -703,6 +716,12 @@ export interface OrderActionLog {
      * @type {string}
      * @memberof OrderActionLog
      */
+    detail?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderActionLog
+     */
     action_type: OrderActionLogActionTypeEnum;
     /**
      * 
@@ -1066,6 +1085,42 @@ export interface OrderList {
      * @type {string}
      * @memberof OrderList
      */
+    orderedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    deliveryStartedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    deliveryFinishedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    cancelRequestedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    cancelFinishedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
+    confirmedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
     orderstatus: OrderListOrderstatusEnum;
     /**
      * 
@@ -1346,6 +1401,42 @@ export interface OrderRetrieve {
      * @memberof OrderRetrieve
      */
     refund?: Refund;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    orderedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    deliveryStartedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    deliveryFinishedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    cancelRequestedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    cancelFinishedAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    confirmedAt?: string;
     /**
      * 
      * @type {{ [key: string]: string; }}
@@ -1724,6 +1815,63 @@ export interface TokenObtainPair {
 /**
  * 
  * @export
+ * @interface TokenObtainPairResponse
+ */
+export interface TokenObtainPairResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenObtainPairResponse
+     */
+    access: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenObtainPairResponse
+     */
+    refresh: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenRefresh
+ */
+export interface TokenRefresh {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenRefresh
+     */
+    refresh: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenRefresh
+     */
+    access?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenRefreshResponse
+ */
+export interface TokenRefreshResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenRefreshResponse
+     */
+    access: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenRefreshResponse
+     */
+    refresh: string;
+}
+/**
+ * 
+ * @export
  * @interface UpdateRefund
  */
 export interface UpdateRefund {
@@ -1819,7 +1967,7 @@ export const AdminUserApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        adminUserMe: async (options: any = {}): Promise<RequestArgs> => {
+        adminUserMeRead: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/admin-user/me/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1862,8 +2010,8 @@ export const AdminUserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async adminUserMe(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Admin>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.adminUserMe(options);
+        async adminUserMeRead(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Admin>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.adminUserMeRead(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1881,8 +2029,8 @@ export const AdminUserApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        adminUserMe(options?: any): AxiosPromise<Admin> {
-            return localVarFp.adminUserMe(options).then((request) => request(axios, basePath));
+        adminUserMeRead(options?: any): AxiosPromise<Admin> {
+            return localVarFp.adminUserMeRead(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1900,8 +2048,8 @@ export class AdminUserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AdminUserApi
      */
-    public adminUserMe(options?: any) {
-        return AdminUserApiFp(this.configuration).adminUserMe(options).then((request) => request(this.axios, this.basePath));
+    public adminUserMeRead(options?: any) {
+        return AdminUserApiFp(this.configuration).adminUserMeRead(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2011,6 +2159,49 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             // verify required parameter 'data' is not null or undefined
             assertParamExists('ordersChangeStatus', 'data', data)
             const localVarPath = `/orders/{id}/change_status/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Basic required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(data, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {DeleteOrderMemo} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ordersDeleteMemo: async (id: string, data: DeleteOrderMemo, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ordersDeleteMemo', 'id', id)
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('ordersDeleteMemo', 'data', data)
+            const localVarPath = `/orders/{id}/delete_memo/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2214,6 +2405,17 @@ export const OrdersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
+         * @param {DeleteOrderMemo} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ordersDeleteMemo(id: string, data: DeleteOrderMemo, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteOrderMemo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersDeleteMemo(id, data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} [search] A search term.
          * @param {number} [page] A page number within the paginated result set.
          * @param {number} [size] Number of results to return per page.
@@ -2284,6 +2486,16 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
          */
         ordersChangeStatus(id: string, data: ChangeStatus, options?: any): AxiosPromise<ChangeStatus> {
             return localVarFp.ordersChangeStatus(id, data, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {DeleteOrderMemo} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ordersDeleteMemo(id: string, data: DeleteOrderMemo, options?: any): AxiosPromise<DeleteOrderMemo> {
+            return localVarFp.ordersDeleteMemo(id, data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2359,6 +2571,18 @@ export class OrdersApi extends BaseAPI {
      */
     public ordersChangeStatus(id: string, data: ChangeStatus, options?: any) {
         return OrdersApiFp(this.configuration).ordersChangeStatus(id, data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {DeleteOrderMemo} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrdersApi
+     */
+    public ordersDeleteMemo(id: string, data: DeleteOrderMemo, options?: any) {
+        return OrdersApiFp(this.configuration).ordersDeleteMemo(id, data, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2446,11 +2670,44 @@ export const TokenApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
-         * @param {object} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenRefreshCreate: async (data: object, options: any = {}): Promise<RequestArgs> => {
+        tokenLogoutCreate: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/token/logout/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Basic required
+            // http basic authentication required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {TokenRefresh} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenRefreshCreate: async (data: TokenRefresh, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'data' is not null or undefined
             assertParamExists('tokenRefreshCreate', 'data', data)
             const localVarPath = `/token/refresh/`;
@@ -2499,17 +2756,26 @@ export const TokenApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tokenCreate(data: TokenObtainPair, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async tokenCreate(data: TokenObtainPair, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenObtainPairResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.tokenCreate(data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {object} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tokenRefreshCreate(data: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async tokenLogoutCreate(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenLogoutCreate(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {TokenRefresh} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tokenRefreshCreate(data: TokenRefresh, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenRefreshResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.tokenRefreshCreate(data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2529,16 +2795,24 @@ export const TokenApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenCreate(data: TokenObtainPair, options?: any): AxiosPromise<object> {
+        tokenCreate(data: TokenObtainPair, options?: any): AxiosPromise<TokenObtainPairResponse> {
             return localVarFp.tokenCreate(data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {object} data 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenRefreshCreate(data: object, options?: any): AxiosPromise<object> {
+        tokenLogoutCreate(options?: any): AxiosPromise<object> {
+            return localVarFp.tokenLogoutCreate(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {TokenRefresh} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenRefreshCreate(data: TokenRefresh, options?: any): AxiosPromise<TokenRefreshResponse> {
             return localVarFp.tokenRefreshCreate(data, options).then((request) => request(axios, basePath));
         },
     };
@@ -2564,12 +2838,22 @@ export class TokenApi extends BaseAPI {
 
     /**
      * 
-     * @param {object} data 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TokenApi
      */
-    public tokenRefreshCreate(data: object, options?: any) {
+    public tokenLogoutCreate(options?: any) {
+        return TokenApiFp(this.configuration).tokenLogoutCreate(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {TokenRefresh} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenApi
+     */
+    public tokenRefreshCreate(data: TokenRefresh, options?: any) {
         return TokenApiFp(this.configuration).tokenRefreshCreate(data, options).then((request) => request(this.axios, this.basePath));
     }
 }
