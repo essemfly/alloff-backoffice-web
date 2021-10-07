@@ -18,4 +18,7 @@
   <Route path="login">
     <Login />
   </Route>
+  <Route path="/">
+    <Orders />
+  </Route>
 </Router>

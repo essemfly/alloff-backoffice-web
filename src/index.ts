@@ -2,7 +2,7 @@ import axios from "axios";
 import { TokenApi } from "./api";
 import { AxiosError } from "axios";
 import App from "./App.svelte";
-import { getTokens, setTokens } from "./core/auth";
+import { getTokens, removeTokens, setTokens } from "./core/auth";
 
 const toLogin = () => {
   window.location.href = "/login";

@@ -50,7 +50,7 @@
   headers={isMobile ? mobileHeaders : headers}
   rows={orders}
   sortable
-  on:click:row={(e) => window.open(`${window.location.href}/${e.detail.id}`, "_blank")}
+  on:click:row={(e) => window.open(`${window.location.href}orders/${e.detail.id}`, "_blank")}
 >
   <Toolbar>
     <ToolbarContent>
