@@ -9,7 +9,7 @@
     submitting = true;
 
     try {
-      const { data } = await api.tokenCreate({ username, password });
+      const { data } = await api.tokenCreate({username, password});
       setTokens(data);
       window.location.href = "/orders";
     } catch {

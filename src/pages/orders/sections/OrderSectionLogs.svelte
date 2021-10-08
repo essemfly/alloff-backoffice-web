@@ -1,12 +1,11 @@
 <script lang="ts">
   import { TabContent } from "carbon-components-svelte";
-  import { OrderActionLogActionTypeEnum, OrderRetrieve } from "../../../api";
+  import { ActionTypeEnum, OrderRetrieve } from "../../../api";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { getLogTypeLabel, getStatusLabel } from "../../../helpers/order";
   import OrderSection from "../components/OrderSection.svelte";
 
   export let order: OrderRetrieve;
-  let size: "sm" | "md" | "lg" | "xlg" | "max";
 </script>
 
 <TabContent style="padding: 0;">
@@ -21,13 +20,12 @@
           log.admin.username
         }) at ${toLocaleDateTime(log.performed_at)}`;
         const refund =
-          log.action_type === OrderActionLogActionTypeEnum.RefundUpdate &&
-          log.refund_update
+          log.action_type === ActionTypeEnum.RefundUpdate && log.refund_update
             ? `[REFUND: REFUND ${log.refund_update.refund_amount} / DEDUCT delivery ${log.refund_update.refund_delivery_price} fee ${log.refund_update.refund_price}] `
             : "";
         const memo =
-          log.action_type === OrderActionLogActionTypeEnum.MemoAdd ||
-          log.action_type === OrderActionLogActionTypeEnum.MemoDelete
+          log.action_type === ActionTypeEnum.MemoAdd ||
+          log.action_type === ActionTypeEnum.MemoDelete
             ? `[MEMO: ${log.detail ?? ""}]  `
             : "";
         const alimtalk = log.alimtalk

@@ -15,7 +15,7 @@
   const sendNewMemo = async () => {
     if (newMemo === "") return;
     submitting = true;
-    await api.ordersAddMemo(order.id, { body: newMemo });
+    await api.ordersAddMemoCreate(order.id, { body: newMemo });
     submitting = false;
     load();
   };
@@ -23,7 +23,7 @@
   const deleteMemo = async (memoId: number) => {
     submitting = true;
     try {
-      await api.ordersDeleteMemo(order.id, { memo_id: memoId });
+      await api.ordersDeleteMemoCreate(order.id, { memo_id: memoId });
     } catch (e: any) {
       alert("메모를 삭제할 수 없습니다. " + e.response.data.message);
     }

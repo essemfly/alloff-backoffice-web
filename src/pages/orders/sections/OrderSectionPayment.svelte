@@ -1,10 +1,6 @@
 <script lang="ts">
   import { Button, TabContent } from "carbon-components-svelte";
-  import {
-    AddPaymentAdjustmentMethodEnum,
-    OrderRetrieve,
-    OrdersApi,
-  } from "../../../api";
+  import { MethodEnum, OrderRetrieve, OrdersApi } from "../../../api";
   import { numberWithCommas } from "../../../helpers/number";
   import OrderSection from "../components/OrderSection.svelte";
   import RefundModal from "../components/RefundModal.svelte";
@@ -27,7 +23,7 @@
     refundAmount: number
   ) => {
     submitting = true;
-    await api.ordersUpdateRefund(order.id, {
+    await api.ordersUpdateRefundCreate(order.id, {
       refund_amount: refundAmount,
       refund_delivery_price: refundDeliveryPrice,
       refund_price: refundPrice,
@@ -38,17 +34,22 @@
 
   const adjustPayment = async (
     reason: string,
-    method: AddPaymentAdjustmentMethodEnum,
+    method: MethodEnum,
     bank_account_info?: string
   ) => {
     if (refundableAmount <= 0) return;
     submitting = true;
-    await api.ordersAddPaymentAdjustment(order.id, {
-      amount: refundableAmount,
-      method,
-      reason,
-      bank_account_info,
-    });
+    try {
+
+      await api.ordersAddPaymentAdjustmentCreate(order.id, {
+        amount: refundableAmount,
+        method,
+        reason,
+        bank_account_info,
+      });
+    } catch(e: any) {
+      alert("결제 조정 중 오류가 발생했습니다: " + e.response.data.message);
+    }
     submitting = false;
     load();
   };

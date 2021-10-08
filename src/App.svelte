@@ -4,6 +4,7 @@
   import Orders from "./pages/orders/Orders.svelte";
   import OrderDetail from "./pages/orders/OrderDetail.svelte";
   import Login from "./pages/auth/Login.svelte";
+// import Timedeals from "./pages/timedeals/Timedeals.svelte";
 </script>
 
 <Router primary={false}>
@@ -15,6 +16,14 @@
       <OrderDetail orderId={params.id} />
     </Route>
   </Route>
+  <!-- <Route path="timedeals/*">
+    <Route path="/">
+      <Timedeals />
+    </Route> -->
+    <!-- <Route path=":id" let:params>
+      <OrderDetail orderId={params.id} />
+    </Route> -->
+  <!-- </Route> -->
   <Route path="login">
     <Login />
   </Route>

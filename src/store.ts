@@ -1,4 +1,4 @@
 import { writable } from "svelte/store";
-import { Admin, AdminUserApi } from "./api";
+import { Admin } from "./api";
 
 export const admin = writable<Admin | undefined>(undefined);

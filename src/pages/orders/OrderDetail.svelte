@@ -5,7 +5,7 @@
     Tab,
     Tabs,
   } from "carbon-components-svelte";
-  import { OrderRetrieve, OrdersApi } from "../../api";
+  import { Configuration, OrderRetrieve, OrdersApi } from "../../api";
   import OrderSectionBasic from "./sections/OrderSectionBasic.svelte";
   import OrderSectionLogs from "./sections/OrderSectionLogs.svelte";
   import OrderSectionPayment from "./sections/OrderSectionPayment.svelte";
@@ -26,14 +26,14 @@
 
   const load = async () => {
     loading = true;
-    const { data } = await api.ordersRead(orderId);
+    const { data } = await api.ordersRetrieve(orderId);
     order = data;
     loading = false;
   };
 
   $: mobile = size === "sm";
   $: {
-    if(orderId) {
+    if (orderId) {
       load();
     }
   }

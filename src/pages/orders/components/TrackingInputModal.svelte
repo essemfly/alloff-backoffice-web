@@ -9,10 +9,10 @@
     TextInput,
     Link,
   } from "carbon-components-svelte";
-  import { OrderRetrieveOrderstatusEnum } from "../../../api";
+  import { OrderstatusEnum } from "../../../api";
 
   export let changeOrderStatus: (
-    status: OrderRetrieveOrderstatusEnum,
+    status: OrderstatusEnum,
     deliveryTrackingNumber?: string,
     deliveryTrackingUrl?: string
   ) => Promise<void>;
@@ -40,7 +40,7 @@
   bind:open
   on:submit={async () => {
     await changeOrderStatus(
-      OrderRetrieveOrderstatusEnum.DeliveryStarted,
+      OrderstatusEnum.DeliveryStarted,
       deliveryTrackingNumber,
       deliveryTrackingUrl
     );

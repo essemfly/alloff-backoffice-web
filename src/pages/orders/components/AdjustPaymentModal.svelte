@@ -1,29 +1,28 @@
 <script lang="ts">
   import {
-    ComposedModal,
-    ContentSwitcher,
-    ModalBody,
-    ModalFooter,
-    ModalHeader,
-    Switch,
-    TextInput,
+  ComposedModal,
+  ContentSwitcher,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Switch,
+  TextInput
   } from "carbon-components-svelte";
   import PiggyBank16 from "carbon-icons-svelte/lib/PiggyBank16";
   import Purchase16 from "carbon-icons-svelte/lib/Purchase16";
-  import { trim } from "lodash";
-  import { AddPaymentAdjustmentMethodEnum } from "../../../api";
+  import { MethodEnum } from "../../../api";
   import { numberWithCommas } from "../../../helpers/number";
 
   export let adjustPayment: (
     reason: string,
-    method: AddPaymentAdjustmentMethodEnum,
+    method: MethodEnum,
     bank_account_info?: string
   ) => Promise<void>;
 
   export let open = false;
   export let amount: number;
   let reason = "환불";
-  let method = AddPaymentAdjustmentMethodEnum.CardCancel;
+  let method = MethodEnum.CardCancel;
   let bank_account_info = "";
 
   let valid = false;
@@ -31,14 +30,9 @@
   $: {
     valid =
       reason !== "" &&
-      (method === AddPaymentAdjustmentMethodEnum.Cash
-        ? bank_account_info !== ""
-        : true);
+      (method === MethodEnum.Cash ? bank_account_info !== "" : true);
   }
-  $: method =
-    methodIndex === 0
-      ? AddPaymentAdjustmentMethodEnum.CardCancel
-      : AddPaymentAdjustmentMethodEnum.Cash;
+  $: method = methodIndex === 0 ? MethodEnum.CardCancel : MethodEnum.Cash;
 </script>
 
 <ComposedModal
@@ -74,7 +68,7 @@
         </Switch>
       </ContentSwitcher>
       <TextInput bind:value={reason} labelText="적요" required />
-      {#if method === AddPaymentAdjustmentMethodEnum.Cash}
+      {#if method === MethodEnum.Cash}
         <TextInput
           bind:value={bank_account_info}
           labelText="환불 계좌 정보"

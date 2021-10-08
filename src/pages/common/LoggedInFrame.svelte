@@ -30,7 +30,7 @@
   onMount(async () => {
     const adminUserApi = new AdminUserApi();
     try {
-      const { data } = await adminUserApi.adminUserMe();
+      const { data } = await adminUserApi.adminUserMeRetrieve();
       admin.set(data);
     } catch {
       // DO NOTHING
@@ -59,9 +59,14 @@
   <HeaderNav>
     <HeaderNavItem
       href="/orders"
-      text="주문목록"
+      text="주문"
       isSelected={$location.pathname === "/orders"}
     />
+    <HeaderNavItem
+    href="/timedeals"
+    text="타임딜"
+    isSelected={$location.pathname === "/timedeals"}
+  />
   </HeaderNav>
 
   <SideNav bind:isOpen={isSideNavOpen}>
@@ -69,9 +74,15 @@
       <SideNavLink
         icon={Receipt16}
         href="/orders"
-        text="주문목록"
+        text="주문"
         isSelected={$location.pathname === "/orders"}
       />
+      <SideNavLink
+      icon={Receipt16}
+      href="/timedeals"
+      text="타임딜"
+      isSelected={$location.pathname === "/timedeals"}
+    />
     </SideNavItems>
   </SideNav>
 

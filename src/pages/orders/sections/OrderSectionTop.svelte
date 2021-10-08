@@ -6,7 +6,7 @@
   } from "carbon-components-svelte";
   import {
     OrderRetrieve,
-    OrderRetrieveOrderstatusEnum,
+    OrderstatusEnum,
     OrdersApi,
   } from "../../../api";
   import {
@@ -28,26 +28,26 @@
   let trackingModalOpen: boolean = false;
 
   const statuses = [
-    OrderRetrieveOrderstatusEnum.PaymentFinished,
-    OrderRetrieveOrderstatusEnum.ProductPreparing,
-    OrderRetrieveOrderstatusEnum.DeliveryPreparing,
-    OrderRetrieveOrderstatusEnum.DeliveryStarted,
-    OrderRetrieveOrderstatusEnum.DeliveryFinished,
-    OrderRetrieveOrderstatusEnum.CancelRequested,
-    OrderRetrieveOrderstatusEnum.CancelPending,
-    OrderRetrieveOrderstatusEnum.CancelFinished,
-    OrderRetrieveOrderstatusEnum.ConfirmPayment,
+    OrderstatusEnum.PaymentFinished,
+    OrderstatusEnum.ProductPreparing,
+    OrderstatusEnum.DeliveryPreparing,
+    OrderstatusEnum.DeliveryStarted,
+    OrderstatusEnum.DeliveryFinished,
+    OrderstatusEnum.CancelRequested,
+    OrderstatusEnum.CancelPending,
+    OrderstatusEnum.CancelFinished,
+    OrderstatusEnum.ConfirmPayment,
   ];
 
   const changeOrderStatus = async (
-    status: OrderRetrieveOrderstatusEnum,
+    status: OrderstatusEnum,
     delivery_tracking_number?: string,
     delivery_tracking_url?: string
   ) => {
     if (!confirm("주문상태를 변경합니다: " + getStatusLabel(status))) return;
     submitting = true;
     try {
-      await api.ordersChangeStatus(order.id, {
+      await api.ordersChangeStatusCreate(order.id, {
         status: toChangeStatusEnum(status),
         delivery_tracking_number,
         delivery_tracking_url,
@@ -61,10 +61,10 @@
   };
 
   const handleChangeOrderStatus = async (
-    status: OrderRetrieveOrderstatusEnum
+    status: OrderstatusEnum
   ) => {
     if (status === order?.orderstatus) return;
-    if (status === OrderRetrieveOrderstatusEnum.DeliveryStarted) {
+    if (status === OrderstatusEnum.DeliveryStarted) {
       trackingModalOpen = true;
       return;
     }
@@ -94,7 +94,7 @@
       fullWidth={!mobile}
       onClick={() => handleChangeOrderStatus(status)}
       type={status === order.orderstatus
-        ? status === OrderRetrieveOrderstatusEnum.PaymentFinished
+        ? status === OrderstatusEnum.PaymentFinished
           ? "high-contrast"
           : getStatusBadgeColor(status)
         : undefined}

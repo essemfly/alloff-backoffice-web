@@ -9,12 +9,12 @@
   const load = async (p: number, size: number, search?: string) => {
     const {
       data: { count, results },
-    } = await api.ordersList(search, p, size);
+    } = await api.ordersList(p, search, size);
 
-    totalItems = count;
-    orders = results;
+    totalItems = count ?? 0;
+    orders = results ?? [];
   };
-
+  
   const api = new OrdersApi();
   let orders: OrderList[] = [];
   let page = 1;
