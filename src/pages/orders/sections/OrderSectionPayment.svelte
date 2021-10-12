@@ -2,7 +2,7 @@
   import { Button, TabContent } from "carbon-components-svelte";
   import { MethodEnum, OrderRetrieve, OrdersApi } from "../../../api";
   import { numberWithCommas } from "../../../helpers/number";
-  import OrderSection from "../components/OrderSection.svelte";
+  import InfoSection from "../../common/InfoSection.svelte";
   import RefundModal from "../components/RefundModal.svelte";
   import Wallet16 from "carbon-icons-svelte/lib/Wallet16";
   import Run16 from "carbon-icons-svelte/lib/Run16";
@@ -81,7 +81,7 @@
     {/if}
   </div>
   {#if order.refund}
-    <OrderSection
+    <InfoSection
       title="환불 실행 정보"
       rows={[
         {
@@ -106,7 +106,7 @@
         },
       ]}
     />
-    <OrderSection
+    <InfoSection
       title="환불정보"
       rows={[
         {
@@ -139,7 +139,7 @@
     />
   {/if}
   {#if order.payment_adjustments && order.payment_adjustments.length > 0}
-    <OrderSection
+    <InfoSection
       title={`결제조정내역 (총액: ${numberWithCommas(paymentAdjustmentSum)}원)`}
       rows={order.payment_adjustments.map((adj, i) => ({
         header: `#${i + 1}`,
@@ -152,7 +152,7 @@
     />
   {/if}
   {#if order.payment}
-    <OrderSection
+    <InfoSection
       title="결제정보"
       menuItems={[
         {

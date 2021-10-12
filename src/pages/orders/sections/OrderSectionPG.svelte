@@ -4,14 +4,14 @@
   } from "carbon-components-svelte";
   import { OrderRetrieve } from "../../../api";
   import { numberWithCommas } from "../../../helpers/number";
-  import OrderSection from "../components/OrderSection.svelte";
+  import InfoSection from "../../common/InfoSection.svelte";
 
   export let order: OrderRetrieve;
 </script>
 
 <TabContent style="padding: 0;">
   {#if order.iamport}
-    <OrderSection
+    <InfoSection
       title="PG 정보"
       menuItems={[
         {
@@ -75,7 +75,7 @@
       ]}
     />
     {#each order.iamport.cancel_history as history, i}
-      <OrderSection
+      <InfoSection
         smallTitle
         fontSize={11}
         title={`취소 #${i + 1}`}

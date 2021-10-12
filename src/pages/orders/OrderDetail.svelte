@@ -37,6 +37,8 @@
       load();
     }
   }
+
+  let selectedIndex = 0;
 </script>
 
 <LoggedInFrame>
@@ -51,7 +53,7 @@
   {:else}
     <Breakpoint bind:size />
     <OrderSectionTop {...{ order, load, api, mobile }} bind:submitting />
-    <Tabs>
+    <Tabs bind:selected={selectedIndex}>
       <Tab label="기본정보" />
       <Tab label="결제" />
       <Tab label="PG" />

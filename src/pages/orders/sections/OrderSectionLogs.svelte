@@ -3,13 +3,13 @@
   import { ActionTypeEnum, OrderRetrieve } from "../../../api";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { getLogTypeLabel, getStatusLabel } from "../../../helpers/order";
-  import OrderSection from "../components/OrderSection.svelte";
+  import InfoSection from "../../common/InfoSection.svelte";
 
   export let order: OrderRetrieve;
 </script>
 
 <TabContent style="padding: 0;">
-  <OrderSection
+  <InfoSection
     title="관리이력"
     menuItems={[]}
     fontSize={11}

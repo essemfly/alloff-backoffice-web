@@ -1,7 +1,7 @@
 <script lang="ts">
   import { TabContent, TextInput, Button, Tag } from "carbon-components-svelte";
   import { OrderRetrieve, OrdersApi } from "../../../api";
-  import OrderSection from "../components/OrderSection.svelte";
+  import InfoSection from "../../common/InfoSection.svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { admin } from "../../../store";
@@ -35,7 +35,7 @@
 </script>
 
 <TabContent style="padding: 0;">
-  <OrderSection
+  <InfoSection
     title="고객정보"
     menuItems={[
       {
@@ -52,7 +52,7 @@
       { header: "유저 ID", body: order.user._id },
     ]}
   />
-  <OrderSection
+  <InfoSection
     title="배송정보"
     menuItems={[
       {
@@ -124,7 +124,7 @@
     {#each order.orders as o, i}
       <div class="product-item" class:mobile>
         <div class="product-info">
-          <OrderSection
+          <InfoSection
             title={`상품 #${i + 1}`}
             smallTitle
             menuItems={[

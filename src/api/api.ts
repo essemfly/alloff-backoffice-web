@@ -51,6 +51,19 @@ export interface AddOrderMemo {
 /**
  * 
  * @export
+ * @interface AddOrderMemoRequest
+ */
+export interface AddOrderMemoRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AddOrderMemoRequest
+     */
+    body: string;
+}
+/**
+ * 
+ * @export
  * @interface AddPaymentAdjustment
  */
 export interface AddPaymentAdjustment {
@@ -76,6 +89,37 @@ export interface AddPaymentAdjustment {
      * 
      * @type {string}
      * @memberof AddPaymentAdjustment
+     */
+    bank_account_info?: string;
+}
+/**
+ * 
+ * @export
+ * @interface AddPaymentAdjustmentRequest
+ */
+export interface AddPaymentAdjustmentRequest {
+    /**
+     * 
+     * @type {MethodEnum}
+     * @memberof AddPaymentAdjustmentRequest
+     */
+    method: MethodEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddPaymentAdjustmentRequest
+     */
+    reason?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof AddPaymentAdjustmentRequest
+     */
+    amount: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AddPaymentAdjustmentRequest
      */
     bank_account_info?: string;
 }
@@ -313,6 +357,91 @@ export interface AlloffProductBrand {
 /**
  * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
  * @export
+ * @interface AlloffProductBrandRequest
+ */
+export interface AlloffProductBrandRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductBrandRequest
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductBrandRequest
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductBrandRequest
+     */
+    engname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductBrandRequest
+     */
+    korname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductBrandRequest
+     */
+    logoimgurl: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AlloffProductBrandRequest
+     */
+    onpopular: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductBrandRequest
+     */
+    description: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AlloffProductBrandRequest
+     */
+    isopen: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductBrandRequest
+     */
+    modulename: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof AlloffProductBrandRequest
+     */
+    maxdiscountrate: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof AlloffProductBrandRequest
+     */
+    numnewproducts: number;
+    /**
+     * 
+     * @type {Array<EmbeddedBrandSizeguideRequest>}
+     * @memberof AlloffProductBrandRequest
+     */
+    sizeguide?: Array<EmbeddedBrandSizeguideRequest>;
+    /**
+     * 
+     * @type {Array<EmbeddedBrandCategoryRequest>}
+     * @memberof AlloffProductBrandRequest
+     */
+    category?: Array<EmbeddedBrandCategoryRequest>;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
  * @interface AlloffProductFaults
  */
 export interface AlloffProductFaults {
@@ -326,6 +455,25 @@ export interface AlloffProductFaults {
      * 
      * @type {string}
      * @memberof AlloffProductFaults
+     */
+    description: string;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
+ * @interface AlloffProductFaultsRequest
+ */
+export interface AlloffProductFaultsRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductFaultsRequest
+     */
+    image: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductFaultsRequest
      */
     description: string;
 }
@@ -363,6 +511,37 @@ export interface AlloffProductInstruction {
 /**
  * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
  * @export
+ * @interface AlloffProductInstructionRequest
+ */
+export interface AlloffProductInstructionRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductInstructionRequest
+     */
+    title: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof AlloffProductInstructionRequest
+     */
+    description: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof AlloffProductInstructionRequest
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductInstructionRequest
+     */
+    thumbnail?: string;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
  * @interface AlloffProductInventory
  */
 export interface AlloffProductInventory {
@@ -376,6 +555,25 @@ export interface AlloffProductInventory {
      * 
      * @type {number}
      * @memberof AlloffProductInventory
+     */
+    quantity: number;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
+ * @interface AlloffProductInventoryRequest
+ */
+export interface AlloffProductInventoryRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductInventoryRequest
+     */
+    size: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof AlloffProductInventoryRequest
      */
     quantity: number;
 }
@@ -473,6 +671,91 @@ export interface AlloffProductTemplateBrand {
 /**
  * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
  * @export
+ * @interface AlloffProductTemplateBrandRequest
+ */
+export interface AlloffProductTemplateBrandRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    engname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    korname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    logoimgurl: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    onpopular: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    description: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    isopen: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    modulename: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    maxdiscountrate: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    numnewproducts: number;
+    /**
+     * 
+     * @type {Array<EmbeddedBrandSizeguideRequest>}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    sizeguide?: Array<EmbeddedBrandSizeguideRequest>;
+    /**
+     * 
+     * @type {Array<EmbeddedBrandCategoryRequest>}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    category?: Array<EmbeddedBrandCategoryRequest>;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
  * @interface AlloffProductTemplateFaults
  */
 export interface AlloffProductTemplateFaults {
@@ -486,6 +769,25 @@ export interface AlloffProductTemplateFaults {
      * 
      * @type {string}
      * @memberof AlloffProductTemplateFaults
+     */
+    description: string;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
+ * @interface AlloffProductTemplateFaultsRequest
+ */
+export interface AlloffProductTemplateFaultsRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateFaultsRequest
+     */
+    image: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateFaultsRequest
      */
     description: string;
 }
@@ -521,6 +823,37 @@ export interface AlloffProductTemplateInstruction {
     thumbnail?: string;
 }
 /**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
+ * @interface AlloffProductTemplateInstructionRequest
+ */
+export interface AlloffProductTemplateInstructionRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateInstructionRequest
+     */
+    title: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof AlloffProductTemplateInstructionRequest
+     */
+    description: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof AlloffProductTemplateInstructionRequest
+     */
+    images?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlloffProductTemplateInstructionRequest
+     */
+    thumbnail?: string;
+}
+/**
  * 
  * @export
  * @interface ChangeStatus
@@ -548,6 +881,31 @@ export interface ChangeStatus {
 /**
  * 
  * @export
+ * @interface ChangeStatusRequest
+ */
+export interface ChangeStatusRequest {
+    /**
+     * 
+     * @type {StatusEnum}
+     * @memberof ChangeStatusRequest
+     */
+    status: StatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChangeStatusRequest
+     */
+    delivery_tracking_number?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChangeStatusRequest
+     */
+    delivery_tracking_url?: string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteOrderMemo
  */
 export interface DeleteOrderMemo {
@@ -555,6 +913,19 @@ export interface DeleteOrderMemo {
      * 
      * @type {number}
      * @memberof DeleteOrderMemo
+     */
+    memo_id: number;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteOrderMemoRequest
+ */
+export interface DeleteOrderMemoRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteOrderMemoRequest
      */
     memo_id: number;
 }
@@ -752,6 +1123,37 @@ export interface EmbeddedBrandCategory {
 /**
  * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
  * @export
+ * @interface EmbeddedBrandCategoryRequest
+ */
+export interface EmbeddedBrandCategoryRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandCategoryRequest
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandCategoryRequest
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandCategoryRequest
+     */
+    catidentifier: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandCategoryRequest
+     */
+    brandkeyname: string;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
  * @interface EmbeddedBrandSizeguide
  */
 export interface EmbeddedBrandSizeguide {
@@ -765,6 +1167,25 @@ export interface EmbeddedBrandSizeguide {
      * 
      * @type {string}
      * @memberof EmbeddedBrandSizeguide
+     */
+    imgurl: string;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
+ * @interface EmbeddedBrandSizeguideRequest
+ */
+export interface EmbeddedBrandSizeguideRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandSizeguideRequest
+     */
+    label: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmbeddedBrandSizeguideRequest
      */
     imgurl: string;
 }
@@ -920,6 +1341,38 @@ export interface EmbeddedProductCategory {
      * @memberof EmbeddedProductCategory
      */
     brandkeyname: string;
+}
+/**
+ * 
+ * @export
+ * @interface ImageUploaderRequestRequest
+ */
+export interface ImageUploaderRequestRequest {
+    /**
+     * 
+     * @type {any}
+     * @memberof ImageUploaderRequestRequest
+     */
+    file: any;
+}
+/**
+ * 
+ * @export
+ * @interface ImageUploaderResponse
+ */
+export interface ImageUploaderResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageUploaderResponse
+     */
+    url: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageUploaderResponse
+     */
+    random_key: string;
 }
 /**
  * 
@@ -1981,311 +2434,293 @@ export interface PaginatedTimedealProductTemplateList {
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
  * @export
- * @interface PatchedTimedeal
+ * @interface PatchedTimedealProductRequest
  */
-export interface PatchedTimedeal {
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedeal
-     */
-    id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedeal
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedeal
-     */
-    shorttitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedTimedeal
-     */
-    numalarms?: number;
+export interface PatchedTimedealProductRequest {
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedeal
-     */
-    instruction?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedeal
-     */
-    imgurl?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedTimedeal
-     */
-    hidden?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedeal
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedeal
-     */
-    starttime?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedeal
-     */
-    finishtime?: string;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface PatchedTimedealProduct
- */
-export interface PatchedTimedealProduct {
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProduct
-     */
-    id?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     canceldescription?: Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     deliverydescription?: Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     description?: Array<string>;
     /**
      * 
      * @type {number}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     discountedprice?: number;
     /**
      * 
      * @type {number}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     discountrate?: number;
     /**
      * 
-     * @type {Array<AlloffProductFaults>}
-     * @memberof PatchedTimedealProduct
+     * @type {Array<AlloffProductFaultsRequest>}
+     * @memberof PatchedTimedealProductRequest
      */
-    faults?: Array<AlloffProductFaults>;
+    faults?: Array<AlloffProductFaultsRequest>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     images?: Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     name?: string;
     /**
      * 
      * @type {number}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     originalprice?: number;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     producttype?: Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     sizedescription?: Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     created?: string;
     /**
      * 
      * @type {string}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     updated?: string;
     /**
      * 
      * @type {boolean}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     removed?: boolean;
     /**
      * 
      * @type {string}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     productgroupid?: string;
     /**
      * 
-     * @type {Array<AlloffProductInventory>}
-     * @memberof PatchedTimedealProduct
+     * @type {Array<AlloffProductInventoryRequest>}
+     * @memberof PatchedTimedealProductRequest
      */
-    inventory?: Array<AlloffProductInventory>;
+    inventory?: Array<AlloffProductInventoryRequest>;
     /**
      * 
      * @type {boolean}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     soldout?: boolean;
     /**
      * 
      * @type {string}
-     * @memberof PatchedTimedealProduct
+     * @memberof PatchedTimedealProductRequest
      */
     templateId?: string;
     /**
      * 
-     * @type {AlloffProductBrand}
-     * @memberof PatchedTimedealProduct
+     * @type {AlloffProductBrandRequest}
+     * @memberof PatchedTimedealProductRequest
      */
-    brand?: AlloffProductBrand;
+    brand?: AlloffProductBrandRequest;
     /**
      * 
-     * @type {AlloffProductInstruction}
-     * @memberof PatchedTimedealProduct
+     * @type {AlloffProductInstructionRequest}
+     * @memberof PatchedTimedealProductRequest
      */
-    instruction?: AlloffProductInstruction;
+    instruction?: AlloffProductInstructionRequest;
 }
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
  * @export
- * @interface PatchedTimedealProductTemplate
+ * @interface PatchedTimedealProductTemplateRequest
  */
-export interface PatchedTimedealProductTemplate {
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductTemplate
-     */
-    id?: string;
+export interface PatchedTimedealProductTemplateRequest {
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     canceldescription?: Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     deliverydescription?: Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     description?: Array<string>;
     /**
      * 
      * @type {number}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     discountedprice?: number;
     /**
      * 
      * @type {number}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     discountrate?: number;
     /**
      * 
-     * @type {Array<AlloffProductTemplateFaults>}
-     * @memberof PatchedTimedealProductTemplate
+     * @type {Array<AlloffProductTemplateFaultsRequest>}
+     * @memberof PatchedTimedealProductTemplateRequest
      */
-    faults?: Array<AlloffProductTemplateFaults>;
+    faults?: Array<AlloffProductTemplateFaultsRequest>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     images?: Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     name?: string;
     /**
      * 
      * @type {number}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     originalprice?: number;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     producttype?: Array<string>;
     /**
      * 
      * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     sizedescription?: Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     created?: string;
     /**
      * 
      * @type {string}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     updated?: string;
     /**
      * 
      * @type {boolean}
-     * @memberof PatchedTimedealProductTemplate
+     * @memberof PatchedTimedealProductTemplateRequest
      */
     removed?: boolean;
     /**
      * 
-     * @type {AlloffProductTemplateBrand}
-     * @memberof PatchedTimedealProductTemplate
+     * @type {AlloffProductTemplateBrandRequest}
+     * @memberof PatchedTimedealProductTemplateRequest
      */
-    brand?: AlloffProductTemplateBrand;
+    brand?: AlloffProductTemplateBrandRequest;
     /**
      * 
-     * @type {AlloffProductTemplateInstruction}
-     * @memberof PatchedTimedealProductTemplate
+     * @type {AlloffProductTemplateInstructionRequest}
+     * @memberof PatchedTimedealProductTemplateRequest
      */
-    instruction?: AlloffProductTemplateInstruction;
+    instruction?: AlloffProductTemplateInstructionRequest;
+}
+/**
+ * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
+ * @export
+ * @interface PatchedTimedealRequest
+ */
+export interface PatchedTimedealRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedTimedealRequest
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedTimedealRequest
+     */
+    shorttitle?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof PatchedTimedealRequest
+     */
+    numalarms?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof PatchedTimedealRequest
+     */
+    instruction?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedTimedealRequest
+     */
+    imgurl?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PatchedTimedealRequest
+     */
+    hidden?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedTimedealRequest
+     */
+    created?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedTimedealRequest
+     */
+    starttime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedTimedealRequest
+     */
+    finishtime?: string;
 }
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
@@ -2511,7 +2946,7 @@ export interface Timedeal {
      * @type {string}
      * @memberof Timedeal
      */
-    title?: string;
+    title: string;
     /**
      * 
      * @type {string}
@@ -2523,13 +2958,13 @@ export interface Timedeal {
      * @type {number}
      * @memberof Timedeal
      */
-    numalarms: number;
+    numalarms?: number;
     /**
      * 
      * @type {Array<string>}
      * @memberof Timedeal
      */
-    instruction: Array<string>;
+    instruction?: Array<string>;
     /**
      * 
      * @type {string}
@@ -2541,13 +2976,13 @@ export interface Timedeal {
      * @type {boolean}
      * @memberof Timedeal
      */
-    hidden: boolean;
+    hidden?: boolean;
     /**
      * 
      * @type {string}
      * @memberof Timedeal
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -2697,6 +3132,133 @@ export interface TimedealProduct {
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
  * @export
+ * @interface TimedealProductRequest
+ */
+export interface TimedealProductRequest {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductRequest
+     */
+    canceldescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductRequest
+     */
+    deliverydescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductRequest
+     */
+    description: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductRequest
+     */
+    discountedprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductRequest
+     */
+    discountrate: number;
+    /**
+     * 
+     * @type {Array<AlloffProductFaultsRequest>}
+     * @memberof TimedealProductRequest
+     */
+    faults: Array<AlloffProductFaultsRequest>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductRequest
+     */
+    images: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductRequest
+     */
+    name: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductRequest
+     */
+    originalprice: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductRequest
+     */
+    producttype: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductRequest
+     */
+    sizedescription: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductRequest
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductRequest
+     */
+    updated: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimedealProductRequest
+     */
+    removed?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductRequest
+     */
+    productgroupid: string;
+    /**
+     * 
+     * @type {Array<AlloffProductInventoryRequest>}
+     * @memberof TimedealProductRequest
+     */
+    inventory: Array<AlloffProductInventoryRequest>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimedealProductRequest
+     */
+    soldout: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductRequest
+     */
+    templateId?: string;
+    /**
+     * 
+     * @type {AlloffProductBrandRequest}
+     * @memberof TimedealProductRequest
+     */
+    brand: AlloffProductBrandRequest;
+    /**
+     * 
+     * @type {AlloffProductInstructionRequest}
+     * @memberof TimedealProductRequest
+     */
+    instruction: AlloffProductInstructionRequest;
+}
+/**
+ * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
+ * @export
  * @interface TimedealProductTemplate
  */
 export interface TimedealProductTemplate {
@@ -2804,21 +3366,185 @@ export interface TimedealProductTemplate {
     instruction: AlloffProductTemplateInstruction;
 }
 /**
- * 
+ * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
  * @export
- * @interface TokenObtainPairRequest
+ * @interface TimedealProductTemplateRequest
  */
-export interface TokenObtainPairRequest {
+export interface TimedealProductTemplateRequest {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductTemplateRequest
+     */
+    canceldescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductTemplateRequest
+     */
+    deliverydescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductTemplateRequest
+     */
+    description: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductTemplateRequest
+     */
+    discountedprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductTemplateRequest
+     */
+    discountrate: number;
+    /**
+     * 
+     * @type {Array<AlloffProductTemplateFaultsRequest>}
+     * @memberof TimedealProductTemplateRequest
+     */
+    faults: Array<AlloffProductTemplateFaultsRequest>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductTemplateRequest
+     */
+    images: Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof TokenObtainPairRequest
+     * @memberof TimedealProductTemplateRequest
+     */
+    name: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductTemplateRequest
+     */
+    originalprice: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductTemplateRequest
+     */
+    producttype: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductTemplateRequest
+     */
+    sizedescription: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductTemplateRequest
+     */
+    created: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductTemplateRequest
+     */
+    updated: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimedealProductTemplateRequest
+     */
+    removed?: boolean;
+    /**
+     * 
+     * @type {AlloffProductTemplateBrandRequest}
+     * @memberof TimedealProductTemplateRequest
+     */
+    brand: AlloffProductTemplateBrandRequest;
+    /**
+     * 
+     * @type {AlloffProductTemplateInstructionRequest}
+     * @memberof TimedealProductTemplateRequest
+     */
+    instruction: AlloffProductTemplateInstructionRequest;
+}
+/**
+ * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
+ * @export
+ * @interface TimedealRequest
+ */
+export interface TimedealRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealRequest
+     */
+    title: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealRequest
+     */
+    shorttitle?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealRequest
+     */
+    numalarms?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealRequest
+     */
+    instruction?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealRequest
+     */
+    imgurl: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimedealRequest
+     */
+    hidden?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealRequest
+     */
+    created?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealRequest
+     */
+    starttime: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealRequest
+     */
+    finishtime: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenObtainPairRequestRequest
+ */
+export interface TokenObtainPairRequestRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenObtainPairRequestRequest
      */
     username: string;
     /**
      * 
      * @type {string}
-     * @memberof TokenObtainPairRequest
+     * @memberof TokenObtainPairRequestRequest
      */
     password: string;
 }
@@ -2844,15 +3570,15 @@ export interface TokenObtainPairResponse {
 /**
  * 
  * @export
- * @interface TokenRefreshRequest
+ * @interface TokenRefreshRequestRequest
  */
-export interface TokenRefreshRequest {
+export interface TokenRefreshRequestRequest {
     /**
      * 
      * @type {string}
-     * @memberof TokenRefreshRequest
+     * @memberof TokenRefreshRequestRequest
      */
-    access: string;
+    refresh: string;
 }
 /**
  * 
@@ -2907,6 +3633,31 @@ export interface UpdateRefund {
      * 
      * @type {number}
      * @memberof UpdateRefund
+     */
+    refund_price: number;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateRefundRequest
+ */
+export interface UpdateRefundRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateRefundRequest
+     */
+    refund_amount: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateRefundRequest
+     */
+    refund_delivery_price: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateRefundRequest
      */
     refund_price: number;
 }
@@ -3185,6 +3936,118 @@ export class ApiApi extends BaseAPI {
 
 
 /**
+ * ImageUploadApi - axios parameter creator
+ * @export
+ */
+export const ImageUploadApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {any} file 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        imageUploadUploadCreate: async (file: any, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('imageUploadUploadCreate', 'file', file)
+            const localVarPath = `/image-upload/upload/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ImageUploadApi - functional programming interface
+ * @export
+ */
+export const ImageUploadApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ImageUploadApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {any} file 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async imageUploadUploadCreate(file: any, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImageUploaderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.imageUploadUploadCreate(file, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * ImageUploadApi - factory interface
+ * @export
+ */
+export const ImageUploadApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ImageUploadApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {any} file 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        imageUploadUploadCreate(file: any, options?: any): AxiosPromise<ImageUploaderResponse> {
+            return localVarFp.imageUploadUploadCreate(file, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ImageUploadApi - object-oriented interface
+ * @export
+ * @class ImageUploadApi
+ * @extends {BaseAPI}
+ */
+export class ImageUploadApi extends BaseAPI {
+    /**
+     * 
+     * @param {any} file 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ImageUploadApi
+     */
+    public imageUploadUploadCreate(file: any, options?: any) {
+        return ImageUploadApiFp(this.configuration).imageUploadUploadCreate(file, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * OrdersApi - axios parameter creator
  * @export
  */
@@ -3193,15 +4056,15 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} id 
-         * @param {AddOrderMemo} addOrderMemo 
+         * @param {AddOrderMemoRequest} addOrderMemoRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersAddMemoCreate: async (id: string, addOrderMemo: AddOrderMemo, options: any = {}): Promise<RequestArgs> => {
+        ordersAddMemoCreate: async (id: string, addOrderMemoRequest: AddOrderMemoRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('ordersAddMemoCreate', 'id', id)
-            // verify required parameter 'addOrderMemo' is not null or undefined
-            assertParamExists('ordersAddMemoCreate', 'addOrderMemo', addOrderMemo)
+            // verify required parameter 'addOrderMemoRequest' is not null or undefined
+            assertParamExists('ordersAddMemoCreate', 'addOrderMemoRequest', addOrderMemoRequest)
             const localVarPath = `/orders/{id}/add_memo/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3226,7 +4089,7 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(addOrderMemo, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(addOrderMemoRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3236,15 +4099,15 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} id 
-         * @param {AddPaymentAdjustment} addPaymentAdjustment 
+         * @param {AddPaymentAdjustmentRequest} addPaymentAdjustmentRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersAddPaymentAdjustmentCreate: async (id: string, addPaymentAdjustment: AddPaymentAdjustment, options: any = {}): Promise<RequestArgs> => {
+        ordersAddPaymentAdjustmentCreate: async (id: string, addPaymentAdjustmentRequest: AddPaymentAdjustmentRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('ordersAddPaymentAdjustmentCreate', 'id', id)
-            // verify required parameter 'addPaymentAdjustment' is not null or undefined
-            assertParamExists('ordersAddPaymentAdjustmentCreate', 'addPaymentAdjustment', addPaymentAdjustment)
+            // verify required parameter 'addPaymentAdjustmentRequest' is not null or undefined
+            assertParamExists('ordersAddPaymentAdjustmentCreate', 'addPaymentAdjustmentRequest', addPaymentAdjustmentRequest)
             const localVarPath = `/orders/{id}/add_payment_adjustment/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3269,7 +4132,7 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(addPaymentAdjustment, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(addPaymentAdjustmentRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3279,15 +4142,15 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} id 
-         * @param {ChangeStatus} changeStatus 
+         * @param {ChangeStatusRequest} changeStatusRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersChangeStatusCreate: async (id: string, changeStatus: ChangeStatus, options: any = {}): Promise<RequestArgs> => {
+        ordersChangeStatusCreate: async (id: string, changeStatusRequest: ChangeStatusRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('ordersChangeStatusCreate', 'id', id)
-            // verify required parameter 'changeStatus' is not null or undefined
-            assertParamExists('ordersChangeStatusCreate', 'changeStatus', changeStatus)
+            // verify required parameter 'changeStatusRequest' is not null or undefined
+            assertParamExists('ordersChangeStatusCreate', 'changeStatusRequest', changeStatusRequest)
             const localVarPath = `/orders/{id}/change_status/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3312,7 +4175,7 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(changeStatus, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(changeStatusRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3322,15 +4185,15 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} id 
-         * @param {DeleteOrderMemo} deleteOrderMemo 
+         * @param {DeleteOrderMemoRequest} deleteOrderMemoRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersDeleteMemoCreate: async (id: string, deleteOrderMemo: DeleteOrderMemo, options: any = {}): Promise<RequestArgs> => {
+        ordersDeleteMemoCreate: async (id: string, deleteOrderMemoRequest: DeleteOrderMemoRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('ordersDeleteMemoCreate', 'id', id)
-            // verify required parameter 'deleteOrderMemo' is not null or undefined
-            assertParamExists('ordersDeleteMemoCreate', 'deleteOrderMemo', deleteOrderMemo)
+            // verify required parameter 'deleteOrderMemoRequest' is not null or undefined
+            assertParamExists('ordersDeleteMemoCreate', 'deleteOrderMemoRequest', deleteOrderMemoRequest)
             const localVarPath = `/orders/{id}/delete_memo/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3355,7 +4218,7 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(deleteOrderMemo, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(deleteOrderMemoRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3450,15 +4313,15 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} id 
-         * @param {UpdateRefund} updateRefund 
+         * @param {UpdateRefundRequest} updateRefundRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersUpdateRefundCreate: async (id: string, updateRefund: UpdateRefund, options: any = {}): Promise<RequestArgs> => {
+        ordersUpdateRefundCreate: async (id: string, updateRefundRequest: UpdateRefundRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('ordersUpdateRefundCreate', 'id', id)
-            // verify required parameter 'updateRefund' is not null or undefined
-            assertParamExists('ordersUpdateRefundCreate', 'updateRefund', updateRefund)
+            // verify required parameter 'updateRefundRequest' is not null or undefined
+            assertParamExists('ordersUpdateRefundCreate', 'updateRefundRequest', updateRefundRequest)
             const localVarPath = `/orders/{id}/update_refund/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3483,7 +4346,7 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateRefund, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(updateRefundRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3503,45 +4366,45 @@ export const OrdersApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {AddOrderMemo} addOrderMemo 
+         * @param {AddOrderMemoRequest} addOrderMemoRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersAddMemoCreate(id: string, addOrderMemo: AddOrderMemo, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddOrderMemo>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersAddMemoCreate(id, addOrderMemo, options);
+        async ordersAddMemoCreate(id: string, addOrderMemoRequest: AddOrderMemoRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddOrderMemo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersAddMemoCreate(id, addOrderMemoRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @param {string} id 
-         * @param {AddPaymentAdjustment} addPaymentAdjustment 
+         * @param {AddPaymentAdjustmentRequest} addPaymentAdjustmentRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersAddPaymentAdjustmentCreate(id: string, addPaymentAdjustment: AddPaymentAdjustment, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddPaymentAdjustment>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersAddPaymentAdjustmentCreate(id, addPaymentAdjustment, options);
+        async ordersAddPaymentAdjustmentCreate(id: string, addPaymentAdjustmentRequest: AddPaymentAdjustmentRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddPaymentAdjustment>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersAddPaymentAdjustmentCreate(id, addPaymentAdjustmentRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @param {string} id 
-         * @param {ChangeStatus} changeStatus 
+         * @param {ChangeStatusRequest} changeStatusRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersChangeStatusCreate(id: string, changeStatus: ChangeStatus, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChangeStatus>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersChangeStatusCreate(id, changeStatus, options);
+        async ordersChangeStatusCreate(id: string, changeStatusRequest: ChangeStatusRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChangeStatus>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersChangeStatusCreate(id, changeStatusRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @param {string} id 
-         * @param {DeleteOrderMemo} deleteOrderMemo 
+         * @param {DeleteOrderMemoRequest} deleteOrderMemoRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersDeleteMemoCreate(id: string, deleteOrderMemo: DeleteOrderMemo, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteOrderMemo>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersDeleteMemoCreate(id, deleteOrderMemo, options);
+        async ordersDeleteMemoCreate(id: string, deleteOrderMemoRequest: DeleteOrderMemoRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteOrderMemo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersDeleteMemoCreate(id, deleteOrderMemoRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3569,12 +4432,12 @@ export const OrdersApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {UpdateRefund} updateRefund 
+         * @param {UpdateRefundRequest} updateRefundRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersUpdateRefundCreate(id: string, updateRefund: UpdateRefund, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateRefund>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersUpdateRefundCreate(id, updateRefund, options);
+        async ordersUpdateRefundCreate(id: string, updateRefundRequest: UpdateRefundRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateRefund>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersUpdateRefundCreate(id, updateRefundRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -3590,42 +4453,42 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @param {string} id 
-         * @param {AddOrderMemo} addOrderMemo 
+         * @param {AddOrderMemoRequest} addOrderMemoRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersAddMemoCreate(id: string, addOrderMemo: AddOrderMemo, options?: any): AxiosPromise<AddOrderMemo> {
-            return localVarFp.ordersAddMemoCreate(id, addOrderMemo, options).then((request) => request(axios, basePath));
+        ordersAddMemoCreate(id: string, addOrderMemoRequest: AddOrderMemoRequest, options?: any): AxiosPromise<AddOrderMemo> {
+            return localVarFp.ordersAddMemoCreate(id, addOrderMemoRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
-         * @param {AddPaymentAdjustment} addPaymentAdjustment 
+         * @param {AddPaymentAdjustmentRequest} addPaymentAdjustmentRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersAddPaymentAdjustmentCreate(id: string, addPaymentAdjustment: AddPaymentAdjustment, options?: any): AxiosPromise<AddPaymentAdjustment> {
-            return localVarFp.ordersAddPaymentAdjustmentCreate(id, addPaymentAdjustment, options).then((request) => request(axios, basePath));
+        ordersAddPaymentAdjustmentCreate(id: string, addPaymentAdjustmentRequest: AddPaymentAdjustmentRequest, options?: any): AxiosPromise<AddPaymentAdjustment> {
+            return localVarFp.ordersAddPaymentAdjustmentCreate(id, addPaymentAdjustmentRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
-         * @param {ChangeStatus} changeStatus 
+         * @param {ChangeStatusRequest} changeStatusRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersChangeStatusCreate(id: string, changeStatus: ChangeStatus, options?: any): AxiosPromise<ChangeStatus> {
-            return localVarFp.ordersChangeStatusCreate(id, changeStatus, options).then((request) => request(axios, basePath));
+        ordersChangeStatusCreate(id: string, changeStatusRequest: ChangeStatusRequest, options?: any): AxiosPromise<ChangeStatus> {
+            return localVarFp.ordersChangeStatusCreate(id, changeStatusRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
-         * @param {DeleteOrderMemo} deleteOrderMemo 
+         * @param {DeleteOrderMemoRequest} deleteOrderMemoRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersDeleteMemoCreate(id: string, deleteOrderMemo: DeleteOrderMemo, options?: any): AxiosPromise<DeleteOrderMemo> {
-            return localVarFp.ordersDeleteMemoCreate(id, deleteOrderMemo, options).then((request) => request(axios, basePath));
+        ordersDeleteMemoCreate(id: string, deleteOrderMemoRequest: DeleteOrderMemoRequest, options?: any): AxiosPromise<DeleteOrderMemo> {
+            return localVarFp.ordersDeleteMemoCreate(id, deleteOrderMemoRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3650,12 +4513,12 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @param {string} id 
-         * @param {UpdateRefund} updateRefund 
+         * @param {UpdateRefundRequest} updateRefundRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersUpdateRefundCreate(id: string, updateRefund: UpdateRefund, options?: any): AxiosPromise<UpdateRefund> {
-            return localVarFp.ordersUpdateRefundCreate(id, updateRefund, options).then((request) => request(axios, basePath));
+        ordersUpdateRefundCreate(id: string, updateRefundRequest: UpdateRefundRequest, options?: any): AxiosPromise<UpdateRefund> {
+            return localVarFp.ordersUpdateRefundCreate(id, updateRefundRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3670,49 +4533,49 @@ export class OrdersApi extends BaseAPI {
     /**
      * 
      * @param {string} id 
-     * @param {AddOrderMemo} addOrderMemo 
+     * @param {AddOrderMemoRequest} addOrderMemoRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
      */
-    public ordersAddMemoCreate(id: string, addOrderMemo: AddOrderMemo, options?: any) {
-        return OrdersApiFp(this.configuration).ordersAddMemoCreate(id, addOrderMemo, options).then((request) => request(this.axios, this.basePath));
+    public ordersAddMemoCreate(id: string, addOrderMemoRequest: AddOrderMemoRequest, options?: any) {
+        return OrdersApiFp(this.configuration).ordersAddMemoCreate(id, addOrderMemoRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
-     * @param {AddPaymentAdjustment} addPaymentAdjustment 
+     * @param {AddPaymentAdjustmentRequest} addPaymentAdjustmentRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
      */
-    public ordersAddPaymentAdjustmentCreate(id: string, addPaymentAdjustment: AddPaymentAdjustment, options?: any) {
-        return OrdersApiFp(this.configuration).ordersAddPaymentAdjustmentCreate(id, addPaymentAdjustment, options).then((request) => request(this.axios, this.basePath));
+    public ordersAddPaymentAdjustmentCreate(id: string, addPaymentAdjustmentRequest: AddPaymentAdjustmentRequest, options?: any) {
+        return OrdersApiFp(this.configuration).ordersAddPaymentAdjustmentCreate(id, addPaymentAdjustmentRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
-     * @param {ChangeStatus} changeStatus 
+     * @param {ChangeStatusRequest} changeStatusRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
      */
-    public ordersChangeStatusCreate(id: string, changeStatus: ChangeStatus, options?: any) {
-        return OrdersApiFp(this.configuration).ordersChangeStatusCreate(id, changeStatus, options).then((request) => request(this.axios, this.basePath));
+    public ordersChangeStatusCreate(id: string, changeStatusRequest: ChangeStatusRequest, options?: any) {
+        return OrdersApiFp(this.configuration).ordersChangeStatusCreate(id, changeStatusRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
-     * @param {DeleteOrderMemo} deleteOrderMemo 
+     * @param {DeleteOrderMemoRequest} deleteOrderMemoRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
      */
-    public ordersDeleteMemoCreate(id: string, deleteOrderMemo: DeleteOrderMemo, options?: any) {
-        return OrdersApiFp(this.configuration).ordersDeleteMemoCreate(id, deleteOrderMemo, options).then((request) => request(this.axios, this.basePath));
+    public ordersDeleteMemoCreate(id: string, deleteOrderMemoRequest: DeleteOrderMemoRequest, options?: any) {
+        return OrdersApiFp(this.configuration).ordersDeleteMemoCreate(id, deleteOrderMemoRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3742,13 +4605,13 @@ export class OrdersApi extends BaseAPI {
     /**
      * 
      * @param {string} id 
-     * @param {UpdateRefund} updateRefund 
+     * @param {UpdateRefundRequest} updateRefundRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
      */
-    public ordersUpdateRefundCreate(id: string, updateRefund: UpdateRefund, options?: any) {
-        return OrdersApiFp(this.configuration).ordersUpdateRefundCreate(id, updateRefund, options).then((request) => request(this.axios, this.basePath));
+    public ordersUpdateRefundCreate(id: string, updateRefundRequest: UpdateRefundRequest, options?: any) {
+        return OrdersApiFp(this.configuration).ordersUpdateRefundCreate(id, updateRefundRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -3761,13 +4624,13 @@ export const TimedealProductTemplatesApiAxiosParamCreator = function (configurat
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductTemplate} timedealProductTemplate 
+         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductTemplatesCreate: async (timedealProductTemplate: TimedealProductTemplate, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'timedealProductTemplate' is not null or undefined
-            assertParamExists('timedealProductTemplatesCreate', 'timedealProductTemplate', timedealProductTemplate)
+        timedealProductTemplatesCreate: async (timedealProductTemplateRequest: TimedealProductTemplateRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'timedealProductTemplateRequest' is not null or undefined
+            assertParamExists('timedealProductTemplatesCreate', 'timedealProductTemplateRequest', timedealProductTemplateRequest)
             const localVarPath = `/timedeal-product-templates/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3791,7 +4654,7 @@ export const TimedealProductTemplatesApiAxiosParamCreator = function (configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductTemplate, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductTemplateRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3886,11 +4749,11 @@ export const TimedealProductTemplatesApiAxiosParamCreator = function (configurat
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {PatchedTimedealProductTemplate} [patchedTimedealProductTemplate] 
+         * @param {PatchedTimedealProductTemplateRequest} [patchedTimedealProductTemplateRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductTemplatesPartialUpdate: async (id: string, patchedTimedealProductTemplate?: PatchedTimedealProductTemplate, options: any = {}): Promise<RequestArgs> => {
+        timedealProductTemplatesPartialUpdate: async (id: string, patchedTimedealProductTemplateRequest?: PatchedTimedealProductTemplateRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('timedealProductTemplatesPartialUpdate', 'id', id)
             const localVarPath = `/timedeal-product-templates/{id}/`
@@ -3917,7 +4780,7 @@ export const TimedealProductTemplatesApiAxiosParamCreator = function (configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedTimedealProductTemplate, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(patchedTimedealProductTemplateRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3964,15 +4827,15 @@ export const TimedealProductTemplatesApiAxiosParamCreator = function (configurat
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {TimedealProductTemplate} timedealProductTemplate 
+         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductTemplatesUpdate: async (id: string, timedealProductTemplate: TimedealProductTemplate, options: any = {}): Promise<RequestArgs> => {
+        timedealProductTemplatesUpdate: async (id: string, timedealProductTemplateRequest: TimedealProductTemplateRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('timedealProductTemplatesUpdate', 'id', id)
-            // verify required parameter 'timedealProductTemplate' is not null or undefined
-            assertParamExists('timedealProductTemplatesUpdate', 'timedealProductTemplate', timedealProductTemplate)
+            // verify required parameter 'timedealProductTemplateRequest' is not null or undefined
+            assertParamExists('timedealProductTemplatesUpdate', 'timedealProductTemplateRequest', timedealProductTemplateRequest)
             const localVarPath = `/timedeal-product-templates/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3997,7 +4860,7 @@ export const TimedealProductTemplatesApiAxiosParamCreator = function (configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductTemplate, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductTemplateRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4016,12 +4879,12 @@ export const TimedealProductTemplatesApiFp = function(configuration?: Configurat
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductTemplate} timedealProductTemplate 
+         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealProductTemplatesCreate(timedealProductTemplate: TimedealProductTemplate, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesCreate(timedealProductTemplate, options);
+        async timedealProductTemplatesCreate(timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesCreate(timedealProductTemplateRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4049,12 +4912,12 @@ export const TimedealProductTemplatesApiFp = function(configuration?: Configurat
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {PatchedTimedealProductTemplate} [patchedTimedealProductTemplate] 
+         * @param {PatchedTimedealProductTemplateRequest} [patchedTimedealProductTemplateRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealProductTemplatesPartialUpdate(id: string, patchedTimedealProductTemplate?: PatchedTimedealProductTemplate, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesPartialUpdate(id, patchedTimedealProductTemplate, options);
+        async timedealProductTemplatesPartialUpdate(id: string, patchedTimedealProductTemplateRequest?: PatchedTimedealProductTemplateRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesPartialUpdate(id, patchedTimedealProductTemplateRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4070,12 +4933,12 @@ export const TimedealProductTemplatesApiFp = function(configuration?: Configurat
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {TimedealProductTemplate} timedealProductTemplate 
+         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealProductTemplatesUpdate(id: string, timedealProductTemplate: TimedealProductTemplate, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesUpdate(id, timedealProductTemplate, options);
+        async timedealProductTemplatesUpdate(id: string, timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesUpdate(id, timedealProductTemplateRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -4090,12 +4953,12 @@ export const TimedealProductTemplatesApiFactory = function (configuration?: Conf
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductTemplate} timedealProductTemplate 
+         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductTemplatesCreate(timedealProductTemplate: TimedealProductTemplate, options?: any): AxiosPromise<TimedealProductTemplate> {
-            return localVarFp.timedealProductTemplatesCreate(timedealProductTemplate, options).then((request) => request(axios, basePath));
+        timedealProductTemplatesCreate(timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any): AxiosPromise<TimedealProductTemplate> {
+            return localVarFp.timedealProductTemplatesCreate(timedealProductTemplateRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Adaptation of DRF ModelViewSet
@@ -4120,12 +4983,12 @@ export const TimedealProductTemplatesApiFactory = function (configuration?: Conf
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {PatchedTimedealProductTemplate} [patchedTimedealProductTemplate] 
+         * @param {PatchedTimedealProductTemplateRequest} [patchedTimedealProductTemplateRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductTemplatesPartialUpdate(id: string, patchedTimedealProductTemplate?: PatchedTimedealProductTemplate, options?: any): AxiosPromise<TimedealProductTemplate> {
-            return localVarFp.timedealProductTemplatesPartialUpdate(id, patchedTimedealProductTemplate, options).then((request) => request(axios, basePath));
+        timedealProductTemplatesPartialUpdate(id: string, patchedTimedealProductTemplateRequest?: PatchedTimedealProductTemplateRequest, options?: any): AxiosPromise<TimedealProductTemplate> {
+            return localVarFp.timedealProductTemplatesPartialUpdate(id, patchedTimedealProductTemplateRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Adaptation of DRF ModelViewSet
@@ -4139,12 +5002,12 @@ export const TimedealProductTemplatesApiFactory = function (configuration?: Conf
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {TimedealProductTemplate} timedealProductTemplate 
+         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductTemplatesUpdate(id: string, timedealProductTemplate: TimedealProductTemplate, options?: any): AxiosPromise<TimedealProductTemplate> {
-            return localVarFp.timedealProductTemplatesUpdate(id, timedealProductTemplate, options).then((request) => request(axios, basePath));
+        timedealProductTemplatesUpdate(id: string, timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any): AxiosPromise<TimedealProductTemplate> {
+            return localVarFp.timedealProductTemplatesUpdate(id, timedealProductTemplateRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4158,13 +5021,13 @@ export const TimedealProductTemplatesApiFactory = function (configuration?: Conf
 export class TimedealProductTemplatesApi extends BaseAPI {
     /**
      * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductTemplate} timedealProductTemplate 
+     * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TimedealProductTemplatesApi
      */
-    public timedealProductTemplatesCreate(timedealProductTemplate: TimedealProductTemplate, options?: any) {
-        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesCreate(timedealProductTemplate, options).then((request) => request(this.axios, this.basePath));
+    public timedealProductTemplatesCreate(timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any) {
+        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesCreate(timedealProductTemplateRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4194,13 +5057,13 @@ export class TimedealProductTemplatesApi extends BaseAPI {
     /**
      * Adaptation of DRF ModelViewSet
      * @param {string} id 
-     * @param {PatchedTimedealProductTemplate} [patchedTimedealProductTemplate] 
+     * @param {PatchedTimedealProductTemplateRequest} [patchedTimedealProductTemplateRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TimedealProductTemplatesApi
      */
-    public timedealProductTemplatesPartialUpdate(id: string, patchedTimedealProductTemplate?: PatchedTimedealProductTemplate, options?: any) {
-        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesPartialUpdate(id, patchedTimedealProductTemplate, options).then((request) => request(this.axios, this.basePath));
+    public timedealProductTemplatesPartialUpdate(id: string, patchedTimedealProductTemplateRequest?: PatchedTimedealProductTemplateRequest, options?: any) {
+        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesPartialUpdate(id, patchedTimedealProductTemplateRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4217,13 +5080,13 @@ export class TimedealProductTemplatesApi extends BaseAPI {
     /**
      * Adaptation of DRF ModelViewSet
      * @param {string} id 
-     * @param {TimedealProductTemplate} timedealProductTemplate 
+     * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TimedealProductTemplatesApi
      */
-    public timedealProductTemplatesUpdate(id: string, timedealProductTemplate: TimedealProductTemplate, options?: any) {
-        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesUpdate(id, timedealProductTemplate, options).then((request) => request(this.axios, this.basePath));
+    public timedealProductTemplatesUpdate(id: string, timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any) {
+        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesUpdate(id, timedealProductTemplateRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -4236,13 +5099,13 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {TimedealProduct} timedealProduct 
+         * @param {TimedealProductRequest} timedealProductRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsCreate: async (timedealProduct: TimedealProduct, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'timedealProduct' is not null or undefined
-            assertParamExists('timedealProductsCreate', 'timedealProduct', timedealProduct)
+        timedealProductsCreate: async (timedealProductRequest: TimedealProductRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'timedealProductRequest' is not null or undefined
+            assertParamExists('timedealProductsCreate', 'timedealProductRequest', timedealProductRequest)
             const localVarPath = `/timedeal-products/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4266,7 +5129,7 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProduct, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4361,11 +5224,11 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {PatchedTimedealProduct} [patchedTimedealProduct] 
+         * @param {PatchedTimedealProductRequest} [patchedTimedealProductRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsPartialUpdate: async (id: string, patchedTimedealProduct?: PatchedTimedealProduct, options: any = {}): Promise<RequestArgs> => {
+        timedealProductsPartialUpdate: async (id: string, patchedTimedealProductRequest?: PatchedTimedealProductRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('timedealProductsPartialUpdate', 'id', id)
             const localVarPath = `/timedeal-products/{id}/`
@@ -4392,7 +5255,7 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedTimedealProduct, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(patchedTimedealProductRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4439,15 +5302,15 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {TimedealProduct} timedealProduct 
+         * @param {TimedealProductRequest} timedealProductRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsUpdate: async (id: string, timedealProduct: TimedealProduct, options: any = {}): Promise<RequestArgs> => {
+        timedealProductsUpdate: async (id: string, timedealProductRequest: TimedealProductRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('timedealProductsUpdate', 'id', id)
-            // verify required parameter 'timedealProduct' is not null or undefined
-            assertParamExists('timedealProductsUpdate', 'timedealProduct', timedealProduct)
+            // verify required parameter 'timedealProductRequest' is not null or undefined
+            assertParamExists('timedealProductsUpdate', 'timedealProductRequest', timedealProductRequest)
             const localVarPath = `/timedeal-products/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -4472,7 +5335,7 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProduct, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4491,12 +5354,12 @@ export const TimedealProductsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {TimedealProduct} timedealProduct 
+         * @param {TimedealProductRequest} timedealProductRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealProductsCreate(timedealProduct: TimedealProduct, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsCreate(timedealProduct, options);
+        async timedealProductsCreate(timedealProductRequest: TimedealProductRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsCreate(timedealProductRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4524,12 +5387,12 @@ export const TimedealProductsApiFp = function(configuration?: Configuration) {
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {PatchedTimedealProduct} [patchedTimedealProduct] 
+         * @param {PatchedTimedealProductRequest} [patchedTimedealProductRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealProductsPartialUpdate(id: string, patchedTimedealProduct?: PatchedTimedealProduct, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsPartialUpdate(id, patchedTimedealProduct, options);
+        async timedealProductsPartialUpdate(id: string, patchedTimedealProductRequest?: PatchedTimedealProductRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsPartialUpdate(id, patchedTimedealProductRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4545,12 +5408,12 @@ export const TimedealProductsApiFp = function(configuration?: Configuration) {
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {TimedealProduct} timedealProduct 
+         * @param {TimedealProductRequest} timedealProductRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealProductsUpdate(id: string, timedealProduct: TimedealProduct, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsUpdate(id, timedealProduct, options);
+        async timedealProductsUpdate(id: string, timedealProductRequest: TimedealProductRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsUpdate(id, timedealProductRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -4565,12 +5428,12 @@ export const TimedealProductsApiFactory = function (configuration?: Configuratio
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {TimedealProduct} timedealProduct 
+         * @param {TimedealProductRequest} timedealProductRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsCreate(timedealProduct: TimedealProduct, options?: any): AxiosPromise<TimedealProduct> {
-            return localVarFp.timedealProductsCreate(timedealProduct, options).then((request) => request(axios, basePath));
+        timedealProductsCreate(timedealProductRequest: TimedealProductRequest, options?: any): AxiosPromise<TimedealProduct> {
+            return localVarFp.timedealProductsCreate(timedealProductRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Adaptation of DRF ModelViewSet
@@ -4595,12 +5458,12 @@ export const TimedealProductsApiFactory = function (configuration?: Configuratio
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {PatchedTimedealProduct} [patchedTimedealProduct] 
+         * @param {PatchedTimedealProductRequest} [patchedTimedealProductRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsPartialUpdate(id: string, patchedTimedealProduct?: PatchedTimedealProduct, options?: any): AxiosPromise<TimedealProduct> {
-            return localVarFp.timedealProductsPartialUpdate(id, patchedTimedealProduct, options).then((request) => request(axios, basePath));
+        timedealProductsPartialUpdate(id: string, patchedTimedealProductRequest?: PatchedTimedealProductRequest, options?: any): AxiosPromise<TimedealProduct> {
+            return localVarFp.timedealProductsPartialUpdate(id, patchedTimedealProductRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Adaptation of DRF ModelViewSet
@@ -4614,12 +5477,12 @@ export const TimedealProductsApiFactory = function (configuration?: Configuratio
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {TimedealProduct} timedealProduct 
+         * @param {TimedealProductRequest} timedealProductRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsUpdate(id: string, timedealProduct: TimedealProduct, options?: any): AxiosPromise<TimedealProduct> {
-            return localVarFp.timedealProductsUpdate(id, timedealProduct, options).then((request) => request(axios, basePath));
+        timedealProductsUpdate(id: string, timedealProductRequest: TimedealProductRequest, options?: any): AxiosPromise<TimedealProduct> {
+            return localVarFp.timedealProductsUpdate(id, timedealProductRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4633,13 +5496,13 @@ export const TimedealProductsApiFactory = function (configuration?: Configuratio
 export class TimedealProductsApi extends BaseAPI {
     /**
      * Adaptation of DRF ModelViewSet
-     * @param {TimedealProduct} timedealProduct 
+     * @param {TimedealProductRequest} timedealProductRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TimedealProductsApi
      */
-    public timedealProductsCreate(timedealProduct: TimedealProduct, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsCreate(timedealProduct, options).then((request) => request(this.axios, this.basePath));
+    public timedealProductsCreate(timedealProductRequest: TimedealProductRequest, options?: any) {
+        return TimedealProductsApiFp(this.configuration).timedealProductsCreate(timedealProductRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4669,13 +5532,13 @@ export class TimedealProductsApi extends BaseAPI {
     /**
      * Adaptation of DRF ModelViewSet
      * @param {string} id 
-     * @param {PatchedTimedealProduct} [patchedTimedealProduct] 
+     * @param {PatchedTimedealProductRequest} [patchedTimedealProductRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TimedealProductsApi
      */
-    public timedealProductsPartialUpdate(id: string, patchedTimedealProduct?: PatchedTimedealProduct, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsPartialUpdate(id, patchedTimedealProduct, options).then((request) => request(this.axios, this.basePath));
+    public timedealProductsPartialUpdate(id: string, patchedTimedealProductRequest?: PatchedTimedealProductRequest, options?: any) {
+        return TimedealProductsApiFp(this.configuration).timedealProductsPartialUpdate(id, patchedTimedealProductRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4692,13 +5555,13 @@ export class TimedealProductsApi extends BaseAPI {
     /**
      * Adaptation of DRF ModelViewSet
      * @param {string} id 
-     * @param {TimedealProduct} timedealProduct 
+     * @param {TimedealProductRequest} timedealProductRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TimedealProductsApi
      */
-    public timedealProductsUpdate(id: string, timedealProduct: TimedealProduct, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsUpdate(id, timedealProduct, options).then((request) => request(this.axios, this.basePath));
+    public timedealProductsUpdate(id: string, timedealProductRequest: TimedealProductRequest, options?: any) {
+        return TimedealProductsApiFp(this.configuration).timedealProductsUpdate(id, timedealProductRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -4711,13 +5574,13 @@ export const TimedealsApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {Timedeal} timedeal 
+         * @param {TimedealRequest} timedealRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealsCreate: async (timedeal: Timedeal, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'timedeal' is not null or undefined
-            assertParamExists('timedealsCreate', 'timedeal', timedeal)
+        timedealsCreate: async (timedealRequest: TimedealRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'timedealRequest' is not null or undefined
+            assertParamExists('timedealsCreate', 'timedealRequest', timedealRequest)
             const localVarPath = `/timedeals/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4741,7 +5604,7 @@ export const TimedealsApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedeal, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(timedealRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4836,11 +5699,11 @@ export const TimedealsApiAxiosParamCreator = function (configuration?: Configura
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {PatchedTimedeal} [patchedTimedeal] 
+         * @param {PatchedTimedealRequest} [patchedTimedealRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealsPartialUpdate: async (id: string, patchedTimedeal?: PatchedTimedeal, options: any = {}): Promise<RequestArgs> => {
+        timedealsPartialUpdate: async (id: string, patchedTimedealRequest?: PatchedTimedealRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('timedealsPartialUpdate', 'id', id)
             const localVarPath = `/timedeals/{id}/`
@@ -4867,7 +5730,49 @@ export const TimedealsApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedTimedeal, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(patchedTimedealRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {string} [search] A search term.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        timedealsProductsList: async (id: string, search?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('timedealsProductsList', 'id', id)
+            const localVarPath = `/timedeals/{id}/products/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4914,15 +5819,15 @@ export const TimedealsApiAxiosParamCreator = function (configuration?: Configura
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {Timedeal} timedeal 
+         * @param {TimedealRequest} timedealRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealsUpdate: async (id: string, timedeal: Timedeal, options: any = {}): Promise<RequestArgs> => {
+        timedealsUpdate: async (id: string, timedealRequest: TimedealRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('timedealsUpdate', 'id', id)
-            // verify required parameter 'timedeal' is not null or undefined
-            assertParamExists('timedealsUpdate', 'timedeal', timedeal)
+            // verify required parameter 'timedealRequest' is not null or undefined
+            assertParamExists('timedealsUpdate', 'timedealRequest', timedealRequest)
             const localVarPath = `/timedeals/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -4947,7 +5852,7 @@ export const TimedealsApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedeal, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(timedealRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4966,12 +5871,12 @@ export const TimedealsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {Timedeal} timedeal 
+         * @param {TimedealRequest} timedealRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealsCreate(timedeal: Timedeal, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsCreate(timedeal, options);
+        async timedealsCreate(timedealRequest: TimedealRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsCreate(timedealRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4999,12 +5904,23 @@ export const TimedealsApiFp = function(configuration?: Configuration) {
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {PatchedTimedeal} [patchedTimedeal] 
+         * @param {PatchedTimedealRequest} [patchedTimedealRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealsPartialUpdate(id: string, patchedTimedeal?: PatchedTimedeal, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsPartialUpdate(id, patchedTimedeal, options);
+        async timedealsPartialUpdate(id: string, patchedTimedealRequest?: PatchedTimedealRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsPartialUpdate(id, patchedTimedealRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {string} [search] A search term.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async timedealsProductsList(id: string, search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TimedealProduct>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsProductsList(id, search, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5020,12 +5936,12 @@ export const TimedealsApiFp = function(configuration?: Configuration) {
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {Timedeal} timedeal 
+         * @param {TimedealRequest} timedealRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealsUpdate(id: string, timedeal: Timedeal, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsUpdate(id, timedeal, options);
+        async timedealsUpdate(id: string, timedealRequest: TimedealRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsUpdate(id, timedealRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -5040,12 +5956,12 @@ export const TimedealsApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {Timedeal} timedeal 
+         * @param {TimedealRequest} timedealRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealsCreate(timedeal: Timedeal, options?: any): AxiosPromise<Timedeal> {
-            return localVarFp.timedealsCreate(timedeal, options).then((request) => request(axios, basePath));
+        timedealsCreate(timedealRequest: TimedealRequest, options?: any): AxiosPromise<Timedeal> {
+            return localVarFp.timedealsCreate(timedealRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Adaptation of DRF ModelViewSet
@@ -5070,12 +5986,22 @@ export const TimedealsApiFactory = function (configuration?: Configuration, base
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {PatchedTimedeal} [patchedTimedeal] 
+         * @param {PatchedTimedealRequest} [patchedTimedealRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealsPartialUpdate(id: string, patchedTimedeal?: PatchedTimedeal, options?: any): AxiosPromise<Timedeal> {
-            return localVarFp.timedealsPartialUpdate(id, patchedTimedeal, options).then((request) => request(axios, basePath));
+        timedealsPartialUpdate(id: string, patchedTimedealRequest?: PatchedTimedealRequest, options?: any): AxiosPromise<Timedeal> {
+            return localVarFp.timedealsPartialUpdate(id, patchedTimedealRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {string} [search] A search term.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        timedealsProductsList(id: string, search?: string, options?: any): AxiosPromise<Array<TimedealProduct>> {
+            return localVarFp.timedealsProductsList(id, search, options).then((request) => request(axios, basePath));
         },
         /**
          * Adaptation of DRF ModelViewSet
@@ -5089,12 +6015,12 @@ export const TimedealsApiFactory = function (configuration?: Configuration, base
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {Timedeal} timedeal 
+         * @param {TimedealRequest} timedealRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealsUpdate(id: string, timedeal: Timedeal, options?: any): AxiosPromise<Timedeal> {
-            return localVarFp.timedealsUpdate(id, timedeal, options).then((request) => request(axios, basePath));
+        timedealsUpdate(id: string, timedealRequest: TimedealRequest, options?: any): AxiosPromise<Timedeal> {
+            return localVarFp.timedealsUpdate(id, timedealRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5108,13 +6034,13 @@ export const TimedealsApiFactory = function (configuration?: Configuration, base
 export class TimedealsApi extends BaseAPI {
     /**
      * Adaptation of DRF ModelViewSet
-     * @param {Timedeal} timedeal 
+     * @param {TimedealRequest} timedealRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TimedealsApi
      */
-    public timedealsCreate(timedeal: Timedeal, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsCreate(timedeal, options).then((request) => request(this.axios, this.basePath));
+    public timedealsCreate(timedealRequest: TimedealRequest, options?: any) {
+        return TimedealsApiFp(this.configuration).timedealsCreate(timedealRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5144,13 +6070,25 @@ export class TimedealsApi extends BaseAPI {
     /**
      * Adaptation of DRF ModelViewSet
      * @param {string} id 
-     * @param {PatchedTimedeal} [patchedTimedeal] 
+     * @param {PatchedTimedealRequest} [patchedTimedealRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TimedealsApi
      */
-    public timedealsPartialUpdate(id: string, patchedTimedeal?: PatchedTimedeal, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsPartialUpdate(id, patchedTimedeal, options).then((request) => request(this.axios, this.basePath));
+    public timedealsPartialUpdate(id: string, patchedTimedealRequest?: PatchedTimedealRequest, options?: any) {
+        return TimedealsApiFp(this.configuration).timedealsPartialUpdate(id, patchedTimedealRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Adaptation of DRF ModelViewSet
+     * @param {string} id 
+     * @param {string} [search] A search term.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TimedealsApi
+     */
+    public timedealsProductsList(id: string, search?: string, options?: any) {
+        return TimedealsApiFp(this.configuration).timedealsProductsList(id, search, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5167,13 +6105,13 @@ export class TimedealsApi extends BaseAPI {
     /**
      * Adaptation of DRF ModelViewSet
      * @param {string} id 
-     * @param {Timedeal} timedeal 
+     * @param {TimedealRequest} timedealRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TimedealsApi
      */
-    public timedealsUpdate(id: string, timedeal: Timedeal, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsUpdate(id, timedeal, options).then((request) => request(this.axios, this.basePath));
+    public timedealsUpdate(id: string, timedealRequest: TimedealRequest, options?: any) {
+        return TimedealsApiFp(this.configuration).timedealsUpdate(id, timedealRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5186,13 +6124,13 @@ export const TokenApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
-         * @param {TokenObtainPairRequest} tokenObtainPairRequest 
+         * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenCreate: async (tokenObtainPairRequest: TokenObtainPairRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tokenObtainPairRequest' is not null or undefined
-            assertParamExists('tokenCreate', 'tokenObtainPairRequest', tokenObtainPairRequest)
+        tokenCreate: async (tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tokenObtainPairRequestRequest' is not null or undefined
+            assertParamExists('tokenCreate', 'tokenObtainPairRequestRequest', tokenObtainPairRequestRequest)
             const localVarPath = `/token/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5212,7 +6150,7 @@ export const TokenApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(tokenObtainPairRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(tokenObtainPairRequestRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5221,13 +6159,13 @@ export const TokenApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-         * @param {TokenRefreshRequest} tokenRefreshRequest 
+         * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenRefreshCreate: async (tokenRefreshRequest: TokenRefreshRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tokenRefreshRequest' is not null or undefined
-            assertParamExists('tokenRefreshCreate', 'tokenRefreshRequest', tokenRefreshRequest)
+        tokenRefreshCreate: async (tokenRefreshRequestRequest: TokenRefreshRequestRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tokenRefreshRequestRequest' is not null or undefined
+            assertParamExists('tokenRefreshCreate', 'tokenRefreshRequestRequest', tokenRefreshRequestRequest)
             const localVarPath = `/token/refresh/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5247,7 +6185,7 @@ export const TokenApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(tokenRefreshRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(tokenRefreshRequestRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5266,22 +6204,22 @@ export const TokenApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
-         * @param {TokenObtainPairRequest} tokenObtainPairRequest 
+         * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tokenCreate(tokenObtainPairRequest: TokenObtainPairRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenObtainPairResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenCreate(tokenObtainPairRequest, options);
+        async tokenCreate(tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenObtainPairResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenCreate(tokenObtainPairRequestRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-         * @param {TokenRefreshRequest} tokenRefreshRequest 
+         * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tokenRefreshCreate(tokenRefreshRequest: TokenRefreshRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenRefreshResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenRefreshCreate(tokenRefreshRequest, options);
+        async tokenRefreshCreate(tokenRefreshRequestRequest: TokenRefreshRequestRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenRefreshResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenRefreshCreate(tokenRefreshRequestRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -5296,21 +6234,21 @@ export const TokenApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
-         * @param {TokenObtainPairRequest} tokenObtainPairRequest 
+         * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenCreate(tokenObtainPairRequest: TokenObtainPairRequest, options?: any): AxiosPromise<TokenObtainPairResponse> {
-            return localVarFp.tokenCreate(tokenObtainPairRequest, options).then((request) => request(axios, basePath));
+        tokenCreate(tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options?: any): AxiosPromise<TokenObtainPairResponse> {
+            return localVarFp.tokenCreate(tokenObtainPairRequestRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-         * @param {TokenRefreshRequest} tokenRefreshRequest 
+         * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenRefreshCreate(tokenRefreshRequest: TokenRefreshRequest, options?: any): AxiosPromise<TokenRefreshResponse> {
-            return localVarFp.tokenRefreshCreate(tokenRefreshRequest, options).then((request) => request(axios, basePath));
+        tokenRefreshCreate(tokenRefreshRequestRequest: TokenRefreshRequestRequest, options?: any): AxiosPromise<TokenRefreshResponse> {
+            return localVarFp.tokenRefreshCreate(tokenRefreshRequestRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5324,24 +6262,24 @@ export const TokenApiFactory = function (configuration?: Configuration, basePath
 export class TokenApi extends BaseAPI {
     /**
      * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
-     * @param {TokenObtainPairRequest} tokenObtainPairRequest 
+     * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TokenApi
      */
-    public tokenCreate(tokenObtainPairRequest: TokenObtainPairRequest, options?: any) {
-        return TokenApiFp(this.configuration).tokenCreate(tokenObtainPairRequest, options).then((request) => request(this.axios, this.basePath));
+    public tokenCreate(tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options?: any) {
+        return TokenApiFp(this.configuration).tokenCreate(tokenObtainPairRequestRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-     * @param {TokenRefreshRequest} tokenRefreshRequest 
+     * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TokenApi
      */
-    public tokenRefreshCreate(tokenRefreshRequest: TokenRefreshRequest, options?: any) {
-        return TokenApiFp(this.configuration).tokenRefreshCreate(tokenRefreshRequest, options).then((request) => request(this.axios, this.basePath));
+    public tokenRefreshCreate(tokenRefreshRequestRequest: TokenRefreshRequestRequest, options?: any) {
+        return TokenApiFp(this.configuration).tokenRefreshCreate(tokenRefreshRequestRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
