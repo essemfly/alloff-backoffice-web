@@ -6,7 +6,7 @@
   } from "carbon-components-svelte";
   import {
     OrderRetrieve,
-    OrderstatusEnum,
+    OrderStatusEnum,
     OrdersApi,
   } from "../../../api";
   import {
@@ -28,19 +28,19 @@
   let trackingModalOpen: boolean = false;
 
   const statuses = [
-    OrderstatusEnum.PaymentFinished,
-    OrderstatusEnum.ProductPreparing,
-    OrderstatusEnum.DeliveryPreparing,
-    OrderstatusEnum.DeliveryStarted,
-    OrderstatusEnum.DeliveryFinished,
-    OrderstatusEnum.CancelRequested,
-    OrderstatusEnum.CancelPending,
-    OrderstatusEnum.CancelFinished,
-    OrderstatusEnum.ConfirmPayment,
+    OrderStatusEnum.PaymentFinished,
+    OrderStatusEnum.ProductPreparing,
+    OrderStatusEnum.DeliveryPreparing,
+    OrderStatusEnum.DeliveryStarted,
+    OrderStatusEnum.DeliveryFinished,
+    OrderStatusEnum.CancelRequested,
+    OrderStatusEnum.CancelPending,
+    OrderStatusEnum.CancelFinished,
+    OrderStatusEnum.ConfirmPayment,
   ];
 
   const changeOrderStatus = async (
-    status: OrderstatusEnum,
+    status: OrderStatusEnum,
     delivery_tracking_number?: string,
     delivery_tracking_url?: string
   ) => {
@@ -61,10 +61,10 @@
   };
 
   const handleChangeOrderStatus = async (
-    status: OrderstatusEnum
+    status: OrderStatusEnum
   ) => {
     if (status === order?.orderstatus) return;
-    if (status === OrderstatusEnum.DeliveryStarted) {
+    if (status === OrderStatusEnum.DeliveryStarted) {
       trackingModalOpen = true;
       return;
     }
@@ -94,7 +94,7 @@
       fullWidth={!mobile}
       onClick={() => handleChangeOrderStatus(status)}
       type={status === order.orderstatus
-        ? status === OrderstatusEnum.PaymentFinished
+        ? status === OrderStatusEnum.PaymentFinished
           ? "high-contrast"
           : getStatusBadgeColor(status)
         : undefined}

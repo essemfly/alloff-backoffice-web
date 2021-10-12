@@ -2,11 +2,8 @@ import { DateTime } from "luxon";
 import {
   ActionTypeEnum,
   OrderRetrieve,
-  OrderstatusEnum,
+  OrderStatusEnum,
   OrdertypeEnum,
-  StatusEnum,
-  StatusFromEnum,
-  StatusToEnum,
 } from "../api";
 
 export const getTypeLabel = (ordertype: OrdertypeEnum) => {
@@ -28,29 +25,29 @@ export const getTypeBadgeColor = (ordertype: OrdertypeEnum) => {
 };
 
 export const getOrderTimestampByStatus = (
-  orderstatus: OrderstatusEnum,
+  orderstatus: OrderStatusEnum,
   order: OrderRetrieve
 ): DateTime | undefined => {
   switch (orderstatus) {
-    case OrderstatusEnum.PaymentFinished:
+    case OrderStatusEnum.PaymentFinished:
       return order.orderedAt ? DateTime.fromISO(order.orderedAt) : undefined;
-    case OrderstatusEnum.CancelRequested:
+    case OrderStatusEnum.CancelRequested:
       return order.cancelRequestedAt
         ? DateTime.fromISO(order.cancelRequestedAt)
         : undefined;
-    case OrderstatusEnum.CancelFinished:
+    case OrderStatusEnum.CancelFinished:
       return order.cancelFinishedAt
         ? DateTime.fromISO(order.cancelFinishedAt)
         : undefined;
-    case OrderstatusEnum.DeliveryStarted:
+    case OrderStatusEnum.DeliveryStarted:
       return order.deliveryStartedAt
         ? DateTime.fromISO(order.deliveryStartedAt)
         : undefined;
-    case OrderstatusEnum.DeliveryFinished:
+    case OrderStatusEnum.DeliveryFinished:
       return order.deliveryFinishedAt
         ? DateTime.fromISO(order.deliveryFinishedAt)
         : undefined;
-    case OrderstatusEnum.ConfirmPayment:
+    case OrderStatusEnum.ConfirmPayment:
       return order.confirmedAt
         ? DateTime.fromISO(order.confirmedAt)
         : undefined;
@@ -60,75 +57,75 @@ export const getOrderTimestampByStatus = (
 };
 
 export const getStatusLabel = (
-  orderstatus: OrderstatusEnum | StatusFromEnum | StatusToEnum
+  orderstatus: OrderStatusEnum
 ) => {
-  switch (orderstatus.toString()) {
-    case OrderstatusEnum.PaymentFinished.toString():
+  switch (orderstatus) {
+    case OrderStatusEnum.PaymentFinished:
       return "결제완료";
-    case OrderstatusEnum.CancelRequested.toString():
+    case OrderStatusEnum.CancelRequested:
       return "취소요청";
-    case OrderstatusEnum.CancelPending.toString():
+    case OrderStatusEnum.CancelPending:
       return "취소진행중";
-    case OrderstatusEnum.CancelFinished.toString():
+    case OrderStatusEnum.CancelFinished:
       return "취소완료";
-    case OrderstatusEnum.DeliveryPreparing.toString():
+    case OrderStatusEnum.DeliveryPreparing:
       return "배송준비";
-    case OrderstatusEnum.DeliveryStarted.toString():
+    case OrderStatusEnum.DeliveryStarted:
       return "배송시작";
-    case OrderstatusEnum.DeliveryFinished.toString():
+    case OrderStatusEnum.DeliveryFinished:
       return "배송종료";
-    case OrderstatusEnum.ConfirmPayment.toString():
+    case OrderStatusEnum.ConfirmPayment:
       return "구매확정";
-    case OrderstatusEnum.ProductPreparing.toString():
+    case OrderStatusEnum.ProductPreparing:
       return "상품준비중";
     default:
       return "기타";
   }
 };
 
-export const getStatusBadgeColor = (orderstatus: OrderstatusEnum) => {
+export const getStatusBadgeColor = (orderstatus: OrderStatusEnum) => {
   switch (orderstatus) {
-    case OrderstatusEnum.PaymentFinished:
+    case OrderStatusEnum.PaymentFinished:
       return "gray";
-    case OrderstatusEnum.ProductPreparing:
+    case OrderStatusEnum.ProductPreparing:
       return "blue";
-    case OrderstatusEnum.DeliveryPreparing:
+    case OrderStatusEnum.DeliveryPreparing:
       return "teal";
-    case OrderstatusEnum.DeliveryStarted:
+    case OrderStatusEnum.DeliveryStarted:
       return "green";
-    case OrderstatusEnum.DeliveryFinished:
+    case OrderStatusEnum.DeliveryFinished:
       return "cyan";
-    case OrderstatusEnum.ConfirmPayment:
+    case OrderStatusEnum.ConfirmPayment:
       return "purple";
-    case OrderstatusEnum.CancelRequested:
+    case OrderStatusEnum.CancelRequested:
       return "magenta";
-    case OrderstatusEnum.CancelPending:
+    case OrderStatusEnum.CancelPending:
       return "red";
-    case OrderstatusEnum.CancelFinished:
+    case OrderStatusEnum.CancelFinished:
       return "high-contrast";
   }
 };
 
-export const toChangeStatusEnum = (status: OrderstatusEnum): StatusEnum => {
+export const toChangeStatusEnum = (status: OrderStatusEnum): OrderStatusEnum => {
   switch (status) {
-    case OrderstatusEnum.PaymentFinished:
-      return StatusEnum.PaymentFinished;
-    case OrderstatusEnum.ProductPreparing:
-      return StatusEnum.ProductPreparing;
-    case OrderstatusEnum.DeliveryPreparing:
-      return StatusEnum.DeliveryPreparing;
-    case OrderstatusEnum.DeliveryStarted:
-      return StatusEnum.DeliveryStarted;
-    case OrderstatusEnum.DeliveryFinished:
-      return StatusEnum.DeliveryFinished;
-    case OrderstatusEnum.ConfirmPayment:
-      return StatusEnum.ConfirmPayment;
-    case OrderstatusEnum.CancelRequested:
-      return StatusEnum.CancelRequested;
-    case OrderstatusEnum.CancelPending:
-      return StatusEnum.CancelPending;
-    case OrderstatusEnum.CancelFinished:
-      return StatusEnum.CancelFinished;
+    case OrderStatusEnum.PaymentFinished:
+      return OrderStatusEnum.PaymentFinished;
+    case OrderStatusEnum.ProductPreparing:
+      return OrderStatusEnum.ProductPreparing;
+    case OrderStatusEnum.DeliveryPreparing:
+      return OrderStatusEnum.DeliveryPreparing;
+    case OrderStatusEnum.DeliveryStarted:
+      return OrderStatusEnum.DeliveryStarted;
+    case OrderStatusEnum.DeliveryFinished:
+      return OrderStatusEnum.DeliveryFinished;
+    case OrderStatusEnum.ConfirmPayment:
+      return OrderStatusEnum.ConfirmPayment;
+    case OrderStatusEnum.CancelRequested:
+      return OrderStatusEnum.CancelRequested;
+    case OrderStatusEnum.CancelPending:
+      return OrderStatusEnum.CancelPending;
+    case OrderStatusEnum.CancelFinished:
+      return OrderStatusEnum.CancelFinished;
   }
 };
 
