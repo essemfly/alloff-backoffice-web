@@ -41,12 +41,12 @@
   rows={timedeals}
   sortable
   on:click:row={(e) => {
-    const url = `/${e.detail.id}`;
+    const url = `/timedeals/${e.detail.id}`;
     if (isMobile) {
-      window.location.href += url;
+      window.location.href = url;
       return;
     }
-    window.open(window.location.href + url, "_blank");
+    window.open(url, "_blank");
   }}
 >
   <Toolbar>

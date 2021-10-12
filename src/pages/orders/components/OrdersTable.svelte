@@ -51,9 +51,9 @@
   rows={orders}
   sortable
   on:click:row={(e) => {
-    const url = `orders/${e.detail.id}`;
+    const url = `/orders/${e.detail.id}`;
     if (isMobile) {
-      window.location.href = `orders/${e.detail.id}`;
+      window.location.href = url;
       return;
     }
     window.open(url, "_blank");
