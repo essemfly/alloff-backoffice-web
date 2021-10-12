@@ -27,10 +27,9 @@
   const load = async () => {
     if (!timedealId) return;
     loading = true;
-    const { data } = await api.timedealsRetrieve(timedealId);
+    const { data } = await api.timedealsRetrieve({ id: timedealId });
     timedeal = data;
     loading = false;
-    console.log({ tabIndex });
   };
 
   $: mobile = size === "sm";
@@ -39,7 +38,6 @@
       load();
     }
   }
-  $: console.log({ tabIndex });
 </script>
 
 <LoggedInFrame>

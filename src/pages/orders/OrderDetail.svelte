@@ -5,18 +5,18 @@
     Tab,
     Tabs,
   } from "carbon-components-svelte";
-  import { Configuration, OrderRetrieve, OrdersApi } from "../../api";
+  import { OrderList, OrderRetrieve, OrdersApi } from "../../api";
+  import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import OrderSectionBasic from "./sections/OrderSectionBasic.svelte";
   import OrderSectionLogs from "./sections/OrderSectionLogs.svelte";
   import OrderSectionPayment from "./sections/OrderSectionPayment.svelte";
   import OrderSectionPg from "./sections/OrderSectionPG.svelte";
   import OrderSectionTop from "./sections/OrderSectionTop.svelte";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  import { onMount } from "svelte";
 
   export let orderId: string;
 
   let order: OrderRetrieve | undefined = undefined;
+  let userOrders: OrderList[] = [];
   let submitting = false;
   let loading = true;
   let mobile = false;
@@ -26,8 +26,16 @@
 
   const load = async () => {
     loading = true;
-    const { data } = await api.ordersRetrieve(orderId);
+
+    const { data } = await api.ordersRetrieve({ id: orderId });
     order = data;
+
+    const userOrdersRes = await api.ordersByUserList({
+      userId: order.user._id,
+    });
+
+    userOrders = userOrdersRes.data;
+
     loading = false;
   };
 
@@ -59,7 +67,10 @@
       <Tab label="PG" />
       <Tab label="관리이력" />
       <div slot="content">
-        <OrderSectionBasic {...{ order, mobile, load, api }} bind:submitting />
+        <OrderSectionBasic
+          {...{ order, mobile, load, api, userOrders }}
+          bind:submitting
+        />
         <OrderSectionPayment {...{ order, api, load }} bind:submitting />
         <OrderSectionPg {order} />
         <OrderSectionLogs {order} />

@@ -75,8 +75,8 @@
 
   const addNewInstruction = () => {
     newInstructionList = [
-      { body: newInstruction, key: shortid() },
       ...newInstructionList,
+      { body: newInstruction, key: shortid() },
     ];
     instruction = newInstructionList.map(({ body }) => body);
     newInstruction = "";
@@ -112,9 +112,12 @@
     const shorttitleTouched = shorttitle !== (timedeal?.shorttitle ?? "");
     const imageurlTouched = image?.url !== imgurl;
 
-    if (newStartTime && newFinishTime) {
+    if ((newStartTime || starttime) && (newFinishTime || finishtime)) {
       newStatus.set(
-        getTimedealStatus(new Date(newStartTime), new Date(newFinishTime))
+        getTimedealStatus(
+          new Date(newStartTime ?? starttime),
+          new Date(newFinishTime ?? finishtime)
+        )
       );
     }
 
@@ -152,6 +155,7 @@
       title: titleTouched ? title : undefined,
       shorttitle: shorttitleTouched ? shorttitle : undefined,
       imgurl: imageurlTouched ? image?.url : undefined,
+      instruction,
     };
 
     partial = Object.fromEntries(
@@ -169,7 +173,10 @@
     submitting = true;
     if (timedeal) {
       try {
-        await api.timedealsPartialUpdate(timedeal.id, partial);
+        await api.timedealsPartialUpdate({
+          id: timedeal.id,
+          patchedTimedealRequest: partial,
+        });
       } catch (e: any) {
         alert("타임딜 수정 도중 문제가 발생했습니다!");
       } finally {
@@ -179,7 +186,9 @@
     } else {
       if (complete) {
         try {
-          const { data } = await api.timedealsCreate(complete);
+          const { data } = await api.timedealsCreate({
+            timedealRequest: complete,
+          });
           window.location.href = `../timedeals/${data.id}`;
         } catch (e: any) {
           alert("타임딜 저장 도중 문제가 발생했습니다!");
@@ -306,7 +315,7 @@
     const file = e.detail[0];
     image = undefined;
     uploading = true;
-    imageApi.imageUploadUploadCreate(file).then((res) => {
+    imageApi.imageUploadUploadCreate({ file }).then((res) => {
       const { random_key, url } = res.data;
       image = { url, key: random_key };
       uploading = false;

@@ -20,14 +20,14 @@
   const productApi = new TimedealProductsApi();
 
   onMount(async () => {
-    products = (await api.timedealsProductsList(timedeal.id)).data;
+    products = (await api.timedealsProductsList({ id: timedeal.id })).data;
   });
 
   const deleteProduct = async (product: TimedealProduct) => {
     if (!confirm("다음의 상품을 삭제합니다. : " + product.name)) return;
     submitting = true;
     try {
-      await productApi.timedealProductsDestroy(product.id);
+      await productApi.timedealProductsDestroy({ id: product.id });
     } catch (e: any) {
       alert("상품 삭제 중 오류가 발생했습니다!");
     } finally {

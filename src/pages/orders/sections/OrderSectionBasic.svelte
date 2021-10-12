@@ -1,12 +1,13 @@
 <script lang="ts">
   import { TabContent, TextInput, Button, Tag } from "carbon-components-svelte";
-  import { OrderRetrieve, OrdersApi } from "../../../api";
+  import { OrderList, OrderRetrieve, OrdersApi } from "../../../api";
   import InfoSection from "../../common/InfoSection.svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { admin } from "../../../store";
   import { numberWithCommas } from "../../../helpers/number";
   export let order: OrderRetrieve;
+  export let userOrders: OrderList[];
   export let mobile: boolean;
   export let api: OrdersApi;
   export let load: () => {};
@@ -15,7 +16,10 @@
   const sendNewMemo = async () => {
     if (newMemo === "") return;
     submitting = true;
-    await api.ordersAddMemoCreate(order.id, { body: newMemo });
+    await api.ordersAddMemoCreate({
+      id: order.id,
+      addOrderMemoRequest: { body: newMemo },
+    });
     submitting = false;
     load();
   };
@@ -23,7 +27,10 @@
   const deleteMemo = async (memoId: number) => {
     submitting = true;
     try {
-      await api.ordersDeleteMemoCreate(order.id, { memo_id: memoId });
+      await api.ordersDeleteMemoCreate({
+        id: order.id,
+        deleteOrderMemoRequest: { memo_id: memoId },
+      });
     } catch (e: any) {
       alert("메모를 삭제할 수 없습니다. " + e.response.data.message);
     }
@@ -50,6 +57,7 @@
     rows={[
       { header: "휴대폰", body: order.user.mobile },
       { header: "유저 ID", body: order.user._id },
+      { header: "주문수", body: `${userOrders.length}건`, href: `/orders/?userid=${order.user._id}` },
     ]}
   />
   <InfoSection
@@ -139,7 +147,9 @@
                 text: "브랜드 복사",
                 onClick: () =>
                   navigator.clipboard.writeText(
-                    `${(o.product ?? o.alloffproduct)?.brand.korname} (${(o.product ?? o.alloffproduct)?.brand.keyname})`
+                    `${(o.product ?? o.alloffproduct)?.brand.korname} (${
+                      (o.product ?? o.alloffproduct)?.brand.keyname
+                    })`
                   ),
               },
               {

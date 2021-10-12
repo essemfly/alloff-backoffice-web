@@ -4,7 +4,7 @@
     "start:prod": "cp ./public/favicon-prod.png ./public/favicon.png && cp ./public/index-prod.html ./public/index.html && snowpack dev",
     "build": "snowpack build",
     "test": "web-test-runner \"src/**/*.test.ts\"",
-    "codegen:local": "openapi-generator-cli generate -g typescript-axios -i http://localhost:8000/api/schema -o ./src/api",
+    "codegen:local": "openapi-generator-cli generate -g typescript-axios -i http://localhost:8000/api/schema -o ./src/api --additional-properties=supportsES6=true,useSingleRequestParameter=true",
     "codegen:prod": "openapi-generator-cli generate -g typescript-axios -i https://office.lett.io/swagger.json -o ./src/api",
     "codegen:dev": "openapi-generator-cli generate -g typescript-axios -i https://office-dev.lett.io/swagger.json -o ./src/api",
     "deploy:prod": "cp ./public/favicon-prod.png ./public/favicon.png && cp ./public/index-prod.html ./public/index.html && yarn codegen:prod && yarn build && aws s3 sync ./build s3://alloff-backoffice-prod && aws cloudfront create-invalidation --distribution-id E36HZV6B307JJP --paths \"/*\"",

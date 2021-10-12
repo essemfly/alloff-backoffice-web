@@ -21,13 +21,13 @@
 
   export let orders: OrderList[] = [];
   export let isMobile: boolean = false;
+  export let canSearch: boolean = true;
 
   const mobileHeaders: DataTableHeader[] = [
     { key: "orderstatus", value: "상태" },
     { key: "payment.buyername", value: "구매자" },
     // { key: "created", value: "일자" },
   ];
-
   const headers: DataTableHeader[] = [
     { key: "ordertype", value: "타입" },
     { key: "orderstatus", value: "상태" },
@@ -59,11 +59,13 @@
     window.open(url, "_blank");
   }}
 >
-  <Toolbar>
-    <ToolbarContent>
-      <ToolbarSearch on:input={handleSearch} />
-    </ToolbarContent>
-  </Toolbar>
+  {#if canSearch}
+    <Toolbar>
+      <ToolbarContent>
+        <ToolbarSearch on:input={handleSearch} />
+      </ToolbarContent>
+    </Toolbar>
+  {/if}
   <span slot="cell" let:cell let:row>
     {#if cell.key == "orderstatus"}
       <Tag type={getStatusBadgeColor(cell.value)}

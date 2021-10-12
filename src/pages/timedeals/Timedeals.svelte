@@ -9,7 +9,7 @@
   const load = async (p: number, size: number, search?: string) => {
     const {
       data: { count, results },
-    } = await api.timedealsList(p, search, size);
+    } = await api.timedealsList({ page: p, search, size });
 
     totalItems = count ?? 0;
     timedeals = results ?? [];
