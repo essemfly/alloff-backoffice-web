@@ -33,7 +33,9 @@ axios.interceptors.response.use(
       try {
         console.log("REFRESHING!");
         const api = new TokenApi();
-        const { data } = await api.tokenRefreshCreate({ refresh });
+        const { data } = await api.tokenRefreshCreate({
+          tokenRefreshRequestRequest: { refresh },
+        });
         setTokens(data);
         return axios(originalRequest);
       } catch (e: any) {
