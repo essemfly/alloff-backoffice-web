@@ -1,18 +1,18 @@
 <script lang="ts">
   import {
-  Content,
-  Header,
-  HeaderAction,
-  HeaderNav,
-  HeaderNavItem,
-  HeaderPanelDivider,
-  HeaderPanelLink,
-  HeaderPanelLinks,
-  HeaderUtilities,
-  SideNav,
-  SideNavItems,
-  SideNavLink,
-  SkipToContent
+    Content,
+    Header,
+    HeaderAction,
+    HeaderNav,
+    HeaderNavItem,
+    HeaderPanelDivider,
+    HeaderPanelLink,
+    HeaderPanelLinks,
+    HeaderUtilities,
+    SideNav,
+    SideNavItems,
+    SideNavLink,
+    SkipToContent,
   } from "carbon-components-svelte";
   import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
@@ -50,7 +50,7 @@
   persistentHamburgerMenu
 >
   {#if window.document.title.toLowerCase().includes("dev")}
-  <p class="dev">DEV</p>
+    <p class="dev">DEV</p>
   {/if}
   <div slot="skip-to-content">
     <SkipToContent />
@@ -63,10 +63,15 @@
       isSelected={$location.pathname === "/orders"}
     />
     <HeaderNavItem
-    href="/timedeals"
-    text="타임딜"
-    isSelected={$location.pathname === "/timedeals"}
-  />
+      href="/timedeals"
+      text="타임딜"
+      isSelected={$location.pathname === "/timedeals"}
+    />
+    <HeaderNavItem
+      href="/notifications"
+      text="푸시알람"
+      isSelected={$location.pathname === "/notifications"}
+    />
   </HeaderNav>
 
   <SideNav bind:isOpen={isSideNavOpen}>
@@ -78,10 +83,16 @@
         isSelected={$location.pathname === "/orders"}
       />
       <SideNavLink
+        icon={Receipt16}
+        href="/timedeals"
+        text="타임딜"
+        isSelected={$location.pathname === "/timedeals"}
+      />
+      <SideNavLink
       icon={Receipt16}
-      href="/timedeals"
-      text="타임딜"
-      isSelected={$location.pathname === "/timedeals"}
+      href="/notifications"
+      text="푸시알람"
+      isSelected={$location.pathname === "/notifications"}
     />
     </SideNavItems>
   </SideNav>
