@@ -11,7 +11,10 @@
     "deploy:dev": "cp ./public/favicon-dev.png ./public/favicon.png && cp ./public/index-dev.html ./public/index.html && yarn codegen:dev && yarn build && aws s3 sync ./build s3://alloff-backoffice-dev && aws cloudfront create-invalidation --distribution-id E3A45RKMTAQTRH --paths \"/*\""
   },
   "dependencies": {
-    "svelte": "^3.37.0"
+    "@apollo/client": "^3.4.16",
+    "graphql": "^15.6.1",
+    "svelte": "^3.37.0",
+    "svelte-apollo": "^0.4.0"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.4.6",

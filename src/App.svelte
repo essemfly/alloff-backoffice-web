@@ -7,7 +7,27 @@
   import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
   import Notifications from "./pages/notifications/Notifications.svelte"
-// import Timedeals from "./pages/timedeals/Timedeals.svelte";
+  
+  import { ApolloClient,  createHttpLink, InMemoryCache  } from "@apollo/client";
+  import { setClient } from "svelte-apollo";
+  const client = new ApolloClient({
+  link: createHttpLink({
+    uri: `http://127.0.0.1/query`,
+    headers: {
+      "X-App-Version": "0.3.0",
+    },
+  }),
+  cache: new InMemoryCache(),
+  ssrMode: true,
+  defaultOptions: {
+    query: {
+      fetchPolicy: "no-cache",
+    },
+  },
+});
+
+setClient(client);
+
 </script>
 
 <Router primary={false}>

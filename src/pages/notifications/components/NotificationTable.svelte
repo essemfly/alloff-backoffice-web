@@ -1,5 +1,8 @@
 <script lang="ts">
   import {
+    useQuery
+  } from "@apollo/client";
+  import {
     DataTable,
     Tag,
     Toolbar,
@@ -20,10 +23,14 @@
     getNotificationStatusColor,
     getNotificationStatusLabel,
   } from "../../../helpers/notification";
-  import type { Notification } from "../../../api";
   import { numberWithCommas } from "../../../helpers/number";
 
-  export let notifications: Notification[] = [];
+  import { Notifications } from "../../../../graphql/queries/notifications"
+  
+  
+  const {loading, error, data } = useQuery(Notifications)
+  const notifications = data
+  console.log("AM I RIGHT?", data)
   export let isMobile: boolean = false;
 
   const mobileHeaders: DataTableHeader[] = [
