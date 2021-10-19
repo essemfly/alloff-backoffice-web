@@ -6,28 +6,7 @@
   import Orders from "./pages/orders/Orders.svelte";
   import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
-  import Notifications from "./pages/notifications/Notifications.svelte"
-  
-  import { ApolloClient,  createHttpLink, InMemoryCache  } from "@apollo/client";
-  import { setClient } from "svelte-apollo";
-  const client = new ApolloClient({
-  link: createHttpLink({
-    uri: `http://127.0.0.1/query`,
-    headers: {
-      "X-App-Version": "0.3.0",
-    },
-  }),
-  cache: new InMemoryCache(),
-  ssrMode: true,
-  defaultOptions: {
-    query: {
-      fetchPolicy: "no-cache",
-    },
-  },
-});
-
-setClient(client);
-
+  import Notifications from "./pages/notifications/Notifications.svelte";
 </script>
 
 <Router primary={false}>
@@ -49,8 +28,8 @@ setClient(client);
     <Route path="new">
       <TimedealDetail />
     </Route>
-    </Route> -->
-    <!-- <Route path=":id" let:params>
+  </Route> -->
+  <!-- <Route path=":id" let:params>
       <OrderDetail orderId={params.id} />
     </Route> -->
   <!-- </Route> -->

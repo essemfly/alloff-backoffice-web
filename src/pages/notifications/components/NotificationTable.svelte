@@ -1,8 +1,5 @@
 <script lang="ts">
   import {
-    useQuery
-  } from "@apollo/client";
-  import {
     DataTable,
     Tag,
     Toolbar,
@@ -24,13 +21,10 @@
     getNotificationStatusLabel,
   } from "../../../helpers/notification";
   import { numberWithCommas } from "../../../helpers/number";
+  import type { Notification } from "../../../api";
 
-  import { Notifications } from "../../../../graphql/queries/notifications"
-  
-  
-  const {loading, error, data } = useQuery(Notifications)
-  const notifications = data
-  console.log("AM I RIGHT?", data)
+  export let notifications: Notification[] = [];
+
   export let isMobile: boolean = false;
 
   const mobileHeaders: DataTableHeader[] = [
@@ -48,8 +42,9 @@
     },
     { key: "deviceids", value: "대상 인원" },
     { key: "message", value: "내용" },
-    { key: "scheduleddate", value: "발송예정시각" },
+    // { key: "scheduleddate", value: "발송예정시각" },
     { key: "created", value: "생성일자" },
+    { key: "sended", value: "발송시각" },
   ];
 
   const handleSearch = debounce((e) => {
@@ -70,9 +65,10 @@
     </ToolbarBatchActions>
     <ToolbarContent>
       <ToolbarSearch />
-      <Button on:click={() => {
-        console.log("HOIT")
-      }}>Search</Button>
+      <Button
+        on:click={() => {
+        }}>Search</Button
+      >
     </ToolbarContent>
   </Toolbar>
   <span slot="cell" let:cell>
@@ -85,14 +81,14 @@
         >{getNotificationStatusLabel(cell.value)}</Tag
       >
     {:else if cell.key == "deviceids"}
-      {cell.value}
+      {cell.value.length}
     {:else if cell.key == "created"}
       {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
         month: "short",
         day: "numeric",
         weekday: "narrow",
       })}
-    {:else if cell.key == "scheduleddate"}
+    {:else if cell.key == "sended"}
       {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
         month: "short",
         day: "numeric",
@@ -100,6 +96,14 @@
         hour: "numeric",
         minute: "numeric",
       })}
+    <!-- {:else if cell.key == "scheduleddate"}
+      {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
+        month: "short",
+        day: "numeric",
+        weekday: "narrow",
+        hour: "numeric",
+        minute: "numeric",
+      })} -->
     {:else}{cell.value}
     {/if}
   </span>
