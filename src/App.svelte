@@ -7,6 +7,7 @@
   import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
   import Notifications from "./pages/notifications/Notifications.svelte";
+  import NotificationDetail from "./pages/notifications/NotificationDetail.svelte";
 </script>
 
 <Router primary={false}>
@@ -36,6 +37,9 @@
   <Route path="notifications/*">
     <Route path="/">
       <Notifications />
+    </Route>
+    <Route path="new">
+      <NotificationDetail />
     </Route>
     <!-- <Route path=":id" let:params>
       <NotificationDetial notificationId={params.id} />
