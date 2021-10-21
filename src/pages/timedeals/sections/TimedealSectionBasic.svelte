@@ -24,6 +24,7 @@
     TimedealsApi,
   } from "../../../api";
   import { getTimedealStatus } from "../../../helpers/timedeal";
+  import StringList from "../../common/StringList.svelte";
   import { newStatus } from "../store";
 
   export let timedeal: Timedeal | undefined = undefined;
@@ -50,12 +51,6 @@
   let imgRef: HTMLImageElement | null | undefined;
   let uploading = false;
 
-  let newInstructionList: { key: string; body: string }[] = instruction.map(
-    (body) => ({ body, key: shortid() })
-  );
-  let newInstruction = "";
-  let newInstructionRef: HTMLInputElement | null | undefined;
-
   const start = starttime ? DateTime.fromISO(starttime) : undefined;
   const finish = finishtime ? DateTime.fromISO(finishtime) : undefined;
 
@@ -72,25 +67,6 @@
   let finishTimeValid = true;
 
   let touched = false;
-
-  const addNewInstruction = () => {
-    newInstructionList = [
-      ...newInstructionList,
-      { body: newInstruction, key: shortid() },
-    ];
-    instruction = newInstructionList.map(({ body }) => body);
-    newInstruction = "";
-    if (newInstructionRef) {
-      newInstructionRef.value = "";
-    }
-  };
-
-  const removeInstruction = (removeKey: string) => {
-    newInstructionList = newInstructionList.filter(
-      ({ key }) => key !== removeKey
-    );
-    instruction = newInstructionList.map(({ body }) => body);
-  };
 
   $: {
     const _newStartTime = DateTime.fromISO(startDate + "T" + startTime)
@@ -261,37 +237,12 @@
   </FormGroup>
 </Form>
 <h6>타임딜 설명</h6>
-<div class="memo-form">
-  <TextInput
-    placeholder="새 설명 입력"
-    bind:value={newInstruction}
-    on:keydown={(e) => {
-      if (e.key !== "Enter") return;
-      addNewInstruction();
-    }}
-  />
-  <Button
-    size="field"
-    icon={AddComment16}
-    iconDescription="추가"
-    on:click={addNewInstruction}
-  />
-</div>
-<div class="memo-items">
-  {#each newInstructionList as instruction}
-    <div class="memo-item">
-      • {instruction.body}
-      <div class="memo-user noselect">
-        <div
-          class="memo-delete"
-          on:click={() => removeInstruction(instruction.key)}
-        >
-          ❌
-        </div>
-      </div>
-    </div>
-  {/each}
-</div>
+<StringList
+  initialValues={instruction ?? []}
+  onChange={(state) => {
+    instruction = state.map(({ body }) => body);
+  }}
+/>
 <div style="height: 30px" />
 <h6>타임딜 이미지</h6>
 <div style="height: 10px" />

@@ -23,10 +23,13 @@
     refundAmount: number
   ) => {
     submitting = true;
-    await api.ordersUpdateRefundCreate(order.id, {
-      refund_amount: refundAmount,
-      refund_delivery_price: refundDeliveryPrice,
-      refund_price: refundPrice,
+    await api.ordersUpdateRefundCreate({
+      id: order.id,
+      updateRefundRequest: {
+        refund_amount: refundAmount,
+        refund_delivery_price: refundDeliveryPrice,
+        refund_price: refundPrice,
+      },
     });
     submitting = false;
     load();
@@ -40,14 +43,16 @@
     if (refundableAmount <= 0) return;
     submitting = true;
     try {
-
-      await api.ordersAddPaymentAdjustmentCreate(order.id, {
-        amount: refundableAmount,
-        method,
-        reason,
-        bank_account_info,
+      await api.ordersAddPaymentAdjustmentCreate({
+        id: order.id,
+        addPaymentAdjustmentRequest: {
+          amount: refundableAmount,
+          method,
+          reason,
+          bank_account_info,
+        },
       });
-    } catch(e: any) {
+    } catch (e: any) {
       alert("결제 조정 중 오류가 발생했습니다: " + e.response.data.message);
     }
     submitting = false;

@@ -4,6 +4,7 @@
   import Login from "./pages/auth/Login.svelte";
   import OrderDetail from "./pages/orders/OrderDetail.svelte";
   import Orders from "./pages/orders/Orders.svelte";
+  import TimedealProductDetail from "./pages/timedeal-products/TimedealProductDetail.svelte";
   import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
 </script>
@@ -26,6 +27,17 @@
     </Route>
     <Route path="new">
       <TimedealDetail />
+    </Route>
+  </Route>
+  <Route path="timedeal-products/*">
+    <!-- <Route path="/">
+      <Timedeals />
+    </Route> -->
+    <Route path=":id" let:params>
+      <TimedealProductDetail timedealProductId={params.id} />
+    </Route>
+    <Route path="new">
+      <TimedealProductDetail />
     </Route>
   </Route>
   <Route path="login">
