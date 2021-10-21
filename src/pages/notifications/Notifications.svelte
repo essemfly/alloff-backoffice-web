@@ -1,22 +1,22 @@
 <script lang="ts">
-  import { Pagination } from "carbon-components-svelte";
+  import { Pagination, Button } from "carbon-components-svelte";
   import { NotificationsApi, Notification } from "../../api";
   import MediaQuery from "../../helpers/MediaQuery.svelte";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import NotificationTable from "./components/NotificationTable.svelte";
+  import AddComment16 from "carbon-icons-svelte/lib/AddComment16";
 
   const load = async (p: number, size: number) => {
     const {
       data: { count, results },
-    } = await api.notificationsList(p, size);
+    } = await api.notificationsList({ page: p, size });
 
     totalItems = count ?? 0;
     if (results !== undefined) {
       notifications = results;
     }
-    console.log("RESULT", results)
   };
-  
+
   const api = new NotificationsApi();
   let notifications: Notification[] = [];
   let page = 1;
@@ -28,8 +28,25 @@
 </script>
 
 <LoggedInFrame>
+  <div class="button-wrapper">
+    <Button
+      size="field"
+      icon={AddComment16}
+      on:click={() => (window.location.href = `../notifications/new`)}
+      >추가</Button
+    >
+  </div>
+
   <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
   <MediaQuery query="(max-width: 480px)" let:matches>
     <NotificationTable isMobile={matches} {notifications} />
   </MediaQuery>
 </LoggedInFrame>
+
+<style>
+  .button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+</style>

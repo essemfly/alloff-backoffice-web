@@ -12,7 +12,7 @@ export const getNotificationTypeLabel = (notiType: NotificationtypeEnum) => {
       return "브랜드 오픈 푸시";
     case NotificationtypeEnum.GeneralNotification:
       return "일반 푸시";
-    case NotificationtypeEnum.TimedealOpenNitification:
+    case NotificationtypeEnum.TimedealOpenNotification:
       return "타임딜 오픈 푸시";
     default:
       return "기타";
@@ -31,7 +31,7 @@ export const getNotificationBadgeColor = (notiType: NotificationtypeEnum) => {
       return "green";
     case NotificationtypeEnum.GeneralNotification:
       return "cyan";
-    case NotificationtypeEnum.TimedealOpenNitification:
+    case NotificationtypeEnum.TimedealOpenNotification:
       return "purple";
     default:
       return "magenta";
