@@ -29,11 +29,7 @@
     <Route path="new">
       <TimedealDetail />
     </Route>
-  </Route> -->
-  <!-- <Route path=":id" let:params>
-      <OrderDetail orderId={params.id} />
-    </Route> -->
-  <!-- </Route> -->
+  </Route>
   <Route path="notifications/*">
     <Route path="/">
       <Notifications />
