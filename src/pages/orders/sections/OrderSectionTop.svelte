@@ -4,11 +4,7 @@
     OverflowMenuItem,
     Tag,
   } from "carbon-components-svelte";
-  import {
-    OrderRetrieve,
-    OrderStatusEnum,
-    OrdersApi,
-  } from "../../../api";
+  import { OrderRetrieve, OrderStatusEnum, OrdersApi } from "../../../api";
   import {
     getOrderTimestampByStatus,
     getStatusBadgeColor,
@@ -47,12 +43,16 @@
     if (!confirm("주문상태를 변경합니다: " + getStatusLabel(status))) return;
     submitting = true;
     try {
-      await api.ordersChangeStatusCreate(order.id, {
-        status: toChangeStatusEnum(status),
-        delivery_tracking_number,
-        delivery_tracking_url,
+      await api.ordersChangeStatusCreate({
+        id: order.id,
+        changeStatusRequest: {
+          status: toChangeStatusEnum(status),
+          delivery_tracking_number,
+          delivery_tracking_url,
+        },
       });
     } catch (e: any) {
+      console.log(e);
       alert("상태 변경 오류! " + e.response.data.message);
     } finally {
       submitting = false;
@@ -60,9 +60,7 @@
     }
   };
 
-  const handleChangeOrderStatus = async (
-    status: OrderStatusEnum
-  ) => {
+  const handleChangeOrderStatus = async (status: OrderStatusEnum) => {
     if (status === order?.orderstatus) return;
     if (status === OrderStatusEnum.DeliveryStarted) {
       trackingModalOpen = true;
