@@ -48,7 +48,10 @@
   rows={ris}
   sortable
   on:click:row={(e) => {
-    const url = `/orders/${e.detail.order_id}`;
+    const url =
+      e.detail.order_type === "TIMEDEAL_ORDER"
+        ? `/timedeal-products/${e.detail.product_id}`
+        : `/orders/${e.detail.in_order_id}`;
     if (isMobile) {
       window.location.href = url;
       return;

@@ -5,6 +5,7 @@
     HeaderAction,
     HeaderNav,
     HeaderNavItem,
+    HeaderNavMenu,
     HeaderPanelDivider,
     HeaderPanelLink,
     HeaderPanelLinks,
@@ -12,9 +13,15 @@
     SideNav,
     SideNavItems,
     SideNavLink,
+    SideNavMenu,
     SkipToContent,
   } from "carbon-components-svelte";
   import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
+  import Timer16 from "carbon-icons-svelte/lib/Timer16";
+  import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
+  import ConnectionReceive16 from "carbon-icons-svelte/lib/ConnectionReceive16";
+  import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
+
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
   import { onMount } from "svelte";
   import { useLocation } from "svelte-navigator";
@@ -72,6 +79,18 @@
       text="푸시알람"
       isSelected={$location.pathname === "/notifications"}
     />
+    <HeaderNavMenu text="물류">
+      <HeaderNavItem
+        href="/logistics/ris"
+        text="입고"
+        isSelected={$location.pathname === "/logistics/ris"}
+      />
+      <HeaderNavItem
+        href="/logistics/inventories"
+        text="출고"
+        isSelected={$location.pathname === "/logistics/inventories"}
+      />
+    </HeaderNavMenu>
   </HeaderNav>
 
   <SideNav bind:isOpen={isSideNavOpen}>
@@ -83,17 +102,31 @@
         isSelected={$location.pathname === "/orders"}
       />
       <SideNavLink
-        icon={Receipt16}
+        icon={Timer16}
         href="/timedeals"
         text="타임딜"
         isSelected={$location.pathname === "/timedeals"}
       />
       <SideNavLink
-      icon={Receipt16}
-      href="/notifications"
-      text="푸시알람"
-      isSelected={$location.pathname === "/notifications"}
-    />
+        icon={NotificationNew16}
+        href="/notifications"
+        text="푸시알람"
+        isSelected={$location.pathname === "/notifications"}
+      />
+      <SideNavMenu text="물류">
+        <SideNavLink
+          icon={ConnectionReceive16}
+          href="/logistics/ris"
+          text="입고"
+          isSelected={$location.pathname === "/logistics/ris"}
+        />
+        <SideNavLink
+          icon={DeliveryTruck16}
+          href="/logistics/inventories"
+          text="출고"
+          isSelected={$location.pathname === "/logistics/inventories"}
+        />
+      </SideNavMenu>
     </SideNavItems>
   </SideNav>
 

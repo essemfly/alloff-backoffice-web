@@ -64,6 +64,7 @@
     <Route path="new">
       <TimedealProductDetail />
     </Route>
+  </Route>
   <Route path="login">
     <Login />
   </Route>

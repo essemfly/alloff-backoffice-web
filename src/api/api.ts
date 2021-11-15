@@ -1692,6 +1692,12 @@ export interface Inventory {
      * @memberof Inventory
      */
     memo?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Inventory
+     */
+    images?: Array<string>;
 }
 /**
  * 
@@ -1765,6 +1771,12 @@ export interface InventoryRequest {
      * @memberof InventoryRequest
      */
     memo?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InventoryRequest
+     */
+    images?: Array<string>;
 }
 /**
  * 
@@ -3138,6 +3150,12 @@ export interface PatchedInventoryRequest {
      * @memberof PatchedInventoryRequest
      */
     memo?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof PatchedInventoryRequest
+     */
+    images?: Array<string>;
 }
 /**
  * 

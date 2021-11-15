@@ -1,10 +1,10 @@
 <script lang="ts">
   import {
-  Button,
-  DataTable,
-  Toolbar,
-  ToolbarContent,
-  ToolbarSearch
+    Button,
+    DataTable,
+    Toolbar,
+    ToolbarContent,
+    ToolbarSearch,
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import Box16 from "carbon-icons-svelte/lib/Box16";
@@ -12,7 +12,7 @@
   import debounce from "lodash/debounce";
   import { DateTime } from "luxon";
   import type { Inventory } from "../../../../api";
-import { getInventoryStatusLabel } from "../../../../helpers/inventory";
+  import { getInventoryStatusLabel } from "../../../../helpers/inventory";
   import { search } from "../store";
 
   export let inventories: Inventory[] = [];
@@ -32,6 +32,7 @@ import { getInventoryStatusLabel } from "../../../../helpers/inventory";
     { key: "size", value: "사이즈" },
     { key: "status", value: "상태" },
     { key: "location", value: "위치" },
+    { key: "images", value: "이미지" },
   ];
 
   const handleSearch = debounce((e) => {
@@ -44,7 +45,10 @@ import { getInventoryStatusLabel } from "../../../../helpers/inventory";
   rows={inventories}
   sortable
   on:click:row={(e) => {
-    const url = `/orders/${e.detail.order_id}`;
+    const url =
+      e.detail.produt_type === "TIMEDEAL_PRODUCT"
+        ? `/timedeal-products/${e.detail.product_id}`
+        : `/orders/${e.detail.in_order_id}`;
     if (isMobile) {
       window.location.href = url;
       return;
@@ -67,6 +71,8 @@ import { getInventoryStatusLabel } from "../../../../helpers/inventory";
         minute: "2-digit",
         hour12: true,
       })}
+    {:else if cell.key === "images"}
+      <img src={row.images[0]} width="100" />
     {:else if cell.key === "status"}{getInventoryStatusLabel(cell.value)}
     {:else}{cell.value}
     {/if}
