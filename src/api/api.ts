@@ -6471,14 +6471,14 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @param {string} [createdGte] 
          * @param {string} [createdLte] 
-         * @param {'CANCEL_FINISHED' | 'CANCEL_PENDING' | 'CANCEL_REQUESTED' | 'CONFIRM_PAYMENT' | 'DELIVERY_FINISHED' | 'DELIVERY_PREPARING' | 'DELIVERY_STARTED' | 'PAYMENT_FINISHED' | 'PRODUCT_PREPARING'} [orderstatus] 
          * @param {number} [page] A page number within the paginated result set.
          * @param {string} [search] A search term.
          * @param {number} [size] Number of results to return per page.
+         * @param {Array<string>} [statuses] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersList: async (createdGte?: string, createdLte?: string, orderstatus?: 'CANCEL_FINISHED' | 'CANCEL_PENDING' | 'CANCEL_REQUESTED' | 'CONFIRM_PAYMENT' | 'DELIVERY_FINISHED' | 'DELIVERY_PREPARING' | 'DELIVERY_STARTED' | 'PAYMENT_FINISHED' | 'PRODUCT_PREPARING', page?: number, search?: string, size?: number, options: any = {}): Promise<RequestArgs> => {
+        ordersList: async (createdGte?: string, createdLte?: string, page?: number, search?: string, size?: number, statuses?: Array<string>, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/orders/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6507,10 +6507,6 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
                     createdLte;
             }
 
-            if (orderstatus !== undefined) {
-                localVarQueryParameter['orderstatus'] = orderstatus;
-            }
-
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
             }
@@ -6521,6 +6517,10 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (size !== undefined) {
                 localVarQueryParameter['size'] = size;
+            }
+
+            if (statuses) {
+                localVarQueryParameter['statuses'] = statuses.join(COLLECTION_FORMATS.csv);
             }
 
 
@@ -6683,15 +6683,15 @@ export const OrdersApiFp = function(configuration?: Configuration) {
          * 
          * @param {string} [createdGte] 
          * @param {string} [createdLte] 
-         * @param {'CANCEL_FINISHED' | 'CANCEL_PENDING' | 'CANCEL_REQUESTED' | 'CONFIRM_PAYMENT' | 'DELIVERY_FINISHED' | 'DELIVERY_PREPARING' | 'DELIVERY_STARTED' | 'PAYMENT_FINISHED' | 'PRODUCT_PREPARING'} [orderstatus] 
          * @param {number} [page] A page number within the paginated result set.
          * @param {string} [search] A search term.
          * @param {number} [size] Number of results to return per page.
+         * @param {Array<string>} [statuses] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersList(createdGte?: string, createdLte?: string, orderstatus?: 'CANCEL_FINISHED' | 'CANCEL_PENDING' | 'CANCEL_REQUESTED' | 'CONFIRM_PAYMENT' | 'DELIVERY_FINISHED' | 'DELIVERY_PREPARING' | 'DELIVERY_STARTED' | 'PAYMENT_FINISHED' | 'PRODUCT_PREPARING', page?: number, search?: string, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedOrderListList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersList(createdGte, createdLte, orderstatus, page, search, size, options);
+        async ordersList(createdGte?: string, createdLte?: string, page?: number, search?: string, size?: number, statuses?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedOrderListList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersList(createdGte, createdLte, page, search, size, statuses, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -6779,15 +6779,15 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
          * 
          * @param {string} [createdGte] 
          * @param {string} [createdLte] 
-         * @param {'CANCEL_FINISHED' | 'CANCEL_PENDING' | 'CANCEL_REQUESTED' | 'CONFIRM_PAYMENT' | 'DELIVERY_FINISHED' | 'DELIVERY_PREPARING' | 'DELIVERY_STARTED' | 'PAYMENT_FINISHED' | 'PRODUCT_PREPARING'} [orderstatus] 
          * @param {number} [page] A page number within the paginated result set.
          * @param {string} [search] A search term.
          * @param {number} [size] Number of results to return per page.
+         * @param {Array<string>} [statuses] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersList(createdGte?: string, createdLte?: string, orderstatus?: 'CANCEL_FINISHED' | 'CANCEL_PENDING' | 'CANCEL_REQUESTED' | 'CONFIRM_PAYMENT' | 'DELIVERY_FINISHED' | 'DELIVERY_PREPARING' | 'DELIVERY_STARTED' | 'PAYMENT_FINISHED' | 'PRODUCT_PREPARING', page?: number, search?: string, size?: number, options?: any): AxiosPromise<PaginatedOrderListList> {
-            return localVarFp.ordersList(createdGte, createdLte, orderstatus, page, search, size, options).then((request) => request(axios, basePath));
+        ordersList(createdGte?: string, createdLte?: string, page?: number, search?: string, size?: number, statuses?: Array<string>, options?: any): AxiosPromise<PaginatedOrderListList> {
+            return localVarFp.ordersList(createdGte, createdLte, page, search, size, statuses, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6937,13 +6937,6 @@ export interface OrdersApiOrdersListRequest {
     readonly createdLte?: string
 
     /**
-     * 
-     * @type {'CANCEL_FINISHED' | 'CANCEL_PENDING' | 'CANCEL_REQUESTED' | 'CONFIRM_PAYMENT' | 'DELIVERY_FINISHED' | 'DELIVERY_PREPARING' | 'DELIVERY_STARTED' | 'PAYMENT_FINISHED' | 'PRODUCT_PREPARING'}
-     * @memberof OrdersApiOrdersList
-     */
-    readonly orderstatus?: 'CANCEL_FINISHED' | 'CANCEL_PENDING' | 'CANCEL_REQUESTED' | 'CONFIRM_PAYMENT' | 'DELIVERY_FINISHED' | 'DELIVERY_PREPARING' | 'DELIVERY_STARTED' | 'PAYMENT_FINISHED' | 'PRODUCT_PREPARING'
-
-    /**
      * A page number within the paginated result set.
      * @type {number}
      * @memberof OrdersApiOrdersList
@@ -6963,6 +6956,13 @@ export interface OrdersApiOrdersListRequest {
      * @memberof OrdersApiOrdersList
      */
     readonly size?: number
+
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OrdersApiOrdersList
+     */
+    readonly statuses?: Array<string>
 }
 
 /**
@@ -7070,7 +7070,7 @@ export class OrdersApi extends BaseAPI {
      * @memberof OrdersApi
      */
     public ordersList(requestParameters: OrdersApiOrdersListRequest = {}, options?: any) {
-        return OrdersApiFp(this.configuration).ordersList(requestParameters.createdGte, requestParameters.createdLte, requestParameters.orderstatus, requestParameters.page, requestParameters.search, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
+        return OrdersApiFp(this.configuration).ordersList(requestParameters.createdGte, requestParameters.createdLte, requestParameters.page, requestParameters.search, requestParameters.size, requestParameters.statuses, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

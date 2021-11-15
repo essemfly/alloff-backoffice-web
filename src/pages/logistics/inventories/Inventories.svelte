@@ -48,7 +48,7 @@
 </script>
 
 <LoggedInFrame>
-  <div style="display: flex; flex-direction: row;">
+  <div style="display: flex; align-items: center; flex-direction: row;">
     {#each [InventoryStatusEnum.ProcessingNeeded, InventoryStatusEnum.InStock, InventoryStatusEnum.ShippingPending, InventoryStatusEnum.Shipped] as status}
       <Checkbox
         labelText={getInventoryStatusLabel(status)}
