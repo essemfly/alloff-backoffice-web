@@ -52,6 +52,7 @@
         },
       });
     } catch (e: any) {
+      console.log(e);
       alert("상태 변경 오류! " + e.response.data.message);
     } finally {
       submitting = false;
