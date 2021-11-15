@@ -29,6 +29,16 @@
       <TimedealDetail />
     </Route>
   </Route>
+  <Route path="notifications/*">
+    <Route path="/">
+      <Notifications />
+    </Route>
+    <Route path="new">
+      <NotificationDetail />
+    </Route>
+    <!-- <Route path=":id" let:params>
+      <NotificationDetial notificationId={params.id} />
+    </Route> -->
   <Route path="timedeal-products/*">
     <!-- <Route path="/">
       <Timedeals />
