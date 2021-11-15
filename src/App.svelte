@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { SvelteToast } from "@zerodevx/svelte-toast";
   import "carbon-components-svelte/css/g10.css";
-  import { Route,Router } from "svelte-navigator";
+  import { Route, Router } from "svelte-navigator";
   import Login from "./pages/auth/Login.svelte";
   import Inventories from "./pages/logistics/inventories/Inventories.svelte";
   import Recieve from "./pages/logistics/receive/Recieve.svelte";
@@ -13,13 +14,15 @@
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
 </script>
 
+<SvelteToast options={{ duration: 3000 }} />
+
 <Router primary={false}>
   <Route path="orders/*">
     <Route path="/">
       <Orders />
     </Route>
     <Route path=":id" let:params>
-      <OrderDetail orderId={params.id} />
+      <OrderDetail orderIdOrCode={params.id} />
     </Route>
   </Route>
   <Route path="logistics/ris/*">

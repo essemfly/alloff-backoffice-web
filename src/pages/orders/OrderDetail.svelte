@@ -13,7 +13,7 @@
   import OrderSectionPg from "./sections/OrderSectionPG.svelte";
   import OrderSectionTop from "./sections/OrderSectionTop.svelte";
 
-  export let orderId: string;
+  export let orderIdOrCode: string;
 
   let order: OrderRetrieve | undefined = undefined;
   let userOrders: OrderList[] = [];
@@ -27,7 +27,7 @@
   const load = async () => {
     loading = true;
 
-    const { data } = await api.ordersRetrieve({ id: orderId });
+    const { data } = await api.ordersRetrieve({ id: orderIdOrCode });
     order = data;
 
     const userOrdersRes = await api.ordersByUserList({
@@ -41,7 +41,7 @@
 
   $: mobile = size === "sm";
   $: {
-    if (orderId) {
+    if (orderIdOrCode) {
       load();
     }
   }

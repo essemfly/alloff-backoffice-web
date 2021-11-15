@@ -11,6 +11,7 @@
         "deploy:dev": "cp ./public/favicon-dev.png ./public/favicon.png && cp ./public/index-dev.html ./public/index.html && yarn codegen:dev && yarn build && aws s3 sync ./build s3://alloff-backoffice-dev && aws cloudfront create-invalidation --distribution-id E3A45RKMTAQTRH --paths \"/*\""
     },
     "dependencies": {
+        "@zerodevx/svelte-toast": "^0.6.2",
         "svelte": "^3.37.0"
     },
     "devDependencies": {

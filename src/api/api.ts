@@ -2321,6 +2321,12 @@ export interface OrderList {
      * @type {string}
      * @memberof OrderList
      */
+    code: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderList
+     */
     orderedAt: string;
     /**
      * 
@@ -2639,6 +2645,12 @@ export interface OrderRetrieve {
      * @memberof OrderRetrieve
      */
     refund: Refund;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderRetrieve
+     */
+    code: string;
     /**
      * 
      * @type {string}

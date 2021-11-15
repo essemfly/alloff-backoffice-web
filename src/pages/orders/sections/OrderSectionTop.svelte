@@ -70,14 +70,21 @@
   };
 </script>
 
+<h3 style="margin-bottom: 10px;">{order.code}</h3>
+<h6>🙋‍♀️{order.payment.buyername} 👚{order.payment.name}</h6>
 <div class="title">
   <Tag type={getTypeBadgeColor(order.ordertype)} style="margin-left: 0px;"
     >{getTypeLabel(order.ordertype)} 주문</Tag
   >
+  <Tag type="cool-gray">{order.id}</Tag>
   <OverflowMenu>
     <OverflowMenuItem
+      on:click={() => navigator.clipboard.writeText(order.code)}
+      text="코드 복사"
+    />
+    <OverflowMenuItem
       on:click={() => navigator.clipboard.writeText(order.id)}
-      text="주문번호 복사"
+      text="주문 ID 복사"
     />
     <OverflowMenuItem
       on:click={() => navigator.clipboard.writeText(window.location.href)}
@@ -85,7 +92,7 @@
     />
   </OverflowMenu>
 </div>
-<h5 style="margin-bottom: 10px;">{order.id}</h5>
+
 <div class:mobile-tags={mobile} class:tags={!mobile}>
   {#each statuses as status}
     <SquareTag

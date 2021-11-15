@@ -87,7 +87,7 @@
       />
       <HeaderNavItem
         href="/logistics/inventories"
-        text="출고"
+        text="재고"
         isSelected={$location.pathname === "/logistics/inventories"}
       />
     </HeaderNavMenu>
@@ -123,7 +123,7 @@
         <SideNavLink
           icon={DeliveryTruck16}
           href="/logistics/inventories"
-          text="출고"
+          text="재고"
           isSelected={$location.pathname === "/logistics/inventories"}
         />
       </SideNavMenu>
