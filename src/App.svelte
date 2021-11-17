@@ -2,10 +2,11 @@
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import "carbon-components-svelte/css/g10.css";
   import { Route, Router } from "svelte-navigator";
+  import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
   import Login from "./pages/auth/Login.svelte";
   import Inventories from "./pages/logistics/inventories/Inventories.svelte";
   import Recieve from "./pages/logistics/receive/Recieve.svelte";
-import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
+  import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
   import ShippingNotices from "./pages/logistics/shipping-notices/ShippingNotices.svelte";
   import NotificationDetail from "./pages/notifications/NotificationDetail.svelte";
   import Notifications from "./pages/notifications/Notifications.svelte";
@@ -19,6 +20,11 @@ import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNot
 <SvelteToast options={{ duration: 3000 }} />
 
 <Router primary={false}>
+  <Route path="analytics/*">
+    <Route path="dashboard">
+      <Dashboard />
+    </Route>
+  </Route>
   <Route path="orders/*">
     <Route path="/">
       <Orders />

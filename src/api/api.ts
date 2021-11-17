@@ -2610,6 +2610,31 @@ export interface OrderMemo {
     deleted_at?: string | null;
 }
 /**
+ * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
+ * @export
+ * @interface OrderMinimum
+ */
+export interface OrderMinimum {
+    /**
+     * 
+     * @type {OrderStatusEnum}
+     * @memberof OrderMinimum
+     */
+    orderstatus: OrderStatusEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderMinimum
+     */
+    totalprice: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderMinimum
+     */
+    created: string;
+}
+/**
  * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
  * @export
  * @interface OrderOrders
@@ -6960,6 +6985,44 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @param {string} [search] A search term.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ordersListMinimumAllList: async (search?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/orders/list-minimum-all/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7120,6 +7183,16 @@ export const OrdersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} [search] A search term.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ordersListMinimumAllList(search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OrderMinimum>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersListMinimumAllList(search, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7212,6 +7285,15 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
          */
         ordersList(createdGte?: string, createdLte?: string, page?: number, search?: string, size?: number, statuses?: Array<string>, options?: any): AxiosPromise<PaginatedOrderListList> {
             return localVarFp.ordersList(createdGte, createdLte, page, search, size, statuses, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} [search] A search term.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ordersListMinimumAllList(search?: string, options?: any): AxiosPromise<Array<OrderMinimum>> {
+            return localVarFp.ordersListMinimumAllList(search, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7390,6 +7472,20 @@ export interface OrdersApiOrdersListRequest {
 }
 
 /**
+ * Request parameters for ordersListMinimumAllList operation in OrdersApi.
+ * @export
+ * @interface OrdersApiOrdersListMinimumAllListRequest
+ */
+export interface OrdersApiOrdersListMinimumAllListRequest {
+    /**
+     * A search term.
+     * @type {string}
+     * @memberof OrdersApiOrdersListMinimumAllList
+     */
+    readonly search?: string
+}
+
+/**
  * Request parameters for ordersRetrieve operation in OrdersApi.
  * @export
  * @interface OrdersApiOrdersRetrieveRequest
@@ -7495,6 +7591,17 @@ export class OrdersApi extends BaseAPI {
      */
     public ordersList(requestParameters: OrdersApiOrdersListRequest = {}, options?: any) {
         return OrdersApiFp(this.configuration).ordersList(requestParameters.createdGte, requestParameters.createdLte, requestParameters.page, requestParameters.search, requestParameters.size, requestParameters.statuses, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {OrdersApiOrdersListMinimumAllListRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrdersApi
+     */
+    public ordersListMinimumAllList(requestParameters: OrdersApiOrdersListMinimumAllListRequest = {}, options?: any) {
+        return OrdersApiFp(this.configuration).ordersListMinimumAllList(requestParameters.search, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
