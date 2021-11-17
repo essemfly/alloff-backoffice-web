@@ -21,7 +21,7 @@
   import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
   import ConnectionReceive16 from "carbon-icons-svelte/lib/ConnectionReceive16";
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
-
+  import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
   import { onMount } from "svelte";
   import { useLocation } from "svelte-navigator";
@@ -90,6 +90,11 @@
         text="재고"
         isSelected={$location.pathname === "/logistics/inventories"}
       />
+      <HeaderNavItem
+        href="/logistics/shipping-notices"
+        text="출고"
+        isSelected={$location.pathname === "/logistics/shipping-notices"}
+      />
     </HeaderNavMenu>
   </HeaderNav>
 
@@ -125,6 +130,12 @@
           href="/logistics/inventories"
           text="재고"
           isSelected={$location.pathname === "/logistics/inventories"}
+        />
+        <SideNavLink
+          icon={DeliveryTruck16}
+          href="/logistics/shipping-notices"
+          text="출고"
+          isSelected={$location.pathname === "/logistics/shipping-notices"}
         />
       </SideNavMenu>
     </SideNavItems>

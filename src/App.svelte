@@ -5,6 +5,8 @@
   import Login from "./pages/auth/Login.svelte";
   import Inventories from "./pages/logistics/inventories/Inventories.svelte";
   import Recieve from "./pages/logistics/receive/Recieve.svelte";
+import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
+  import ShippingNotices from "./pages/logistics/shipping-notices/ShippingNotices.svelte";
   import NotificationDetail from "./pages/notifications/NotificationDetail.svelte";
   import Notifications from "./pages/notifications/Notifications.svelte";
   import OrderDetail from "./pages/orders/OrderDetail.svelte";
@@ -25,14 +27,24 @@
       <OrderDetail orderIdOrCode={params.id} />
     </Route>
   </Route>
-  <Route path="logistics/ris/*">
-    <Route path="/">
-      <Recieve />
+  <Route path="logistics/*">
+    <Route path="ris/*">
+      <Route path="/">
+        <Recieve />
+      </Route>
     </Route>
-  </Route>
-  <Route path="logistics/inventories/*">
-    <Route path="/">
-      <Inventories />
+    <Route path="inventories/*">
+      <Route path="/">
+        <Inventories />
+      </Route>
+    </Route>
+    <Route path="shipping-notices/*">
+      <Route path="/">
+        <ShippingNotices />
+      </Route>
+      <Route path=":id" let:params>
+        <ShippingNoticeDetail noticeId={params.id} />
+      </Route>
     </Route>
   </Route>
   <Route path="timedeals/*">

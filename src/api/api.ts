@@ -1047,6 +1047,37 @@ export interface ChangeStatusRequest {
 /**
  * 
  * @export
+ * @interface Courier
+ */
+export interface Courier {
+    /**
+     * 
+     * @type {number}
+     * @memberof Courier
+     */
+    id: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Courier
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Courier
+     */
+    sweettracker_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Courier
+     */
+    tracking_url_base?: string;
+}
+/**
+ * 
+ * @export
  * @interface CreateNotification
  */
 export interface CreateNotification {
@@ -1560,6 +1591,110 @@ export interface EmbeddedProductCategory {
 /**
  * 
  * @export
+ * @interface ExtendedOrder
+ */
+export interface ExtendedOrder {
+    /**
+     * 
+     * @type {number}
+     * @memberof ExtendedOrder
+     */
+    id: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrder
+     */
+    code: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrder
+     */
+    order_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrder
+     */
+    ordered_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrder
+     */
+    created_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrder
+     */
+    updated_at: string;
+}
+/**
+ * 
+ * @export
+ * @interface ExtendedOrderItem
+ */
+export interface ExtendedOrderItem {
+    /**
+     * 
+     * @type {number}
+     * @memberof ExtendedOrderItem
+     */
+    id: number;
+    /**
+     * 
+     * @type {ExtendedOrder}
+     * @memberof ExtendedOrderItem
+     */
+    extended_order: ExtendedOrder;
+    /**
+     * 
+     * @type {ProductTypeEnum}
+     * @memberof ExtendedOrderItem
+     */
+    product_type: ProductTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrderItem
+     */
+    size: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ExtendedOrderItem
+     */
+    quantity: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrderItem
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrderItem
+     */
+    product_code: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrderItem
+     */
+    product_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExtendedOrderItem
+     */
+    brand_keyname: string;
+}
+/**
+ * 
+ * @export
  * @interface ForceMakeRiRequest
  */
 export interface ForceMakeRiRequest {
@@ -1614,6 +1749,12 @@ export interface Inventory {
      * @memberof Inventory
      */
     id: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Inventory
+     */
+    product_code: string;
     /**
      * 
      * @type {string}
@@ -2876,6 +3017,128 @@ export enum OrdertypeEnum {
 /**
  * 
  * @export
+ * @interface Package
+ */
+export interface Package {
+    /**
+     * 
+     * @type {number}
+     * @memberof Package
+     */
+    id: number;
+    /**
+     * 
+     * @type {Array<ShippingNoticeItem>}
+     * @memberof Package
+     */
+    shipping_notice_items: Array<ShippingNoticeItem>;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    tracking_url: string;
+    /**
+     * 
+     * @type {Courier}
+     * @memberof Package
+     */
+    courier: Courier;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    code: string;
+    /**
+     * 
+     * @type {PackageStatusEnum}
+     * @memberof Package
+     */
+    status?: PackageStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    address: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    postcode: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    recipient_name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    recipient_mobile: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    tracking_number: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    shipped_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    sealed_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    deliver_confirmed_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    created_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Package
+     */
+    updated_at: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Package
+     */
+    notice: number;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export enum PackageStatusEnum {
+    Created = 'CREATED',
+    Sealed = 'SEALED',
+    Shipped = 'SHIPPED',
+    DeliverConfirmed = 'DELIVER_CONFIRMED'
+}
+
+/**
+ * 
+ * @export
  * @interface PaginatedInventoryList
  */
 export interface PaginatedInventoryList {
@@ -2969,6 +3232,37 @@ export interface PaginatedOrderListList {
 /**
  * 
  * @export
+ * @interface PaginatedPackageList
+ */
+export interface PaginatedPackageList {
+    /**
+     * 
+     * @type {number}
+     * @memberof PaginatedPackageList
+     */
+    count?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PaginatedPackageList
+     */
+    next?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof PaginatedPackageList
+     */
+    previous?: string | null;
+    /**
+     * 
+     * @type {Array<Package>}
+     * @memberof PaginatedPackageList
+     */
+    results?: Array<Package>;
+}
+/**
+ * 
+ * @export
  * @interface PaginatedReceivedItemList
  */
 export interface PaginatedReceivedItemList {
@@ -2996,6 +3290,37 @@ export interface PaginatedReceivedItemList {
      * @memberof PaginatedReceivedItemList
      */
     results?: Array<ReceivedItem>;
+}
+/**
+ * 
+ * @export
+ * @interface PaginatedShippingNoticeList
+ */
+export interface PaginatedShippingNoticeList {
+    /**
+     * 
+     * @type {number}
+     * @memberof PaginatedShippingNoticeList
+     */
+    count?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PaginatedShippingNoticeList
+     */
+    next?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof PaginatedShippingNoticeList
+     */
+    previous?: string | null;
+    /**
+     * 
+     * @type {Array<ShippingNotice>}
+     * @memberof PaginatedShippingNoticeList
+     */
+    results?: Array<ShippingNotice>;
 }
 /**
  * 
@@ -4005,6 +4330,105 @@ export interface SendNotificationRequest {
      */
     is_test?: boolean;
 }
+/**
+ * 
+ * @export
+ * @interface ShippingNotice
+ */
+export interface ShippingNotice {
+    /**
+     * 
+     * @type {number}
+     * @memberof ShippingNotice
+     */
+    id: number;
+    /**
+     * 
+     * @type {Array<ShippingNoticeItem>}
+     * @memberof ShippingNotice
+     */
+    items: Array<ShippingNoticeItem>;
+    /**
+     * 
+     * @type {Array<Package>}
+     * @memberof ShippingNotice
+     */
+    packages: Array<Package>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNotice
+     */
+    code: string;
+    /**
+     * 
+     * @type {ShippingNoticeStatusEnum}
+     * @memberof ShippingNotice
+     */
+    status?: ShippingNoticeStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNotice
+     */
+    locked_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNotice
+     */
+    sealed_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNotice
+     */
+    shipped_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNotice
+     */
+    created_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNotice
+     */
+    updated_at: string;
+}
+/**
+ * 
+ * @export
+ * @interface ShippingNoticeItem
+ */
+export interface ShippingNoticeItem {
+    /**
+     * 
+     * @type {Inventory}
+     * @memberof ShippingNoticeItem
+     */
+    inventory: Inventory;
+    /**
+     * 
+     * @type {ExtendedOrderItem}
+     * @memberof ShippingNoticeItem
+     */
+    item: ExtendedOrderItem;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export enum ShippingNoticeStatusEnum {
+    Created = 'CREATED',
+    Locked = 'LOCKED',
+    Sealed = 'SEALED',
+    Shipped = 'SHIPPED'
+}
+
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
  * @export
@@ -7963,6 +8387,439 @@ export class ReceivedItemsApi extends BaseAPI {
      */
     public receivedItemsUpdate(requestParameters: ReceivedItemsApiReceivedItemsUpdateRequest, options?: any) {
         return ReceivedItemsApiFp(this.configuration).receivedItemsUpdate(requestParameters.id, requestParameters.receivedItemRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * ShippingNoticesApi - axios parameter creator
+ * @export
+ */
+export const ShippingNoticesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesList: async (page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/shipping-notices/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesPackageCreate: async (id: string, page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('shippingNoticesPackageCreate', 'id', id)
+            const localVarPath = `/shipping-notices/{id}/package/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id A unique integer value identifying this shipping notice.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesRetrieve: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('shippingNoticesRetrieve', 'id', id)
+            const localVarPath = `/shipping-notices/{id}/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesSealCreate: async (id: string, page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('shippingNoticesSealCreate', 'id', id)
+            const localVarPath = `/shipping-notices/{id}/seal/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ShippingNoticesApi - functional programming interface
+ * @export
+ */
+export const ShippingNoticesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ShippingNoticesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async shippingNoticesList(page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedShippingNoticeList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesList(page, size, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async shippingNoticesPackageCreate(id: string, page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedPackageList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesPackageCreate(id, page, size, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {number} id A unique integer value identifying this shipping notice.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async shippingNoticesRetrieve(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesRetrieve(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async shippingNoticesSealCreate(id: string, page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedPackageList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesSealCreate(id, page, size, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * ShippingNoticesApi - factory interface
+ * @export
+ */
+export const ShippingNoticesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ShippingNoticesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesList(page?: number, size?: number, options?: any): AxiosPromise<PaginatedShippingNoticeList> {
+            return localVarFp.shippingNoticesList(page, size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesPackageCreate(id: string, page?: number, size?: number, options?: any): AxiosPromise<PaginatedPackageList> {
+            return localVarFp.shippingNoticesPackageCreate(id, page, size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} id A unique integer value identifying this shipping notice.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesRetrieve(id: number, options?: any): AxiosPromise<ShippingNotice> {
+            return localVarFp.shippingNoticesRetrieve(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesSealCreate(id: string, page?: number, size?: number, options?: any): AxiosPromise<PaginatedPackageList> {
+            return localVarFp.shippingNoticesSealCreate(id, page, size, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for shippingNoticesList operation in ShippingNoticesApi.
+ * @export
+ * @interface ShippingNoticesApiShippingNoticesListRequest
+ */
+export interface ShippingNoticesApiShippingNoticesListRequest {
+    /**
+     * A page number within the paginated result set.
+     * @type {number}
+     * @memberof ShippingNoticesApiShippingNoticesList
+     */
+    readonly page?: number
+
+    /**
+     * Number of results to return per page.
+     * @type {number}
+     * @memberof ShippingNoticesApiShippingNoticesList
+     */
+    readonly size?: number
+}
+
+/**
+ * Request parameters for shippingNoticesPackageCreate operation in ShippingNoticesApi.
+ * @export
+ * @interface ShippingNoticesApiShippingNoticesPackageCreateRequest
+ */
+export interface ShippingNoticesApiShippingNoticesPackageCreateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNoticesApiShippingNoticesPackageCreate
+     */
+    readonly id: string
+
+    /**
+     * A page number within the paginated result set.
+     * @type {number}
+     * @memberof ShippingNoticesApiShippingNoticesPackageCreate
+     */
+    readonly page?: number
+
+    /**
+     * Number of results to return per page.
+     * @type {number}
+     * @memberof ShippingNoticesApiShippingNoticesPackageCreate
+     */
+    readonly size?: number
+}
+
+/**
+ * Request parameters for shippingNoticesRetrieve operation in ShippingNoticesApi.
+ * @export
+ * @interface ShippingNoticesApiShippingNoticesRetrieveRequest
+ */
+export interface ShippingNoticesApiShippingNoticesRetrieveRequest {
+    /**
+     * A unique integer value identifying this shipping notice.
+     * @type {number}
+     * @memberof ShippingNoticesApiShippingNoticesRetrieve
+     */
+    readonly id: number
+}
+
+/**
+ * Request parameters for shippingNoticesSealCreate operation in ShippingNoticesApi.
+ * @export
+ * @interface ShippingNoticesApiShippingNoticesSealCreateRequest
+ */
+export interface ShippingNoticesApiShippingNoticesSealCreateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNoticesApiShippingNoticesSealCreate
+     */
+    readonly id: string
+
+    /**
+     * A page number within the paginated result set.
+     * @type {number}
+     * @memberof ShippingNoticesApiShippingNoticesSealCreate
+     */
+    readonly page?: number
+
+    /**
+     * Number of results to return per page.
+     * @type {number}
+     * @memberof ShippingNoticesApiShippingNoticesSealCreate
+     */
+    readonly size?: number
+}
+
+/**
+ * ShippingNoticesApi - object-oriented interface
+ * @export
+ * @class ShippingNoticesApi
+ * @extends {BaseAPI}
+ */
+export class ShippingNoticesApi extends BaseAPI {
+    /**
+     * 
+     * @param {ShippingNoticesApiShippingNoticesListRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ShippingNoticesApi
+     */
+    public shippingNoticesList(requestParameters: ShippingNoticesApiShippingNoticesListRequest = {}, options?: any) {
+        return ShippingNoticesApiFp(this.configuration).shippingNoticesList(requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ShippingNoticesApiShippingNoticesPackageCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ShippingNoticesApi
+     */
+    public shippingNoticesPackageCreate(requestParameters: ShippingNoticesApiShippingNoticesPackageCreateRequest, options?: any) {
+        return ShippingNoticesApiFp(this.configuration).shippingNoticesPackageCreate(requestParameters.id, requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ShippingNoticesApiShippingNoticesRetrieveRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ShippingNoticesApi
+     */
+    public shippingNoticesRetrieve(requestParameters: ShippingNoticesApiShippingNoticesRetrieveRequest, options?: any) {
+        return ShippingNoticesApiFp(this.configuration).shippingNoticesRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ShippingNoticesApiShippingNoticesSealCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ShippingNoticesApi
+     */
+    public shippingNoticesSealCreate(requestParameters: ShippingNoticesApiShippingNoticesSealCreateRequest, options?: any) {
+        return ShippingNoticesApiFp(this.configuration).shippingNoticesSealCreate(requestParameters.id, requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
