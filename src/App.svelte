@@ -13,6 +13,7 @@
   import OrderDetail from "./pages/orders/OrderDetail.svelte";
   import Orders from "./pages/orders/Orders.svelte";
   import TimedealProductDetail from "./pages/timedeal-products/TimedealProductDetail.svelte";
+  import TimedealSectionNewProduct from "./pages/timedeals/sections/TimedealSectionNewProduct.svelte";
   import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
 </script>
@@ -62,6 +63,9 @@
     </Route>
     <Route path="new">
       <TimedealDetail />
+    </Route>
+    <Route path=":id/new-product">
+      <TimedealSectionNewProduct />
     </Route>
   </Route>
   <Route path="notifications/*">

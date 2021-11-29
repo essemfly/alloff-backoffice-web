@@ -41,7 +41,7 @@
   <div style="height: 10px" />
   <div class="button-wrapper">
     <Button
-      on:click={() => (window.location.href = "./new-product")}
+      on:click={() => (window.location.href = timedeal.id + "/new-product")}
       icon={DocumentAdd16}>상품 추가</Button
     >
   </div>
