@@ -2,6 +2,7 @@
   import InstructionAdder from "../components/InstructionAdder.svelte";
   import LoggedInFrame from "../../common/LoggedInFrame.svelte";
   import ContentBox from "../components/ContentBox.svelte";
+  import ProductTemplateTable from "../components/ProductTemplateTable.svelte";
   import {
     Grid,
     Row,
@@ -17,15 +18,57 @@
     FileUploaderDropContainer,
   } from "carbon-components-svelte";
 
+  import {
+    TimedealProduct,
+    TimedealProductTemplate,
+    TimedealProductTemplatesApi,
+    TimedealProductsApi,
+    TimedealProductRequest,
+  } from "../../../api";
+
+  const load = async (p: number, size: number, search?: string) => {
+    // const {
+    //   data: { count, results },
+    // } = await api.timedealsList({ page: p, search, size });
+    // totalItems = count ?? 0;
+    // timedeals = results ?? [];
+  };
+
+  const loadTimedealProductTemplates = async () => {
+    const templatesData = await templateApi.timedealProductTemplatesList({
+      page: 1,
+      size: 50,
+    });
+
+    templates = templatesData.data.results;
+  };
+
+  const saveTimedealProduct = async (sampleProduct: TimedealProductRequest) => {
+    const newProduct = await productApi.timedealProductsCreate({
+      timedealProductRequest: sampleProduct,
+    });
+    console.log("HOIT", newProduct);
+  };
+
+  const templateApi = new TimedealProductTemplatesApi();
+  const productApi = new TimedealProductsApi();
+
   let open = false;
   let selectedIndex = 1;
+  let selectedProductTemplate: TimedealProductTemplate;
+  let templates: TimedealProductTemplate[] | undefined;
+
+  function openTemplateModal() {
+    loadTimedealProductTemplates();
+    open = true;
+  }
 </script>
 
 <LoggedInFrame>
   <Grid>
     <Row>
       <ButtonSet class="right-button">
-        <Button on:click={() => (open = true)}>템플릿 불러오기</Button>
+        <Button on:click={openTemplateModal}>템플릿 불러오기</Button>
         <Button kind="secondary" on:click={() => (open = true)}>생성</Button>
       </ButtonSet>
       <Modal
@@ -35,7 +78,7 @@
         on:open
         on:close
       >
-        <p>Create a new Cloudant database in the US South region.</p>
+        <ProductTemplateTable templateData={templates} />
       </Modal>
     </Row>
 
@@ -130,5 +173,8 @@
 <style>
   :global(.right-button) {
     margin-left: 1rem;
+  }
+  :global(.bx--modal-content) {
+    padding-right: 3% !important;
   }
 </style>

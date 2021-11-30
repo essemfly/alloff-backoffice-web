@@ -6,10 +6,11 @@
   } from "carbon-components-svelte/types/DataTable/DataTable";
 
   let tableKeys: DataTableHeader[] = [
-    { key: "brand.korname", value: "브랜드명" },
+    
     { key: "brand.keyname", value: "KEYNAME" },
     { key: "producttype", value: "상품타입" },
     { key: "name", value: "상품명" },
+    { key: "brand.korname", value: "브랜드명",},
     { key: "discountedprice", value: "할인가격" },
     { key: "images", value: "이미지" },
   ];
@@ -17,6 +18,20 @@
 </script>
 
 <div>
-  <h2>템플릿 불러오기</h2>
-  <DataTable headers={tableKeys} rows={templateData} />
+  <DataTable
+  headers={tableKeys} 
+  rows={templateData}
+  on:click:row={(e) => {
+    console.log(e.detail)
+  }}
+  >
+  <span slot="cell" let:cell let:row>
+    {#if cell.key === "images"}
+      <img src={row.images[0]} width="100" alt="" />
+    {:else if cell.key === "producttype"}
+      {row.producttype[1]}
+    {:else}{cell.value}
+    {/if}
+  </span>
+  </DataTable>
 </div>
