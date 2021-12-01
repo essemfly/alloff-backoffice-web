@@ -27,24 +27,23 @@
     TimedealProductsApi,
     TimedealProductAddRequest,
   } from "../../../api";
-
+  import type { DataTableRow } from "carbon-components-svelte/types/DataTable/DataTable";
 
   const templateApi = new TimedealProductTemplatesApi();
   const productApi = new TimedealProductsApi();
   const imageApi = new ImageUploadApi();
 
   export let productGroupId: string;
-  let open = false;
+  let templateModalOpen = false;
   let selectedIndex = -1;
-  let selectedProductTemplate: TimedealProductTemplate;
   let templates: TimedealProductTemplate[] | undefined;
 
   let inventoryTextInput = "";
   let faultTextInput = "";
   let faultImageUploading = false;
-  let faultImage: { url: string; key?: string } | undefined = undefined
-  let faultImageRef : HTMLImageElement | null | undefined;
-
+  let faultImage: { url: string; key?: string } | undefined = undefined;
+  let productImagesUploading = false;
+  let productImages: string[] = [];
 
   let product: TimedealProductAddRequest = {
     faults: [],
@@ -102,7 +101,7 @@
   // UI Click funcions
   function openTemplateModal() {
     loadTimedealProductTemplates();
-    open = true;
+    templateModalOpen = true;
   }
 
   function addInventory(inventoryKey: string) {
@@ -134,23 +133,36 @@
   }
 
   function addFaultInfo() {
-    console.log("Fault clicked", faultTextInput);
     if (product.faults) {
       product.faults = [
         ...product.faults,
         {
           image: "",
-          description: "hoirtthoit",
+          description: faultTextInput,
         },
       ];
     } else {
       product.faults = [
         {
           image: "",
-          description: "hoirtthoit",
+          description: faultTextInput,
         },
       ];
     }
+  }
+
+  function loadTemplateData(data: DataTableRow) {
+    console.log("close", data);
+    templateModalOpen = false;
+    Object.assign(product, data);
+    if (data.producttype[1] == "1년차 B품/샘플") {
+      selectedIndex = 1;
+    } else {
+      selectedIndex = 0;
+    }
+
+    productImages = data.images;
+    product = product;
   }
 </script>
 
@@ -159,16 +171,20 @@
     <Row>
       <ButtonSet class="right-button">
         <Button on:click={openTemplateModal}>템플릿 불러오기</Button>
-        <Button kind="secondary" on:click={() => (open = true)}>생성</Button>
+        <Button kind="secondary" on:click={() => {}}>생성</Button>
       </ButtonSet>
       <Modal
         passiveModal
-        bind:open
+        preventCloseOnClickOutside
         modalHeading="템플릿 불러오기"
         on:open
         on:close
+        bind:open={templateModalOpen}
       >
-        <ProductTemplateTable templateData={templates} />
+        <ProductTemplateTable
+          templateData={templates}
+          onCloseModal={(data) => loadTemplateData(data)}
+        />
       </Modal>
     </Row>
 
@@ -215,15 +231,13 @@
         <Column>
           <span class="bx--label" style="margin-top: 0;">하자 정보</span>
           {#if faultImage}
-            <img
-              class="image"
-              bind:this={faultImageRef}
-              src={faultImage.url}
-              alt="timedeal"
-            />
+            <img class="image" src={faultImage.url} alt="timedeal" />
           {/if}
           {#if faultImageUploading}
-            <InlineLoading status="active" description="이미지를 업로드하는 중..." />
+            <InlineLoading
+              status="active"
+              description="이미지를 업로드하는 중..."
+            />
           {/if}
           <FileUploaderDropContainer
             labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
@@ -244,6 +258,12 @@
             bind:value={faultTextInput}
           />
           <Button kind="secondary" on:click={addFaultInfo}>추가</Button>
+          {#if product.faults && product.faults.length > 0}
+            {#each product.faults as fault}
+              <img class="image" src={fault.image} alt="timedeal-products" />
+              <span>{fault.description}</span>
+            {/each}
+          {/if}
         </Column>
       </Row>
     </ContentBox>
@@ -271,10 +291,38 @@
       </Row>
       <Row>
         <Column>
-          <span class="bx--label">상품 이미지</span>
+          <div class="bx--label">상품 이미지</div>
+          {#if productImages.length > 0}
+            <div>
+              {#each productImages as productImage}
+                <img class="image" src={productImage} alt="timedeal-products" />
+              {/each}
+            </div>
+          {/if}
+          {#if productImagesUploading}
+            <InlineLoading
+              status="active"
+              description="이미지를 업로드하는 중..."
+            />
+          {/if}
           <FileUploaderDropContainer
-            labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하시라요"
+            labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
             multiple
+            accept={["image/*"]}
+            on:add={(e) => {
+              console.log("IMG DETAIL", e.detail);
+              const files = e.detail;
+              productImagesUploading = true;
+              for (let i = 0; i < files.length; i++) {
+                imageApi
+                  .imageUploadUploadCreate({ file: files[i] })
+                  .then((res) => {
+                    const { random_key, url } = res.data;
+                    productImages = [...productImages, url];
+                  });
+              }
+              productImagesUploading = false;
+            }}
           />
         </Column>
       </Row>
@@ -321,5 +369,12 @@
   }
   :global(h3) {
     margin: 0.5rem 0;
+  }
+  .image {
+    width: auto;
+    min-width: 200px;
+    max-height: 200px;
+    margin-right: 10px;
+    object-fit: contain;
   }
 </style>
