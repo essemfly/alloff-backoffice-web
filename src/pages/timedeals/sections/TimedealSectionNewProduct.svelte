@@ -16,16 +16,64 @@
     ContentSwitcher,
     Switch,
     FileUploaderDropContainer,
+    NumberInput,
+    InlineLoading,
   } from "carbon-components-svelte";
 
   import {
-    TimedealProduct,
+    ImageUploadApi,
     TimedealProductTemplate,
     TimedealProductTemplatesApi,
     TimedealProductsApi,
-    TimedealProductRequest,
+    TimedealProductAddRequest,
   } from "../../../api";
 
+
+  const templateApi = new TimedealProductTemplatesApi();
+  const productApi = new TimedealProductsApi();
+  const imageApi = new ImageUploadApi();
+
+  export let productGroupId: string;
+  let open = false;
+  let selectedIndex = -1;
+  let selectedProductTemplate: TimedealProductTemplate;
+  let templates: TimedealProductTemplate[] | undefined;
+
+  let inventoryTextInput = "";
+  let faultTextInput = "";
+  let faultImageUploading = false;
+  let faultImage: { url: string; key?: string } | undefined = undefined
+  let faultImageRef : HTMLImageElement | null | undefined;
+
+
+  let product: TimedealProductAddRequest = {
+    faults: [],
+    canceldescription: [],
+    deliverydescription: [],
+    sizedescription: [],
+    instruction: {
+      title: "",
+      description: [],
+    },
+    discountrate: 0,
+    discountedprice: 10000,
+    originalprice: 10000,
+    name: "",
+    producttype: [],
+    productgroupid: productGroupId,
+    soldout: false,
+    images: [],
+    inventory: [],
+    brandid: "",
+  };
+
+  $: discountrate = (
+    ((product.originalprice - product.discountedprice) /
+      product.originalprice) *
+    100
+  ).toFixed(0);
+
+  // API CALLS
   const load = async (p: number, size: number, search?: string) => {
     // const {
     //   data: { count, results },
@@ -43,24 +91,66 @@
     templates = templatesData.data.results;
   };
 
-  const saveTimedealProduct = async (sampleProduct: TimedealProductRequest) => {
+  const saveTimedealProduct = async (
+    sampleProduct: TimedealProductAddRequest
+  ) => {
     const newProduct = await productApi.timedealProductsCreate({
-      timedealProductRequest: sampleProduct,
+      timedealProductAddRequest: sampleProduct,
     });
-    console.log("HOIT", newProduct);
   };
 
-  const templateApi = new TimedealProductTemplatesApi();
-  const productApi = new TimedealProductsApi();
-
-  let open = false;
-  let selectedIndex = 1;
-  let selectedProductTemplate: TimedealProductTemplate;
-  let templates: TimedealProductTemplate[] | undefined;
-
+  // UI Click funcions
   function openTemplateModal() {
     loadTimedealProductTemplates();
     open = true;
+  }
+
+  function addInventory(inventoryKey: string) {
+    product.inventory = [
+      ...product.inventory,
+      { size: inventoryKey, quantity: 1 },
+    ];
+    inventoryTextInput = "";
+  }
+
+  function selectProductType(type: number) {
+    if (type === 0) {
+      product.instruction = {
+        title: "아울렛 특가 유의사항",
+        description: [
+          "본 상품은 팩토리 아울렛 및 현대/롯데/신세계 프리미엄 아울렛에서 판매하는 아울렛 특가 상품입니다.",
+          "아울렛 특가 상품은 보관 및 매장 진열 과정에서 포장 부자재, 택 누락이 있을 수 있습니다. 아래 상품설명을 꼭 확인해주세요.",
+        ],
+      };
+    } else if (type === 1) {
+      product.instruction = {
+        title: "1년차 B품/샘플 유의사항",
+        description: [
+          "본 상품은 스크래치/진열/미세 오염 등의 사유로 저렴하게 판매하는 1년차 아울렛 상품입니다.",
+          "아래 [B품/샘플 상세정보]를 통해 자세한 사진과 설명을 꼭 확인해주세요.",
+        ],
+      };
+    }
+  }
+
+  function addFaultInfo() {
+    console.log("Fault clicked", faultTextInput);
+    if (product.faults) {
+      product.faults = [
+        ...product.faults,
+        {
+          image: "",
+          description: "hoirtthoit",
+        },
+      ];
+    } else {
+      product.faults = [
+        {
+          image: "",
+          description: "hoirtthoit",
+        },
+      ];
+    }
   }
 </script>
 
@@ -89,9 +179,20 @@
           <TextInput
             labelText={"신규 사이즈 등록"}
             placeholder="작성 후 추가 버튼을 누르세요"
+            bind:value={inventoryTextInput}
           />
-          <Button kind="secondary" on:click={() => {}}>추가</Button>
+          <Button
+            kind="secondary"
+            on:click={() => addInventory(inventoryTextInput)}>추가</Button
+          >
+
+          {#each product.inventory as inv, i}
+            <NumberInput label={inv.size} bind:value={inv.quantity} />
+          {/each}
         </Column>
+      </Row>
+      <Row>
+        <Column />
       </Row>
     </ContentBox>
 
@@ -99,22 +200,50 @@
       <h3>판매 정보</h3>
       <Row>
         <Column>
-          <ContentSwitcher bind:selectedIndex>
-            <Switch text="Latest news" />
-            <Switch text="Recommended" />
+          <ContentSwitcher
+            bind:selectedIndex
+            on:click={() => selectProductType(selectedIndex)}
+          >
+            <Switch text="아울렛 특가" />
+            <Switch text="1년차 B품/샘플" />
           </ContentSwitcher>
           <InstructionAdder
-            instructionTitle={"hello2"}
-            instructions={["개", "내대", "래매배"]}
+            instructionTitle={product.instruction.title}
+            instructions={product.instruction.description}
           />
         </Column>
         <Column>
-          <h4>하자 정보</h4>
+          <span class="bx--label" style="margin-top: 0;">하자 정보</span>
+          {#if faultImage}
+            <img
+              class="image"
+              bind:this={faultImageRef}
+              src={faultImage.url}
+              alt="timedeal"
+            />
+          {/if}
+          {#if faultImageUploading}
+            <InlineLoading status="active" description="이미지를 업로드하는 중..." />
+          {/if}
           <FileUploaderDropContainer
             labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
+            accept={["image/*"]}
+            on:add={(e) => {
+              const file = e.detail[0];
+              faultImage = undefined;
+              faultImageUploading = true;
+              imageApi.imageUploadUploadCreate({ file }).then((res) => {
+                const { random_key, url } = res.data;
+                faultImage = { url, key: random_key };
+                faultImageUploading = false;
+              });
+            }}
           />
-          <TextInput placeholder="작성 후 추가 버튼을 누르세요" />
-          <Button kind="secondary" on:click={() => {}}>추가</Button>
+          <TextInput
+            placeholder="작성 후 추가 버튼을 누르세요"
+            bind:value={faultTextInput}
+          />
+          <Button kind="secondary" on:click={addFaultInfo}>추가</Button>
         </Column>
       </Row>
     </ContentBox>
@@ -127,42 +256,55 @@
             <SelectItem value="구호" text="구호" />
             <SelectItem value="VOV" text="VOV" />
           </Select>
-          <TextInput labelText={"기존 가격"} />
-        </Column>
-        <Column>
-          <TextInput labelText={"상품명"} />
-          <TextInput labelText={"할인된 가격 (할인율:" + 15 + "%)"} />
-        </Column>
-      </Row>
-      <FileUploaderDropContainer
-        labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하시라요"
-        multiple
-      />
-      <Row>
-        <Column>
-          <InstructionAdder
-            instructionTitle={"hello1"}
-            instructions={["가", "나다", "라마바"]}
+          <TextInput
+            labelText={"기존 가격"}
+            bind:value={product.originalprice}
           />
         </Column>
         <Column>
-          <InstructionAdder
-            instructionTitle={"hello2"}
-            instructions={["개", "내대", "래매배"]}
+          <TextInput labelText={"상품명"} bind:value={product.name} />
+          <TextInput
+            labelText={"할인된 가격 (할인율:" + discountrate + "%)"}
+            bind:value={product.discountedprice}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column>
+          <span class="bx--label">상품 이미지</span>
+          <FileUploaderDropContainer
+            labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하시라요"
+            multiple
           />
         </Column>
       </Row>
       <Row>
         <Column>
           <InstructionAdder
-            instructionTitle={"hello3"}
-            instructions={["가", "나다", "라마바"]}
+            instructionTitle="사이즈 정보"
+            instructions={product.sizedescription
+              ? product.sizedescription
+              : []}
           />
         </Column>
         <Column>
           <InstructionAdder
-            instructionTitle={"hello4"}
-            instructions={["개", "내대", "래매배"]}
+            instructionTitle="상품 설명"
+            instructions={product.description ? product.description : []}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column>
+          <InstructionAdder
+            instructionTitle="배송 안내"
+            instructions={product.deliverydescription}
+          />
+        </Column>
+        <Column>
+          <InstructionAdder
+            instructionTitle="취소/교환/반품"
+            instructions={product.canceldescription}
           />
         </Column>
       </Row>
@@ -176,5 +318,8 @@
   }
   :global(.bx--modal-content) {
     padding-right: 3% !important;
+  }
+  :global(h3) {
+    margin: 0.5rem 0;
   }
 </style>

@@ -16,7 +16,7 @@
   }
 </script>
 
-<div>
+<div class="adder-box">
   <TextInput
     labelText={instructionTitle}
     placeholder="작성 후 추가 버튼을 누르세요"
@@ -36,7 +36,7 @@
 </div>
 
 <style>
-/* :global(.list-tile) {
+:global(.list-tile) {
     min-height: 0;
     padding: 0.3rem;
     box-shadow: 0.1px rgba(0, 0, 0, 0.1)
@@ -46,5 +46,16 @@
     background-color: rgb(198, 246, 213);
     padding: 0.8rem;
     border-radius: 0.1rem;
-  } */
+  }
+
+  :global(.bx--label) {
+    margin-top: 1.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.25rem;
+  }
+
+  :global(.adder-box) {
+    margin: 1rem 0.2rem;
+  }
 </style>
