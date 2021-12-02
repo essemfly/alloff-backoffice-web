@@ -164,7 +164,7 @@
               labelTitle="발송결과 업로드"
               buttonLabel="파일 선택"
               labelDescription="이지어드민 xls 파일"
-              accept={[".xls"]}
+              accept={[".xls", ".htm"]}
               on:add={(e) => {
                 if (e.detail.length === 0) {
                   return alert("파일이 잘못되거나 선택되지 않았습니다.");
