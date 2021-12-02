@@ -1591,6 +1591,25 @@ export interface EmbeddedProductCategory {
 /**
  * 
  * @export
+ * @interface ExcelUploaderRequestRequest
+ */
+export interface ExcelUploaderRequestRequest {
+    /**
+     * 
+     * @type {any}
+     * @memberof ExcelUploaderRequestRequest
+     */
+    file: any;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExcelUploaderRequestRequest
+     */
+    notice_id: string;
+}
+/**
+ * 
+ * @export
  * @interface ExtendedOrder
  */
 export interface ExtendedOrder {
@@ -3071,6 +3090,12 @@ export interface Package {
     courier: Courier;
     /**
      * 
+     * @type {Array<PackageOrderStatuses>}
+     * @memberof Package
+     */
+    order_statuses_by_code: Array<PackageOrderStatuses>;
+    /**
+     * 
      * @type {string}
      * @memberof Package
      */
@@ -3147,6 +3172,25 @@ export interface Package {
      * @memberof Package
      */
     notice: number;
+}
+/**
+ * 
+ * @export
+ * @interface PackageOrderStatuses
+ */
+export interface PackageOrderStatuses {
+    /**
+     * 
+     * @type {string}
+     * @memberof PackageOrderStatuses
+     */
+    code: string;
+    /**
+     * 
+     * @type {OrderStatusEnum}
+     * @memberof PackageOrderStatuses
+     */
+    status: OrderStatusEnum;
 }
 /**
  * 
@@ -3253,37 +3297,6 @@ export interface PaginatedOrderListList {
      * @memberof PaginatedOrderListList
      */
     results?: Array<OrderList>;
-}
-/**
- * 
- * @export
- * @interface PaginatedPackageList
- */
-export interface PaginatedPackageList {
-    /**
-     * 
-     * @type {number}
-     * @memberof PaginatedPackageList
-     */
-    count?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedPackageList
-     */
-    next?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedPackageList
-     */
-    previous?: string | null;
-    /**
-     * 
-     * @type {Array<Package>}
-     * @memberof PaginatedPackageList
-     */
-    results?: Array<Package>;
 }
 /**
  * 
@@ -4320,6 +4333,44 @@ export interface Refund {
 /**
  * 
  * @export
+ * @interface RemakeRi
+ */
+export interface RemakeRi {
+    /**
+     * 
+     * @type {ProductTypeEnum}
+     * @memberof RemakeRi
+     */
+    product_type: ProductTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemakeRi
+     */
+    product_id: string;
+}
+/**
+ * 
+ * @export
+ * @interface RemakeRiRequest
+ */
+export interface RemakeRiRequest {
+    /**
+     * 
+     * @type {ProductTypeEnum}
+     * @memberof RemakeRiRequest
+     */
+    product_type: ProductTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemakeRiRequest
+     */
+    product_id: string;
+}
+/**
+ * 
+ * @export
  * @interface SendNotification
  */
 export interface SendNotification {
@@ -4391,6 +4442,12 @@ export interface ShippingNotice {
      * @memberof ShippingNotice
      */
     status?: ShippingNoticeStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNotice
+     */
+    template_url?: string | null;
     /**
      * 
      * @type {string}
@@ -7024,6 +7081,49 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @param {string} id 
+         * @param {RemakeRiRequest} remakeRiRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ordersRemakeRiCreate: async (id: string, remakeRiRequest: RemakeRiRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ordersRemakeRiCreate', 'id', id)
+            // verify required parameter 'remakeRiRequest' is not null or undefined
+            assertParamExists('ordersRemakeRiCreate', 'remakeRiRequest', remakeRiRequest)
+            const localVarPath = `/orders/{id}/remake_ri/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(remakeRiRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7194,6 +7294,17 @@ export const OrdersApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
+         * @param {RemakeRiRequest} remakeRiRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ordersRemakeRiCreate(id: string, remakeRiRequest: RemakeRiRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RemakeRi>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersRemakeRiCreate(id, remakeRiRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7294,6 +7405,16 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
          */
         ordersListMinimumAllList(search?: string, options?: any): AxiosPromise<Array<OrderMinimum>> {
             return localVarFp.ordersListMinimumAllList(search, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {RemakeRiRequest} remakeRiRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ordersRemakeRiCreate(id: string, remakeRiRequest: RemakeRiRequest, options?: any): AxiosPromise<RemakeRi> {
+            return localVarFp.ordersRemakeRiCreate(id, remakeRiRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7486,6 +7607,27 @@ export interface OrdersApiOrdersListMinimumAllListRequest {
 }
 
 /**
+ * Request parameters for ordersRemakeRiCreate operation in OrdersApi.
+ * @export
+ * @interface OrdersApiOrdersRemakeRiCreateRequest
+ */
+export interface OrdersApiOrdersRemakeRiCreateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrdersApiOrdersRemakeRiCreate
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {RemakeRiRequest}
+     * @memberof OrdersApiOrdersRemakeRiCreate
+     */
+    readonly remakeRiRequest: RemakeRiRequest
+}
+
+/**
  * Request parameters for ordersRetrieve operation in OrdersApi.
  * @export
  * @interface OrdersApiOrdersRetrieveRequest
@@ -7606,6 +7748,17 @@ export class OrdersApi extends BaseAPI {
 
     /**
      * 
+     * @param {OrdersApiOrdersRemakeRiCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrdersApi
+     */
+    public ordersRemakeRiCreate(requestParameters: OrdersApiOrdersRemakeRiCreateRequest, options?: any) {
+        return OrdersApiFp(this.configuration).ordersRemakeRiCreate(requestParameters.id, requestParameters.remakeRiRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {OrdersApiOrdersRetrieveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7624,6 +7777,125 @@ export class OrdersApi extends BaseAPI {
      */
     public ordersUpdateRefundCreate(requestParameters: OrdersApiOrdersUpdateRefundCreateRequest, options?: any) {
         return OrdersApiFp(this.configuration).ordersUpdateRefundCreate(requestParameters.id, requestParameters.updateRefundRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * PackagesApi - axios parameter creator
+ * @export
+ */
+export const PackagesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        packagesReprintCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('packagesReprintCreate', 'id', id)
+            const localVarPath = `/packages/{id}/reprint/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PackagesApi - functional programming interface
+ * @export
+ */
+export const PackagesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PackagesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async packagesReprintCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Package>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.packagesReprintCreate(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * PackagesApi - factory interface
+ * @export
+ */
+export const PackagesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PackagesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        packagesReprintCreate(id: string, options?: any): AxiosPromise<Package> {
+            return localVarFp.packagesReprintCreate(id, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for packagesReprintCreate operation in PackagesApi.
+ * @export
+ * @interface PackagesApiPackagesReprintCreateRequest
+ */
+export interface PackagesApiPackagesReprintCreateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof PackagesApiPackagesReprintCreate
+     */
+    readonly id: string
+}
+
+/**
+ * PackagesApi - object-oriented interface
+ * @export
+ * @class PackagesApi
+ * @extends {BaseAPI}
+ */
+export class PackagesApi extends BaseAPI {
+    /**
+     * 
+     * @param {PackagesApiPackagesReprintCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PackagesApi
+     */
+    public packagesReprintCreate(requestParameters: PackagesApiPackagesReprintCreateRequest, options?: any) {
+        return PackagesApiFp(this.configuration).packagesReprintCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -8550,12 +8822,47 @@ export const ShippingNoticesApiAxiosParamCreator = function (configuration?: Con
         /**
          * 
          * @param {string} id 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        shippingNoticesPackageCreate: async (id: string, page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+        shippingNoticesMakeUploadTemplateCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('shippingNoticesMakeUploadTemplateCreate', 'id', id)
+            const localVarPath = `/shipping-notices/{id}/make-upload-template/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesPackageCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('shippingNoticesPackageCreate', 'id', id)
             const localVarPath = `/shipping-notices/{id}/package/`
@@ -8574,14 +8881,6 @@ export const ShippingNoticesApiAxiosParamCreator = function (configuration?: Con
             // authentication jwtAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
 
 
     
@@ -8634,12 +8933,10 @@ export const ShippingNoticesApiAxiosParamCreator = function (configuration?: Con
         /**
          * 
          * @param {string} id 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        shippingNoticesSealCreate: async (id: string, page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+        shippingNoticesSealCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('shippingNoticesSealCreate', 'id', id)
             const localVarPath = `/shipping-notices/{id}/seal/`
@@ -8658,14 +8955,6 @@ export const ShippingNoticesApiAxiosParamCreator = function (configuration?: Con
             // authentication jwtAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
 
 
     
@@ -8702,13 +8991,21 @@ export const ShippingNoticesApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async shippingNoticesPackageCreate(id: string, page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedPackageList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesPackageCreate(id, page, size, options);
+        async shippingNoticesMakeUploadTemplateCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesMakeUploadTemplateCreate(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async shippingNoticesPackageCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesPackageCreate(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8724,13 +9021,11 @@ export const ShippingNoticesApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async shippingNoticesSealCreate(id: string, page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedPackageList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesSealCreate(id, page, size, options);
+        async shippingNoticesSealCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesSealCreate(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -8756,13 +9051,20 @@ export const ShippingNoticesApiFactory = function (configuration?: Configuration
         /**
          * 
          * @param {string} id 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        shippingNoticesPackageCreate(id: string, page?: number, size?: number, options?: any): AxiosPromise<PaginatedPackageList> {
-            return localVarFp.shippingNoticesPackageCreate(id, page, size, options).then((request) => request(axios, basePath));
+        shippingNoticesMakeUploadTemplateCreate(id: string, options?: any): AxiosPromise<ShippingNotice> {
+            return localVarFp.shippingNoticesMakeUploadTemplateCreate(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesPackageCreate(id: string, options?: any): AxiosPromise<ShippingNotice> {
+            return localVarFp.shippingNoticesPackageCreate(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -8776,13 +9078,11 @@ export const ShippingNoticesApiFactory = function (configuration?: Configuration
         /**
          * 
          * @param {string} id 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        shippingNoticesSealCreate(id: string, page?: number, size?: number, options?: any): AxiosPromise<PaginatedPackageList> {
-            return localVarFp.shippingNoticesSealCreate(id, page, size, options).then((request) => request(axios, basePath));
+        shippingNoticesSealCreate(id: string, options?: any): AxiosPromise<ShippingNotice> {
+            return localVarFp.shippingNoticesSealCreate(id, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -8809,6 +9109,20 @@ export interface ShippingNoticesApiShippingNoticesListRequest {
 }
 
 /**
+ * Request parameters for shippingNoticesMakeUploadTemplateCreate operation in ShippingNoticesApi.
+ * @export
+ * @interface ShippingNoticesApiShippingNoticesMakeUploadTemplateCreateRequest
+ */
+export interface ShippingNoticesApiShippingNoticesMakeUploadTemplateCreateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNoticesApiShippingNoticesMakeUploadTemplateCreate
+     */
+    readonly id: string
+}
+
+/**
  * Request parameters for shippingNoticesPackageCreate operation in ShippingNoticesApi.
  * @export
  * @interface ShippingNoticesApiShippingNoticesPackageCreateRequest
@@ -8820,20 +9134,6 @@ export interface ShippingNoticesApiShippingNoticesPackageCreateRequest {
      * @memberof ShippingNoticesApiShippingNoticesPackageCreate
      */
     readonly id: string
-
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof ShippingNoticesApiShippingNoticesPackageCreate
-     */
-    readonly page?: number
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof ShippingNoticesApiShippingNoticesPackageCreate
-     */
-    readonly size?: number
 }
 
 /**
@@ -8862,20 +9162,6 @@ export interface ShippingNoticesApiShippingNoticesSealCreateRequest {
      * @memberof ShippingNoticesApiShippingNoticesSealCreate
      */
     readonly id: string
-
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof ShippingNoticesApiShippingNoticesSealCreate
-     */
-    readonly page?: number
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof ShippingNoticesApiShippingNoticesSealCreate
-     */
-    readonly size?: number
 }
 
 /**
@@ -8898,13 +9184,24 @@ export class ShippingNoticesApi extends BaseAPI {
 
     /**
      * 
+     * @param {ShippingNoticesApiShippingNoticesMakeUploadTemplateCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ShippingNoticesApi
+     */
+    public shippingNoticesMakeUploadTemplateCreate(requestParameters: ShippingNoticesApiShippingNoticesMakeUploadTemplateCreateRequest, options?: any) {
+        return ShippingNoticesApiFp(this.configuration).shippingNoticesMakeUploadTemplateCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {ShippingNoticesApiShippingNoticesPackageCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ShippingNoticesApi
      */
     public shippingNoticesPackageCreate(requestParameters: ShippingNoticesApiShippingNoticesPackageCreateRequest, options?: any) {
-        return ShippingNoticesApiFp(this.configuration).shippingNoticesPackageCreate(requestParameters.id, requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
+        return ShippingNoticesApiFp(this.configuration).shippingNoticesPackageCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -8926,7 +9223,149 @@ export class ShippingNoticesApi extends BaseAPI {
      * @memberof ShippingNoticesApi
      */
     public shippingNoticesSealCreate(requestParameters: ShippingNoticesApiShippingNoticesSealCreateRequest, options?: any) {
-        return ShippingNoticesApiFp(this.configuration).shippingNoticesSealCreate(requestParameters.id, requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
+        return ShippingNoticesApiFp(this.configuration).shippingNoticesSealCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * ShippingNoticesResultUploadApi - axios parameter creator
+ * @export
+ */
+export const ShippingNoticesResultUploadApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {any} file 
+         * @param {string} noticeId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesResultUploadUploadCreate: async (file: any, noticeId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('shippingNoticesResultUploadUploadCreate', 'file', file)
+            // verify required parameter 'noticeId' is not null or undefined
+            assertParamExists('shippingNoticesResultUploadUploadCreate', 'noticeId', noticeId)
+            const localVarPath = `/shipping-notices-result-upload/upload/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file as any);
+            }
+    
+            if (noticeId !== undefined) { 
+                localVarFormParams.append('notice_id', noticeId as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ShippingNoticesResultUploadApi - functional programming interface
+ * @export
+ */
+export const ShippingNoticesResultUploadApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ShippingNoticesResultUploadApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {any} file 
+         * @param {string} noticeId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async shippingNoticesResultUploadUploadCreate(file: any, noticeId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesResultUploadUploadCreate(file, noticeId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * ShippingNoticesResultUploadApi - factory interface
+ * @export
+ */
+export const ShippingNoticesResultUploadApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ShippingNoticesResultUploadApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {any} file 
+         * @param {string} noticeId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        shippingNoticesResultUploadUploadCreate(file: any, noticeId: string, options?: any): AxiosPromise<ShippingNotice> {
+            return localVarFp.shippingNoticesResultUploadUploadCreate(file, noticeId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for shippingNoticesResultUploadUploadCreate operation in ShippingNoticesResultUploadApi.
+ * @export
+ * @interface ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreateRequest
+ */
+export interface ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreateRequest {
+    /**
+     * 
+     * @type {any}
+     * @memberof ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreate
+     */
+    readonly file: any
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreate
+     */
+    readonly noticeId: string
+}
+
+/**
+ * ShippingNoticesResultUploadApi - object-oriented interface
+ * @export
+ * @class ShippingNoticesResultUploadApi
+ * @extends {BaseAPI}
+ */
+export class ShippingNoticesResultUploadApi extends BaseAPI {
+    /**
+     * 
+     * @param {ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ShippingNoticesResultUploadApi
+     */
+    public shippingNoticesResultUploadUploadCreate(requestParameters: ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreateRequest, options?: any) {
+        return ShippingNoticesResultUploadApiFp(this.configuration).shippingNoticesResultUploadUploadCreate(requestParameters.file, requestParameters.noticeId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
