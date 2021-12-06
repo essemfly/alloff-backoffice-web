@@ -1809,6 +1809,12 @@ export interface Inventory {
      * @type {string}
      * @memberof Inventory
      */
+    deleted_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Inventory
+     */
     product_id: string;
     /**
      * 
@@ -1883,6 +1889,12 @@ export interface InventoryRequest {
      * @memberof InventoryRequest
      */
     size: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InventoryRequest
+     */
+    deleted_at?: string | null;
     /**
      * 
      * @type {string}
@@ -3477,6 +3489,12 @@ export interface PatchedInventoryRequest {
      * @memberof PatchedInventoryRequest
      */
     size?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedInventoryRequest
+     */
+    deleted_at?: string | null;
     /**
      * 
      * @type {string}
