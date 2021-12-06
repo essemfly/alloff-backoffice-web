@@ -41,9 +41,13 @@
 
   const submitDelete = async (row: any) => {
     const api = new InventoriesApi();
-    if(!confirm("정말 삭제하시겠습니까?")) return;
-    await api.inventoriesDestroy({id: row.id});
-    window.location.reload();
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+    try {
+      await api.inventoriesDestroy({ id: row.id });
+      window.location.reload();
+    } catch (e: any) {
+      alert(e.message);
+    }
   };
 </script>
 
