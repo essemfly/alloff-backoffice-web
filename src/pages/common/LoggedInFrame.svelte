@@ -103,6 +103,11 @@
       text="대시보드"
       isSelected={$location.pathname === "/analytics/dashboard"}
     />
+    <HeaderNavItem
+      href="/brands"
+      text="브랜드"
+      isSelected={$location.pathname === "/brands"}
+    />
   </HeaderNav>
 
   <SideNav bind:isOpen={isSideNavOpen}>
