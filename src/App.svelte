@@ -1,9 +1,10 @@
 <script lang="ts">
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import "carbon-components-svelte/css/g10.css";
-  import { Route, Router } from "svelte-navigator";
+  import { Route, Router, useParams } from "svelte-navigator";
   import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
   import Login from "./pages/auth/Login.svelte";
+  import Brands from "./pages/brands/brands.svelte";
   import Inventories from "./pages/logistics/inventories/Inventories.svelte";
   import Recieve from "./pages/logistics/receive/Recieve.svelte";
   import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
@@ -13,6 +14,7 @@
   import OrderDetail from "./pages/orders/OrderDetail.svelte";
   import Orders from "./pages/orders/Orders.svelte";
   import TimedealProductDetail from "./pages/timedeal-products/TimedealProductDetail.svelte";
+  import TimedealSectionProductDetail from "./pages/timedeals/sections/TimedealSectionProductDetail.svelte";
   import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
 </script>
@@ -53,6 +55,11 @@
       </Route>
     </Route>
   </Route>
+  <Route path="brands/*">
+    <Route path="/">
+      <Brands />
+    </Route>
+  </Route>
   <Route path="timedeals/*">
     <Route path="/">
       <Timedeals />
@@ -62,6 +69,14 @@
     </Route>
     <Route path="new">
       <TimedealDetail />
+    </Route>
+    <Route path=":id/product/*" let:params>
+      <Route path="/">
+        <TimedealSectionProductDetail productId="" productGroupId={params.id} mobile={false} />
+      </Route>
+      <Route path=":productid" let:params>
+        <TimedealSectionProductDetail productId={params.productid} productGroupId={params.id} mobile={false} />
+      </Route>
     </Route>
   </Route>
   <Route path="notifications/*">

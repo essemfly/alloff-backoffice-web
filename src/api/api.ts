@@ -280,7 +280,7 @@ export interface AlloffProductBrand {
      * @type {string}
      * @memberof AlloffProductBrand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -319,22 +319,28 @@ export interface AlloffProductBrand {
     isopen: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof AlloffProductBrand
+     */
+    ishide?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof AlloffProductBrand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductBrand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductBrand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguide>}
@@ -371,7 +377,7 @@ export interface AlloffProductBrandRequest {
      * @type {string}
      * @memberof AlloffProductBrandRequest
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -410,22 +416,28 @@ export interface AlloffProductBrandRequest {
     isopen: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof AlloffProductBrandRequest
+     */
+    ishide?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof AlloffProductBrandRequest
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductBrandRequest
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductBrandRequest
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguideRequest>}
@@ -594,7 +606,7 @@ export interface AlloffProductTemplateBrand {
      * @type {string}
      * @memberof AlloffProductTemplateBrand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -633,22 +645,28 @@ export interface AlloffProductTemplateBrand {
     isopen: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof AlloffProductTemplateBrand
+     */
+    ishide?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof AlloffProductTemplateBrand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductTemplateBrand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductTemplateBrand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguide>}
@@ -685,7 +703,7 @@ export interface AlloffProductTemplateBrandRequest {
      * @type {string}
      * @memberof AlloffProductTemplateBrandRequest
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -724,22 +742,28 @@ export interface AlloffProductTemplateBrandRequest {
     isopen: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof AlloffProductTemplateBrandRequest
+     */
+    ishide?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof AlloffProductTemplateBrandRequest
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductTemplateBrandRequest
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductTemplateBrandRequest
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguideRequest>}
@@ -876,7 +900,7 @@ export interface Brand {
      * @type {string}
      * @memberof Brand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -915,22 +939,28 @@ export interface Brand {
     isopen: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof Brand
+     */
+    ishide?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof Brand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof Brand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof Brand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<BrandSizeguide>}
@@ -978,6 +1008,128 @@ export interface BrandCategory {
 /**
  * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
  * @export
+ * @interface BrandCategoryRequest
+ */
+export interface BrandCategoryRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandCategoryRequest
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandCategoryRequest
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandCategoryRequest
+     */
+    catidentifier: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandCategoryRequest
+     */
+    brandkeyname: string;
+}
+/**
+ * Serializer for Documents.  Recognized primitve fields:      * ``StringField``     * ``URLField``     * ``EmailField``     * ``IntField``     * ``LongField``     * ``FloatField``     * ``DecimalField``     * ``BooleanField``     * ``DateTimeField``     * ``ComplexDateTimeField``     * ``ObjectIdField``     * ``SequenceField`` (assumes it has integer counter)     * ``UUIDField``     * ``GeoPointField``     * ``GeoJsonBaseField`` (all those fields)     * ``DateField``  Compound fields: ``ListField`` and ``DictField`` are mapped to corresponding DRF fields, with respect to nested field specification.  The ``ReferenceField`` is handled like ``ForeignKey`` in DRF: there nested serializer autogenerated if serializer depth greater then 0, otherwise it\'s handled by it\'s own (results as ``str(id)``).  For ``EmbeddedDocumentField`` also nested serializer autogenerated for non-zero depth, otherwise it is skipped. TODO: THIS IS PROBABLY WRONG AND SHOULD BE FIXED.  Generic fields ``GenericReferenceField`` and ``GenericEmbeddedDocumentField`` are handled by their own with corresponding serializer fields.  Not well supported or untested:      ``FileField``     ``ImageField``     ``BinaryField``  All other fields are mapped to ``DocumentField`` and probably will work wrong.
+ * @export
+ * @interface BrandRequest
+ */
+export interface BrandRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandRequest
+     */
+    keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandRequest
+     */
+    created?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandRequest
+     */
+    engname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandRequest
+     */
+    korname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandRequest
+     */
+    logoimgurl: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof BrandRequest
+     */
+    onpopular: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandRequest
+     */
+    description: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof BrandRequest
+     */
+    isopen: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof BrandRequest
+     */
+    ishide?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandRequest
+     */
+    modulename?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof BrandRequest
+     */
+    maxdiscountrate?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof BrandRequest
+     */
+    numnewproducts?: number;
+    /**
+     * 
+     * @type {Array<BrandSizeguideRequest>}
+     * @memberof BrandRequest
+     */
+    sizeguide?: Array<BrandSizeguideRequest>;
+    /**
+     * 
+     * @type {Array<BrandCategoryRequest>}
+     * @memberof BrandRequest
+     */
+    category?: Array<BrandCategoryRequest>;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
  * @interface BrandSizeguide
  */
 export interface BrandSizeguide {
@@ -991,6 +1143,25 @@ export interface BrandSizeguide {
      * 
      * @type {string}
      * @memberof BrandSizeguide
+     */
+    imgurl: string;
+}
+/**
+ * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * @export
+ * @interface BrandSizeguideRequest
+ */
+export interface BrandSizeguideRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandSizeguideRequest
+     */
+    label: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandSizeguideRequest
      */
     imgurl: string;
 }
@@ -1192,7 +1363,7 @@ export interface EmbeddedAlloffProductBrand {
      * @type {string}
      * @memberof EmbeddedAlloffProductBrand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -1231,22 +1402,28 @@ export interface EmbeddedAlloffProductBrand {
     isopen: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof EmbeddedAlloffProductBrand
+     */
+    ishide?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof EmbeddedAlloffProductBrand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof EmbeddedAlloffProductBrand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof EmbeddedAlloffProductBrand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguide>}
@@ -1483,7 +1660,7 @@ export interface EmbeddedProductBrand {
      * @type {string}
      * @memberof EmbeddedProductBrand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -1522,22 +1699,28 @@ export interface EmbeddedProductBrand {
     isopen: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof EmbeddedProductBrand
+     */
+    ishide?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof EmbeddedProductBrand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof EmbeddedProductBrand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof EmbeddedProductBrand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguide>}
@@ -1736,6 +1919,12 @@ export interface ImageUploaderRequestRequest {
      * @memberof ImageUploaderRequestRequest
      */
     file: any;
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageUploaderRequestRequest
+     */
+    path?: string;
 }
 /**
  * 
@@ -2021,12 +2210,6 @@ export interface Notification {
      * @type {string}
      * @memberof Notification
      */
-    mobiles?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
     navigateto?: string;
     /**
      * 
@@ -2064,6 +2247,18 @@ export interface Notification {
      * @memberof Notification
      */
     result?: { [key: string]: any; };
+    /**
+     * 
+     * @type {string}
+     * @memberof Notification
+     */
+    notificationid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Notification
+     */
+    mobiles?: string;
 }
 /**
  * 
@@ -3466,6 +3661,97 @@ export interface PaginatedTimedealProductTemplateList {
     results?: Array<TimedealProductTemplate>;
 }
 /**
+ * Serializer for Documents.  Recognized primitve fields:      * ``StringField``     * ``URLField``     * ``EmailField``     * ``IntField``     * ``LongField``     * ``FloatField``     * ``DecimalField``     * ``BooleanField``     * ``DateTimeField``     * ``ComplexDateTimeField``     * ``ObjectIdField``     * ``SequenceField`` (assumes it has integer counter)     * ``UUIDField``     * ``GeoPointField``     * ``GeoJsonBaseField`` (all those fields)     * ``DateField``  Compound fields: ``ListField`` and ``DictField`` are mapped to corresponding DRF fields, with respect to nested field specification.  The ``ReferenceField`` is handled like ``ForeignKey`` in DRF: there nested serializer autogenerated if serializer depth greater then 0, otherwise it\'s handled by it\'s own (results as ``str(id)``).  For ``EmbeddedDocumentField`` also nested serializer autogenerated for non-zero depth, otherwise it is skipped. TODO: THIS IS PROBABLY WRONG AND SHOULD BE FIXED.  Generic fields ``GenericReferenceField`` and ``GenericEmbeddedDocumentField`` are handled by their own with corresponding serializer fields.  Not well supported or untested:      ``FileField``     ``ImageField``     ``BinaryField``  All other fields are mapped to ``DocumentField`` and probably will work wrong.
+ * @export
+ * @interface PatchedBrandRequest
+ */
+export interface PatchedBrandRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedBrandRequest
+     */
+    keyname?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedBrandRequest
+     */
+    created?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedBrandRequest
+     */
+    engname?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedBrandRequest
+     */
+    korname?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedBrandRequest
+     */
+    logoimgurl?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PatchedBrandRequest
+     */
+    onpopular?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedBrandRequest
+     */
+    description?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PatchedBrandRequest
+     */
+    isopen?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PatchedBrandRequest
+     */
+    ishide?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedBrandRequest
+     */
+    modulename?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof PatchedBrandRequest
+     */
+    maxdiscountrate?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PatchedBrandRequest
+     */
+    numnewproducts?: number;
+    /**
+     * 
+     * @type {Array<BrandSizeguideRequest>}
+     * @memberof PatchedBrandRequest
+     */
+    sizeguide?: Array<BrandSizeguideRequest>;
+    /**
+     * 
+     * @type {Array<BrandCategoryRequest>}
+     * @memberof PatchedBrandRequest
+     */
+    category?: Array<BrandCategoryRequest>;
+}
+/**
  * 
  * @export
  * @interface PatchedInventoryRequest
@@ -4732,6 +5018,200 @@ export interface TimedealProduct {
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
  * @export
+ * @interface TimedealProductAdd
+ */
+export interface TimedealProductAdd {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAdd
+     */
+    canceldescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAdd
+     */
+    deliverydescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAdd
+     */
+    sizedescription?: Array<string>;
+    /**
+     * 
+     * @type {AlloffProductBrand}
+     * @memberof TimedealProductAdd
+     */
+    brand: AlloffProductBrand;
+    /**
+     * 
+     * @type {Array<AlloffProductFaults>}
+     * @memberof TimedealProductAdd
+     */
+    faults?: Array<AlloffProductFaults>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAdd
+     */
+    description?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductAdd
+     */
+    originalprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductAdd
+     */
+    discountedprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductAdd
+     */
+    discountrate: number;
+    /**
+     * 
+     * @type {Array<AlloffProductInventory>}
+     * @memberof TimedealProductAdd
+     */
+    inventory: Array<AlloffProductInventory>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAdd
+     */
+    producttype: Array<string>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimedealProductAdd
+     */
+    soldout: boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAdd
+     */
+    images: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductAdd
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductAdd
+     */
+    productgroupid: string;
+}
+/**
+ * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
+ * @export
+ * @interface TimedealProductAddRequest
+ */
+export interface TimedealProductAddRequest {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAddRequest
+     */
+    canceldescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAddRequest
+     */
+    deliverydescription: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAddRequest
+     */
+    sizedescription?: Array<string>;
+    /**
+     * 
+     * @type {AlloffProductBrandRequest}
+     * @memberof TimedealProductAddRequest
+     */
+    brand: AlloffProductBrandRequest;
+    /**
+     * 
+     * @type {Array<AlloffProductFaultsRequest>}
+     * @memberof TimedealProductAddRequest
+     */
+    faults?: Array<AlloffProductFaultsRequest>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAddRequest
+     */
+    description?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductAddRequest
+     */
+    originalprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductAddRequest
+     */
+    discountedprice: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimedealProductAddRequest
+     */
+    discountrate: number;
+    /**
+     * 
+     * @type {Array<AlloffProductInventoryRequest>}
+     * @memberof TimedealProductAddRequest
+     */
+    inventory: Array<AlloffProductInventoryRequest>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAddRequest
+     */
+    producttype: Array<string>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimedealProductAddRequest
+     */
+    soldout: boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimedealProductAddRequest
+     */
+    images: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductAddRequest
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductAddRequest
+     */
+    productgroupid: string;
+}
+/**
+ * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
+ * @export
  * @interface TimedealProductRequest
  */
 export interface TimedealProductRequest {
@@ -5562,7 +6042,83 @@ export class ApiApi extends BaseAPI {
 export const BrandsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Adaptation of DRF ModelViewSet
+         * @param {BrandRequest} brandRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsCreate: async (brandRequest: BrandRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'brandRequest' is not null or undefined
+            assertParamExists('brandsCreate', 'brandRequest', brandRequest)
+            const localVarPath = `/brands/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(brandRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsDestroy: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('brandsDestroy', 'id', id)
+            const localVarPath = `/brands/{id}/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5594,6 +6150,127 @@ export const BrandsApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {PatchedBrandRequest} [patchedBrandRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsPartialUpdate: async (id: string, patchedBrandRequest?: PatchedBrandRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('brandsPartialUpdate', 'id', id)
+            const localVarPath = `/brands/{id}/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(patchedBrandRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsRetrieve: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('brandsRetrieve', 'id', id)
+            const localVarPath = `/brands/{id}/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {BrandRequest} brandRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsUpdate: async (id: string, brandRequest: BrandRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('brandsUpdate', 'id', id)
+            // verify required parameter 'brandRequest' is not null or undefined
+            assertParamExists('brandsUpdate', 'brandRequest', brandRequest)
+            const localVarPath = `/brands/{id}/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(brandRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -5605,12 +6282,64 @@ export const BrandsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BrandsApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Adaptation of DRF ModelViewSet
+         * @param {BrandRequest} brandRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async brandsCreate(brandRequest: BrandRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsCreate(brandRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async brandsDestroy(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsDestroy(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async brandsList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Brand>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.brandsList(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {PatchedBrandRequest} [patchedBrandRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async brandsPartialUpdate(id: string, patchedBrandRequest?: PatchedBrandRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsPartialUpdate(id, patchedBrandRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async brandsRetrieve(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsRetrieve(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {BrandRequest} brandRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async brandsUpdate(id: string, brandRequest: BrandRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsUpdate(id, brandRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -5624,15 +6353,146 @@ export const BrandsApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = BrandsApiFp(configuration)
     return {
         /**
-         * 
+         * Adaptation of DRF ModelViewSet
+         * @param {BrandRequest} brandRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsCreate(brandRequest: BrandRequest, options?: any): AxiosPromise<Brand> {
+            return localVarFp.brandsCreate(brandRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsDestroy(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.brandsDestroy(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         brandsList(options?: any): AxiosPromise<Array<Brand>> {
             return localVarFp.brandsList(options).then((request) => request(axios, basePath));
         },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {PatchedBrandRequest} [patchedBrandRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsPartialUpdate(id: string, patchedBrandRequest?: PatchedBrandRequest, options?: any): AxiosPromise<Brand> {
+            return localVarFp.brandsPartialUpdate(id, patchedBrandRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsRetrieve(id: string, options?: any): AxiosPromise<Brand> {
+            return localVarFp.brandsRetrieve(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Adaptation of DRF ModelViewSet
+         * @param {string} id 
+         * @param {BrandRequest} brandRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        brandsUpdate(id: string, brandRequest: BrandRequest, options?: any): AxiosPromise<Brand> {
+            return localVarFp.brandsUpdate(id, brandRequest, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for brandsCreate operation in BrandsApi.
+ * @export
+ * @interface BrandsApiBrandsCreateRequest
+ */
+export interface BrandsApiBrandsCreateRequest {
+    /**
+     * 
+     * @type {BrandRequest}
+     * @memberof BrandsApiBrandsCreate
+     */
+    readonly brandRequest: BrandRequest
+}
+
+/**
+ * Request parameters for brandsDestroy operation in BrandsApi.
+ * @export
+ * @interface BrandsApiBrandsDestroyRequest
+ */
+export interface BrandsApiBrandsDestroyRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandsApiBrandsDestroy
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for brandsPartialUpdate operation in BrandsApi.
+ * @export
+ * @interface BrandsApiBrandsPartialUpdateRequest
+ */
+export interface BrandsApiBrandsPartialUpdateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandsApiBrandsPartialUpdate
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {PatchedBrandRequest}
+     * @memberof BrandsApiBrandsPartialUpdate
+     */
+    readonly patchedBrandRequest?: PatchedBrandRequest
+}
+
+/**
+ * Request parameters for brandsRetrieve operation in BrandsApi.
+ * @export
+ * @interface BrandsApiBrandsRetrieveRequest
+ */
+export interface BrandsApiBrandsRetrieveRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandsApiBrandsRetrieve
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for brandsUpdate operation in BrandsApi.
+ * @export
+ * @interface BrandsApiBrandsUpdateRequest
+ */
+export interface BrandsApiBrandsUpdateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BrandsApiBrandsUpdate
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {BrandRequest}
+     * @memberof BrandsApiBrandsUpdate
+     */
+    readonly brandRequest: BrandRequest
+}
 
 /**
  * BrandsApi - object-oriented interface
@@ -5642,13 +6502,68 @@ export const BrandsApiFactory = function (configuration?: Configuration, basePat
  */
 export class BrandsApi extends BaseAPI {
     /**
-     * 
+     * Adaptation of DRF ModelViewSet
+     * @param {BrandsApiBrandsCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BrandsApi
+     */
+    public brandsCreate(requestParameters: BrandsApiBrandsCreateRequest, options?: any) {
+        return BrandsApiFp(this.configuration).brandsCreate(requestParameters.brandRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Adaptation of DRF ModelViewSet
+     * @param {BrandsApiBrandsDestroyRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BrandsApi
+     */
+    public brandsDestroy(requestParameters: BrandsApiBrandsDestroyRequest, options?: any) {
+        return BrandsApiFp(this.configuration).brandsDestroy(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Adaptation of DRF ModelViewSet
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BrandsApi
      */
     public brandsList(options?: any) {
         return BrandsApiFp(this.configuration).brandsList(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Adaptation of DRF ModelViewSet
+     * @param {BrandsApiBrandsPartialUpdateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BrandsApi
+     */
+    public brandsPartialUpdate(requestParameters: BrandsApiBrandsPartialUpdateRequest, options?: any) {
+        return BrandsApiFp(this.configuration).brandsPartialUpdate(requestParameters.id, requestParameters.patchedBrandRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Adaptation of DRF ModelViewSet
+     * @param {BrandsApiBrandsRetrieveRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BrandsApi
+     */
+    public brandsRetrieve(requestParameters: BrandsApiBrandsRetrieveRequest, options?: any) {
+        return BrandsApiFp(this.configuration).brandsRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Adaptation of DRF ModelViewSet
+     * @param {BrandsApiBrandsUpdateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BrandsApi
+     */
+    public brandsUpdate(requestParameters: BrandsApiBrandsUpdateRequest, options?: any) {
+        return BrandsApiFp(this.configuration).brandsUpdate(requestParameters.id, requestParameters.brandRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5662,10 +6577,11 @@ export const ImageUploadApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @param {any} file 
+         * @param {string} [path] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        imageUploadUploadCreate: async (file: any, options: any = {}): Promise<RequestArgs> => {
+        imageUploadUploadCreate: async (file: any, path?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'file' is not null or undefined
             assertParamExists('imageUploadUploadCreate', 'file', file)
             const localVarPath = `/image-upload/upload/`;
@@ -5688,6 +6604,10 @@ export const ImageUploadApiAxiosParamCreator = function (configuration?: Configu
 
             if (file !== undefined) { 
                 localVarFormParams.append('file', file as any);
+            }
+    
+            if (path !== undefined) { 
+                localVarFormParams.append('path', path as any);
             }
     
     
@@ -5716,11 +6636,12 @@ export const ImageUploadApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {any} file 
+         * @param {string} [path] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async imageUploadUploadCreate(file: any, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImageUploaderResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.imageUploadUploadCreate(file, options);
+        async imageUploadUploadCreate(file: any, path?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImageUploaderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.imageUploadUploadCreate(file, path, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -5736,11 +6657,12 @@ export const ImageUploadApiFactory = function (configuration?: Configuration, ba
         /**
          * 
          * @param {any} file 
+         * @param {string} [path] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        imageUploadUploadCreate(file: any, options?: any): AxiosPromise<ImageUploaderResponse> {
-            return localVarFp.imageUploadUploadCreate(file, options).then((request) => request(axios, basePath));
+        imageUploadUploadCreate(file: any, path?: string, options?: any): AxiosPromise<ImageUploaderResponse> {
+            return localVarFp.imageUploadUploadCreate(file, path, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5757,6 +6679,13 @@ export interface ImageUploadApiImageUploadUploadCreateRequest {
      * @memberof ImageUploadApiImageUploadUploadCreate
      */
     readonly file: any
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageUploadApiImageUploadUploadCreate
+     */
+    readonly path?: string
 }
 
 /**
@@ -5774,7 +6703,7 @@ export class ImageUploadApi extends BaseAPI {
      * @memberof ImageUploadApi
      */
     public imageUploadUploadCreate(requestParameters: ImageUploadApiImageUploadUploadCreateRequest, options?: any) {
-        return ImageUploadApiFp(this.configuration).imageUploadUploadCreate(requestParameters.file, options).then((request) => request(this.axios, this.basePath));
+        return ImageUploadApiFp(this.configuration).imageUploadUploadCreate(requestParameters.file, requestParameters.path, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -7446,6 +8375,15 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @param {string} id 
+/**
+ * Request parameters for ordersAddMemoCreate operation in OrdersApi.
+ * @export
+ * @interface OrdersApiOrdersAddMemoCreateRequest
+ */
+export interface OrdersApiOrdersAddMemoCreateRequest {
+    /**
+     * 
+     * @type {string}
          * @param {UpdateRefundRequest} updateRefundRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7456,15 +8394,6 @@ export const OrdersApiFactory = function (configuration?: Configuration, basePat
     };
 };
 
-/**
- * Request parameters for ordersAddMemoCreate operation in OrdersApi.
- * @export
- * @interface OrdersApiOrdersAddMemoCreateRequest
- */
-export interface OrdersApiOrdersAddMemoCreateRequest {
-    /**
-     * 
-     * @type {string}
      * @memberof OrdersApiOrdersAddMemoCreate
      */
     readonly id: string
@@ -7781,6 +8710,7 @@ export class OrdersApi extends BaseAPI {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrdersApi
+
      */
     public ordersRetrieve(requestParameters: OrdersApiOrdersRetrieveRequest, options?: any) {
         return OrdersApiFp(this.configuration).ordersRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
@@ -7795,6 +8725,125 @@ export class OrdersApi extends BaseAPI {
      */
     public ordersUpdateRefundCreate(requestParameters: OrdersApiOrdersUpdateRefundCreateRequest, options?: any) {
         return OrdersApiFp(this.configuration).ordersUpdateRefundCreate(requestParameters.id, requestParameters.updateRefundRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * PackagesApi - axios parameter creator
+ * @export
+ */
+export const PackagesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        packagesReprintCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('packagesReprintCreate', 'id', id)
+            const localVarPath = `/packages/{id}/reprint/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PackagesApi - functional programming interface
+ * @export
+ */
+export const PackagesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PackagesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async packagesReprintCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Package>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.packagesReprintCreate(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * PackagesApi - factory interface
+ * @export
+ */
+export const PackagesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PackagesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        packagesReprintCreate(id: string, options?: any): AxiosPromise<Package> {
+            return localVarFp.packagesReprintCreate(id, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for packagesReprintCreate operation in PackagesApi.
+ * @export
+ * @interface PackagesApiPackagesReprintCreateRequest
+ */
+export interface PackagesApiPackagesReprintCreateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof PackagesApiPackagesReprintCreate
+     */
+    readonly id: string
+}
+
+/**
+ * PackagesApi - object-oriented interface
+ * @export
+ * @class PackagesApi
+ * @extends {BaseAPI}
+ */
+export class PackagesApi extends BaseAPI {
+    /**
+     * 
+     * @param {PackagesApiPackagesReprintCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PackagesApi
+     */
+    public packagesReprintCreate(requestParameters: PackagesApiPackagesReprintCreateRequest, options?: any) {
+        return PackagesApiFp(this.configuration).packagesReprintCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -9979,13 +11028,13 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductRequest} timedealProductRequest 
+         * @param {TimedealProductAddRequest} timedealProductAddRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsCreate: async (timedealProductRequest: TimedealProductRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'timedealProductRequest' is not null or undefined
-            assertParamExists('timedealProductsCreate', 'timedealProductRequest', timedealProductRequest)
+        timedealProductsCreate: async (timedealProductAddRequest: TimedealProductAddRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'timedealProductAddRequest' is not null or undefined
+            assertParamExists('timedealProductsCreate', 'timedealProductAddRequest', timedealProductAddRequest)
             const localVarPath = `/timedeal-products/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -10009,7 +11058,7 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductAddRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -10234,12 +11283,12 @@ export const TimedealProductsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductRequest} timedealProductRequest 
+         * @param {TimedealProductAddRequest} timedealProductAddRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealProductsCreate(timedealProductRequest: TimedealProductRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsCreate(timedealProductRequest, options);
+        async timedealProductsCreate(timedealProductAddRequest: TimedealProductAddRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductAdd>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsCreate(timedealProductAddRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -10308,12 +11357,12 @@ export const TimedealProductsApiFactory = function (configuration?: Configuratio
     return {
         /**
          * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductRequest} timedealProductRequest 
+         * @param {TimedealProductAddRequest} timedealProductAddRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsCreate(timedealProductRequest: TimedealProductRequest, options?: any): AxiosPromise<TimedealProduct> {
-            return localVarFp.timedealProductsCreate(timedealProductRequest, options).then((request) => request(axios, basePath));
+        timedealProductsCreate(timedealProductAddRequest: TimedealProductAddRequest, options?: any): AxiosPromise<TimedealProductAdd> {
+            return localVarFp.timedealProductsCreate(timedealProductAddRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Adaptation of DRF ModelViewSet
@@ -10375,10 +11424,10 @@ export const TimedealProductsApiFactory = function (configuration?: Configuratio
 export interface TimedealProductsApiTimedealProductsCreateRequest {
     /**
      * 
-     * @type {TimedealProductRequest}
+     * @type {TimedealProductAddRequest}
      * @memberof TimedealProductsApiTimedealProductsCreate
      */
-    readonly timedealProductRequest: TimedealProductRequest
+    readonly timedealProductAddRequest: TimedealProductAddRequest
 }
 
 /**
@@ -10494,7 +11543,7 @@ export class TimedealProductsApi extends BaseAPI {
      * @memberof TimedealProductsApi
      */
     public timedealProductsCreate(requestParameters: TimedealProductsApiTimedealProductsCreateRequest, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsCreate(requestParameters.timedealProductRequest, options).then((request) => request(this.axios, this.basePath));
+        return TimedealProductsApiFp(this.configuration).timedealProductsCreate(requestParameters.timedealProductAddRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

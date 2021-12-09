@@ -6,7 +6,7 @@
     StringListItem,
   } from "../../helpers/removeable-string-list";
 
-  export let initialValues: string[];
+  export let initialValues: string[] | undefined;
   export let onChange: (values: StringListItem[]) => void;
   export let color: "pink" | "blue" | "yellow" | "green" | "grey" = "yellow";
 
