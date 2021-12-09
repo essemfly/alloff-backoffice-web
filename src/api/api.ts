@@ -1998,6 +1998,12 @@ export interface Inventory {
      * @type {string}
      * @memberof Inventory
      */
+    deleted_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Inventory
+     */
     product_id: string;
     /**
      * 
@@ -2072,6 +2078,12 @@ export interface InventoryRequest {
      * @memberof InventoryRequest
      */
     size: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InventoryRequest
+     */
+    deleted_at?: string | null;
     /**
      * 
      * @type {string}
@@ -2198,12 +2210,6 @@ export interface Notification {
      * @type {string}
      * @memberof Notification
      */
-    mobiles?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
     navigateto?: string;
     /**
      * 
@@ -2241,6 +2247,18 @@ export interface Notification {
      * @memberof Notification
      */
     result?: { [key: string]: any; };
+    /**
+     * 
+     * @type {string}
+     * @memberof Notification
+     */
+    notificationid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Notification
+     */
+    mobiles?: string;
 }
 /**
  * 
@@ -3762,6 +3780,12 @@ export interface PatchedInventoryRequest {
      * @type {string}
      * @memberof PatchedInventoryRequest
      */
+    deleted_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchedInventoryRequest
+     */
     product_id?: string;
     /**
      * 
@@ -5023,12 +5047,6 @@ export interface TimedealProductAdd {
     brand: AlloffProductBrand;
     /**
      * 
-     * @type {AlloffProductInstruction}
-     * @memberof TimedealProductAdd
-     */
-    instruction: AlloffProductInstruction;
-    /**
-     * 
      * @type {Array<AlloffProductFaults>}
      * @memberof TimedealProductAdd
      */
@@ -5124,12 +5142,6 @@ export interface TimedealProductAddRequest {
      * @memberof TimedealProductAddRequest
      */
     brand: AlloffProductBrandRequest;
-    /**
-     * 
-     * @type {AlloffProductInstructionRequest}
-     * @memberof TimedealProductAddRequest
-     */
-    instruction: AlloffProductInstructionRequest;
     /**
      * 
      * @type {Array<AlloffProductFaultsRequest>}
@@ -8712,6 +8724,125 @@ export class OrdersApi extends BaseAPI {
      */
     public ordersUpdateRefundCreate(requestParameters: OrdersApiOrdersUpdateRefundCreateRequest, options?: any) {
         return OrdersApiFp(this.configuration).ordersUpdateRefundCreate(requestParameters.id, requestParameters.updateRefundRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * PackagesApi - axios parameter creator
+ * @export
+ */
+export const PackagesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        packagesReprintCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('packagesReprintCreate', 'id', id)
+            const localVarPath = `/packages/{id}/reprint/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PackagesApi - functional programming interface
+ * @export
+ */
+export const PackagesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PackagesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async packagesReprintCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Package>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.packagesReprintCreate(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * PackagesApi - factory interface
+ * @export
+ */
+export const PackagesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PackagesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        packagesReprintCreate(id: string, options?: any): AxiosPromise<Package> {
+            return localVarFp.packagesReprintCreate(id, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for packagesReprintCreate operation in PackagesApi.
+ * @export
+ * @interface PackagesApiPackagesReprintCreateRequest
+ */
+export interface PackagesApiPackagesReprintCreateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof PackagesApiPackagesReprintCreate
+     */
+    readonly id: string
+}
+
+/**
+ * PackagesApi - object-oriented interface
+ * @export
+ * @class PackagesApi
+ * @extends {BaseAPI}
+ */
+export class PackagesApi extends BaseAPI {
+    /**
+     * 
+     * @param {PackagesApiPackagesReprintCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PackagesApi
+     */
+    public packagesReprintCreate(requestParameters: PackagesApiPackagesReprintCreateRequest, options?: any) {
+        return PackagesApiFp(this.configuration).packagesReprintCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
