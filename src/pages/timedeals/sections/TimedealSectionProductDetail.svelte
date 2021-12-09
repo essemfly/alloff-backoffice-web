@@ -67,6 +67,7 @@
     faults: [],
     canceldescription: [],
     deliverydescription: [],
+    description: [],
     sizedescription: [],
     instruction: {
       title: "",
@@ -210,6 +211,35 @@
       })
       .then((res) => {
         if (res.status === 201) {
+          window.location.href = "/timedeals/" + product.productgroupid;
+        } else {
+          console.log(res);
+          alert("오류가 발생했습니다: " + res.statusText);
+        }
+      })
+      .catch((err) => {
+        alert("에러가 발생했습니다: " + err);
+        console.log(err);
+      });
+  };
+
+  const editTimedealProduct = async () => {
+    let newProduct: TimedealProductAddRequest = {
+      ...product,
+    };
+
+    newProduct.brandid = productBrand._id;
+    if (newProduct.instruction.thumbnail == null) {
+      delete newProduct.instruction.thumbnail;
+    }
+
+    await productApi
+      .timedealProductsUpdate({
+        id: productId,
+        timedealProductAddRequest: newProduct,
+      })
+      .then((res) => {
+        if (res.status === 200) {
           window.location.href = "/timedeals/" + product.productgroupid;
         } else {
           console.log(res);
@@ -434,7 +464,11 @@
     </ContentBox>
     <Row>
       <ButtonSet class="right-button">
-        <Button on:click={saveTimedealProduct}>상품 생성</Button>
+        {#if productId === ""}
+          <Button on:click={saveTimedealProduct}>상품 생성</Button>
+        {:else}
+          <Button on:click={editTimedealProduct}>상품 수정</Button>
+        {/if}
       </ButtonSet>
     </Row>
   </Grid>

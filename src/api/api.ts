@@ -5224,133 +5224,6 @@ export interface TimedealProductAddRequest {
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
  * @export
- * @interface TimedealProductRequest
- */
-export interface TimedealProductRequest {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductRequest
-     */
-    canceldescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductRequest
-     */
-    deliverydescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductRequest
-     */
-    description?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductRequest
-     */
-    discountedprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductRequest
-     */
-    discountrate: number;
-    /**
-     * 
-     * @type {Array<AlloffProductFaultsRequest>}
-     * @memberof TimedealProductRequest
-     */
-    faults?: Array<AlloffProductFaultsRequest>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductRequest
-     */
-    images: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductRequest
-     */
-    name: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductRequest
-     */
-    originalprice: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductRequest
-     */
-    producttype: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductRequest
-     */
-    sizedescription?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductRequest
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductRequest
-     */
-    updated: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TimedealProductRequest
-     */
-    removed?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductRequest
-     */
-    productgroupid: string;
-    /**
-     * 
-     * @type {Array<AlloffProductInventoryRequest>}
-     * @memberof TimedealProductRequest
-     */
-    inventory: Array<AlloffProductInventoryRequest>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TimedealProductRequest
-     */
-    soldout: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductRequest
-     */
-    templateId?: string;
-    /**
-     * 
-     * @type {AlloffProductBrandRequest}
-     * @memberof TimedealProductRequest
-     */
-    brand: AlloffProductBrandRequest;
-    /**
-     * 
-     * @type {AlloffProductInstructionRequest}
-     * @memberof TimedealProductRequest
-     */
-    instruction: AlloffProductInstructionRequest;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
  * @interface TimedealProductTemplate
  */
 export interface TimedealProductTemplate {
@@ -11123,15 +10996,15 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {TimedealProductRequest} timedealProductRequest 
+         * @param {TimedealProductAddRequest} timedealProductAddRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsUpdate: async (id: string, timedealProductRequest: TimedealProductRequest, options: any = {}): Promise<RequestArgs> => {
+        timedealProductsUpdate: async (id: string, timedealProductAddRequest: TimedealProductAddRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('timedealProductsUpdate', 'id', id)
-            // verify required parameter 'timedealProductRequest' is not null or undefined
-            assertParamExists('timedealProductsUpdate', 'timedealProductRequest', timedealProductRequest)
+            // verify required parameter 'timedealProductAddRequest' is not null or undefined
+            assertParamExists('timedealProductsUpdate', 'timedealProductAddRequest', timedealProductAddRequest)
             const localVarPath = `/timedeal-products/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -11156,7 +11029,7 @@ export const TimedealProductsApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductAddRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -11229,12 +11102,12 @@ export const TimedealProductsApiFp = function(configuration?: Configuration) {
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {TimedealProductRequest} timedealProductRequest 
+         * @param {TimedealProductAddRequest} timedealProductAddRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async timedealProductsUpdate(id: string, timedealProductRequest: TimedealProductRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsUpdate(id, timedealProductRequest, options);
+        async timedealProductsUpdate(id: string, timedealProductAddRequest: TimedealProductAddRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductAdd>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsUpdate(id, timedealProductAddRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -11298,12 +11171,12 @@ export const TimedealProductsApiFactory = function (configuration?: Configuratio
         /**
          * Adaptation of DRF ModelViewSet
          * @param {string} id 
-         * @param {TimedealProductRequest} timedealProductRequest 
+         * @param {TimedealProductAddRequest} timedealProductAddRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        timedealProductsUpdate(id: string, timedealProductRequest: TimedealProductRequest, options?: any): AxiosPromise<TimedealProduct> {
-            return localVarFp.timedealProductsUpdate(id, timedealProductRequest, options).then((request) => request(axios, basePath));
+        timedealProductsUpdate(id: string, timedealProductAddRequest: TimedealProductAddRequest, options?: any): AxiosPromise<TimedealProductAdd> {
+            return localVarFp.timedealProductsUpdate(id, timedealProductAddRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -11414,10 +11287,10 @@ export interface TimedealProductsApiTimedealProductsUpdateRequest {
 
     /**
      * 
-     * @type {TimedealProductRequest}
+     * @type {TimedealProductAddRequest}
      * @memberof TimedealProductsApiTimedealProductsUpdate
      */
-    readonly timedealProductRequest: TimedealProductRequest
+    readonly timedealProductAddRequest: TimedealProductAddRequest
 }
 
 /**
@@ -11490,7 +11363,7 @@ export class TimedealProductsApi extends BaseAPI {
      * @memberof TimedealProductsApi
      */
     public timedealProductsUpdate(requestParameters: TimedealProductsApiTimedealProductsUpdateRequest, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsUpdate(requestParameters.id, requestParameters.timedealProductRequest, options).then((request) => request(this.axios, this.basePath));
+        return TimedealProductsApiFp(this.configuration).timedealProductsUpdate(requestParameters.id, requestParameters.timedealProductAddRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
