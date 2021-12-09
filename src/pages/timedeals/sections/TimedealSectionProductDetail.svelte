@@ -81,16 +81,7 @@
     soldout: false,
     images: [],
     inventory: [],
-    brand: {
-      korname: "",
-      keyname: "",
-      engname: "",
-      logoimgurl: "",
-      onpopular: false,
-      description: "",
-      isopen: false,
-      ishide: false,
-    },
+    brandid: "",
   };
 
   $: discountrate = (
@@ -108,7 +99,7 @@
         id: productId,
       });
 
-      product = { ...data };
+      product = { ...data, brandid: data.brand._id };
       if (data.producttype[1] === "1년차 B품/샘플") {
         selectedIndex = 1;
       } else {
@@ -211,7 +202,7 @@
       ...product,
     };
 
-    newProduct.brand = productBrand;
+    newProduct.brandid = productBrand._id;
 
     await productApi
       .timedealProductsCreate({
