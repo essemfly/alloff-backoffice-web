@@ -14,7 +14,7 @@
   import OrderDetail from "./pages/orders/OrderDetail.svelte";
   import Orders from "./pages/orders/Orders.svelte";
   import TimedealProductDetail from "./pages/timedeal-products/TimedealProductDetail.svelte";
-  import TimedealSectionNewProduct from "./pages/timedeals/sections/TimedealSectionNewProduct.svelte";
+  import TimedealSectionProductDetail from "./pages/timedeals/sections/TimedealSectionProductDetail.svelte";
   import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
 </script>
@@ -70,8 +70,13 @@
     <Route path="new">
       <TimedealDetail />
     </Route>
-    <Route path=":id/new-product" let:params>
-      <TimedealSectionNewProduct productGroupId={params.id} />
+    <Route path=":id/product/*" let:params>
+      <Route path="/">
+        <TimedealSectionProductDetail productId="" productGroupId={params.id} mobile={false} />
+      </Route>
+      <Route path=":productid" let:params>
+        <TimedealSectionProductDetail productId={params.productid} productGroupId={params.id} mobile={false} />
+      </Route>
     </Route>
   </Route>
   <Route path="notifications/*">

@@ -6,13 +6,20 @@
     Button,
     Tile,
   } from "carbon-components-svelte";
+  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   export let instructionTitle: string;
   export let instructions: string[];
   let newInstruction = "";
 
   function addInstruction(newString: string) {
     instructions = [...instructions, newString];
+    instructions = instructions
     newInstruction = "";
+  }
+
+  function removeInstruction(idx: number) {
+    instructions.splice(idx, 1)
+    instructions = instructions
   }
 </script>
 
@@ -27,9 +34,17 @@
   >
 
   <UnorderedList>
-    {#each instructions as item}
+    {#each instructions as item, idx}
       <Tile class={"list-tile"}>
         <ListItem class={"list-item"}>{item}</ListItem>
+        <Button
+        size="small"
+        icon={TrashCan16}
+        kind="danger"
+        class="memo-delete"
+        iconDescription="Delete"
+        on:click={() => removeInstruction(idx)}
+      />
       </Tile>
     {/each}
   </UnorderedList>

@@ -3,6 +3,12 @@
   import LoggedInFrame from "../../common/LoggedInFrame.svelte";
   import ContentBox from "../components/ContentBox.svelte";
   import ProductTemplateTable from "../components/ProductTemplateTable.svelte";
+  import { RemovableStringList } from "../../../helpers/removeable-string-list";
+  import StringList from "../../common/StringList.svelte";
+  import { AutocompleteItem } from "../../../common/autocomplete/utils";
+  import Autocomplete from "../../../common/autocomplete/Autocomplete.svelte";
+  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
+
   import {
     Grid,
     Row,
@@ -26,14 +32,21 @@
     TimedealProductTemplatesApi,
     TimedealProductsApi,
     TimedealProductAddRequest,
+    Brand,
+    BrandsApiFactory,
+    AlloffProductBrand,
   } from "../../../api";
   import type { DataTableRow } from "carbon-components-svelte/types/DataTable/DataTable";
+  import { onMount } from "svelte";
 
   const templateApi = new TimedealProductTemplatesApi();
   const productApi = new TimedealProductsApi();
   const imageApi = new ImageUploadApi();
 
+  export let mobile: boolean;
   export let productGroupId: string;
+  export let productId: string;
+
   let templateModalOpen = false;
   let selectedIndex = -1;
   let templates: TimedealProductTemplate[] | undefined;
@@ -43,7 +56,9 @@
   let faultImageUploading = false;
   let faultImage: { url: string; key?: string } | undefined = undefined;
   let productImagesUploading = false;
-  let productImages: string[] = [];
+
+  let productBrand: AlloffProductBrand;
+  let brands: Brand[] = [];
 
   let product: TimedealProductAddRequest = {
     faults: [],
@@ -66,20 +81,38 @@
     brandid: "",
   };
 
+  const { map: _images, ...imageManager } = RemovableStringList.from({
+    initialValues: product.images,
+    onChange: (state) => {
+      console.log("HOIT?");
+    },
+  });
+
   $: discountrate = (
     ((product.originalprice - product.discountedprice) /
       product.originalprice) *
     100
   ).toFixed(0);
 
-  // API CALLS
-  const load = async (p: number, size: number, search?: string) => {
-    // const {
-    //   data: { count, results },
-    // } = await api.timedealsList({ page: p, search, size });
-    // totalItems = count ?? 0;
-    // timedeals = results ?? [];
-  };
+  onMount(async () => {
+    const { data } = await BrandsApiFactory().brandsList();
+    brands = data;
+
+    if (productId !== "") {
+      const { data } = await productApi.timedealProductsRetrieve({
+        id: productId,
+      });
+      product = { ...data, brandid: data.brand._id };
+      if (data.producttype[1] == "1년차 B품/샘플") {
+        selectedIndex = 1;
+      } else {
+        selectedIndex = 0;
+      }
+
+      productBrand = data.brand;
+      console.log("PD", product);
+    }
+  });
 
   const loadTimedealProductTemplates = async () => {
     const templatesData = await templateApi.timedealProductTemplatesList({
@@ -88,14 +121,6 @@
     });
 
     templates = templatesData.data.results;
-  };
-
-  const saveTimedealProduct = async (
-    sampleProduct: TimedealProductAddRequest
-  ) => {
-    const newProduct = await productApi.timedealProductsCreate({
-      timedealProductAddRequest: sampleProduct,
-    });
   };
 
   // UI Click funcions
@@ -111,6 +136,12 @@
     ];
     inventoryTextInput = "";
   }
+
+  const handleChooseBrand = (selectedValue: AutocompleteItem) => {
+    const selectedBrand = brands.find((b) => b.id === selectedValue.key);
+    if (!selectedBrand) return;
+    productBrand = { _id: selectedBrand.id, ...selectedBrand };
+  };
 
   function selectProductType(type: number) {
     if (type === 0) {
@@ -152,7 +183,6 @@
   }
 
   function loadTemplateData(data: DataTableRow) {
-    console.log("close", data);
     templateModalOpen = false;
     Object.assign(product, data);
     if (data.producttype[1] == "1년차 B품/샘플") {
@@ -161,9 +191,21 @@
       selectedIndex = 0;
     }
 
-    productImages = data.images;
     product = product;
   }
+
+  function handleInventoryChange(idx: number) {
+    if (product.inventory[idx].quantity < 1) {
+      product.inventory.splice(idx, 1);
+    }
+  }
+
+  const saveTimedealProduct = async () => {
+    console.log("PRODUCT", product)
+    // const newProduct = await productApi.timedealProductsCreate({
+    //   timedealProductAddRequest: sampleProduct,
+    // });
+  };
 </script>
 
 <LoggedInFrame>
@@ -171,7 +213,7 @@
     <Row>
       <ButtonSet class="right-button">
         <Button on:click={openTemplateModal}>템플릿 불러오기</Button>
-        <Button kind="secondary" on:click={() => {}}>생성</Button>
+        <Button kind="secondary" on:click={saveTimedealProduct}>생성</Button>
       </ButtonSet>
       <Modal
         passiveModal
@@ -203,7 +245,11 @@
           >
 
           {#each product.inventory as inv, i}
-            <NumberInput label={inv.size} bind:value={inv.quantity} />
+            <NumberInput
+              label={inv.size}
+              bind:value={inv.quantity}
+              on:change={() => handleInventoryChange(i)}
+            />
           {/each}
         </Column>
       </Row>
@@ -229,40 +275,42 @@
           />
         </Column>
         <Column>
-          <span class="bx--label" style="margin-top: 0;">하자 정보</span>
-          {#if faultImage}
-            <img class="image" src={faultImage.url} alt="timedeal" />
-          {/if}
-          {#if faultImageUploading}
-            <InlineLoading
-              status="active"
-              description="이미지를 업로드하는 중..."
+          {#if selectedIndex === 1}
+            <span class="bx--label" style="margin-top: 0;">하자 정보</span>
+            {#if faultImage}
+              <img class="image" src={faultImage.url} alt="timedeal" />
+            {/if}
+            {#if faultImageUploading}
+              <InlineLoading
+                status="active"
+                description="이미지를 업로드하는 중..."
+              />
+            {/if}
+            <FileUploaderDropContainer
+              labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
+              accept={["image/*"]}
+              on:add={(e) => {
+                const file = e.detail[0];
+                faultImage = undefined;
+                faultImageUploading = true;
+                imageApi.imageUploadUploadCreate({ file }).then((res) => {
+                  const { random_key, url } = res.data;
+                  faultImage = { url, key: random_key };
+                  faultImageUploading = false;
+                });
+              }}
             />
-          {/if}
-          <FileUploaderDropContainer
-            labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
-            accept={["image/*"]}
-            on:add={(e) => {
-              const file = e.detail[0];
-              faultImage = undefined;
-              faultImageUploading = true;
-              imageApi.imageUploadUploadCreate({ file }).then((res) => {
-                const { random_key, url } = res.data;
-                faultImage = { url, key: random_key };
-                faultImageUploading = false;
-              });
-            }}
-          />
-          <TextInput
-            placeholder="작성 후 추가 버튼을 누르세요"
-            bind:value={faultTextInput}
-          />
-          <Button kind="secondary" on:click={addFaultInfo}>추가</Button>
-          {#if product.faults && product.faults.length > 0}
-            {#each product.faults as fault}
-              <img class="image" src={fault.image} alt="timedeal-products" />
-              <span>{fault.description}</span>
-            {/each}
+            <TextInput
+              placeholder="작성 후 추가 버튼을 누르세요"
+              bind:value={faultTextInput}
+            />
+            <Button kind="secondary" on:click={addFaultInfo}>추가</Button>
+            {#if product.faults && product.faults.length > 0}
+              {#each product.faults as fault}
+                <img class="image" src={fault.image} alt="timedeal-products" />
+                <span>{fault.description}</span>
+              {/each}
+            {/if}
           {/if}
         </Column>
       </Row>
@@ -272,10 +320,18 @@
       <h3>상품 정보</h3>
       <Row>
         <Column>
-          <Select labelText="브랜드 키네임">
-            <SelectItem value="구호" text="구호" />
-            <SelectItem value="VOV" text="VOV" />
-          </Select>
+          <div class="bx--label">브랜드</div>
+          <Autocomplete
+            options={brands.map((brand) => ({
+              key: brand.id,
+              value: brand.korname,
+              subvalue: brand.keyname,
+            }))}
+            onSubmit={handleChooseBrand}
+            placeholder="브랜드 이름/Keyname/ID로 검색"
+            labelText="브랜드 검색"
+            selectedValue={productBrand?.korname}
+          />
           <TextInput
             labelText={"기존 가격"}
             bind:value={product.originalprice}
@@ -292,13 +348,28 @@
       <Row>
         <Column>
           <div class="bx--label">상품 이미지</div>
-          {#if productImages.length > 0}
-            <div>
-              {#each productImages as productImage}
-                <img class="image" src={productImage} alt="timedeal-products" />
-              {/each}
-            </div>
-          {/if}
+          <div class="image-container">
+            {#each $_images as image}
+              <div class="image-wrapper" class:mobile>
+                <img
+                  class="image"
+                  class:mobile
+                  src={image.body}
+                  alt="timedeal"
+                />
+                <div class="delete-button">
+                  <Button
+                    tooltipPosition="bottom"
+                    tooltipAlignment="end"
+                    iconDescription="이미지 삭제"
+                    icon={TrashCan16}
+                    kind="danger"
+                    on:click={() => imageManager.remove(image.key)}
+                  />
+                </div>
+              </div>
+            {/each}
+          </div>
           {#if productImagesUploading}
             <InlineLoading
               status="active"
@@ -310,7 +381,6 @@
             multiple
             accept={["image/*"]}
             on:add={(e) => {
-              console.log("IMG DETAIL", e.detail);
               const files = e.detail;
               productImagesUploading = true;
               for (let i = 0; i < files.length; i++) {
@@ -318,7 +388,7 @@
                   .imageUploadUploadCreate({ file: files[i] })
                   .then((res) => {
                     const { random_key, url } = res.data;
-                    productImages = [...productImages, url];
+                    imageManager.add(url);
                   });
               }
               productImagesUploading = false;
@@ -376,5 +446,43 @@
     max-height: 200px;
     margin-right: 10px;
     object-fit: contain;
+  }
+
+  .image-container {
+    margin-left: 0px;
+  }
+
+  .image-wrapper {
+    display: inline-block;
+    position: relative;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: grey;
+    border-radius: 15px;
+    box-shadow: 5px 5px 13px -5px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 5px 5px 13px -5px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 5px 5px 13px -5px rgba(0, 0, 0, 0.2);
+  }
+
+  .image-wrapper.mobile {
+    width: 100%;
+  }
+
+  .image-wrapper > .delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .image {
+    width: auto;
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+  }
+
+  .image.mobile {
+    width: 100%;
   }
 </style>
