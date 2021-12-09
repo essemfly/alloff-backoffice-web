@@ -12,14 +12,16 @@
   let newInstruction = "";
 
   function addInstruction(newString: string) {
-    instructions = [...instructions, newString];
-    instructions = instructions
-    newInstruction = "";
+    if (newString !== "") {
+      instructions.push(newString);
+      instructions = instructions;
+      newInstruction = "";
+    }
   }
 
   function removeInstruction(idx: number) {
-    instructions.splice(idx, 1)
-    instructions = instructions
+    instructions.splice(idx, 1);
+    instructions = instructions;
   }
 </script>
 
@@ -38,25 +40,24 @@
       <Tile class={"list-tile"}>
         <ListItem class={"list-item"}>{item}</ListItem>
         <Button
-        size="small"
-        icon={TrashCan16}
-        kind="danger"
-        class="memo-delete"
-        iconDescription="Delete"
-        on:click={() => removeInstruction(idx)}
-      />
+          size="small"
+          icon={TrashCan16}
+          kind="danger"
+          class="memo-delete"
+          iconDescription="Delete"
+          on:click={() => removeInstruction(idx)}
+        />
       </Tile>
     {/each}
   </UnorderedList>
 </div>
 
 <style>
-:global(.list-tile) {
+  :global(.list-tile) {
     min-height: 0;
     padding: 0.3rem;
-    box-shadow: 0.1px rgba(0, 0, 0, 0.1)
-    ;
-}
+    box-shadow: 0.1px rgba(0, 0, 0, 0.1);
+  }
   :global(.list-item) {
     background-color: rgb(198, 246, 213);
     padding: 0.8rem;

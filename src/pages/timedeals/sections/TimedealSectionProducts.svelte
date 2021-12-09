@@ -41,7 +41,7 @@
   <div style="height: 10px" />
   <div class="button-wrapper">
     <Button
-      on:click={() => (window.location.href = timedeal.id + "/new-product")}
+      on:click={() => (window.location.href = timedeal.id + "/product")}
       icon={DocumentAdd16}>상품 추가</Button
     >
   </div>
@@ -61,7 +61,11 @@
         <div class="image">
           <img src={product.images[0]} alt="img" />
         </div>
-        <div class="info">
+        <div
+          class="info"
+          on:click={() =>
+            (window.location.href = timedeal.id + "/product/" + product.id)}
+        >
           <Tag>{product.brand.keyname}</Tag>
           <p>{product.brand.korname}</p>
           <h6>{product.name}</h6>

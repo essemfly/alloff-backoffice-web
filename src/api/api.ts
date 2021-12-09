@@ -5017,6 +5017,12 @@ export interface TimedealProductAdd {
     sizedescription?: Array<string>;
     /**
      * 
+     * @type {AlloffProductBrand}
+     * @memberof TimedealProductAdd
+     */
+    brand: AlloffProductBrand;
+    /**
+     * 
      * @type {AlloffProductInstruction}
      * @memberof TimedealProductAdd
      */
@@ -5087,12 +5093,6 @@ export interface TimedealProductAdd {
      * @memberof TimedealProductAdd
      */
     productgroupid: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAdd
-     */
-    brandid: string;
 }
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
@@ -5118,6 +5118,12 @@ export interface TimedealProductAddRequest {
      * @memberof TimedealProductAddRequest
      */
     sizedescription?: Array<string>;
+    /**
+     * 
+     * @type {AlloffProductBrandRequest}
+     * @memberof TimedealProductAddRequest
+     */
+    brand: AlloffProductBrandRequest;
     /**
      * 
      * @type {AlloffProductInstructionRequest}
@@ -5190,12 +5196,6 @@ export interface TimedealProductAddRequest {
      * @memberof TimedealProductAddRequest
      */
     productgroupid: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAddRequest
-     */
-    brandid: string;
 }
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.

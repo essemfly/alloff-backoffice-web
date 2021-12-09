@@ -52,9 +52,12 @@
   let templates: TimedealProductTemplate[] | undefined;
 
   let inventoryTextInput = "";
-  let faultTextInput = "";
+
+  let tempFault = {
+    image: "",
+    description: "",
+  };
   let faultImageUploading = false;
-  let faultImage: { url: string; key?: string } | undefined = undefined;
   let productImagesUploading = false;
 
   let productBrand: AlloffProductBrand;
@@ -78,15 +81,17 @@
     soldout: false,
     images: [],
     inventory: [],
-    brandid: "",
-  };
-
-  const { map: _images, ...imageManager } = RemovableStringList.from({
-    initialValues: product.images,
-    onChange: (state) => {
-      console.log("HOIT?");
+    brand: {
+      korname: "",
+      keyname: "",
+      engname: "",
+      logoimgurl: "",
+      onpopular: false,
+      description: "",
+      isopen: false,
+      ishide: false,
     },
-  });
+  };
 
   $: discountrate = (
     ((product.originalprice - product.discountedprice) /
@@ -102,15 +107,15 @@
       const { data } = await productApi.timedealProductsRetrieve({
         id: productId,
       });
-      product = { ...data, brandid: data.brand._id };
-      if (data.producttype[1] == "1년차 B품/샘플") {
+
+      product = { ...data };
+      if (data.producttype[1] === "1년차 B품/샘플") {
         selectedIndex = 1;
       } else {
         selectedIndex = 0;
       }
 
       productBrand = data.brand;
-      console.log("PD", product);
     }
   });
 
@@ -145,6 +150,7 @@
 
   function selectProductType(type: number) {
     if (type === 0) {
+      product.producttype = ["타임딜", "아울렛 특가"];
       product.instruction = {
         title: "아울렛 특가 유의사항",
         description: [
@@ -153,6 +159,7 @@
         ],
       };
     } else if (type === 1) {
+      product.producttype = ["타임딜", "1년차 B품/샘플"];
       product.instruction = {
         title: "1년차 B품/샘플 유의사항",
         description: [
@@ -165,21 +172,14 @@
 
   function addFaultInfo() {
     if (product.faults) {
-      product.faults = [
-        ...product.faults,
-        {
-          image: "",
-          description: faultTextInput,
-        },
-      ];
+      product.faults = [...product.faults, tempFault];
     } else {
-      product.faults = [
-        {
-          image: "",
-          description: faultTextInput,
-        },
-      ];
+      product.faults = [tempFault];
     }
+    tempFault = {
+      image: "",
+      description: "",
+    };
   }
 
   function loadTemplateData(data: DataTableRow) {
@@ -192,6 +192,7 @@
     }
 
     product = product;
+    productBrand = data.brand;
   }
 
   function handleInventoryChange(idx: number) {
@@ -200,11 +201,34 @@
     }
   }
 
+  const deleteProductImage = (idx: number) => {
+    product.images.splice(idx, 1);
+    product = product;
+  };
+
   const saveTimedealProduct = async () => {
-    console.log("PRODUCT", product)
-    // const newProduct = await productApi.timedealProductsCreate({
-    //   timedealProductAddRequest: sampleProduct,
-    // });
+    let newProduct: TimedealProductAddRequest = {
+      ...product,
+    };
+
+    newProduct.brand = productBrand;
+
+    await productApi
+      .timedealProductsCreate({
+        timedealProductAddRequest: newProduct,
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          window.location.href = "/timedeals/" + product.productgroupid;
+        } else {
+          console.log(res);
+          alert("오류가 발생했습니다: " + res.statusText);
+        }
+      })
+      .catch((err) => {
+        alert("에러가 발생했습니다: " + err);
+        console.log(err);
+      });
   };
 </script>
 
@@ -213,7 +237,6 @@
     <Row>
       <ButtonSet class="right-button">
         <Button on:click={openTemplateModal}>템플릿 불러오기</Button>
-        <Button kind="secondary" on:click={saveTimedealProduct}>생성</Button>
       </ButtonSet>
       <Modal
         passiveModal
@@ -231,94 +254,15 @@
     </Row>
 
     <ContentBox>
-      <h3>재고 정보</h3>
-      <Row>
-        <Column>
-          <TextInput
-            labelText={"신규 사이즈 등록"}
-            placeholder="작성 후 추가 버튼을 누르세요"
-            bind:value={inventoryTextInput}
-          />
-          <Button
-            kind="secondary"
-            on:click={() => addInventory(inventoryTextInput)}>추가</Button
-          >
-
-          {#each product.inventory as inv, i}
-            <NumberInput
-              label={inv.size}
-              bind:value={inv.quantity}
-              on:change={() => handleInventoryChange(i)}
-            />
-          {/each}
-        </Column>
-      </Row>
-      <Row>
-        <Column />
-      </Row>
-    </ContentBox>
-
-    <ContentBox>
-      <h3>판매 정보</h3>
-      <Row>
-        <Column>
-          <ContentSwitcher
-            bind:selectedIndex
-            on:click={() => selectProductType(selectedIndex)}
-          >
-            <Switch text="아울렛 특가" />
-            <Switch text="1년차 B품/샘플" />
-          </ContentSwitcher>
-          <InstructionAdder
-            instructionTitle={product.instruction.title}
-            instructions={product.instruction.description}
-          />
-        </Column>
-        <Column>
-          {#if selectedIndex === 1}
-            <span class="bx--label" style="margin-top: 0;">하자 정보</span>
-            {#if faultImage}
-              <img class="image" src={faultImage.url} alt="timedeal" />
-            {/if}
-            {#if faultImageUploading}
-              <InlineLoading
-                status="active"
-                description="이미지를 업로드하는 중..."
-              />
-            {/if}
-            <FileUploaderDropContainer
-              labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
-              accept={["image/*"]}
-              on:add={(e) => {
-                const file = e.detail[0];
-                faultImage = undefined;
-                faultImageUploading = true;
-                imageApi.imageUploadUploadCreate({ file }).then((res) => {
-                  const { random_key, url } = res.data;
-                  faultImage = { url, key: random_key };
-                  faultImageUploading = false;
-                });
-              }}
-            />
-            <TextInput
-              placeholder="작성 후 추가 버튼을 누르세요"
-              bind:value={faultTextInput}
-            />
-            <Button kind="secondary" on:click={addFaultInfo}>추가</Button>
-            {#if product.faults && product.faults.length > 0}
-              {#each product.faults as fault}
-                <img class="image" src={fault.image} alt="timedeal-products" />
-                <span>{fault.description}</span>
-              {/each}
-            {/if}
-          {/if}
-        </Column>
-      </Row>
-    </ContentBox>
-
-    <ContentBox>
       <h3>상품 정보</h3>
       <Row>
+        <Column>
+          <TextInput labelText={"상품명"} bind:value={product.name} />
+          <TextInput
+            labelText={"기존 가격"}
+            bind:value={product.originalprice}
+          />
+        </Column>
         <Column>
           <div class="bx--label">브랜드</div>
           <Autocomplete
@@ -333,13 +277,6 @@
             selectedValue={productBrand?.korname}
           />
           <TextInput
-            labelText={"기존 가격"}
-            bind:value={product.originalprice}
-          />
-        </Column>
-        <Column>
-          <TextInput labelText={"상품명"} bind:value={product.name} />
-          <TextInput
             labelText={"할인된 가격 (할인율:" + discountrate + "%)"}
             bind:value={product.discountedprice}
           />
@@ -349,14 +286,9 @@
         <Column>
           <div class="bx--label">상품 이미지</div>
           <div class="image-container">
-            {#each $_images as image}
+            {#each product.images as image, idx}
               <div class="image-wrapper" class:mobile>
-                <img
-                  class="image"
-                  class:mobile
-                  src={image.body}
-                  alt="timedeal"
-                />
+                <img class="image" class:mobile src={image} alt="timedeal" />
                 <div class="delete-button">
                   <Button
                     tooltipPosition="bottom"
@@ -364,7 +296,7 @@
                     iconDescription="이미지 삭제"
                     icon={TrashCan16}
                     kind="danger"
-                    on:click={() => imageManager.remove(image.key)}
+                    on:click={() => deleteProductImage(idx)}
                   />
                 </div>
               </div>
@@ -388,12 +320,67 @@
                   .imageUploadUploadCreate({ file: files[i] })
                   .then((res) => {
                     const { random_key, url } = res.data;
-                    imageManager.add(url);
+                    product.images = [...product.images, url];
                   });
               }
               productImagesUploading = false;
             }}
           />
+        </Column>
+      </Row>
+      <Row>
+        <Column>
+          <div class="bx--label">상품 타입</div>
+          <ContentSwitcher
+            bind:selectedIndex
+            on:click={() => selectProductType(selectedIndex)}
+          >
+            <Switch text="아울렛 특가" />
+            <Switch text="1년차 B품/샘플" />
+          </ContentSwitcher>
+          <InstructionAdder
+            instructionTitle={product.instruction.title}
+            instructions={product.instruction.description}
+          />
+        </Column>
+        <Column>
+          {#if selectedIndex === 1}
+            <span class="bx--label" style="margin-top: 0;">하자 정보</span>
+            {#if tempFault.image !== ""}
+              <img class="image" src={tempFault.image} alt="timedeal" />
+            {/if}
+            {#if faultImageUploading}
+              <InlineLoading
+                status="active"
+                description="이미지를 업로드하는 중..."
+              />
+            {/if}
+            <FileUploaderDropContainer
+              labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
+              accept={["image/*"]}
+              on:add={(e) => {
+                const file = e.detail[0];
+                tempFault.image = "";
+                faultImageUploading = true;
+                imageApi.imageUploadUploadCreate({ file }).then((res) => {
+                  const { random_key, url } = res.data;
+                  tempFault.image = url;
+                  faultImageUploading = false;
+                });
+              }}
+            />
+            <TextInput
+              placeholder="작성 후 추가 버튼을 누르세요"
+              bind:value={tempFault.description}
+            />
+            <Button kind="secondary" on:click={addFaultInfo}>추가</Button>
+            {#if product.faults && product.faults.length > 0}
+              {#each product.faults as fault}
+                <img class="image" src={fault.image} alt="timedeal-products" />
+                <span>{fault.description}</span>
+              {/each}
+            {/if}
+          {/if}
         </Column>
       </Row>
       <Row>
@@ -427,6 +414,38 @@
         </Column>
       </Row>
     </ContentBox>
+    <ContentBox>
+      <h3>재고 정보</h3>
+      <Row>
+        <Column>
+          <TextInput
+            labelText={"신규 사이즈 등록"}
+            placeholder="작성 후 추가 버튼을 누르세요"
+            bind:value={inventoryTextInput}
+          />
+          <Button
+            kind="secondary"
+            on:click={() => addInventory(inventoryTextInput)}>추가</Button
+          >
+
+          {#each product.inventory as inv, i}
+            <NumberInput
+              label={inv.size}
+              bind:value={inv.quantity}
+              on:change={() => handleInventoryChange(i)}
+            />
+          {/each}
+        </Column>
+      </Row>
+      <Row>
+        <Column />
+      </Row>
+    </ContentBox>
+    <Row>
+      <ButtonSet class="right-button">
+        <Button on:click={saveTimedealProduct}>상품 생성</Button>
+      </ButtonSet>
+    </Row>
   </Grid>
 </LoggedInFrame>
 
