@@ -280,7 +280,7 @@ export interface AlloffProductBrand {
      * @type {string}
      * @memberof AlloffProductBrand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -328,19 +328,19 @@ export interface AlloffProductBrand {
      * @type {string}
      * @memberof AlloffProductBrand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductBrand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductBrand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguide>}
@@ -377,7 +377,7 @@ export interface AlloffProductBrandRequest {
      * @type {string}
      * @memberof AlloffProductBrandRequest
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -425,19 +425,19 @@ export interface AlloffProductBrandRequest {
      * @type {string}
      * @memberof AlloffProductBrandRequest
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductBrandRequest
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductBrandRequest
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguideRequest>}
@@ -606,7 +606,7 @@ export interface AlloffProductTemplateBrand {
      * @type {string}
      * @memberof AlloffProductTemplateBrand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -654,19 +654,19 @@ export interface AlloffProductTemplateBrand {
      * @type {string}
      * @memberof AlloffProductTemplateBrand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductTemplateBrand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductTemplateBrand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguide>}
@@ -703,7 +703,7 @@ export interface AlloffProductTemplateBrandRequest {
      * @type {string}
      * @memberof AlloffProductTemplateBrandRequest
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -751,19 +751,19 @@ export interface AlloffProductTemplateBrandRequest {
      * @type {string}
      * @memberof AlloffProductTemplateBrandRequest
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductTemplateBrandRequest
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof AlloffProductTemplateBrandRequest
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguideRequest>}
@@ -900,7 +900,7 @@ export interface Brand {
      * @type {string}
      * @memberof Brand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -948,19 +948,19 @@ export interface Brand {
      * @type {string}
      * @memberof Brand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof Brand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof Brand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<BrandSizeguide>}
@@ -1053,7 +1053,7 @@ export interface BrandRequest {
      * @type {string}
      * @memberof BrandRequest
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -1101,19 +1101,19 @@ export interface BrandRequest {
      * @type {string}
      * @memberof BrandRequest
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof BrandRequest
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof BrandRequest
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<BrandSizeguideRequest>}
@@ -1363,7 +1363,7 @@ export interface EmbeddedAlloffProductBrand {
      * @type {string}
      * @memberof EmbeddedAlloffProductBrand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -1411,19 +1411,19 @@ export interface EmbeddedAlloffProductBrand {
      * @type {string}
      * @memberof EmbeddedAlloffProductBrand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof EmbeddedAlloffProductBrand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof EmbeddedAlloffProductBrand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguide>}
@@ -1660,7 +1660,7 @@ export interface EmbeddedProductBrand {
      * @type {string}
      * @memberof EmbeddedProductBrand
      */
-    created: string;
+    created?: string;
     /**
      * 
      * @type {string}
@@ -1708,19 +1708,19 @@ export interface EmbeddedProductBrand {
      * @type {string}
      * @memberof EmbeddedProductBrand
      */
-    modulename: string;
+    modulename?: string;
     /**
      * 
      * @type {number}
      * @memberof EmbeddedProductBrand
      */
-    maxdiscountrate: number;
+    maxdiscountrate?: number;
     /**
      * 
      * @type {number}
      * @memberof EmbeddedProductBrand
      */
-    numnewproducts: number;
+    numnewproducts?: number;
     /**
      * 
      * @type {Array<EmbeddedBrandSizeguide>}
@@ -1919,6 +1919,12 @@ export interface ImageUploaderRequestRequest {
      * @memberof ImageUploaderRequestRequest
      */
     file: any;
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageUploaderRequestRequest
+     */
+    path?: string;
 }
 /**
  * 
@@ -6559,10 +6565,11 @@ export const ImageUploadApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @param {any} file 
+         * @param {string} [path] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        imageUploadUploadCreate: async (file: any, options: any = {}): Promise<RequestArgs> => {
+        imageUploadUploadCreate: async (file: any, path?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'file' is not null or undefined
             assertParamExists('imageUploadUploadCreate', 'file', file)
             const localVarPath = `/image-upload/upload/`;
@@ -6585,6 +6592,10 @@ export const ImageUploadApiAxiosParamCreator = function (configuration?: Configu
 
             if (file !== undefined) { 
                 localVarFormParams.append('file', file as any);
+            }
+    
+            if (path !== undefined) { 
+                localVarFormParams.append('path', path as any);
             }
     
     
@@ -6613,11 +6624,12 @@ export const ImageUploadApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {any} file 
+         * @param {string} [path] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async imageUploadUploadCreate(file: any, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImageUploaderResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.imageUploadUploadCreate(file, options);
+        async imageUploadUploadCreate(file: any, path?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImageUploaderResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.imageUploadUploadCreate(file, path, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -6633,11 +6645,12 @@ export const ImageUploadApiFactory = function (configuration?: Configuration, ba
         /**
          * 
          * @param {any} file 
+         * @param {string} [path] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        imageUploadUploadCreate(file: any, options?: any): AxiosPromise<ImageUploaderResponse> {
-            return localVarFp.imageUploadUploadCreate(file, options).then((request) => request(axios, basePath));
+        imageUploadUploadCreate(file: any, path?: string, options?: any): AxiosPromise<ImageUploaderResponse> {
+            return localVarFp.imageUploadUploadCreate(file, path, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -6654,6 +6667,13 @@ export interface ImageUploadApiImageUploadUploadCreateRequest {
      * @memberof ImageUploadApiImageUploadUploadCreate
      */
     readonly file: any
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageUploadApiImageUploadUploadCreate
+     */
+    readonly path?: string
 }
 
 /**
@@ -6671,7 +6691,7 @@ export class ImageUploadApi extends BaseAPI {
      * @memberof ImageUploadApi
      */
     public imageUploadUploadCreate(requestParameters: ImageUploadApiImageUploadUploadCreateRequest, options?: any) {
-        return ImageUploadApiFp(this.configuration).imageUploadUploadCreate(requestParameters.file, options).then((request) => request(this.axios, this.basePath));
+        return ImageUploadApiFp(this.configuration).imageUploadUploadCreate(requestParameters.file, requestParameters.path, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
