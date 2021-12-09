@@ -1,6 +1,11 @@
 <script lang="ts">
   import { TabContent, TextInput, Button, Tag } from "carbon-components-svelte";
-  import { OrderList, OrderRetrieve, OrdersApi } from "../../../api";
+  import {
+    OrderList,
+    OrderRetrieve,
+    OrdersApi,
+    ProductTypeEnum,
+  } from "../../../api";
   import InfoSection from "../../common/InfoSection.svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
   import { toLocaleDateTime } from "../../../helpers/datetime";
@@ -57,7 +62,11 @@
     rows={[
       { header: "휴대폰", body: order.user.mobile },
       { header: "유저 ID", body: order.user._id },
-      { header: "주문수", body: `${userOrders.length}건`, href: `/orders/?userid=${order.user._id}` },
+      {
+        header: "주문수",
+        body: `${userOrders.length}건`,
+        href: `/orders/?userid=${order.user._id}`,
+      },
     ]}
   />
   <InfoSection
@@ -161,6 +170,28 @@
                     }`
                   ),
               },
+              {
+                text: "재입고처리 (1개)",
+                onClick: async () => {
+                  if (!confirm("재입고처리 하시겠습니까?")) return;
+                  try {
+                    await api.ordersRemakeRiCreate({
+                      id: order.id,
+                      remakeRiRequest: {
+                        product_id:
+                          o.product?._id ?? o.alloffproduct?._id ?? "",
+                        product_type: o.alloffproduct
+                          ? ProductTypeEnum.Timedeal
+                          : ProductTypeEnum.Normal,
+                      },
+                    });
+                  } catch (e) {
+                    alert(e);
+                  } finally {
+                    load();
+                  }
+                },
+              },
             ]}
             rows={[
               {
@@ -170,7 +201,7 @@
               },
               {
                 header: "상품명",
-                body: (o.product ?? o.alloffproduct)?.name,
+                body: (o.product ?? o.alloffproduct)?.name ?? "UNKNOWN",
               },
               {
                 header: "사이즈",

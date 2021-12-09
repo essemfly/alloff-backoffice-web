@@ -7,11 +7,10 @@
     ToolbarSearch,
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
-  import Box16 from "carbon-icons-svelte/lib/Box16";
-  import Reset16 from "carbon-icons-svelte/lib/Reset16";
+  import Delete16 from "carbon-icons-svelte/lib/Delete16";
   import debounce from "lodash/debounce";
   import { DateTime } from "luxon";
-  import type { Inventory } from "../../../../api";
+  import { InventoriesApi, Inventory } from "../../../../api";
   import { getInventoryStatusLabel } from "../../../../helpers/inventory";
   import { search } from "../store";
 
@@ -33,11 +32,23 @@
     { key: "status", value: "상태" },
     { key: "location", value: "위치" },
     { key: "images", value: "이미지" },
+    { key: "delete", value: "삭제" },
   ];
 
   const handleSearch = debounce((e) => {
     search.set(e.target.value);
   }, 300);
+
+  const submitDelete = async (row: any) => {
+    const api = new InventoriesApi();
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+    try {
+      await api.inventoriesDestroy({ id: row.id });
+      window.location.reload();
+    } catch (e: any) {
+      alert(e.message);
+    }
+  };
 </script>
 
 <DataTable
@@ -72,7 +83,17 @@
         hour12: true,
       })}
     {:else if cell.key === "images"}
-      <img src={row.images[0]} width="100" />
+      <img src={row.images[0]} width="100" alt="Inventory images" />
+    {:else if cell.key === "delete"}
+      <Button
+        kind="danger"
+        icon={Delete16}
+        size="small"
+        on:click={(e) => {
+          e.stopPropagation();
+          submitDelete(row);
+        }}
+      />
     {:else if cell.key === "status"}{getInventoryStatusLabel(cell.value)}
     {:else}{cell.value}
     {/if}

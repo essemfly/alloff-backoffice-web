@@ -57,7 +57,7 @@ export const getOrderTimestampByStatus = (
 };
 
 export const getStatusLabel = (
-  orderstatus: OrderStatusEnum
+  orderstatus: OrderStatusEnum | undefined
 ) => {
   switch (orderstatus) {
     case OrderStatusEnum.PaymentFinished:
@@ -79,11 +79,11 @@ export const getStatusLabel = (
     case OrderStatusEnum.ProductPreparing:
       return "상품준비중";
     default:
-      return "기타";
+      return "UNKNOWN";
   }
 };
 
-export const getStatusBadgeColor = (orderstatus: OrderStatusEnum) => {
+export const getStatusBadgeColor = (orderstatus: OrderStatusEnum | undefined) => {
   switch (orderstatus) {
     case OrderStatusEnum.PaymentFinished:
       return "gray";
@@ -103,6 +103,8 @@ export const getStatusBadgeColor = (orderstatus: OrderStatusEnum) => {
       return "red";
     case OrderStatusEnum.CancelFinished:
       return "high-contrast";
+    default:
+      return "gray";
   }
 };
 
