@@ -114,7 +114,7 @@
   const loadTimedealProductTemplates = async () => {
     const templatesData = await templateApi.timedealProductTemplatesList({
       page: 1,
-      size: 50,
+      size: 100,
     });
 
     templates = templatesData.data.results;
