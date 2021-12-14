@@ -179,8 +179,10 @@
     Object.assign(product, data);
     if (data.producttype[1] == "1년차 B품/샘플") {
       selectedIndex = 1;
-    } else {
+    } else if (data.producttype[1] == "아울렛 특가") {
       selectedIndex = 0;
+    } else {
+      selectedIndex = -1;
     }
 
     product = product;
@@ -360,8 +362,10 @@
             <Switch text="1년차 B품/샘플" />
           </ContentSwitcher>
           <InstructionAdder
-            instructionTitle={product.instruction.title}
-            instructions={product.instruction.description}
+            instructionTitle={product.instruction?.title}
+            instructions={product.instruction === null
+              ? []
+              : product.instruction.description}
           />
         </Column>
         <Column>
