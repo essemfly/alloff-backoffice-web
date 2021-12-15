@@ -83,6 +83,7 @@
     images: [],
     inventory: [],
     brandid: "",
+    originalproductid: "",
   };
 
   $: discountrate = (
@@ -213,7 +214,7 @@
       })
       .then((res) => {
         if (res.status === 201) {
-          window.location.href = "/timedeals/" + product.productgroupid;
+          window.location.href = "/timedeals/" + product.productgroupid + "#products";
         } else {
           console.log(res);
           alert("오류가 발생했습니다: " + res.statusText);
@@ -242,7 +243,7 @@
       })
       .then((res) => {
         if (res.status === 200) {
-          window.location.href = "/timedeals/" + product.productgroupid;
+          window.location.href = "/timedeals/" + product.productgroupid + "#products";
         } else {
           console.log(res);
           alert("오류가 발생했습니다: " + res.statusText);
@@ -261,19 +262,21 @@
       <ButtonSet class="right-button">
         <Button on:click={openTemplateModal}>템플릿 불러오기</Button>
       </ButtonSet>
-      <Modal
-        passiveModal
-        preventCloseOnClickOutside
-        modalHeading="템플릿 불러오기"
-        on:open
-        on:close
-        bind:open={templateModalOpen}
-      >
-        <ProductTemplateTable
-          templateData={templates}
-          onCloseModal={(data) => loadTemplateData(data)}
-        />
-      </Modal>
+      <div class="my-modal">
+        <Modal
+          passiveModal
+          preventCloseOnClickOutside
+          modalHeading="템플릿 불러오기"
+          on:open
+          on:close
+          bind:open={templateModalOpen}
+        >
+          <ProductTemplateTable
+            templateData={templates}
+            onCloseModal={(data) => loadTemplateData(data)}
+          />
+        </Modal>
+      </div>
     </Row>
 
     <ContentBox>
@@ -303,6 +306,11 @@
             labelText={"할인된 가격 (할인율:" + discountrate + "%)"}
             bind:value={product.discountedprice}
           />
+        </Column>
+      </Row>
+      <Row>
+        <Column>
+          <TextInput labelText="제품번호" bind:value={product.originalproductid}/>
         </Column>
       </Row>
       <Row>
@@ -532,5 +540,9 @@
 
   .image.mobile {
     width: 100%;
+  }
+
+  :global(.my-modal .bx--modal .bx--modal-container) {
+    width: 90%;
   }
 </style>

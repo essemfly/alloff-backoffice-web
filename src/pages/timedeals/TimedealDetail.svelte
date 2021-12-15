@@ -11,16 +11,18 @@
   import TimedealSectionBasic from "./sections/TimedealSectionBasic.svelte";
   import TimedealSectionProducts from "./sections/TimedealSectionProducts.svelte";
   import TimedealSectionTop from "./sections/TimedealSectionTop.svelte";
+  import {useLocation} from "svelte-navigator";
 
   export let timedealId: string | undefined = undefined;
+
+  const location = useLocation();
 
   let timedeal: Timedeal | undefined;
   let submitting = false;
   let loading = !!timedealId;
   let mobile = false;
   let size: "sm" | "md" | "lg" | "xlg" | "max";
-
-  let tabIndex = 0;
+  let tabIndex = $location.hash === "#products" ? 1 : 0;
 
   const api = new TimedealsApi();
 

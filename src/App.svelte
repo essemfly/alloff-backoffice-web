@@ -13,7 +13,6 @@
   import Notifications from "./pages/notifications/Notifications.svelte";
   import OrderDetail from "./pages/orders/OrderDetail.svelte";
   import Orders from "./pages/orders/Orders.svelte";
-  import TimedealProductDetail from "./pages/timedeal-products/TimedealProductDetail.svelte";
   import TimedealSectionProductDetail from "./pages/timedeals/sections/TimedealSectionProductDetail.svelte";
   import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
@@ -64,13 +63,15 @@
     <Route path="/">
       <Timedeals />
     </Route>
-    <Route path=":id" let:params>
-      <TimedealDetail timedealId={params.id} />
+    <Route path=":id/*" let:params>
+      <Route path="/">
+        <TimedealDetail timedealId={params.id} />
+      </Route>
     </Route>
     <Route path="new">
       <TimedealDetail />
     </Route>
-    <Route path=":id/product/*" let:params>
+    <Route path=":id/products/*" let:params>
       <Route path="/">
         <TimedealSectionProductDetail productId="" productGroupId={params.id} mobile={false} />
       </Route>
@@ -86,19 +87,10 @@
     <Route path="new">
       <NotificationDetail />
     </Route>
-    <!-- <Route path=":id" let:params>
-      <NotificationDetial notificationId={params.id} />
-    </Route> -->
   </Route>
   <Route path="timedeal-products/*">
-    <!-- <Route path="/">
-      <Timedeals />
-    </Route> -->
     <Route path=":id" let:params>
-      <TimedealProductDetail timedealProductId={params.id} />
-    </Route>
-    <Route path="new">
-      <TimedealProductDetail />
+      <TimedealSectionProductDetail productId={params.id} productGroupId="" mobile={false} />
     </Route>
   </Route>
   <Route path="login">

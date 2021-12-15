@@ -41,7 +41,7 @@
   <div style="height: 10px" />
   <div class="button-wrapper">
     <Button
-      on:click={() => (window.location.href = timedeal.id + "/product")}
+      on:click={() => (window.location.href = "/timedeals/" + timedeal.id + "/products")}
       icon={DocumentAdd16}>상품 추가</Button
     >
   </div>
@@ -64,7 +64,7 @@
         <div
           class="info"
           on:click={() =>
-            (window.location.href = timedeal.id + "/product/" + product.id)}
+            (window.location.href = "/timedeals/" + timedeal.id + "/products/" + product.id)}
         >
           <Tag>{product.brand.keyname}</Tag>
           <p>{product.brand.korname}</p>

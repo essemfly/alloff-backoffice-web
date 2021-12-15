@@ -151,6 +151,9 @@
   }
 
   .results-list {
+    max-height: 500px;
+    overflow-y: scroll;
+    border: 1px solid black;
     width: 100%;
     position: absolute;
     list-style-type: none;
