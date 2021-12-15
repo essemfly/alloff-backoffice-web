@@ -214,7 +214,8 @@
       })
       .then((res) => {
         if (res.status === 201) {
-          window.location.href = "/timedeals/" + product.productgroupid + "#products";
+          window.location.href =
+            "/timedeals/" + product.productgroupid + "#products";
         } else {
           console.log(res);
           alert("오류가 발생했습니다: " + res.statusText);
@@ -243,7 +244,8 @@
       })
       .then((res) => {
         if (res.status === 200) {
-          window.location.href = "/timedeals/" + product.productgroupid + "#products";
+          window.location.href =
+            "/timedeals/" + product.productgroupid + "#products";
         } else {
           console.log(res);
           alert("오류가 발생했습니다: " + res.statusText);
@@ -310,7 +312,10 @@
       </Row>
       <Row>
         <Column>
-          <TextInput labelText="제품번호" bind:value={product.originalproductid}/>
+          <TextInput
+            labelText="제품번호"
+            bind:value={product.originalproductid}
+          />
         </Column>
       </Row>
       <Row>
@@ -343,11 +348,12 @@
             labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
             multiple
             accept={["image/*"]}
-            on:add={(e) => {
+            on:add={async (e) => {
               const files = e.detail;
               productImagesUploading = true;
               for (let i = 0; i < files.length; i++) {
-                imageApi
+                // Needs refactoring --- keep the file sequence but upload asynchronously
+                await imageApi
                   .imageUploadUploadCreate({ file: files[i] })
                   .then((res) => {
                     const { random_key, url } = res.data;
