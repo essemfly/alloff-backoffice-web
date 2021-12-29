@@ -7,7 +7,7 @@
   export let notificationId: string | undefined = undefined;
 
   let notification: Notification | undefined;
-  let submitting = false;
+  const submitting = false;
   let loading = !!notificationId;
   let mobile = false;
   let size: "sm" | "md" | "lg" | "xlg" | "max";

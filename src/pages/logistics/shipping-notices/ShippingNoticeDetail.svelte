@@ -31,7 +31,7 @@
   let mobile = false;
   let size: "sm" | "md" | "lg" | "xlg" | "max";
 
-  let tabIndex = 0;
+  const tabIndex = 0;
 
   const api = new ShippingNoticesApi();
 
@@ -181,7 +181,10 @@
             {pkg.address} ({pkg.postcode})<br />
             <Tag type="blue">{pkg.shipping_notice_items.length}EA</Tag>
             <Tag type="green">{pkg.status}</Tag><br />
-            <Button size="small" kind="tertiary" on:click={() => submitReprintLabel(pkg)}>라벨 재출력</Button
+            <Button
+              size="small"
+              kind="tertiary"
+              on:click={() => submitReprintLabel(pkg)}>라벨 재출력</Button
             >
             {#if pkg.status === PackageStatusEnum.Shipped}
               <Tag
@@ -199,7 +202,7 @@
                   on:click={() => {
                     window.open(
                       `/orders/${i.item.extended_order.code}`,
-                      "_blank"
+                      "_blank",
                     );
                   }}
                 >
@@ -207,13 +210,13 @@
                     {i.item.extended_order.code}<Tag
                       type={getStatusBadgeColor(
                         pkg.order_statuses_by_code.find(
-                          (el) => el.code === i.item.extended_order.code
-                        )?.status
+                          (el) => el.code === i.item.extended_order.code,
+                        )?.status,
                       )}
                       >{getStatusLabel(
                         pkg.order_statuses_by_code.find(
-                          (el) => el.code === i.item.extended_order.code
-                        )?.status
+                          (el) => el.code === i.item.extended_order.code,
+                        )?.status,
                       )}</Tag
                     >
                   </h6>

@@ -16,7 +16,7 @@
 
   import { BrandsApi, ImageUploadApi, BrandRequest } from "../../../api";
 
-  export let isModalOpen: boolean = false;
+  export let isModalOpen = false;
   export let onCloseModal: () => void;
 
   let newBrandInput: BrandRequest = {

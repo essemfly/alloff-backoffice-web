@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import {
-  getTimedealStatus,
+
   TimedealDomainStatus,
 } from "../../helpers/timedeal";
 

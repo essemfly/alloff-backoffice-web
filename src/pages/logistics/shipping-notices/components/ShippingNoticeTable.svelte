@@ -5,7 +5,7 @@
   import type { ShippingNotice } from "../../../../api";
 
   export let notices: ShippingNotice[] = [];
-  export let isMobile: boolean = false;
+  export let isMobile = false;
 
   const mobileHeaders: DataTableHeader[] = [
     { key: "code", value: "코드" },

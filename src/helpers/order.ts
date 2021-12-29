@@ -26,7 +26,7 @@ export const getTypeBadgeColor = (ordertype: OrdertypeEnum) => {
 
 export const getOrderTimestampByStatus = (
   orderstatus: OrderStatusEnum,
-  order: OrderRetrieve
+  order: OrderRetrieve,
 ): DateTime | undefined => {
   switch (orderstatus) {
     case OrderStatusEnum.PaymentFinished:
@@ -56,9 +56,7 @@ export const getOrderTimestampByStatus = (
   }
 };
 
-export const getStatusLabel = (
-  orderstatus: OrderStatusEnum | undefined
-) => {
+export const getStatusLabel = (orderstatus: OrderStatusEnum | undefined) => {
   switch (orderstatus) {
     case OrderStatusEnum.PaymentFinished:
       return "결제완료";
@@ -83,7 +81,9 @@ export const getStatusLabel = (
   }
 };
 
-export const getStatusBadgeColor = (orderstatus: OrderStatusEnum | undefined) => {
+export const getStatusBadgeColor = (
+  orderstatus: OrderStatusEnum | undefined,
+) => {
   switch (orderstatus) {
     case OrderStatusEnum.PaymentFinished:
       return "gray";
@@ -108,7 +108,9 @@ export const getStatusBadgeColor = (orderstatus: OrderStatusEnum | undefined) =>
   }
 };
 
-export const toChangeStatusEnum = (status: OrderStatusEnum): OrderStatusEnum => {
+export const toChangeStatusEnum = (
+  status: OrderStatusEnum,
+): OrderStatusEnum => {
   switch (status) {
     case OrderStatusEnum.PaymentFinished:
       return OrderStatusEnum.PaymentFinished;

@@ -6,13 +6,13 @@ export const setTokens = (tokens: Tokens) => {
   if (tokens.access) {
     localStorage.setItem(
       settings.auth.accessTokenLocalStorageKey,
-      tokens.access
+      tokens.access,
     );
   }
   if (tokens.refresh) {
     localStorage.setItem(
       settings.auth.refreshTokenLocalStorageKey,
-      tokens.refresh
+      tokens.refresh,
     );
   }
 };

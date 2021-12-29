@@ -39,7 +39,7 @@ export const getNotificationBadgeColor = (notiType: NotificationtypeEnum) => {
 };
 
 export const getNotificationStatusColor = (
-  notiStatus: NotificationStatusEnum
+  notiStatus: NotificationStatusEnum,
 ) => {
   switch (notiStatus) {
     case NotificationStatusEnum.Succeeded:
@@ -58,7 +58,7 @@ export const getNotificationStatusColor = (
 };
 
 export const getNotificationStatusLabel = (
-  notiStatus: NotificationStatusEnum
+  notiStatus: NotificationStatusEnum,
 ) => {
   switch (notiStatus) {
     case NotificationStatusEnum.Succeeded:

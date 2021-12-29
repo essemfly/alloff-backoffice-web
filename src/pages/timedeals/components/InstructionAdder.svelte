@@ -31,9 +31,9 @@
     placeholder="작성 후 추가 버튼을 누르세요"
     bind:value={newInstruction}
   />
-  <Button kind="secondary" on:click={() => addInstruction(newInstruction)}
-    >추가</Button
-  >
+  <Button kind="secondary" on:click={() => addInstruction(newInstruction)}>
+    추가
+  </Button>
 
   <UnorderedList>
     {#each instructions as item, idx}

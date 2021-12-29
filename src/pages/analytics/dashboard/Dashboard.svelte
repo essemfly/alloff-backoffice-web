@@ -66,7 +66,7 @@
       .domain(
         d3.extent(data, function (o) {
           return o.date;
-        })
+        }),
       )
       .range([0, width]);
 
@@ -119,7 +119,7 @@
           })
           .y(function (d) {
             return y(d.nominal.amount);
-          })
+          }),
       );
 
     // Add the line
@@ -138,7 +138,7 @@
           })
           .y(function (d) {
             return y(d.noncancel.amount);
-          })
+          }),
       );
 
     // Add the line
@@ -157,7 +157,7 @@
           })
           .y(function (d) {
             return y2(d.nominal.count);
-          })
+          }),
       );
 
     // Add the line
@@ -176,7 +176,7 @@
           })
           .y(function (d) {
             return y2(d.noncancel.count);
-          })
+          }),
       );
   };
 </script>
