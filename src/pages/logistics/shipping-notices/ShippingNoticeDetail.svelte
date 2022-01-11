@@ -146,13 +146,15 @@
         {/if}
         <h4>ITEMS - Total of {notice.items.length}</h4>
         <div class="notice-items">
-          <UnorderedList>
-            {#each notice.items as item}
-              <ListItem>
-                {item.inventory.code} - {item.item.name}
-              </ListItem>
-            {/each}
-          </UnorderedList>
+          {#each notice.items as item}
+            <div>
+              <Tag type="cyan" style="font-family: monospace; margin-left: 0;"
+                >{item.item.extended_order.code}</Tag
+              ><Tag style="font-family: monospace;" type="gray"
+                >{item.inventory.code}</Tag
+              >{item.item.name}
+            </div>
+          {/each}
         </div>
         {#if notice.packages.length > 0}
           <h4>PACKAGES - Total of {notice.packages.length}</h4>
@@ -181,7 +183,10 @@
             {pkg.address} ({pkg.postcode})<br />
             <Tag type="blue">{pkg.shipping_notice_items.length}EA</Tag>
             <Tag type="green">{pkg.status}</Tag><br />
-            <Button size="small" kind="tertiary" on:click={() => submitReprintLabel(pkg)}>라벨 재출력</Button
+            <Button
+              size="small"
+              kind="tertiary"
+              on:click={() => submitReprintLabel(pkg)}>라벨 재출력</Button
             >
             {#if pkg.status === PackageStatusEnum.Shipped}
               <Tag
@@ -232,7 +237,7 @@
 
 <style>
   .notice-items {
-    padding: 20px;
+    padding-bottom: 20px;
   }
   .package {
     margin-top: 20px;

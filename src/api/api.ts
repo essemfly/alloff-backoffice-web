@@ -2201,12 +2201,6 @@ export interface Notification {
     message: string;
     /**
      * 
-     * @type {Array<string>}
-     * @memberof Notification
-     */
-    deviceids?: Array<string>;
-    /**
-     * 
      * @type {string}
      * @memberof Notification
      */
@@ -2243,12 +2237,6 @@ export interface Notification {
     scheduleddate: string;
     /**
      * 
-     * @type {{ [key: string]: any; }}
-     * @memberof Notification
-     */
-    result?: { [key: string]: any; };
-    /**
-     * 
      * @type {string}
      * @memberof Notification
      */
@@ -2259,6 +2247,12 @@ export interface Notification {
      * @memberof Notification
      */
     mobiles?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Notification
+     */
+    deviceids?: Array<string>;
 }
 /**
  * 
@@ -2495,6 +2489,12 @@ export interface OrderItemAlloffproduct {
      * @memberof OrderItemAlloffproduct
      */
     templateId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemAlloffproduct
+     */
+    originalproductid?: string | null;
     /**
      * 
      * @type {string}
@@ -4055,6 +4055,12 @@ export interface PatchedTimedealProductRequest {
     templateId?: string;
     /**
      * 
+     * @type {string}
+     * @memberof PatchedTimedealProductRequest
+     */
+    originalproductid?: string | null;
+    /**
+     * 
      * @type {AlloffProductBrandRequest}
      * @memberof PatchedTimedealProductRequest
      */
@@ -5004,6 +5010,12 @@ export interface TimedealProduct {
     templateId?: string;
     /**
      * 
+     * @type {string}
+     * @memberof TimedealProduct
+     */
+    originalproductid?: string | null;
+    /**
+     * 
      * @type {AlloffProductBrand}
      * @memberof TimedealProduct
      */
@@ -5117,6 +5129,12 @@ export interface TimedealProductAdd {
      * @memberof TimedealProductAdd
      */
     productgroupid: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductAdd
+     */
+    originalproductid?: string | null;
 }
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
@@ -5220,6 +5238,12 @@ export interface TimedealProductAddRequest {
      * @memberof TimedealProductAddRequest
      */
     productgroupid: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TimedealProductAddRequest
+     */
+    originalproductid?: string | null;
 }
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
