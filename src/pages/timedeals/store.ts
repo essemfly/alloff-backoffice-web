@@ -1,8 +1,8 @@
-import { writable } from "svelte/store";
-import {
-  getTimedealStatus,
-  TimedealDomainStatus,
-} from "../../helpers/timedeal";
+// import { writable } from "svelte/store";
+// import {
+//   getTimedealStatus,
+//   TimedealDomainStatus,
+// } from "../../helpers/timedeal";
 
-export const search = writable("");
-export const newStatus = writable<TimedealDomainStatus | undefined>(undefined);
+// export const search = writable("");
+// export const newStatus = writable<TimedealDomainStatus | undefined>(undefined);

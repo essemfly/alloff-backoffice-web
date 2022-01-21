@@ -38,94 +38,6 @@ export enum ActionTypeEnum {
 /**
  * 
  * @export
- * @interface AddOrderMemo
- */
-export interface AddOrderMemo {
-    /**
-     * 
-     * @type {string}
-     * @memberof AddOrderMemo
-     */
-    body: string;
-}
-/**
- * 
- * @export
- * @interface AddOrderMemoRequest
- */
-export interface AddOrderMemoRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof AddOrderMemoRequest
-     */
-    body: string;
-}
-/**
- * 
- * @export
- * @interface AddPaymentAdjustment
- */
-export interface AddPaymentAdjustment {
-    /**
-     * 
-     * @type {MethodEnum}
-     * @memberof AddPaymentAdjustment
-     */
-    method: MethodEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddPaymentAdjustment
-     */
-    reason?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AddPaymentAdjustment
-     */
-    amount: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddPaymentAdjustment
-     */
-    bank_account_info?: string;
-}
-/**
- * 
- * @export
- * @interface AddPaymentAdjustmentRequest
- */
-export interface AddPaymentAdjustmentRequest {
-    /**
-     * 
-     * @type {MethodEnum}
-     * @memberof AddPaymentAdjustmentRequest
-     */
-    method: MethodEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddPaymentAdjustmentRequest
-     */
-    reason?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AddPaymentAdjustmentRequest
-     */
-    amount: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddPaymentAdjustmentRequest
-     */
-    bank_account_info?: string;
-}
-/**
- * 
- * @export
  * @interface Admin
  */
 export interface Admin {
@@ -166,1786 +78,6 @@ export enum AlimtalkTypeEnum {
 }
 
 /**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffCategoriesFirst
- */
-export interface AlloffCategoriesFirst {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesFirst
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesFirst
-     */
-    imgurl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesFirst
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffCategoriesFirst
-     */
-    level?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesFirst
-     */
-    parentid?: string;
-    /**
-     * 
-     * @type {TypeEnum}
-     * @memberof AlloffCategoriesFirst
-     */
-    type?: TypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesFirst
-     */
-    _id: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffCategoriesSecond
- */
-export interface AlloffCategoriesSecond {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesSecond
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesSecond
-     */
-    imgurl?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesSecond
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffCategoriesSecond
-     */
-    level?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesSecond
-     */
-    parentid?: string;
-    /**
-     * 
-     * @type {TypeEnum}
-     * @memberof AlloffCategoriesSecond
-     */
-    type?: TypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffCategoriesSecond
-     */
-    _id: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductBrand
- */
-export interface AlloffProductBrand {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrand
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrand
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrand
-     */
-    engname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrand
-     */
-    korname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrand
-     */
-    logoimgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductBrand
-     */
-    onpopular: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrand
-     */
-    description: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductBrand
-     */
-    isopen: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductBrand
-     */
-    ishide?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrand
-     */
-    modulename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductBrand
-     */
-    maxdiscountrate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductBrand
-     */
-    numnewproducts?: number;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandSizeguide>}
-     * @memberof AlloffProductBrand
-     */
-    sizeguide?: Array<EmbeddedBrandSizeguide>;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandCategory>}
-     * @memberof AlloffProductBrand
-     */
-    category?: Array<EmbeddedBrandCategory>;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrand
-     */
-    _id: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductBrandRequest
- */
-export interface AlloffProductBrandRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrandRequest
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrandRequest
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrandRequest
-     */
-    engname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrandRequest
-     */
-    korname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrandRequest
-     */
-    logoimgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductBrandRequest
-     */
-    onpopular: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrandRequest
-     */
-    description: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductBrandRequest
-     */
-    isopen: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductBrandRequest
-     */
-    ishide?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductBrandRequest
-     */
-    modulename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductBrandRequest
-     */
-    maxdiscountrate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductBrandRequest
-     */
-    numnewproducts?: number;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandSizeguideRequest>}
-     * @memberof AlloffProductBrandRequest
-     */
-    sizeguide?: Array<EmbeddedBrandSizeguideRequest>;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandCategoryRequest>}
-     * @memberof AlloffProductBrandRequest
-     */
-    category?: Array<EmbeddedBrandCategoryRequest>;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductFaults
- */
-export interface AlloffProductFaults {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductFaults
-     */
-    image: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductFaults
-     */
-    description: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductFaultsRequest
- */
-export interface AlloffProductFaultsRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductFaultsRequest
-     */
-    image: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductFaultsRequest
-     */
-    description: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductInstruction
- */
-export interface AlloffProductInstruction {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductInstruction
-     */
-    title: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof AlloffProductInstruction
-     */
-    description: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof AlloffProductInstruction
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductInstruction
-     */
-    thumbnail?: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductInstructionRequest
- */
-export interface AlloffProductInstructionRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductInstructionRequest
-     */
-    title: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof AlloffProductInstructionRequest
-     */
-    description: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof AlloffProductInstructionRequest
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductInstructionRequest
-     */
-    thumbnail?: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductInventory
- */
-export interface AlloffProductInventory {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductInventory
-     */
-    size: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductInventory
-     */
-    quantity: number;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductInventoryRequest
- */
-export interface AlloffProductInventoryRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductInventoryRequest
-     */
-    size: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductInventoryRequest
-     */
-    quantity: number;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductTemplateBrand
- */
-export interface AlloffProductTemplateBrand {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrand
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrand
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrand
-     */
-    engname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrand
-     */
-    korname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrand
-     */
-    logoimgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductTemplateBrand
-     */
-    onpopular: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrand
-     */
-    description: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductTemplateBrand
-     */
-    isopen: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductTemplateBrand
-     */
-    ishide?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrand
-     */
-    modulename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductTemplateBrand
-     */
-    maxdiscountrate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductTemplateBrand
-     */
-    numnewproducts?: number;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandSizeguide>}
-     * @memberof AlloffProductTemplateBrand
-     */
-    sizeguide?: Array<EmbeddedBrandSizeguide>;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandCategory>}
-     * @memberof AlloffProductTemplateBrand
-     */
-    category?: Array<EmbeddedBrandCategory>;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrand
-     */
-    _id: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductTemplateBrandRequest
- */
-export interface AlloffProductTemplateBrandRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    engname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    korname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    logoimgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    onpopular: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    description: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    isopen: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    ishide?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    modulename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    maxdiscountrate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    numnewproducts?: number;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandSizeguideRequest>}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    sizeguide?: Array<EmbeddedBrandSizeguideRequest>;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandCategoryRequest>}
-     * @memberof AlloffProductTemplateBrandRequest
-     */
-    category?: Array<EmbeddedBrandCategoryRequest>;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductTemplateFaults
- */
-export interface AlloffProductTemplateFaults {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateFaults
-     */
-    image: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateFaults
-     */
-    description: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductTemplateFaultsRequest
- */
-export interface AlloffProductTemplateFaultsRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateFaultsRequest
-     */
-    image: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateFaultsRequest
-     */
-    description: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductTemplateInstruction
- */
-export interface AlloffProductTemplateInstruction {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateInstruction
-     */
-    title: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof AlloffProductTemplateInstruction
-     */
-    description: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof AlloffProductTemplateInstruction
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateInstruction
-     */
-    thumbnail?: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface AlloffProductTemplateInstructionRequest
- */
-export interface AlloffProductTemplateInstructionRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateInstructionRequest
-     */
-    title: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof AlloffProductTemplateInstructionRequest
-     */
-    description: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof AlloffProductTemplateInstructionRequest
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof AlloffProductTemplateInstructionRequest
-     */
-    thumbnail?: string;
-}
-/**
- * Serializer for Documents.  Recognized primitve fields:      * ``StringField``     * ``URLField``     * ``EmailField``     * ``IntField``     * ``LongField``     * ``FloatField``     * ``DecimalField``     * ``BooleanField``     * ``DateTimeField``     * ``ComplexDateTimeField``     * ``ObjectIdField``     * ``SequenceField`` (assumes it has integer counter)     * ``UUIDField``     * ``GeoPointField``     * ``GeoJsonBaseField`` (all those fields)     * ``DateField``  Compound fields: ``ListField`` and ``DictField`` are mapped to corresponding DRF fields, with respect to nested field specification.  The ``ReferenceField`` is handled like ``ForeignKey`` in DRF: there nested serializer autogenerated if serializer depth greater then 0, otherwise it\'s handled by it\'s own (results as ``str(id)``).  For ``EmbeddedDocumentField`` also nested serializer autogenerated for non-zero depth, otherwise it is skipped. TODO: THIS IS PROBABLY WRONG AND SHOULD BE FIXED.  Generic fields ``GenericReferenceField`` and ``GenericEmbeddedDocumentField`` are handled by their own with corresponding serializer fields.  Not well supported or untested:      ``FileField``     ``ImageField``     ``BinaryField``  All other fields are mapped to ``DocumentField`` and probably will work wrong.
- * @export
- * @interface Brand
- */
-export interface Brand {
-    /**
-     * 
-     * @type {string}
-     * @memberof Brand
-     */
-    id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Brand
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Brand
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Brand
-     */
-    engname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Brand
-     */
-    korname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Brand
-     */
-    logoimgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Brand
-     */
-    onpopular: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof Brand
-     */
-    description: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Brand
-     */
-    isopen: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Brand
-     */
-    ishide?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof Brand
-     */
-    modulename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Brand
-     */
-    maxdiscountrate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Brand
-     */
-    numnewproducts?: number;
-    /**
-     * 
-     * @type {Array<BrandSizeguide>}
-     * @memberof Brand
-     */
-    sizeguide?: Array<BrandSizeguide>;
-    /**
-     * 
-     * @type {Array<BrandCategory>}
-     * @memberof Brand
-     */
-    category?: Array<BrandCategory>;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface BrandCategory
- */
-export interface BrandCategory {
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandCategory
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandCategory
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandCategory
-     */
-    catidentifier: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandCategory
-     */
-    brandkeyname: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface BrandCategoryRequest
- */
-export interface BrandCategoryRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandCategoryRequest
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandCategoryRequest
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandCategoryRequest
-     */
-    catidentifier: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandCategoryRequest
-     */
-    brandkeyname: string;
-}
-/**
- * Serializer for Documents.  Recognized primitve fields:      * ``StringField``     * ``URLField``     * ``EmailField``     * ``IntField``     * ``LongField``     * ``FloatField``     * ``DecimalField``     * ``BooleanField``     * ``DateTimeField``     * ``ComplexDateTimeField``     * ``ObjectIdField``     * ``SequenceField`` (assumes it has integer counter)     * ``UUIDField``     * ``GeoPointField``     * ``GeoJsonBaseField`` (all those fields)     * ``DateField``  Compound fields: ``ListField`` and ``DictField`` are mapped to corresponding DRF fields, with respect to nested field specification.  The ``ReferenceField`` is handled like ``ForeignKey`` in DRF: there nested serializer autogenerated if serializer depth greater then 0, otherwise it\'s handled by it\'s own (results as ``str(id)``).  For ``EmbeddedDocumentField`` also nested serializer autogenerated for non-zero depth, otherwise it is skipped. TODO: THIS IS PROBABLY WRONG AND SHOULD BE FIXED.  Generic fields ``GenericReferenceField`` and ``GenericEmbeddedDocumentField`` are handled by their own with corresponding serializer fields.  Not well supported or untested:      ``FileField``     ``ImageField``     ``BinaryField``  All other fields are mapped to ``DocumentField`` and probably will work wrong.
- * @export
- * @interface BrandRequest
- */
-export interface BrandRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandRequest
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandRequest
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandRequest
-     */
-    engname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandRequest
-     */
-    korname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandRequest
-     */
-    logoimgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof BrandRequest
-     */
-    onpopular: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandRequest
-     */
-    description: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof BrandRequest
-     */
-    isopen: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof BrandRequest
-     */
-    ishide?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandRequest
-     */
-    modulename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof BrandRequest
-     */
-    maxdiscountrate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof BrandRequest
-     */
-    numnewproducts?: number;
-    /**
-     * 
-     * @type {Array<BrandSizeguideRequest>}
-     * @memberof BrandRequest
-     */
-    sizeguide?: Array<BrandSizeguideRequest>;
-    /**
-     * 
-     * @type {Array<BrandCategoryRequest>}
-     * @memberof BrandRequest
-     */
-    category?: Array<BrandCategoryRequest>;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface BrandSizeguide
- */
-export interface BrandSizeguide {
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandSizeguide
-     */
-    label: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandSizeguide
-     */
-    imgurl: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface BrandSizeguideRequest
- */
-export interface BrandSizeguideRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandSizeguideRequest
-     */
-    label: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandSizeguideRequest
-     */
-    imgurl: string;
-}
-/**
- * 
- * @export
- * @interface ChangeStatus
- */
-export interface ChangeStatus {
-    /**
-     * 
-     * @type {OrderStatusEnum}
-     * @memberof ChangeStatus
-     */
-    status: OrderStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ChangeStatus
-     */
-    delivery_tracking_number?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ChangeStatus
-     */
-    delivery_tracking_url?: string;
-}
-/**
- * 
- * @export
- * @interface ChangeStatusRequest
- */
-export interface ChangeStatusRequest {
-    /**
-     * 
-     * @type {OrderStatusEnum}
-     * @memberof ChangeStatusRequest
-     */
-    status: OrderStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ChangeStatusRequest
-     */
-    delivery_tracking_number?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ChangeStatusRequest
-     */
-    delivery_tracking_url?: string;
-}
-/**
- * 
- * @export
- * @interface Courier
- */
-export interface Courier {
-    /**
-     * 
-     * @type {number}
-     * @memberof Courier
-     */
-    id: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Courier
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Courier
-     */
-    sweettracker_id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Courier
-     */
-    tracking_url_base?: string;
-}
-/**
- * 
- * @export
- * @interface CreateNotification
- */
-export interface CreateNotification {
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateNotification
-     */
-    title: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateNotification
-     */
-    message: string;
-    /**
-     * 
-     * @type {NotificationtypeEnum}
-     * @memberof CreateNotification
-     */
-    notificationtype: NotificationtypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateNotification
-     */
-    referenceid?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateNotification
-     */
-    scheduleddate: string;
-}
-/**
- * 
- * @export
- * @interface CreateNotificationRequest
- */
-export interface CreateNotificationRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateNotificationRequest
-     */
-    title: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateNotificationRequest
-     */
-    message: string;
-    /**
-     * 
-     * @type {NotificationtypeEnum}
-     * @memberof CreateNotificationRequest
-     */
-    notificationtype: NotificationtypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateNotificationRequest
-     */
-    referenceid?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateNotificationRequest
-     */
-    scheduleddate: string;
-}
-/**
- * 
- * @export
- * @interface DeleteOrderMemo
- */
-export interface DeleteOrderMemo {
-    /**
-     * 
-     * @type {number}
-     * @memberof DeleteOrderMemo
-     */
-    memo_id: number;
-}
-/**
- * 
- * @export
- * @interface DeleteOrderMemoRequest
- */
-export interface DeleteOrderMemoRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof DeleteOrderMemoRequest
-     */
-    memo_id: number;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedAlloffProductBrand
- */
-export interface EmbeddedAlloffProductBrand {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    engname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    korname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    logoimgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    onpopular: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    description: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    isopen: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    ishide?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    modulename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    maxdiscountrate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    numnewproducts?: number;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandSizeguide>}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    sizeguide?: Array<EmbeddedBrandSizeguide>;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandCategory>}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    category?: Array<EmbeddedBrandCategory>;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductBrand
-     */
-    _id: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedAlloffProductFaults
- */
-export interface EmbeddedAlloffProductFaults {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductFaults
-     */
-    image: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductFaults
-     */
-    description: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedAlloffProductInstruction
- */
-export interface EmbeddedAlloffProductInstruction {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductInstruction
-     */
-    title: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof EmbeddedAlloffProductInstruction
-     */
-    description: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof EmbeddedAlloffProductInstruction
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductInstruction
-     */
-    thumbnail?: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedAlloffProductInventory
- */
-export interface EmbeddedAlloffProductInventory {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedAlloffProductInventory
-     */
-    size: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof EmbeddedAlloffProductInventory
-     */
-    quantity: number;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedBrandCategory
- */
-export interface EmbeddedBrandCategory {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandCategory
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandCategory
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandCategory
-     */
-    catidentifier: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandCategory
-     */
-    brandkeyname: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedBrandCategoryRequest
- */
-export interface EmbeddedBrandCategoryRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandCategoryRequest
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandCategoryRequest
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandCategoryRequest
-     */
-    catidentifier: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandCategoryRequest
-     */
-    brandkeyname: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedBrandSizeguide
- */
-export interface EmbeddedBrandSizeguide {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandSizeguide
-     */
-    label: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandSizeguide
-     */
-    imgurl: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedBrandSizeguideRequest
- */
-export interface EmbeddedBrandSizeguideRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandSizeguideRequest
-     */
-    label: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedBrandSizeguideRequest
-     */
-    imgurl: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedProductAlloffcategories
- */
-export interface EmbeddedProductAlloffcategories {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EmbeddedProductAlloffcategories
-     */
-    touched: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EmbeddedProductAlloffcategories
-     */
-    done: boolean;
-    /**
-     * 
-     * @type {AlloffCategoriesFirst}
-     * @memberof EmbeddedProductAlloffcategories
-     */
-    first?: AlloffCategoriesFirst;
-    /**
-     * 
-     * @type {AlloffCategoriesSecond}
-     * @memberof EmbeddedProductAlloffcategories
-     */
-    second?: AlloffCategoriesSecond;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedProductBrand
- */
-export interface EmbeddedProductBrand {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductBrand
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductBrand
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductBrand
-     */
-    engname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductBrand
-     */
-    korname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductBrand
-     */
-    logoimgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EmbeddedProductBrand
-     */
-    onpopular: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductBrand
-     */
-    description: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EmbeddedProductBrand
-     */
-    isopen: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EmbeddedProductBrand
-     */
-    ishide?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductBrand
-     */
-    modulename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof EmbeddedProductBrand
-     */
-    maxdiscountrate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof EmbeddedProductBrand
-     */
-    numnewproducts?: number;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandSizeguide>}
-     * @memberof EmbeddedProductBrand
-     */
-    sizeguide?: Array<EmbeddedBrandSizeguide>;
-    /**
-     * 
-     * @type {Array<EmbeddedBrandCategory>}
-     * @memberof EmbeddedProductBrand
-     */
-    category?: Array<EmbeddedBrandCategory>;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductBrand
-     */
-    _id: string;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface EmbeddedProductCategory
- */
-export interface EmbeddedProductCategory {
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductCategory
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductCategory
-     */
-    keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductCategory
-     */
-    catidentifier: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof EmbeddedProductCategory
-     */
-    brandkeyname: string;
-}
-/**
- * 
- * @export
- * @interface ExcelUploaderRequestRequest
- */
-export interface ExcelUploaderRequestRequest {
-    /**
-     * 
-     * @type {any}
-     * @memberof ExcelUploaderRequestRequest
-     */
-    file: any;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExcelUploaderRequestRequest
-     */
-    notice_id: string;
-}
-/**
- * 
- * @export
- * @interface ExtendedOrder
- */
-export interface ExtendedOrder {
-    /**
-     * 
-     * @type {number}
-     * @memberof ExtendedOrder
-     */
-    id: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrder
-     */
-    code: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrder
-     */
-    order_id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrder
-     */
-    ordered_at: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrder
-     */
-    created_at: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrder
-     */
-    updated_at: string;
-}
-/**
- * 
- * @export
- * @interface ExtendedOrderItem
- */
-export interface ExtendedOrderItem {
-    /**
-     * 
-     * @type {number}
-     * @memberof ExtendedOrderItem
-     */
-    id: number;
-    /**
-     * 
-     * @type {ExtendedOrder}
-     * @memberof ExtendedOrderItem
-     */
-    extended_order: ExtendedOrder;
-    /**
-     * 
-     * @type {ProductTypeEnum}
-     * @memberof ExtendedOrderItem
-     */
-    product_type: ProductTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrderItem
-     */
-    size: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ExtendedOrderItem
-     */
-    quantity: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrderItem
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrderItem
-     */
-    product_code: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrderItem
-     */
-    product_id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExtendedOrderItem
-     */
-    brand_keyname: string;
-}
-/**
- * 
- * @export
- * @interface ForceMakeRiRequest
- */
-export interface ForceMakeRiRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ForceMakeRiRequest
-     */
-    order_ref: string;
-}
-/**
- * 
- * @export
- * @interface ImageUploaderRequestRequest
- */
-export interface ImageUploaderRequestRequest {
-    /**
-     * 
-     * @type {any}
-     * @memberof ImageUploaderRequestRequest
-     */
-    file: any;
-    /**
-     * 
-     * @type {string}
-     * @memberof ImageUploaderRequestRequest
-     */
-    path?: string;
-}
-/**
- * 
- * @export
- * @interface ImageUploaderResponse
- */
-export interface ImageUploaderResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof ImageUploaderResponse
-     */
-    url: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ImageUploaderResponse
-     */
-    random_key: string;
-}
-/**
  * 
  * @export
  * @interface Inventory
@@ -1962,12 +94,6 @@ export interface Inventory {
      * @type {string}
      * @memberof Inventory
      */
-    product_code: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Inventory
-     */
     code: string;
     /**
      * 
@@ -1975,30 +101,6 @@ export interface Inventory {
      * @memberof Inventory
      */
     status: InventoryStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof Inventory
-     */
-    size: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Inventory
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Inventory
-     */
-    updated: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Inventory
-     */
-    deleted_at?: string | null;
     /**
      * 
      * @type {string}
@@ -2016,128 +118,55 @@ export interface Inventory {
      * @type {string}
      * @memberof Inventory
      */
-    product_brand: string;
-    /**
-     * 
-     * @type {ProductTypeEnum}
-     * @memberof Inventory
-     */
-    product_type: ProductTypeEnum;
+    product_brand_id: string;
     /**
      * 
      * @type {string}
      * @memberof Inventory
      */
-    out_order_id?: string | null;
+    product_brand_name: string;
     /**
      * 
      * @type {string}
      * @memberof Inventory
      */
-    in_order_id?: string | null;
+    product_size: string;
     /**
      * 
      * @type {string}
      * @memberof Inventory
      */
-    location?: string;
+    product_color: string;
     /**
      * 
      * @type {string}
      * @memberof Inventory
      */
-    memo?: string;
+    location: string | null;
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof Inventory
      */
-    images?: Array<string>;
-}
-/**
- * 
- * @export
- * @interface InventoryRequest
- */
-export interface InventoryRequest {
+    memo: string | null;
     /**
      * 
      * @type {string}
-     * @memberof InventoryRequest
+     * @memberof Inventory
      */
-    code: string;
-    /**
-     * 
-     * @type {InventoryStatusEnum}
-     * @memberof InventoryRequest
-     */
-    status: InventoryStatusEnum;
+    created_at: string;
     /**
      * 
      * @type {string}
-     * @memberof InventoryRequest
+     * @memberof Inventory
      */
-    size: string;
+    updated_at: string;
     /**
      * 
      * @type {string}
-     * @memberof InventoryRequest
+     * @memberof Inventory
      */
-    deleted_at?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof InventoryRequest
-     */
-    product_id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InventoryRequest
-     */
-    product_name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InventoryRequest
-     */
-    product_brand: string;
-    /**
-     * 
-     * @type {ProductTypeEnum}
-     * @memberof InventoryRequest
-     */
-    product_type: ProductTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof InventoryRequest
-     */
-    out_order_id?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof InventoryRequest
-     */
-    in_order_id?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof InventoryRequest
-     */
-    location?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InventoryRequest
-     */
-    memo?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof InventoryRequest
-     */
-    images?: Array<string>;
+    deleted_at: string | null;
 }
 /**
  * 
@@ -2146,6 +175,7 @@ export interface InventoryRequest {
  */
 
 export enum InventoryStatusEnum {
+    Created = 'CREATED',
     InStock = 'IN_STOCK',
     ProcessingNeeded = 'PROCESSING_NEEDED',
     Shipped = 'SHIPPED',
@@ -2164,733 +194,731 @@ export enum MethodEnum {
 }
 
 /**
- * Serializer for Documents.  Recognized primitve fields:      * ``StringField``     * ``URLField``     * ``EmailField``     * ``IntField``     * ``LongField``     * ``FloatField``     * ``DecimalField``     * ``BooleanField``     * ``DateTimeField``     * ``ComplexDateTimeField``     * ``ObjectIdField``     * ``SequenceField`` (assumes it has integer counter)     * ``UUIDField``     * ``GeoPointField``     * ``GeoJsonBaseField`` (all those fields)     * ``DateField``  Compound fields: ``ListField`` and ``DictField`` are mapped to corresponding DRF fields, with respect to nested field specification.  The ``ReferenceField`` is handled like ``ForeignKey`` in DRF: there nested serializer autogenerated if serializer depth greater then 0, otherwise it\'s handled by it\'s own (results as ``str(id)``).  For ``EmbeddedDocumentField`` also nested serializer autogenerated for non-zero depth, otherwise it is skipped. TODO: THIS IS PROBABLY WRONG AND SHOULD BE FIXED.  Generic fields ``GenericReferenceField`` and ``GenericEmbeddedDocumentField`` are handled by their own with corresponding serializer fields.  Not well supported or untested:      ``FileField``     ``ImageField``     ``BinaryField``  All other fields are mapped to ``DocumentField`` and probably will work wrong.
- * @export
- * @interface Notification
- */
-export interface Notification {
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    id: string;
-    /**
-     * 
-     * @type {NotificationStatusEnum}
-     * @memberof Notification
-     */
-    status?: NotificationStatusEnum;
-    /**
-     * 
-     * @type {NotificationtypeEnum}
-     * @memberof Notification
-     */
-    notificationtype: NotificationtypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    title: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    message: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    navigateto?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    referenceid?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    updated?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    sended?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    scheduleddate: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    notificationid?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    mobiles?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof Notification
-     */
-    deviceids?: Array<string>;
-}
-/**
  * 
  * @export
- * @enum {string}
+ * @interface Order
  */
-
-export enum NotificationStatusEnum {
-    Ready = 'READY',
-    InQueue = 'IN_QUEUE',
-    Canceled = 'CANCELED',
-    Succeeded = 'SUCCEEDED',
-    Failed = 'FAILED'
-}
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export enum NotificationtypeEnum {
-    ProductDiffNotification = 'PRODUCT_DIFF_NOTIFICATION',
-    BrandNewProductNotification = 'BRAND_NEW_PRODUCT_NOTIFICATION',
-    TimedealOpenNotification = 'TIMEDEAL_OPEN_NOTIFICATION',
-    BrandOpenNotification = 'BRAND_OPEN_NOTIFICATION',
-    EventNotification = 'EVENT_NOTIFICATION',
-    GeneralNotification = 'GENERAL_NOTIFICATION'
-}
-
-/**
- * 
- * @export
- * @interface OrderActionLog
- */
-export interface OrderActionLog {
+export interface Order {
     /**
      * 
      * @type {number}
-     * @memberof OrderActionLog
+     * @memberof Order
      */
     id: number;
-    /**
-     * 
-     * @type {Admin}
-     * @memberof OrderActionLog
-     */
-    admin: Admin;
-    /**
-     * 
-     * @type {OrderAlimtalkLog}
-     * @memberof OrderActionLog
-     */
-    alimtalk: OrderAlimtalkLog;
-    /**
-     * 
-     * @type {OrderStatusChangeLog}
-     * @memberof OrderActionLog
-     */
-    status_change: OrderStatusChangeLog;
-    /**
-     * 
-     * @type {OrderRefundUpdateLog}
-     * @memberof OrderActionLog
-     */
-    refund_update: OrderRefundUpdateLog;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderActionLog
-     */
-    order_id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderActionLog
-     */
-    detail?: string | null;
-    /**
-     * 
-     * @type {ActionTypeEnum}
-     * @memberof OrderActionLog
-     */
-    action_type: ActionTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderActionLog
-     */
-    performed_at: string;
-}
-/**
- * 
- * @export
- * @interface OrderAlimtalkLog
- */
-export interface OrderAlimtalkLog {
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderAlimtalkLog
-     */
-    id: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderAlimtalkLog
-     */
-    order_id: string;
-    /**
-     * 
-     * @type {AlimtalkTypeEnum}
-     * @memberof OrderAlimtalkLog
-     */
-    alimtalk_type: AlimtalkTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderAlimtalkLog
-     */
-    request_id?: string | null;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface OrderItemAlloffproduct
- */
-export interface OrderItemAlloffproduct {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof OrderItemAlloffproduct
-     */
-    canceldescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof OrderItemAlloffproduct
-     */
-    deliverydescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof OrderItemAlloffproduct
-     */
-    description?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderItemAlloffproduct
-     */
-    discountedprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderItemAlloffproduct
-     */
-    discountrate: number;
-    /**
-     * 
-     * @type {Array<EmbeddedAlloffProductFaults>}
-     * @memberof OrderItemAlloffproduct
-     */
-    faults?: Array<EmbeddedAlloffProductFaults>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof OrderItemAlloffproduct
-     */
-    images: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemAlloffproduct
-     */
-    name: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderItemAlloffproduct
-     */
-    originalprice: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof OrderItemAlloffproduct
-     */
-    producttype: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof OrderItemAlloffproduct
-     */
-    sizedescription?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemAlloffproduct
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemAlloffproduct
-     */
-    updated: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof OrderItemAlloffproduct
-     */
-    removed?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemAlloffproduct
-     */
-    productgroupid: string;
-    /**
-     * 
-     * @type {Array<EmbeddedAlloffProductInventory>}
-     * @memberof OrderItemAlloffproduct
-     */
-    inventory: Array<EmbeddedAlloffProductInventory>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof OrderItemAlloffproduct
-     */
-    soldout: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemAlloffproduct
-     */
-    templateId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemAlloffproduct
-     */
-    originalproductid?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemAlloffproduct
-     */
-    _id: string;
-    /**
-     * 
-     * @type {EmbeddedAlloffProductBrand}
-     * @memberof OrderItemAlloffproduct
-     */
-    brand: EmbeddedAlloffProductBrand;
-    /**
-     * 
-     * @type {EmbeddedAlloffProductInstruction}
-     * @memberof OrderItemAlloffproduct
-     */
-    instruction: EmbeddedAlloffProductInstruction;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface OrderItemProduct
- */
-export interface OrderItemProduct {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    productid: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    name: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof OrderItemProduct
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof OrderItemProduct
-     */
-    removed?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof OrderItemProduct
-     */
-    soldout?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    producturl: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderItemProduct
-     */
-    discountrate: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    updated: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderItemProduct
-     */
-    discountedprice: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof OrderItemProduct
-     */
-    isupdated: boolean;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof OrderItemProduct
-     */
-    canceldescription: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    originalprice: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof OrderItemProduct
-     */
-    deliverydescription: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    isimagecached: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    isnewlycrawled: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    sizeavailable: string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof OrderItemProduct
-     */
-    description?: { [key: string]: any; };
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderItemProduct
-     */
-    _id: string;
-    /**
-     * 
-     * @type {EmbeddedProductBrand}
-     * @memberof OrderItemProduct
-     */
-    brand: EmbeddedProductBrand;
-    /**
-     * 
-     * @type {EmbeddedProductCategory}
-     * @memberof OrderItemProduct
-     */
-    category: EmbeddedProductCategory;
-    /**
-     * 
-     * @type {EmbeddedProductAlloffcategories}
-     * @memberof OrderItemProduct
-     */
-    alloffcategories: EmbeddedProductAlloffcategories;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface OrderList
- */
-export interface OrderList {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    id: string;
     /**
      * 
      * @type {Payment}
-     * @memberof OrderList
+     * @memberof Order
      */
     payment: Payment;
     /**
      * 
-     * @type {User}
-     * @memberof OrderList
+     * @type {{ [key: string]: any; }}
+     * @memberof Order
      */
-    user: User;
+    iamport: { [key: string]: any; };
     /**
      * 
-     * @type {Refund}
-     * @memberof OrderList
+     * @type {OrderPaymentAdjustment}
+     * @memberof Order
      */
-    refund: Refund;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    code: string;
+    payment_adjustments: OrderPaymentAdjustment;
     /**
      * 
      * @type {string}
-     * @memberof OrderList
+     * @memberof Order
      */
-    orderedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    deliveryStartedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    deliveryFinishedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    cancelRequestedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    cancelFinishedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    confirmedAt: string;
+    alloff_order_id: string;
     /**
      * 
      * @type {OrderStatusEnum}
-     * @memberof OrderList
+     * @memberof Order
      */
-    orderstatus: OrderStatusEnum;
+    order_status: OrderStatusEnum;
     /**
      * 
-     * @type {OrdertypeEnum}
-     * @memberof OrderList
+     * @type {string}
+     * @memberof Order
      */
-    ordertype: OrdertypeEnum;
+    user_id: string;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof Order
+     */
+    user: { [key: string]: any; };
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    user_memo?: string;
     /**
      * 
      * @type {number}
-     * @memberof OrderList
+     * @memberof Order
      */
-    totalprice: number;
+    product_price: number;
     /**
      * 
      * @type {number}
-     * @memberof OrderList
+     * @memberof Order
      */
-    productprice: number;
+    delivery_price?: number;
     /**
      * 
      * @type {number}
-     * @memberof OrderList
+     * @memberof Order
      */
-    deliveryprice: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    updated: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    memo: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    deliverytrackingnumber?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderList
-     */
-    deliverytrackingurl?: string;
-    /**
-     * 
-     * @type {Array<OrderOrders>}
-     * @memberof OrderList
-     */
-    orders: Array<OrderOrders>;
-}
-/**
- * 
- * @export
- * @interface OrderMemo
- */
-export interface OrderMemo {
+    total_price: number;
     /**
      * 
      * @type {number}
-     * @memberof OrderMemo
+     * @memberof Order
      */
-    id: number;
-    /**
-     * 
-     * @type {Admin}
-     * @memberof OrderMemo
-     */
-    admin: Admin;
+    refund_price?: number;
     /**
      * 
      * @type {string}
-     * @memberof OrderMemo
-     */
-    order_id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderMemo
-     */
-    body: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderMemo
+     * @memberof Order
      */
     created_at: string;
     /**
      * 
      * @type {string}
-     * @memberof OrderMemo
+     * @memberof Order
      */
-    deleted_at?: string | null;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface OrderMinimum
- */
-export interface OrderMinimum {
+    updated_at: string;
     /**
      * 
-     * @type {OrderStatusEnum}
-     * @memberof OrderMinimum
+     * @type {string}
+     * @memberof Order
      */
-    orderstatus: OrderStatusEnum;
+    ordered_at?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrderItemActionLog
+ */
+export interface OrderItemActionLog {
     /**
      * 
      * @type {number}
-     * @memberof OrderMinimum
+     * @memberof OrderItemActionLog
      */
-    totalprice: number;
+    id: number;
+    /**
+     * 
+     * @type {Admin}
+     * @memberof OrderItemActionLog
+     */
+    admin: Admin;
+    /**
+     * 
+     * @type {OrderItemAlimtalkLog}
+     * @memberof OrderItemActionLog
+     */
+    alimtalk: OrderItemAlimtalkLog;
+    /**
+     * 
+     * @type {OrderItemStatusChangeLog}
+     * @memberof OrderItemActionLog
+     */
+    status_change: OrderItemStatusChangeLog;
+    /**
+     * 
+     * @type {OrderItemRefundUpdateLog}
+     * @memberof OrderItemActionLog
+     */
+    refund_update: OrderItemRefundUpdateLog;
     /**
      * 
      * @type {string}
-     * @memberof OrderMinimum
+     * @memberof OrderItemActionLog
      */
-    created: string;
+    detail?: string | null;
+    /**
+     * 
+     * @type {ActionTypeEnum}
+     * @memberof OrderItemActionLog
+     */
+    action_type: ActionTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemActionLog
+     */
+    performed_at: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemActionLog
+     */
+    order_item: number;
 }
 /**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
+ * 
  * @export
- * @interface OrderOrders
+ * @interface OrderItemAlimtalkLog
  */
-export interface OrderOrders {
+export interface OrderItemAlimtalkLog {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemAlimtalkLog
+     */
+    id: number;
+    /**
+     * 
+     * @type {AlimtalkTypeEnum}
+     * @memberof OrderItemAlimtalkLog
+     */
+    alimtalk_type: AlimtalkTypeEnum;
     /**
      * 
      * @type {string}
-     * @memberof OrderOrders
+     * @memberof OrderItemAlimtalkLog
+     */
+    request_id?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemAlimtalkLog
+     */
+    order_item: number;
+}
+/**
+ * 
+ * @export
+ * @interface OrderItemList
+ */
+export interface OrderItemList {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemList
+     */
+    id: number;
+    /**
+     * 
+     * @type {Order}
+     * @memberof OrderItemList
+     */
+    order: Order;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    product_option: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemList
+     */
+    total_amount: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    order_item_code: string;
+    /**
+     * 
+     * @type {OrderItemTypeEnum}
+     * @memberof OrderItemList
+     */
+    order_item_type: OrderItemTypeEnum;
+    /**
+     * 
+     * @type {OrderItemStatusEnum}
+     * @memberof OrderItemList
+     */
+    order_item_status: OrderItemStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    brand_keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    brand_korname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    product_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    product_url: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    product_img: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    product_name: string;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof OrderItemList
+     */
+    cancel_description: { [key: string]: any; };
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof OrderItemList
+     */
+    delivery_description: { [key: string]: any; };
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderItemList
+     */
+    is_removed?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemList
+     */
+    sales_price: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
      */
     size: string;
     /**
      * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    color?: string | null;
+    /**
+     * 
      * @type {number}
-     * @memberof OrderOrders
+     * @memberof OrderItemList
      */
     quantity: number;
     /**
      * 
-     * @type {OrderItemAlloffproduct}
-     * @memberof OrderOrders
+     * @type {string}
+     * @memberof OrderItemList
      */
-    alloffproduct?: OrderItemAlloffproduct;
+    tracking_url?: string | null;
     /**
      * 
-     * @type {OrderItemProduct}
-     * @memberof OrderOrders
+     * @type {string}
+     * @memberof OrderItemList
      */
-    product?: OrderItemProduct;
+    tracking_number?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    created_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    updated_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    ordered_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    delivery_started_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    delivery_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    cancel_requested_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    cancel_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    confirmed_at?: string | null;
 }
+/**
+ * 
+ * @export
+ * @interface OrderItemMemo
+ */
+export interface OrderItemMemo {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemMemo
+     */
+    id: number;
+    /**
+     * 
+     * @type {Admin}
+     * @memberof OrderItemMemo
+     */
+    admin: Admin;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemMemo
+     */
+    body: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemMemo
+     */
+    created_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemMemo
+     */
+    deleted_at?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemMemo
+     */
+    order_item: number;
+}
+/**
+ * 
+ * @export
+ * @interface OrderItemRefundUpdateLog
+ */
+export interface OrderItemRefundUpdateLog {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemRefundUpdateLog
+     */
+    id: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemRefundUpdateLog
+     */
+    refund_delivery_price: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemRefundUpdateLog
+     */
+    refund_amount: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemRefundUpdateLog
+     */
+    order_item: number;
+}
+/**
+ * 
+ * @export
+ * @interface OrderItemRetrieve
+ */
+export interface OrderItemRetrieve {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemRetrieve
+     */
+    id: number;
+    /**
+     * 
+     * @type {Order}
+     * @memberof OrderItemRetrieve
+     */
+    order: Order;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    product_option: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemRetrieve
+     */
+    total_amount: number;
+    /**
+     * 
+     * @type {Array<OrderItemActionLog>}
+     * @memberof OrderItemRetrieve
+     */
+    logs: Array<OrderItemActionLog>;
+    /**
+     * 
+     * @type {Array<OrderItemMemo>}
+     * @memberof OrderItemRetrieve
+     */
+    memos: Array<OrderItemMemo>;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    order_item_code: string;
+    /**
+     * 
+     * @type {OrderItemTypeEnum}
+     * @memberof OrderItemRetrieve
+     */
+    order_item_type: OrderItemTypeEnum;
+    /**
+     * 
+     * @type {OrderItemStatusEnum}
+     * @memberof OrderItemRetrieve
+     */
+    order_item_status: OrderItemStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    brand_keyname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    brand_korname: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    product_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    product_url: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    product_img: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    product_name: string;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof OrderItemRetrieve
+     */
+    cancel_description: { [key: string]: any; };
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof OrderItemRetrieve
+     */
+    delivery_description: { [key: string]: any; };
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OrderItemRetrieve
+     */
+    is_removed?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemRetrieve
+     */
+    sales_price: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    size: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    color?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemRetrieve
+     */
+    quantity: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    tracking_url?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    tracking_number?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    created_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    updated_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    ordered_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    delivery_started_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    delivery_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    cancel_requested_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    cancel_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    confirmed_at?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface OrderItemStatusChangeLog
+ */
+export interface OrderItemStatusChangeLog {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemStatusChangeLog
+     */
+    id: number;
+    /**
+     * 
+     * @type {OrderItemStatusEnum}
+     * @memberof OrderItemStatusChangeLog
+     */
+    status_from: OrderItemStatusEnum;
+    /**
+     * 
+     * @type {OrderItemStatusEnum}
+     * @memberof OrderItemStatusChangeLog
+     */
+    status_to: OrderItemStatusEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemStatusChangeLog
+     */
+    order_item: number;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export enum OrderItemStatusEnum {
+    Created = 'ORDER_ITEM_CREATED',
+    Recreated = 'ORDER_ITEM_RECREATED',
+    PaymentPending = 'ORDER_ITEM_PAYMENT_PENDING',
+    PaymentFinished = 'ORDER_ITEM_PAYMENT_FINISHED',
+    ProductPreparing = 'ORDER_ITEM_PRODUCT_PREPARING',
+    ForeignProductInspecting = 'ORDER_ITEM_FOREIGN_PRODUCT_INSPECTING',
+    DeliveryPreparing = 'ORDER_ITEM_DELIVERY_PREPARING',
+    ForeignDeliveryStarted = 'ORDER_ITEM_FOREIGN_DELIVERY_STARTED',
+    DeliveryStarted = 'ORDER_ITEM_DELIVERY_STARTED',
+    DeliveryFinished = 'ORDER_ITEM_DELIVERY_FINISHED',
+    ConfirmPayment = 'ORDER_ITEM_CONFIRM_PAYMENT',
+    CancelFinished = 'ORDER_ITEM_CANCEL_FINISHED',
+    ExchangeRequested = 'ORDER_ITEM_EXCHANGE_REQUESTED',
+    ExchangePending = 'ORDER_ITEM_EXCHANGE_PENDING',
+    ExchangeFinished = 'ORDER_ITEM_EXCHANGE_FINISHED',
+    ReturnRequested = 'ORDER_ITEM_RETURN_REQUESTED',
+    ReturnPending = 'ORDER_ITEM_RETURN_PENDING',
+    ReturnFinished = 'ORDER_ITEM_RETURN_FINISHED'
+}
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export enum OrderItemTypeEnum {
+    NormalOrder = 'NORMAL_ORDER',
+    TimedealOrder = 'TIMEDEAL_ORDER',
+    ExhibitionOrder = 'EXHIBITION_ORDER',
+    UnknownOrder = 'UNKNOWN_ORDER'
+}
+
 /**
  * 
  * @export
@@ -2915,12 +943,6 @@ export interface OrderPaymentAdjustment {
      * @memberof OrderPaymentAdjustment
      */
     method: MethodEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderPaymentAdjustment
-     */
-    order_id: string;
     /**
      * 
      * @type {number}
@@ -2956,7 +978,7 @@ export interface OrderPaymentAdjustment {
      * @type {string}
      * @memberof OrderPaymentAdjustment
      */
-    reason: string;
+    reason?: string | null;
     /**
      * 
      * @type {string}
@@ -2969,261 +991,12 @@ export interface OrderPaymentAdjustment {
      * @memberof OrderPaymentAdjustment
      */
     updated_at: string;
-}
-/**
- * 
- * @export
- * @interface OrderRefundUpdateLog
- */
-export interface OrderRefundUpdateLog {
     /**
      * 
      * @type {number}
-     * @memberof OrderRefundUpdateLog
+     * @memberof OrderPaymentAdjustment
      */
-    id: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRefundUpdateLog
-     */
-    order_id: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderRefundUpdateLog
-     */
-    refund_delivery_price: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderRefundUpdateLog
-     */
-    refund_price: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderRefundUpdateLog
-     */
-    refund_amount: number;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface OrderRetrieve
- */
-export interface OrderRetrieve {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    id: string;
-    /**
-     * 
-     * @type {Payment}
-     * @memberof OrderRetrieve
-     */
-    payment: Payment;
-    /**
-     * 
-     * @type {User}
-     * @memberof OrderRetrieve
-     */
-    user: User;
-    /**
-     * 
-     * @type {Refund}
-     * @memberof OrderRetrieve
-     */
-    refund: Refund;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    code: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    orderedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    deliveryStartedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    deliveryFinishedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    cancelRequestedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    cancelFinishedAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    confirmedAt: string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof OrderRetrieve
-     */
-    iamport: { [key: string]: any; };
-    /**
-     * 
-     * @type {Array<OrderPaymentAdjustment>}
-     * @memberof OrderRetrieve
-     */
-    payment_adjustments: Array<OrderPaymentAdjustment>;
-    /**
-     * 
-     * @type {Array<OrderMemo>}
-     * @memberof OrderRetrieve
-     */
-    memos: Array<OrderMemo>;
-    /**
-     * 
-     * @type {Array<OrderActionLog>}
-     * @memberof OrderRetrieve
-     */
-    logs: Array<OrderActionLog>;
-    /**
-     * 
-     * @type {OrderStatusEnum}
-     * @memberof OrderRetrieve
-     */
-    orderstatus: OrderStatusEnum;
-    /**
-     * 
-     * @type {OrdertypeEnum}
-     * @memberof OrderRetrieve
-     */
-    ordertype: OrdertypeEnum;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderRetrieve
-     */
-    totalprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderRetrieve
-     */
-    productprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderRetrieve
-     */
-    deliveryprice: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    updated: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    memo: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    deliverytrackingnumber?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderRetrieve
-     */
-    deliverytrackingurl?: string;
-    /**
-     * 
-     * @type {Array<OrderOrders>}
-     * @memberof OrderRetrieve
-     */
-    orders: Array<OrderOrders>;
-}
-/**
- * 
- * @export
- * @interface OrderStatusChangeLog
- */
-export interface OrderStatusChangeLog {
-    /**
-     * 
-     * @type {number}
-     * @memberof OrderStatusChangeLog
-     */
-    id: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderStatusChangeLog
-     */
-    order_id: string;
-    /**
-     * 
-     * @type {OrderStatusEnum}
-     * @memberof OrderStatusChangeLog
-     */
-    status_from: OrderStatusEnum;
-    /**
-     * 
-     * @type {OrderStatusEnum}
-     * @memberof OrderStatusChangeLog
-     */
-    status_to: OrderStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderStatusChangeLog
-     */
-    delivery_tracking_number_from?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderStatusChangeLog
-     */
-    delivery_tracking_url_from?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderStatusChangeLog
-     */
-    delivery_tracking_number_to?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof OrderStatusChangeLog
-     */
-    delivery_tracking_url_to?: string | null;
+    order: number;
 }
 /**
  * 
@@ -3232,37 +1005,10 @@ export interface OrderStatusChangeLog {
  */
 
 export enum OrderStatusEnum {
-    PaymentFinished = 'PAYMENT_FINISHED',
-    ProductPreparing = 'PRODUCT_PREPARING',
-    DeliveryPreparing = 'DELIVERY_PREPARING',
-    DeliveryStarted = 'DELIVERY_STARTED',
-    DeliveryFinished = 'DELIVERY_FINISHED',
-    ConfirmPayment = 'CONFIRM_PAYMENT',
-    CancelRequested = 'CANCEL_REQUESTED',
-    CancelPending = 'CANCEL_PENDING',
-    CancelFinished = 'CANCEL_FINISHED'
-}
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export enum OrderTypeEnum {
-    NormalOrder = 'NORMAL_ORDER',
-    TimedealOrder = 'TIMEDEAL_ORDER'
-}
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export enum OrdertypeEnum {
-    NormalOrder = 'NORMAL_ORDER',
-    TimedealOrder = 'TIMEDEAL_ORDER'
+    Created = 'ORDER_CREATED',
+    Recreated = 'ORDER_RECREATED',
+    PaymentPending = 'ORDER_PAYMENT_PENDING',
+    PaymentFinished = 'ORDER_PAYMENT_FINISHED'
 }
 
 /**
@@ -3279,88 +1025,64 @@ export interface Package {
     id: number;
     /**
      * 
-     * @type {Array<ShippingNoticeItem>}
-     * @memberof Package
-     */
-    shipping_notice_items: Array<ShippingNoticeItem>;
-    /**
-     * 
      * @type {string}
      * @memberof Package
      */
-    tracking_url: string;
-    /**
-     * 
-     * @type {Courier}
-     * @memberof Package
-     */
-    courier: Courier;
-    /**
-     * 
-     * @type {Array<PackageOrderStatuses>}
-     * @memberof Package
-     */
-    order_statuses_by_code: Array<PackageOrderStatuses>;
-    /**
-     * 
-     * @type {string}
-     * @memberof Package
-     */
-    code: string;
+    key: string;
     /**
      * 
      * @type {PackageStatusEnum}
      * @memberof Package
      */
-    status?: PackageStatusEnum;
+    status: PackageStatusEnum;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof Package
+     */
+    related_order_item_ids: Array<any>;
     /**
      * 
      * @type {string}
      * @memberof Package
      */
-    address: string;
+    customer_name: string;
     /**
      * 
      * @type {string}
      * @memberof Package
      */
-    postcode: string;
+    customer_contact: string;
     /**
      * 
      * @type {string}
      * @memberof Package
      */
-    recipient_name: string;
+    base_address: string;
     /**
      * 
      * @type {string}
      * @memberof Package
      */
-    recipient_mobile: string;
+    detail_address: string | null;
     /**
      * 
      * @type {string}
      * @memberof Package
      */
-    tracking_number: string;
+    postal_code: string;
     /**
      * 
      * @type {string}
      * @memberof Package
      */
-    shipped_at?: string | null;
+    delivery_note: string | null;
     /**
      * 
      * @type {string}
      * @memberof Package
      */
-    sealed_at?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof Package
-     */
-    deliver_confirmed_at?: string | null;
+    tracking_number: string | null;
     /**
      * 
      * @type {string}
@@ -3375,29 +1097,28 @@ export interface Package {
     updated_at: string;
     /**
      * 
+     * @type {string}
+     * @memberof Package
+     */
+    deleted_at: string | null;
+    /**
+     * 
      * @type {number}
      * @memberof Package
      */
-    notice: number;
-}
-/**
- * 
- * @export
- * @interface PackageOrderStatuses
- */
-export interface PackageOrderStatuses {
+    remark_records: number | null;
     /**
      * 
-     * @type {string}
-     * @memberof PackageOrderStatuses
+     * @type {number}
+     * @memberof Package
      */
-    code: string;
+    inventories: number | null;
     /**
      * 
-     * @type {OrderStatusEnum}
-     * @memberof PackageOrderStatuses
+     * @type {number}
+     * @memberof Package
      */
-    status: OrderStatusEnum;
+    tracking_courier: number | null;
 }
 /**
  * 
@@ -3406,835 +1127,77 @@ export interface PackageOrderStatuses {
  */
 
 export enum PackageStatusEnum {
-    Created = 'CREATED',
-    Sealed = 'SEALED',
-    Shipped = 'SHIPPED',
-    DeliverConfirmed = 'DELIVER_CONFIRMED'
+    DeliveryPreparing = 'DELIVERY_PREPARING',
+    DeliveryStarted = 'DELIVERY_STARTED',
+    DeliveryFinished = 'DELIVERY_FINISHED',
+    OverseaShipmentPreparing = 'OVERSEA_SHIPMENT_PREPARING',
+    OverseaShipmentStarted = 'OVERSEA_SHIPMENT_STARTED',
+    CancelRequested = 'CANCEL_REQUESTED',
+    CancelPending = 'CANCEL_PENDING',
+    CancelFinished = 'CANCEL_FINISHED'
 }
 
 /**
  * 
  * @export
- * @interface PaginatedInventoryList
+ * @interface PaginatedOrderItemListList
  */
-export interface PaginatedInventoryList {
+export interface PaginatedOrderItemListList {
     /**
      * 
      * @type {number}
-     * @memberof PaginatedInventoryList
+     * @memberof PaginatedOrderItemListList
      */
     count?: number;
     /**
      * 
      * @type {string}
-     * @memberof PaginatedInventoryList
+     * @memberof PaginatedOrderItemListList
      */
     next?: string | null;
     /**
      * 
      * @type {string}
-     * @memberof PaginatedInventoryList
+     * @memberof PaginatedOrderItemListList
      */
     previous?: string | null;
     /**
      * 
-     * @type {Array<Inventory>}
-     * @memberof PaginatedInventoryList
+     * @type {Array<OrderItemList>}
+     * @memberof PaginatedOrderItemListList
      */
-    results?: Array<Inventory>;
+    results?: Array<OrderItemList>;
 }
 /**
  * 
  * @export
- * @interface PaginatedNotificationList
+ * @interface PaginatedPackageList
  */
-export interface PaginatedNotificationList {
+export interface PaginatedPackageList {
     /**
      * 
      * @type {number}
-     * @memberof PaginatedNotificationList
+     * @memberof PaginatedPackageList
      */
     count?: number;
     /**
      * 
      * @type {string}
-     * @memberof PaginatedNotificationList
+     * @memberof PaginatedPackageList
      */
     next?: string | null;
     /**
      * 
      * @type {string}
-     * @memberof PaginatedNotificationList
+     * @memberof PaginatedPackageList
      */
     previous?: string | null;
     /**
      * 
-     * @type {Array<Notification>}
-     * @memberof PaginatedNotificationList
+     * @type {Array<Package>}
+     * @memberof PaginatedPackageList
      */
-    results?: Array<Notification>;
-}
-/**
- * 
- * @export
- * @interface PaginatedOrderListList
- */
-export interface PaginatedOrderListList {
-    /**
-     * 
-     * @type {number}
-     * @memberof PaginatedOrderListList
-     */
-    count?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedOrderListList
-     */
-    next?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedOrderListList
-     */
-    previous?: string | null;
-    /**
-     * 
-     * @type {Array<OrderList>}
-     * @memberof PaginatedOrderListList
-     */
-    results?: Array<OrderList>;
-}
-/**
- * 
- * @export
- * @interface PaginatedReceivedItemList
- */
-export interface PaginatedReceivedItemList {
-    /**
-     * 
-     * @type {number}
-     * @memberof PaginatedReceivedItemList
-     */
-    count?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedReceivedItemList
-     */
-    next?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedReceivedItemList
-     */
-    previous?: string | null;
-    /**
-     * 
-     * @type {Array<ReceivedItem>}
-     * @memberof PaginatedReceivedItemList
-     */
-    results?: Array<ReceivedItem>;
-}
-/**
- * 
- * @export
- * @interface PaginatedShippingNoticeList
- */
-export interface PaginatedShippingNoticeList {
-    /**
-     * 
-     * @type {number}
-     * @memberof PaginatedShippingNoticeList
-     */
-    count?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedShippingNoticeList
-     */
-    next?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedShippingNoticeList
-     */
-    previous?: string | null;
-    /**
-     * 
-     * @type {Array<ShippingNotice>}
-     * @memberof PaginatedShippingNoticeList
-     */
-    results?: Array<ShippingNotice>;
-}
-/**
- * 
- * @export
- * @interface PaginatedTimedealList
- */
-export interface PaginatedTimedealList {
-    /**
-     * 
-     * @type {number}
-     * @memberof PaginatedTimedealList
-     */
-    count?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedTimedealList
-     */
-    next?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedTimedealList
-     */
-    previous?: string | null;
-    /**
-     * 
-     * @type {Array<Timedeal>}
-     * @memberof PaginatedTimedealList
-     */
-    results?: Array<Timedeal>;
-}
-/**
- * 
- * @export
- * @interface PaginatedTimedealProductList
- */
-export interface PaginatedTimedealProductList {
-    /**
-     * 
-     * @type {number}
-     * @memberof PaginatedTimedealProductList
-     */
-    count?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedTimedealProductList
-     */
-    next?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedTimedealProductList
-     */
-    previous?: string | null;
-    /**
-     * 
-     * @type {Array<TimedealProduct>}
-     * @memberof PaginatedTimedealProductList
-     */
-    results?: Array<TimedealProduct>;
-}
-/**
- * 
- * @export
- * @interface PaginatedTimedealProductTemplateList
- */
-export interface PaginatedTimedealProductTemplateList {
-    /**
-     * 
-     * @type {number}
-     * @memberof PaginatedTimedealProductTemplateList
-     */
-    count?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedTimedealProductTemplateList
-     */
-    next?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaginatedTimedealProductTemplateList
-     */
-    previous?: string | null;
-    /**
-     * 
-     * @type {Array<TimedealProductTemplate>}
-     * @memberof PaginatedTimedealProductTemplateList
-     */
-    results?: Array<TimedealProductTemplate>;
-}
-/**
- * Serializer for Documents.  Recognized primitve fields:      * ``StringField``     * ``URLField``     * ``EmailField``     * ``IntField``     * ``LongField``     * ``FloatField``     * ``DecimalField``     * ``BooleanField``     * ``DateTimeField``     * ``ComplexDateTimeField``     * ``ObjectIdField``     * ``SequenceField`` (assumes it has integer counter)     * ``UUIDField``     * ``GeoPointField``     * ``GeoJsonBaseField`` (all those fields)     * ``DateField``  Compound fields: ``ListField`` and ``DictField`` are mapped to corresponding DRF fields, with respect to nested field specification.  The ``ReferenceField`` is handled like ``ForeignKey`` in DRF: there nested serializer autogenerated if serializer depth greater then 0, otherwise it\'s handled by it\'s own (results as ``str(id)``).  For ``EmbeddedDocumentField`` also nested serializer autogenerated for non-zero depth, otherwise it is skipped. TODO: THIS IS PROBABLY WRONG AND SHOULD BE FIXED.  Generic fields ``GenericReferenceField`` and ``GenericEmbeddedDocumentField`` are handled by their own with corresponding serializer fields.  Not well supported or untested:      ``FileField``     ``ImageField``     ``BinaryField``  All other fields are mapped to ``DocumentField`` and probably will work wrong.
- * @export
- * @interface PatchedBrandRequest
- */
-export interface PatchedBrandRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedBrandRequest
-     */
-    keyname?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedBrandRequest
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedBrandRequest
-     */
-    engname?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedBrandRequest
-     */
-    korname?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedBrandRequest
-     */
-    logoimgurl?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedBrandRequest
-     */
-    onpopular?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedBrandRequest
-     */
-    description?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedBrandRequest
-     */
-    isopen?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedBrandRequest
-     */
-    ishide?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedBrandRequest
-     */
-    modulename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedBrandRequest
-     */
-    maxdiscountrate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedBrandRequest
-     */
-    numnewproducts?: number;
-    /**
-     * 
-     * @type {Array<BrandSizeguideRequest>}
-     * @memberof PatchedBrandRequest
-     */
-    sizeguide?: Array<BrandSizeguideRequest>;
-    /**
-     * 
-     * @type {Array<BrandCategoryRequest>}
-     * @memberof PatchedBrandRequest
-     */
-    category?: Array<BrandCategoryRequest>;
-}
-/**
- * 
- * @export
- * @interface PatchedInventoryRequest
- */
-export interface PatchedInventoryRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    code?: string;
-    /**
-     * 
-     * @type {InventoryStatusEnum}
-     * @memberof PatchedInventoryRequest
-     */
-    status?: InventoryStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    size?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    deleted_at?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    product_id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    product_name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    product_brand?: string;
-    /**
-     * 
-     * @type {ProductTypeEnum}
-     * @memberof PatchedInventoryRequest
-     */
-    product_type?: ProductTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    out_order_id?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    in_order_id?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    location?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedInventoryRequest
-     */
-    memo?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedInventoryRequest
-     */
-    images?: Array<string>;
-}
-/**
- * 
- * @export
- * @interface PatchedReceivedItemRequest
- */
-export interface PatchedReceivedItemRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedReceivedItemRequest
-     */
-    order_id?: string;
-    /**
-     * 
-     * @type {OrderTypeEnum}
-     * @memberof PatchedReceivedItemRequest
-     */
-    order_type?: OrderTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedReceivedItemRequest
-     */
-    item_name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedReceivedItemRequest
-     */
-    brand_keyname?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedReceivedItemRequest
-     */
-    size?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedReceivedItemRequest
-     */
-    sourcing_code?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedReceivedItemRequest
-     */
-    product_id?: string;
-    /**
-     * 
-     * @type {ReceivedItemStatusEnum}
-     * @memberof PatchedReceivedItemRequest
-     */
-    status?: ReceivedItemStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedReceivedItemRequest
-     */
-    ordered?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedReceivedItemRequest
-     */
-    is_return?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedReceivedItemRequest
-     */
-    needs_processing?: boolean;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedReceivedItemRequest
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedReceivedItemRequest
-     */
-    memo?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedReceivedItemRequest
-     */
-    sourcing?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedReceivedItemRequest
-     */
-    processor?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedReceivedItemRequest
-     */
-    inventory?: number | null;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface PatchedTimedealProductRequest
- */
-export interface PatchedTimedealProductRequest {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductRequest
-     */
-    canceldescription?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductRequest
-     */
-    deliverydescription?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductRequest
-     */
-    description?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedTimedealProductRequest
-     */
-    discountedprice?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedTimedealProductRequest
-     */
-    discountrate?: number;
-    /**
-     * 
-     * @type {Array<AlloffProductFaultsRequest>}
-     * @memberof PatchedTimedealProductRequest
-     */
-    faults?: Array<AlloffProductFaultsRequest>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductRequest
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductRequest
-     */
-    name?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedTimedealProductRequest
-     */
-    originalprice?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductRequest
-     */
-    producttype?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductRequest
-     */
-    sizedescription?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductRequest
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductRequest
-     */
-    updated?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedTimedealProductRequest
-     */
-    removed?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductRequest
-     */
-    productgroupid?: string;
-    /**
-     * 
-     * @type {Array<AlloffProductInventoryRequest>}
-     * @memberof PatchedTimedealProductRequest
-     */
-    inventory?: Array<AlloffProductInventoryRequest>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedTimedealProductRequest
-     */
-    soldout?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductRequest
-     */
-    templateId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductRequest
-     */
-    originalproductid?: string | null;
-    /**
-     * 
-     * @type {AlloffProductBrandRequest}
-     * @memberof PatchedTimedealProductRequest
-     */
-    brand?: AlloffProductBrandRequest;
-    /**
-     * 
-     * @type {AlloffProductInstructionRequest}
-     * @memberof PatchedTimedealProductRequest
-     */
-    instruction?: AlloffProductInstructionRequest;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface PatchedTimedealProductTemplateRequest
- */
-export interface PatchedTimedealProductTemplateRequest {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    canceldescription?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    deliverydescription?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    description?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    discountedprice?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    discountrate?: number;
-    /**
-     * 
-     * @type {Array<AlloffProductTemplateFaultsRequest>}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    faults?: Array<AlloffProductTemplateFaultsRequest>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    name?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    originalprice?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    producttype?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    sizedescription?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    updated?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    removed?: boolean;
-    /**
-     * 
-     * @type {AlloffProductTemplateBrandRequest}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    brand?: AlloffProductTemplateBrandRequest;
-    /**
-     * 
-     * @type {AlloffProductTemplateInstructionRequest}
-     * @memberof PatchedTimedealProductTemplateRequest
-     */
-    instruction?: AlloffProductTemplateInstructionRequest;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface PatchedTimedealRequest
- */
-export interface PatchedTimedealRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealRequest
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealRequest
-     */
-    shorttitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof PatchedTimedealRequest
-     */
-    numalarms?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PatchedTimedealRequest
-     */
-    instruction?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealRequest
-     */
-    imgurl?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PatchedTimedealRequest
-     */
-    hidden?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealRequest
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealRequest
-     */
-    starttime?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PatchedTimedealRequest
-     */
-    finishtime?: string;
+    results?: Array<Package>;
 }
 /**
  * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
@@ -4330,17 +1293,6 @@ export interface Payment {
 /**
  * 
  * @export
- * @enum {string}
- */
-
-export enum ProductTypeEnum {
-    Normal = 'NORMAL',
-    Timedeal = 'TIMEDEAL'
-}
-
-/**
- * 
- * @export
  * @interface Profile
  */
 export interface Profile {
@@ -4351,1380 +1303,20 @@ export interface Profile {
      */
     name: string;
 }
-/**
- * 
- * @export
- * @interface ReceivedItem
- */
-export interface ReceivedItem {
-    /**
-     * 
-     * @type {number}
-     * @memberof ReceivedItem
-     */
-    id: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    order_id: string;
-    /**
-     * 
-     * @type {OrderTypeEnum}
-     * @memberof ReceivedItem
-     */
-    order_type: OrderTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    item_name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    brand_keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    size: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    sourcing_code: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    product_id: string;
-    /**
-     * 
-     * @type {ReceivedItemStatusEnum}
-     * @memberof ReceivedItem
-     */
-    status?: ReceivedItemStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    updated: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    ordered: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ReceivedItem
-     */
-    is_return?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ReceivedItem
-     */
-    needs_processing?: boolean;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof ReceivedItem
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItem
-     */
-    memo?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ReceivedItem
-     */
-    sourcing?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof ReceivedItem
-     */
-    processor?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof ReceivedItem
-     */
-    inventory?: number | null;
-}
-/**
- * 
- * @export
- * @interface ReceivedItemRequest
- */
-export interface ReceivedItemRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemRequest
-     */
-    order_id: string;
-    /**
-     * 
-     * @type {OrderTypeEnum}
-     * @memberof ReceivedItemRequest
-     */
-    order_type: OrderTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemRequest
-     */
-    item_name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemRequest
-     */
-    brand_keyname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemRequest
-     */
-    size: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemRequest
-     */
-    sourcing_code: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemRequest
-     */
-    product_id: string;
-    /**
-     * 
-     * @type {ReceivedItemStatusEnum}
-     * @memberof ReceivedItemRequest
-     */
-    status?: ReceivedItemStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemRequest
-     */
-    ordered: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ReceivedItemRequest
-     */
-    is_return?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ReceivedItemRequest
-     */
-    needs_processing?: boolean;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof ReceivedItemRequest
-     */
-    images?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemRequest
-     */
-    memo?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ReceivedItemRequest
-     */
-    sourcing?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof ReceivedItemRequest
-     */
-    processor?: number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof ReceivedItemRequest
-     */
-    inventory?: number | null;
-}
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export enum ReceivedItemStatusEnum {
-    Created = 'CREATED',
-    Assigned = 'ASSIGNED',
-    Requested = 'REQUESTED',
-    Received = 'RECEIVED',
-    RequestCanceled = 'REQUEST_CANCELED',
-    OutOfStock = 'OUT_OF_STOCK',
-    FromInventory = 'FROM_INVENTORY'
-}
 
 /**
- * Serializer for Documents.  Recognized primitve fields:      * ``StringField``     * ``URLField``     * ``EmailField``     * ``IntField``     * ``LongField``     * ``FloatField``     * ``DecimalField``     * ``BooleanField``     * ``DateTimeField``     * ``ComplexDateTimeField``     * ``ObjectIdField``     * ``SequenceField`` (assumes it has integer counter)     * ``UUIDField``     * ``GeoPointField``     * ``GeoJsonBaseField`` (all those fields)     * ``DateField``  Compound fields: ``ListField`` and ``DictField`` are mapped to corresponding DRF fields, with respect to nested field specification.  The ``ReferenceField`` is handled like ``ForeignKey`` in DRF: there nested serializer autogenerated if serializer depth greater then 0, otherwise it\'s handled by it\'s own (results as ``str(id)``).  For ``EmbeddedDocumentField`` also nested serializer autogenerated for non-zero depth, otherwise it is skipped. TODO: THIS IS PROBABLY WRONG AND SHOULD BE FIXED.  Generic fields ``GenericReferenceField`` and ``GenericEmbeddedDocumentField`` are handled by their own with corresponding serializer fields.  Not well supported or untested:      ``FileField``     ``ImageField``     ``BinaryField``  All other fields are mapped to ``DocumentField`` and probably will work wrong.
- * @export
- * @interface Refund
- */
-export interface Refund {
-    /**
-     * 
-     * @type {string}
-     * @memberof Refund
-     */
-    id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Refund
-     */
-    orderid?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Refund
-     */
-    refunddeliveryprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Refund
-     */
-    refundprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Refund
-     */
-    refundamount: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Refund
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Refund
-     */
-    updated: string;
-}
-/**
- * 
- * @export
- * @interface RemakeRi
- */
-export interface RemakeRi {
-    /**
-     * 
-     * @type {ProductTypeEnum}
-     * @memberof RemakeRi
-     */
-    product_type: ProductTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof RemakeRi
-     */
-    product_id: string;
-}
-/**
- * 
- * @export
- * @interface RemakeRiRequest
- */
-export interface RemakeRiRequest {
-    /**
-     * 
-     * @type {ProductTypeEnum}
-     * @memberof RemakeRiRequest
-     */
-    product_type: ProductTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof RemakeRiRequest
-     */
-    product_id: string;
-}
-/**
- * 
- * @export
- * @interface SendNotification
- */
-export interface SendNotification {
-    /**
-     * 
-     * @type {string}
-     * @memberof SendNotification
-     */
-    ids: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SendNotification
-     */
-    is_test?: boolean;
-}
-/**
- * 
- * @export
- * @interface SendNotificationRequest
- */
-export interface SendNotificationRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof SendNotificationRequest
-     */
-    ids: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SendNotificationRequest
-     */
-    is_test?: boolean;
-}
-/**
- * 
- * @export
- * @interface ShippingNotice
- */
-export interface ShippingNotice {
-    /**
-     * 
-     * @type {number}
-     * @memberof ShippingNotice
-     */
-    id: number;
-    /**
-     * 
-     * @type {Array<ShippingNoticeItem>}
-     * @memberof ShippingNotice
-     */
-    items: Array<ShippingNoticeItem>;
-    /**
-     * 
-     * @type {Array<Package>}
-     * @memberof ShippingNotice
-     */
-    packages: Array<Package>;
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNotice
-     */
-    code: string;
-    /**
-     * 
-     * @type {ShippingNoticeStatusEnum}
-     * @memberof ShippingNotice
-     */
-    status?: ShippingNoticeStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNotice
-     */
-    template_url?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNotice
-     */
-    locked_at?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNotice
-     */
-    sealed_at?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNotice
-     */
-    shipped_at?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNotice
-     */
-    created_at: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNotice
-     */
-    updated_at: string;
-}
-/**
- * 
- * @export
- * @interface ShippingNoticeItem
- */
-export interface ShippingNoticeItem {
-    /**
-     * 
-     * @type {Inventory}
-     * @memberof ShippingNoticeItem
-     */
-    inventory: Inventory;
-    /**
-     * 
-     * @type {ExtendedOrderItem}
-     * @memberof ShippingNoticeItem
-     */
-    item: ExtendedOrderItem;
-}
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export enum ShippingNoticeStatusEnum {
-    Created = 'CREATED',
-    Locked = 'LOCKED',
-    Sealed = 'SEALED',
-    Shipped = 'SHIPPED'
-}
-
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface Timedeal
- */
-export interface Timedeal {
-    /**
-     * 
-     * @type {string}
-     * @memberof Timedeal
-     */
-    id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Timedeal
-     */
-    title: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Timedeal
-     */
-    shorttitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Timedeal
-     */
-    numalarms?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof Timedeal
-     */
-    instruction?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof Timedeal
-     */
-    imgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Timedeal
-     */
-    hidden?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof Timedeal
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Timedeal
-     */
-    starttime: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Timedeal
-     */
-    finishtime: string;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface TimedealProduct
- */
-export interface TimedealProduct {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProduct
-     */
-    id: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProduct
-     */
-    canceldescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProduct
-     */
-    deliverydescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProduct
-     */
-    description?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProduct
-     */
-    discountedprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProduct
-     */
-    discountrate: number;
-    /**
-     * 
-     * @type {Array<AlloffProductFaults>}
-     * @memberof TimedealProduct
-     */
-    faults?: Array<AlloffProductFaults>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProduct
-     */
-    images: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProduct
-     */
-    name: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProduct
-     */
-    originalprice: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProduct
-     */
-    producttype: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProduct
-     */
-    sizedescription?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProduct
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProduct
-     */
-    updated: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TimedealProduct
-     */
-    removed?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProduct
-     */
-    productgroupid: string;
-    /**
-     * 
-     * @type {Array<AlloffProductInventory>}
-     * @memberof TimedealProduct
-     */
-    inventory: Array<AlloffProductInventory>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TimedealProduct
-     */
-    soldout: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProduct
-     */
-    templateId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProduct
-     */
-    originalproductid?: string | null;
-    /**
-     * 
-     * @type {AlloffProductBrand}
-     * @memberof TimedealProduct
-     */
-    brand: AlloffProductBrand;
-    /**
-     * 
-     * @type {AlloffProductInstruction}
-     * @memberof TimedealProduct
-     */
-    instruction: AlloffProductInstruction;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface TimedealProductAdd
- */
-export interface TimedealProductAdd {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAdd
-     */
-    canceldescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAdd
-     */
-    deliverydescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAdd
-     */
-    sizedescription?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAdd
-     */
-    brandid: string;
-    /**
-     * 
-     * @type {AlloffProductInstruction}
-     * @memberof TimedealProductAdd
-     */
-    instruction: AlloffProductInstruction;
-    /**
-     * 
-     * @type {Array<AlloffProductFaults>}
-     * @memberof TimedealProductAdd
-     */
-    faults?: Array<AlloffProductFaults>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAdd
-     */
-    description?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductAdd
-     */
-    originalprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductAdd
-     */
-    discountedprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductAdd
-     */
-    discountrate: number;
-    /**
-     * 
-     * @type {Array<AlloffProductInventory>}
-     * @memberof TimedealProductAdd
-     */
-    inventory: Array<AlloffProductInventory>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAdd
-     */
-    producttype: Array<string>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TimedealProductAdd
-     */
-    soldout: boolean;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAdd
-     */
-    images: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAdd
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAdd
-     */
-    productgroupid: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAdd
-     */
-    originalproductid?: string | null;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface TimedealProductAddRequest
- */
-export interface TimedealProductAddRequest {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAddRequest
-     */
-    canceldescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAddRequest
-     */
-    deliverydescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAddRequest
-     */
-    sizedescription?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAddRequest
-     */
-    brandid: string;
-    /**
-     * 
-     * @type {AlloffProductInstructionRequest}
-     * @memberof TimedealProductAddRequest
-     */
-    instruction: AlloffProductInstructionRequest;
-    /**
-     * 
-     * @type {Array<AlloffProductFaultsRequest>}
-     * @memberof TimedealProductAddRequest
-     */
-    faults?: Array<AlloffProductFaultsRequest>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAddRequest
-     */
-    description?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductAddRequest
-     */
-    originalprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductAddRequest
-     */
-    discountedprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductAddRequest
-     */
-    discountrate: number;
-    /**
-     * 
-     * @type {Array<AlloffProductInventoryRequest>}
-     * @memberof TimedealProductAddRequest
-     */
-    inventory: Array<AlloffProductInventoryRequest>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAddRequest
-     */
-    producttype: Array<string>;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TimedealProductAddRequest
-     */
-    soldout: boolean;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductAddRequest
-     */
-    images: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAddRequest
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAddRequest
-     */
-    productgroupid: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductAddRequest
-     */
-    originalproductid?: string | null;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface TimedealProductTemplate
- */
-export interface TimedealProductTemplate {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplate
-     */
-    id: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplate
-     */
-    canceldescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplate
-     */
-    deliverydescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplate
-     */
-    description?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductTemplate
-     */
-    discountedprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductTemplate
-     */
-    discountrate: number;
-    /**
-     * 
-     * @type {Array<AlloffProductTemplateFaults>}
-     * @memberof TimedealProductTemplate
-     */
-    faults?: Array<AlloffProductTemplateFaults>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplate
-     */
-    images: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplate
-     */
-    name: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductTemplate
-     */
-    originalprice: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplate
-     */
-    producttype: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplate
-     */
-    sizedescription?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplate
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplate
-     */
-    updated: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TimedealProductTemplate
-     */
-    removed?: boolean;
-    /**
-     * 
-     * @type {AlloffProductTemplateBrand}
-     * @memberof TimedealProductTemplate
-     */
-    brand: AlloffProductTemplateBrand;
-    /**
-     * 
-     * @type {AlloffProductTemplateInstruction}
-     * @memberof TimedealProductTemplate
-     */
-    instruction: AlloffProductTemplateInstruction;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface TimedealProductTemplateRequest
- */
-export interface TimedealProductTemplateRequest {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplateRequest
-     */
-    canceldescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplateRequest
-     */
-    deliverydescription: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplateRequest
-     */
-    description?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductTemplateRequest
-     */
-    discountedprice: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductTemplateRequest
-     */
-    discountrate: number;
-    /**
-     * 
-     * @type {Array<AlloffProductTemplateFaultsRequest>}
-     * @memberof TimedealProductTemplateRequest
-     */
-    faults?: Array<AlloffProductTemplateFaultsRequest>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplateRequest
-     */
-    images: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplateRequest
-     */
-    name: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealProductTemplateRequest
-     */
-    originalprice: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplateRequest
-     */
-    producttype: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealProductTemplateRequest
-     */
-    sizedescription?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplateRequest
-     */
-    created: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplateRequest
-     */
-    updated: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TimedealProductTemplateRequest
-     */
-    removed?: boolean;
-    /**
-     * 
-     * @type {AlloffProductTemplateBrandRequest}
-     * @memberof TimedealProductTemplateRequest
-     */
-    brand: AlloffProductTemplateBrandRequest;
-    /**
-     * 
-     * @type {AlloffProductTemplateInstructionRequest}
-     * @memberof TimedealProductTemplateRequest
-     */
-    instruction: AlloffProductTemplateInstructionRequest;
-}
-/**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
- * @export
- * @interface TimedealRequest
- */
-export interface TimedealRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealRequest
-     */
-    title: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealRequest
-     */
-    shorttitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof TimedealRequest
-     */
-    numalarms?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof TimedealRequest
-     */
-    instruction?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealRequest
-     */
-    imgurl: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TimedealRequest
-     */
-    hidden?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealRequest
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealRequest
-     */
-    starttime: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealRequest
-     */
-    finishtime: string;
-}
-/**
- * 
- * @export
- * @interface TokenObtainPairRequestRequest
- */
-export interface TokenObtainPairRequestRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenObtainPairRequestRequest
-     */
-    username: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenObtainPairRequestRequest
-     */
-    password: string;
-}
-/**
- * 
- * @export
- * @interface TokenObtainPairResponse
- */
-export interface TokenObtainPairResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenObtainPairResponse
-     */
-    access: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenObtainPairResponse
-     */
-    refresh: string;
-}
-/**
- * 
- * @export
- * @interface TokenRefreshRequestRequest
- */
-export interface TokenRefreshRequestRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenRefreshRequestRequest
-     */
-    refresh: string;
-}
-/**
- * 
- * @export
- * @interface TokenRefreshResponse
- */
-export interface TokenRefreshResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenRefreshResponse
-     */
-    access: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenRefreshResponse
-     */
-    refresh: string;
-}
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export enum TypeEnum {
-    Normal = 'NORMAL',
-    NeedProcessing = 'NEED_PROCESSING',
-    DoNotShow = 'DO_NOT_SHOW'
-}
-
-/**
- * 
- * @export
- * @interface UpdateRefund
- */
-export interface UpdateRefund {
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateRefund
-     */
-    refund_amount: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateRefund
-     */
-    refund_delivery_price: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateRefund
-     */
-    refund_price: number;
-}
-/**
- * 
- * @export
- * @interface UpdateRefundRequest
- */
-export interface UpdateRefundRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateRefundRequest
-     */
-    refund_amount: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateRefundRequest
-     */
-    refund_delivery_price: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateRefundRequest
-     */
-    refund_price: number;
-}
-/**
- * Serializer for EmbeddedDocuments.  Skips id field and uniqueness validation. When saving, skips calling instance.save
- * @export
- * @interface User
- */
-export interface User {
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    _id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    uuid?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    email?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    mobile: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    baseaddress?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    detailaddress?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    postcode?: string;
-}
-
-/**
- * AdminUserApi - axios parameter creator
+ * DefaultApi - axios parameter creator
  * @export
  */
-export const AdminUserApiAxiosParamCreator = function (configuration?: Configuration) {
+export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Adaptation of DRF GenericViewSet
+         * 테스트를 위한 메소드입니다
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        adminUserMeRetrieve: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/admin-user/me/`;
+        inventoriesList: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/inventories/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5755,57 +1347,57 @@ export const AdminUserApiAxiosParamCreator = function (configuration?: Configura
 };
 
 /**
- * AdminUserApi - functional programming interface
+ * DefaultApi - functional programming interface
  * @export
  */
-export const AdminUserApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = AdminUserApiAxiosParamCreator(configuration)
+export const DefaultApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
-         * Adaptation of DRF GenericViewSet
+         * 테스트를 위한 메소드입니다
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async adminUserMeRetrieve(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Admin>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.adminUserMeRetrieve(options);
+        async inventoriesList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Inventory>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.inventoriesList(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * AdminUserApi - factory interface
+ * DefaultApi - factory interface
  * @export
  */
-export const AdminUserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AdminUserApiFp(configuration)
+export const DefaultApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DefaultApiFp(configuration)
     return {
         /**
-         * Adaptation of DRF GenericViewSet
+         * 테스트를 위한 메소드입니다
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        adminUserMeRetrieve(options?: any): AxiosPromise<Admin> {
-            return localVarFp.adminUserMeRetrieve(options).then((request) => request(axios, basePath));
+        inventoriesList(options?: any): AxiosPromise<Array<Inventory>> {
+            return localVarFp.inventoriesList(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * AdminUserApi - object-oriented interface
+ * DefaultApi - object-oriented interface
  * @export
- * @class AdminUserApi
+ * @class DefaultApi
  * @extends {BaseAPI}
  */
-export class AdminUserApi extends BaseAPI {
+export class DefaultApi extends BaseAPI {
     /**
-     * Adaptation of DRF GenericViewSet
+     * 테스트를 위한 메소드입니다
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof AdminUserApi
+     * @memberof DefaultApi
      */
-    public adminUserMeRetrieve(options?: any) {
-        return AdminUserApiFp(this.configuration).adminUserMeRetrieve(options).then((request) => request(this.axios, this.basePath));
+    public inventoriesList(options?: any) {
+        return DefaultApiFp(this.configuration).inventoriesList(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5945,94 +1537,18 @@ export class ApiApi extends BaseAPI {
 
 
 /**
- * BrandsApi - axios parameter creator
+ * CouriersApi - axios parameter creator
  * @export
  */
-export const BrandsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CouriersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Adaptation of DRF ModelViewSet
-         * @param {BrandRequest} brandRequest 
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        brandsCreate: async (brandRequest: BrandRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'brandRequest' is not null or undefined
-            assertParamExists('brandsCreate', 'brandRequest', brandRequest)
-            const localVarPath = `/brands/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(brandRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsDestroy: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('brandsDestroy', 'id', id)
-            const localVarPath = `/brands/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsList: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/brands/`;
+        couriersRetrieve: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/couriers/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6059,1789 +1575,83 @@ export const BrandsApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedBrandRequest} [patchedBrandRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsPartialUpdate: async (id: string, patchedBrandRequest?: PatchedBrandRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('brandsPartialUpdate', 'id', id)
-            const localVarPath = `/brands/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedBrandRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsRetrieve: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('brandsRetrieve', 'id', id)
-            const localVarPath = `/brands/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {BrandRequest} brandRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsUpdate: async (id: string, brandRequest: BrandRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('brandsUpdate', 'id', id)
-            // verify required parameter 'brandRequest' is not null or undefined
-            assertParamExists('brandsUpdate', 'brandRequest', brandRequest)
-            const localVarPath = `/brands/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(brandRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
 /**
- * BrandsApi - functional programming interface
+ * CouriersApi - functional programming interface
  * @export
  */
-export const BrandsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = BrandsApiAxiosParamCreator(configuration)
+export const CouriersApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CouriersApiAxiosParamCreator(configuration)
     return {
         /**
-         * Adaptation of DRF ModelViewSet
-         * @param {BrandRequest} brandRequest 
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async brandsCreate(brandRequest: BrandRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsCreate(brandRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async brandsDestroy(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsDestroy(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async brandsList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Brand>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsList(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedBrandRequest} [patchedBrandRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async brandsPartialUpdate(id: string, patchedBrandRequest?: PatchedBrandRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsPartialUpdate(id, patchedBrandRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async brandsRetrieve(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {BrandRequest} brandRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async brandsUpdate(id: string, brandRequest: BrandRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.brandsUpdate(id, brandRequest, options);
+        async couriersRetrieve(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.couriersRetrieve(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * BrandsApi - factory interface
+ * CouriersApi - factory interface
  * @export
  */
-export const BrandsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = BrandsApiFp(configuration)
+export const CouriersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CouriersApiFp(configuration)
     return {
         /**
-         * Adaptation of DRF ModelViewSet
-         * @param {BrandRequest} brandRequest 
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        brandsCreate(brandRequest: BrandRequest, options?: any): AxiosPromise<Brand> {
-            return localVarFp.brandsCreate(brandRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsDestroy(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.brandsDestroy(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsList(options?: any): AxiosPromise<Array<Brand>> {
-            return localVarFp.brandsList(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedBrandRequest} [patchedBrandRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsPartialUpdate(id: string, patchedBrandRequest?: PatchedBrandRequest, options?: any): AxiosPromise<Brand> {
-            return localVarFp.brandsPartialUpdate(id, patchedBrandRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsRetrieve(id: string, options?: any): AxiosPromise<Brand> {
-            return localVarFp.brandsRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {BrandRequest} brandRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        brandsUpdate(id: string, brandRequest: BrandRequest, options?: any): AxiosPromise<Brand> {
-            return localVarFp.brandsUpdate(id, brandRequest, options).then((request) => request(axios, basePath));
+        couriersRetrieve(options?: any): AxiosPromise<void> {
+            return localVarFp.couriersRetrieve(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for brandsCreate operation in BrandsApi.
+ * CouriersApi - object-oriented interface
  * @export
- * @interface BrandsApiBrandsCreateRequest
- */
-export interface BrandsApiBrandsCreateRequest {
-    /**
-     * 
-     * @type {BrandRequest}
-     * @memberof BrandsApiBrandsCreate
-     */
-    readonly brandRequest: BrandRequest
-}
-
-/**
- * Request parameters for brandsDestroy operation in BrandsApi.
- * @export
- * @interface BrandsApiBrandsDestroyRequest
- */
-export interface BrandsApiBrandsDestroyRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandsApiBrandsDestroy
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for brandsPartialUpdate operation in BrandsApi.
- * @export
- * @interface BrandsApiBrandsPartialUpdateRequest
- */
-export interface BrandsApiBrandsPartialUpdateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandsApiBrandsPartialUpdate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {PatchedBrandRequest}
-     * @memberof BrandsApiBrandsPartialUpdate
-     */
-    readonly patchedBrandRequest?: PatchedBrandRequest
-}
-
-/**
- * Request parameters for brandsRetrieve operation in BrandsApi.
- * @export
- * @interface BrandsApiBrandsRetrieveRequest
- */
-export interface BrandsApiBrandsRetrieveRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandsApiBrandsRetrieve
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for brandsUpdate operation in BrandsApi.
- * @export
- * @interface BrandsApiBrandsUpdateRequest
- */
-export interface BrandsApiBrandsUpdateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BrandsApiBrandsUpdate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {BrandRequest}
-     * @memberof BrandsApiBrandsUpdate
-     */
-    readonly brandRequest: BrandRequest
-}
-
-/**
- * BrandsApi - object-oriented interface
- * @export
- * @class BrandsApi
+ * @class CouriersApi
  * @extends {BaseAPI}
  */
-export class BrandsApi extends BaseAPI {
+export class CouriersApi extends BaseAPI {
     /**
-     * Adaptation of DRF ModelViewSet
-     * @param {BrandsApiBrandsCreateRequest} requestParameters Request parameters.
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BrandsApi
+     * @memberof CouriersApi
      */
-    public brandsCreate(requestParameters: BrandsApiBrandsCreateRequest, options?: any) {
-        return BrandsApiFp(this.configuration).brandsCreate(requestParameters.brandRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {BrandsApiBrandsDestroyRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BrandsApi
-     */
-    public brandsDestroy(requestParameters: BrandsApiBrandsDestroyRequest, options?: any) {
-        return BrandsApiFp(this.configuration).brandsDestroy(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BrandsApi
-     */
-    public brandsList(options?: any) {
-        return BrandsApiFp(this.configuration).brandsList(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {BrandsApiBrandsPartialUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BrandsApi
-     */
-    public brandsPartialUpdate(requestParameters: BrandsApiBrandsPartialUpdateRequest, options?: any) {
-        return BrandsApiFp(this.configuration).brandsPartialUpdate(requestParameters.id, requestParameters.patchedBrandRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {BrandsApiBrandsRetrieveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BrandsApi
-     */
-    public brandsRetrieve(requestParameters: BrandsApiBrandsRetrieveRequest, options?: any) {
-        return BrandsApiFp(this.configuration).brandsRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {BrandsApiBrandsUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BrandsApi
-     */
-    public brandsUpdate(requestParameters: BrandsApiBrandsUpdateRequest, options?: any) {
-        return BrandsApiFp(this.configuration).brandsUpdate(requestParameters.id, requestParameters.brandRequest, options).then((request) => request(this.axios, this.basePath));
+    public couriersRetrieve(options?: any) {
+        return CouriersApiFp(this.configuration).couriersRetrieve(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 
 /**
- * ImageUploadApi - axios parameter creator
+ * OrderItemsApi - axios parameter creator
  * @export
  */
-export const ImageUploadApiAxiosParamCreator = function (configuration?: Configuration) {
+export const OrderItemsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
-        /**
-         * 
-         * @param {any} file 
-         * @param {string} [path] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        imageUploadUploadCreate: async (file: any, path?: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'file' is not null or undefined
-            assertParamExists('imageUploadUploadCreate', 'file', file)
-            const localVarPath = `/image-upload/upload/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-    
-            if (path !== undefined) { 
-                localVarFormParams.append('path', path as any);
-            }
-    
-    
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * ImageUploadApi - functional programming interface
- * @export
- */
-export const ImageUploadApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = ImageUploadApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @param {any} file 
-         * @param {string} [path] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async imageUploadUploadCreate(file: any, path?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImageUploaderResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.imageUploadUploadCreate(file, path, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * ImageUploadApi - factory interface
- * @export
- */
-export const ImageUploadApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = ImageUploadApiFp(configuration)
-    return {
-        /**
-         * 
-         * @param {any} file 
-         * @param {string} [path] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        imageUploadUploadCreate(file: any, path?: string, options?: any): AxiosPromise<ImageUploaderResponse> {
-            return localVarFp.imageUploadUploadCreate(file, path, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * Request parameters for imageUploadUploadCreate operation in ImageUploadApi.
- * @export
- * @interface ImageUploadApiImageUploadUploadCreateRequest
- */
-export interface ImageUploadApiImageUploadUploadCreateRequest {
-    /**
-     * 
-     * @type {any}
-     * @memberof ImageUploadApiImageUploadUploadCreate
-     */
-    readonly file: any
-
-    /**
-     * 
-     * @type {string}
-     * @memberof ImageUploadApiImageUploadUploadCreate
-     */
-    readonly path?: string
-}
-
-/**
- * ImageUploadApi - object-oriented interface
- * @export
- * @class ImageUploadApi
- * @extends {BaseAPI}
- */
-export class ImageUploadApi extends BaseAPI {
-    /**
-     * 
-     * @param {ImageUploadApiImageUploadUploadCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ImageUploadApi
-     */
-    public imageUploadUploadCreate(requestParameters: ImageUploadApiImageUploadUploadCreateRequest, options?: any) {
-        return ImageUploadApiFp(this.configuration).imageUploadUploadCreate(requestParameters.file, requestParameters.path, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * InventoriesApi - axios parameter creator
- * @export
- */
-export const InventoriesApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @param {InventoryRequest} inventoryRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesCreate: async (inventoryRequest: InventoryRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'inventoryRequest' is not null or undefined
-            assertParamExists('inventoriesCreate', 'inventoryRequest', inventoryRequest)
-            const localVarPath = `/inventories/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inventoryRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesDestroy: async (id: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('inventoriesDestroy', 'id', id)
-            const localVarPath = `/inventories/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} [location] 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {Array<'IN_STOCK' | 'PROCESSING_NEEDED' | 'SHIPPED' | 'SHIPPING_PENDING'>} [statuses] Multiple values may be separated by commas.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesList: async (location?: string, page?: number, search?: string, size?: number, statuses?: Array<'IN_STOCK' | 'PROCESSING_NEEDED' | 'SHIPPED' | 'SHIPPING_PENDING'>, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/inventories/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (location !== undefined) {
-                localVarQueryParameter['location'] = location;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (statuses) {
-                localVarQueryParameter['statuses'] = statuses.join(COLLECTION_FORMATS.csv);
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {PatchedInventoryRequest} [patchedInventoryRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesPartialUpdate: async (id: number, patchedInventoryRequest?: PatchedInventoryRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('inventoriesPartialUpdate', 'id', id)
-            const localVarPath = `/inventories/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedInventoryRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesRetrieve: async (id: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('inventoriesRetrieve', 'id', id)
-            const localVarPath = `/inventories/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {InventoryRequest} inventoryRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesUpdate: async (id: number, inventoryRequest: InventoryRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('inventoriesUpdate', 'id', id)
-            // verify required parameter 'inventoryRequest' is not null or undefined
-            assertParamExists('inventoriesUpdate', 'inventoryRequest', inventoryRequest)
-            const localVarPath = `/inventories/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inventoryRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * InventoriesApi - functional programming interface
- * @export
- */
-export const InventoriesApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = InventoriesApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @param {InventoryRequest} inventoryRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async inventoriesCreate(inventoryRequest: InventoryRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.inventoriesCreate(inventoryRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async inventoriesDestroy(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.inventoriesDestroy(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} [location] 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {Array<'IN_STOCK' | 'PROCESSING_NEEDED' | 'SHIPPED' | 'SHIPPING_PENDING'>} [statuses] Multiple values may be separated by commas.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async inventoriesList(location?: string, page?: number, search?: string, size?: number, statuses?: Array<'IN_STOCK' | 'PROCESSING_NEEDED' | 'SHIPPED' | 'SHIPPING_PENDING'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedInventoryList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.inventoriesList(location, page, search, size, statuses, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {PatchedInventoryRequest} [patchedInventoryRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async inventoriesPartialUpdate(id: number, patchedInventoryRequest?: PatchedInventoryRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.inventoriesPartialUpdate(id, patchedInventoryRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async inventoriesRetrieve(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.inventoriesRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {InventoryRequest} inventoryRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async inventoriesUpdate(id: number, inventoryRequest: InventoryRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.inventoriesUpdate(id, inventoryRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * InventoriesApi - factory interface
- * @export
- */
-export const InventoriesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = InventoriesApiFp(configuration)
-    return {
-        /**
-         * 
-         * @param {InventoryRequest} inventoryRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesCreate(inventoryRequest: InventoryRequest, options?: any): AxiosPromise<Inventory> {
-            return localVarFp.inventoriesCreate(inventoryRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesDestroy(id: number, options?: any): AxiosPromise<void> {
-            return localVarFp.inventoriesDestroy(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} [location] 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {Array<'IN_STOCK' | 'PROCESSING_NEEDED' | 'SHIPPED' | 'SHIPPING_PENDING'>} [statuses] Multiple values may be separated by commas.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesList(location?: string, page?: number, search?: string, size?: number, statuses?: Array<'IN_STOCK' | 'PROCESSING_NEEDED' | 'SHIPPED' | 'SHIPPING_PENDING'>, options?: any): AxiosPromise<PaginatedInventoryList> {
-            return localVarFp.inventoriesList(location, page, search, size, statuses, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {PatchedInventoryRequest} [patchedInventoryRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesPartialUpdate(id: number, patchedInventoryRequest?: PatchedInventoryRequest, options?: any): AxiosPromise<Inventory> {
-            return localVarFp.inventoriesPartialUpdate(id, patchedInventoryRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesRetrieve(id: number, options?: any): AxiosPromise<Inventory> {
-            return localVarFp.inventoriesRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this inventory.
-         * @param {InventoryRequest} inventoryRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        inventoriesUpdate(id: number, inventoryRequest: InventoryRequest, options?: any): AxiosPromise<Inventory> {
-            return localVarFp.inventoriesUpdate(id, inventoryRequest, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * Request parameters for inventoriesCreate operation in InventoriesApi.
- * @export
- * @interface InventoriesApiInventoriesCreateRequest
- */
-export interface InventoriesApiInventoriesCreateRequest {
-    /**
-     * 
-     * @type {InventoryRequest}
-     * @memberof InventoriesApiInventoriesCreate
-     */
-    readonly inventoryRequest: InventoryRequest
-}
-
-/**
- * Request parameters for inventoriesDestroy operation in InventoriesApi.
- * @export
- * @interface InventoriesApiInventoriesDestroyRequest
- */
-export interface InventoriesApiInventoriesDestroyRequest {
-    /**
-     * A unique integer value identifying this inventory.
-     * @type {number}
-     * @memberof InventoriesApiInventoriesDestroy
-     */
-    readonly id: number
-}
-
-/**
- * Request parameters for inventoriesList operation in InventoriesApi.
- * @export
- * @interface InventoriesApiInventoriesListRequest
- */
-export interface InventoriesApiInventoriesListRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof InventoriesApiInventoriesList
-     */
-    readonly location?: string
-
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof InventoriesApiInventoriesList
-     */
-    readonly page?: number
-
-    /**
-     * A search term.
-     * @type {string}
-     * @memberof InventoriesApiInventoriesList
-     */
-    readonly search?: string
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof InventoriesApiInventoriesList
-     */
-    readonly size?: number
-
-    /**
-     * Multiple values may be separated by commas.
-     * @type {Array<'IN_STOCK' | 'PROCESSING_NEEDED' | 'SHIPPED' | 'SHIPPING_PENDING'>}
-     * @memberof InventoriesApiInventoriesList
-     */
-    readonly statuses?: Array<'IN_STOCK' | 'PROCESSING_NEEDED' | 'SHIPPED' | 'SHIPPING_PENDING'>
-}
-
-/**
- * Request parameters for inventoriesPartialUpdate operation in InventoriesApi.
- * @export
- * @interface InventoriesApiInventoriesPartialUpdateRequest
- */
-export interface InventoriesApiInventoriesPartialUpdateRequest {
-    /**
-     * A unique integer value identifying this inventory.
-     * @type {number}
-     * @memberof InventoriesApiInventoriesPartialUpdate
-     */
-    readonly id: number
-
-    /**
-     * 
-     * @type {PatchedInventoryRequest}
-     * @memberof InventoriesApiInventoriesPartialUpdate
-     */
-    readonly patchedInventoryRequest?: PatchedInventoryRequest
-}
-
-/**
- * Request parameters for inventoriesRetrieve operation in InventoriesApi.
- * @export
- * @interface InventoriesApiInventoriesRetrieveRequest
- */
-export interface InventoriesApiInventoriesRetrieveRequest {
-    /**
-     * A unique integer value identifying this inventory.
-     * @type {number}
-     * @memberof InventoriesApiInventoriesRetrieve
-     */
-    readonly id: number
-}
-
-/**
- * Request parameters for inventoriesUpdate operation in InventoriesApi.
- * @export
- * @interface InventoriesApiInventoriesUpdateRequest
- */
-export interface InventoriesApiInventoriesUpdateRequest {
-    /**
-     * A unique integer value identifying this inventory.
-     * @type {number}
-     * @memberof InventoriesApiInventoriesUpdate
-     */
-    readonly id: number
-
-    /**
-     * 
-     * @type {InventoryRequest}
-     * @memberof InventoriesApiInventoriesUpdate
-     */
-    readonly inventoryRequest: InventoryRequest
-}
-
-/**
- * InventoriesApi - object-oriented interface
- * @export
- * @class InventoriesApi
- * @extends {BaseAPI}
- */
-export class InventoriesApi extends BaseAPI {
-    /**
-     * 
-     * @param {InventoriesApiInventoriesCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InventoriesApi
-     */
-    public inventoriesCreate(requestParameters: InventoriesApiInventoriesCreateRequest, options?: any) {
-        return InventoriesApiFp(this.configuration).inventoriesCreate(requestParameters.inventoryRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {InventoriesApiInventoriesDestroyRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InventoriesApi
-     */
-    public inventoriesDestroy(requestParameters: InventoriesApiInventoriesDestroyRequest, options?: any) {
-        return InventoriesApiFp(this.configuration).inventoriesDestroy(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {InventoriesApiInventoriesListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InventoriesApi
-     */
-    public inventoriesList(requestParameters: InventoriesApiInventoriesListRequest = {}, options?: any) {
-        return InventoriesApiFp(this.configuration).inventoriesList(requestParameters.location, requestParameters.page, requestParameters.search, requestParameters.size, requestParameters.statuses, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {InventoriesApiInventoriesPartialUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InventoriesApi
-     */
-    public inventoriesPartialUpdate(requestParameters: InventoriesApiInventoriesPartialUpdateRequest, options?: any) {
-        return InventoriesApiFp(this.configuration).inventoriesPartialUpdate(requestParameters.id, requestParameters.patchedInventoryRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {InventoriesApiInventoriesRetrieveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InventoriesApi
-     */
-    public inventoriesRetrieve(requestParameters: InventoriesApiInventoriesRetrieveRequest, options?: any) {
-        return InventoriesApiFp(this.configuration).inventoriesRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {InventoriesApiInventoriesUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InventoriesApi
-     */
-    public inventoriesUpdate(requestParameters: InventoriesApiInventoriesUpdateRequest, options?: any) {
-        return InventoriesApiFp(this.configuration).inventoriesUpdate(requestParameters.id, requestParameters.inventoryRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * NotificationsApi - axios parameter creator
- * @export
- */
-export const NotificationsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @param {CreateNotificationRequest} createNotificationRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsCreate: async (createNotificationRequest: CreateNotificationRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createNotificationRequest' is not null or undefined
-            assertParamExists('notificationsCreate', 'createNotificationRequest', createNotificationRequest)
-            const localVarPath = `/notifications/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createNotificationRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsList: async (page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/notifications/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsRetrieve: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('notificationsRetrieve', 'id', id)
-            const localVarPath = `/notifications/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {SendNotificationRequest} sendNotificationRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsSendCreate: async (sendNotificationRequest: SendNotificationRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'sendNotificationRequest' is not null or undefined
-            assertParamExists('notificationsSendCreate', 'sendNotificationRequest', sendNotificationRequest)
-            const localVarPath = `/notifications/send/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(sendNotificationRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * NotificationsApi - functional programming interface
- * @export
- */
-export const NotificationsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = NotificationsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @param {CreateNotificationRequest} createNotificationRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async notificationsCreate(createNotificationRequest: CreateNotificationRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateNotification>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.notificationsCreate(createNotificationRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async notificationsList(page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedNotificationList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.notificationsList(page, size, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async notificationsRetrieve(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Notification>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.notificationsRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {SendNotificationRequest} sendNotificationRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async notificationsSendCreate(sendNotificationRequest: SendNotificationRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SendNotification>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.notificationsSendCreate(sendNotificationRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * NotificationsApi - factory interface
- * @export
- */
-export const NotificationsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = NotificationsApiFp(configuration)
-    return {
-        /**
-         * 
-         * @param {CreateNotificationRequest} createNotificationRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsCreate(createNotificationRequest: CreateNotificationRequest, options?: any): AxiosPromise<CreateNotification> {
-            return localVarFp.notificationsCreate(createNotificationRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsList(page?: number, size?: number, options?: any): AxiosPromise<PaginatedNotificationList> {
-            return localVarFp.notificationsList(page, size, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsRetrieve(id: string, options?: any): AxiosPromise<Notification> {
-            return localVarFp.notificationsRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {SendNotificationRequest} sendNotificationRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationsSendCreate(sendNotificationRequest: SendNotificationRequest, options?: any): AxiosPromise<SendNotification> {
-            return localVarFp.notificationsSendCreate(sendNotificationRequest, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * Request parameters for notificationsCreate operation in NotificationsApi.
- * @export
- * @interface NotificationsApiNotificationsCreateRequest
- */
-export interface NotificationsApiNotificationsCreateRequest {
-    /**
-     * 
-     * @type {CreateNotificationRequest}
-     * @memberof NotificationsApiNotificationsCreate
-     */
-    readonly createNotificationRequest: CreateNotificationRequest
-}
-
-/**
- * Request parameters for notificationsList operation in NotificationsApi.
- * @export
- * @interface NotificationsApiNotificationsListRequest
- */
-export interface NotificationsApiNotificationsListRequest {
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof NotificationsApiNotificationsList
-     */
-    readonly page?: number
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof NotificationsApiNotificationsList
-     */
-    readonly size?: number
-}
-
-/**
- * Request parameters for notificationsRetrieve operation in NotificationsApi.
- * @export
- * @interface NotificationsApiNotificationsRetrieveRequest
- */
-export interface NotificationsApiNotificationsRetrieveRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof NotificationsApiNotificationsRetrieve
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for notificationsSendCreate operation in NotificationsApi.
- * @export
- * @interface NotificationsApiNotificationsSendCreateRequest
- */
-export interface NotificationsApiNotificationsSendCreateRequest {
-    /**
-     * 
-     * @type {SendNotificationRequest}
-     * @memberof NotificationsApiNotificationsSendCreate
-     */
-    readonly sendNotificationRequest: SendNotificationRequest
-}
-
-/**
- * NotificationsApi - object-oriented interface
- * @export
- * @class NotificationsApi
- * @extends {BaseAPI}
- */
-export class NotificationsApi extends BaseAPI {
-    /**
-     * 
-     * @param {NotificationsApiNotificationsCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationsApi
-     */
-    public notificationsCreate(requestParameters: NotificationsApiNotificationsCreateRequest, options?: any) {
-        return NotificationsApiFp(this.configuration).notificationsCreate(requestParameters.createNotificationRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {NotificationsApiNotificationsListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationsApi
-     */
-    public notificationsList(requestParameters: NotificationsApiNotificationsListRequest = {}, options?: any) {
-        return NotificationsApiFp(this.configuration).notificationsList(requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {NotificationsApiNotificationsRetrieveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationsApi
-     */
-    public notificationsRetrieve(requestParameters: NotificationsApiNotificationsRetrieveRequest, options?: any) {
-        return NotificationsApiFp(this.configuration).notificationsRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {NotificationsApiNotificationsSendCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationsApi
-     */
-    public notificationsSendCreate(requestParameters: NotificationsApiNotificationsSendCreateRequest, options?: any) {
-        return NotificationsApiFp(this.configuration).notificationsSendCreate(requestParameters.sendNotificationRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * OrdersApi - axios parameter creator
- * @export
- */
-export const OrdersApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @param {string} id 
-         * @param {AddOrderMemoRequest} addOrderMemoRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersAddMemoCreate: async (id: string, addOrderMemoRequest: AddOrderMemoRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersAddMemoCreate', 'id', id)
-            // verify required parameter 'addOrderMemoRequest' is not null or undefined
-            assertParamExists('ordersAddMemoCreate', 'addOrderMemoRequest', addOrderMemoRequest)
-            const localVarPath = `/orders/{id}/add_memo/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(addOrderMemoRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {AddPaymentAdjustmentRequest} addPaymentAdjustmentRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersAddPaymentAdjustmentCreate: async (id: string, addPaymentAdjustmentRequest: AddPaymentAdjustmentRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersAddPaymentAdjustmentCreate', 'id', id)
-            // verify required parameter 'addPaymentAdjustmentRequest' is not null or undefined
-            assertParamExists('ordersAddPaymentAdjustmentCreate', 'addPaymentAdjustmentRequest', addPaymentAdjustmentRequest)
-            const localVarPath = `/orders/{id}/add_payment_adjustment/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(addPaymentAdjustmentRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} userId 
-         * @param {string} [search] A search term.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersByUserList: async (userId: string, search?: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('ordersByUserList', 'userId', userId)
-            const localVarPath = `/orders/by_user/{user_id}/`
-                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {ChangeStatusRequest} changeStatusRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersChangeStatusCreate: async (id: string, changeStatusRequest: ChangeStatusRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersChangeStatusCreate', 'id', id)
-            // verify required parameter 'changeStatusRequest' is not null or undefined
-            assertParamExists('ordersChangeStatusCreate', 'changeStatusRequest', changeStatusRequest)
-            const localVarPath = `/orders/{id}/change_status/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(changeStatusRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {DeleteOrderMemoRequest} deleteOrderMemoRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersDeleteMemoCreate: async (id: string, deleteOrderMemoRequest: DeleteOrderMemoRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersDeleteMemoCreate', 'id', id)
-            // verify required parameter 'deleteOrderMemoRequest' is not null or undefined
-            assertParamExists('ordersDeleteMemoCreate', 'deleteOrderMemoRequest', deleteOrderMemoRequest)
-            const localVarPath = `/orders/{id}/delete_memo/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(deleteOrderMemoRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * 
          * @param {string} [createdGte] 
          * @param {string} [createdLte] 
          * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
          * @param {number} [size] Number of results to return per page.
          * @param {Array<string>} [statuses] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersList: async (createdGte?: string, createdLte?: string, page?: number, search?: string, size?: number, statuses?: Array<string>, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/orders/`;
+        orderItemsList: async (createdGte?: string, createdLte?: string, page?: number, size?: number, statuses?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/order-items/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7873,10 +1683,6 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['page'] = page;
             }
 
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
             if (size !== undefined) {
                 localVarQueryParameter['size'] = size;
             }
@@ -7898,95 +1704,14 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @param {string} [search] A search term.
+         * @param {number} id A unique integer value identifying this order item.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersListMinimumAllList: async (search?: string, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/orders/list-minimum-all/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {RemakeRiRequest} remakeRiRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersRemakeRiCreate: async (id: string, remakeRiRequest: RemakeRiRequest, options: any = {}): Promise<RequestArgs> => {
+        orderItemsRetrieve: async (id: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersRemakeRiCreate', 'id', id)
-            // verify required parameter 'remakeRiRequest' is not null or undefined
-            assertParamExists('ordersRemakeRiCreate', 'remakeRiRequest', remakeRiRequest)
-            const localVarPath = `/orders/{id}/remake_ri/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(remakeRiRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersRetrieve: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersRetrieve', 'id', id)
-            const localVarPath = `/orders/{id}/`
+            assertParamExists('orderItemsRetrieve', 'id', id)
+            const localVarPath = `/order-items/{id}/`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -8014,625 +1739,158 @@ export const OrdersApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateRefundRequest} updateRefundRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersUpdateRefundCreate: async (id: string, updateRefundRequest: UpdateRefundRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ordersUpdateRefundCreate', 'id', id)
-            // verify required parameter 'updateRefundRequest' is not null or undefined
-            assertParamExists('ordersUpdateRefundCreate', 'updateRefundRequest', updateRefundRequest)
-            const localVarPath = `/orders/{id}/update_refund/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateRefundRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
 /**
- * OrdersApi - functional programming interface
+ * OrderItemsApi - functional programming interface
  * @export
  */
-export const OrdersApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = OrdersApiAxiosParamCreator(configuration)
+export const OrderItemsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = OrderItemsApiAxiosParamCreator(configuration)
     return {
-        /**
-         * 
-         * @param {string} id 
-         * @param {AddOrderMemoRequest} addOrderMemoRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ordersAddMemoCreate(id: string, addOrderMemoRequest: AddOrderMemoRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddOrderMemo>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersAddMemoCreate(id, addOrderMemoRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {AddPaymentAdjustmentRequest} addPaymentAdjustmentRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ordersAddPaymentAdjustmentCreate(id: string, addPaymentAdjustmentRequest: AddPaymentAdjustmentRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddPaymentAdjustment>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersAddPaymentAdjustmentCreate(id, addPaymentAdjustmentRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} userId 
-         * @param {string} [search] A search term.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ordersByUserList(userId: string, search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OrderList>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersByUserList(userId, search, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {ChangeStatusRequest} changeStatusRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ordersChangeStatusCreate(id: string, changeStatusRequest: ChangeStatusRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChangeStatus>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersChangeStatusCreate(id, changeStatusRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {DeleteOrderMemoRequest} deleteOrderMemoRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ordersDeleteMemoCreate(id: string, deleteOrderMemoRequest: DeleteOrderMemoRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteOrderMemo>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersDeleteMemoCreate(id, deleteOrderMemoRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
         /**
          * 
          * @param {string} [createdGte] 
          * @param {string} [createdLte] 
          * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
          * @param {number} [size] Number of results to return per page.
          * @param {Array<string>} [statuses] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersList(createdGte?: string, createdLte?: string, page?: number, search?: string, size?: number, statuses?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedOrderListList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersList(createdGte, createdLte, page, search, size, statuses, options);
+        async orderItemsList(createdGte?: string, createdLte?: string, page?: number, size?: number, statuses?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedOrderItemListList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.orderItemsList(createdGte, createdLte, page, size, statuses, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} [search] A search term.
+         * @param {number} id A unique integer value identifying this order item.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ordersListMinimumAllList(search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OrderMinimum>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersListMinimumAllList(search, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {RemakeRiRequest} remakeRiRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ordersRemakeRiCreate(id: string, remakeRiRequest: RemakeRiRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RemakeRi>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersRemakeRiCreate(id, remakeRiRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ordersRetrieve(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderRetrieve>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateRefundRequest} updateRefundRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ordersUpdateRefundCreate(id: string, updateRefundRequest: UpdateRefundRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateRefund>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ordersUpdateRefundCreate(id, updateRefundRequest, options);
+        async orderItemsRetrieve(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderItemRetrieve>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.orderItemsRetrieve(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * OrdersApi - factory interface
+ * OrderItemsApi - factory interface
  * @export
  */
-export const OrdersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = OrdersApiFp(configuration)
+export const OrderItemsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = OrderItemsApiFp(configuration)
     return {
-        /**
-         * 
-         * @param {string} id 
-         * @param {AddOrderMemoRequest} addOrderMemoRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersAddMemoCreate(id: string, addOrderMemoRequest: AddOrderMemoRequest, options?: any): AxiosPromise<AddOrderMemo> {
-            return localVarFp.ordersAddMemoCreate(id, addOrderMemoRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {AddPaymentAdjustmentRequest} addPaymentAdjustmentRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersAddPaymentAdjustmentCreate(id: string, addPaymentAdjustmentRequest: AddPaymentAdjustmentRequest, options?: any): AxiosPromise<AddPaymentAdjustment> {
-            return localVarFp.ordersAddPaymentAdjustmentCreate(id, addPaymentAdjustmentRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} userId 
-         * @param {string} [search] A search term.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersByUserList(userId: string, search?: string, options?: any): AxiosPromise<Array<OrderList>> {
-            return localVarFp.ordersByUserList(userId, search, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {ChangeStatusRequest} changeStatusRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersChangeStatusCreate(id: string, changeStatusRequest: ChangeStatusRequest, options?: any): AxiosPromise<ChangeStatus> {
-            return localVarFp.ordersChangeStatusCreate(id, changeStatusRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {DeleteOrderMemoRequest} deleteOrderMemoRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersDeleteMemoCreate(id: string, deleteOrderMemoRequest: DeleteOrderMemoRequest, options?: any): AxiosPromise<DeleteOrderMemo> {
-            return localVarFp.ordersDeleteMemoCreate(id, deleteOrderMemoRequest, options).then((request) => request(axios, basePath));
-        },
         /**
          * 
          * @param {string} [createdGte] 
          * @param {string} [createdLte] 
          * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
          * @param {number} [size] Number of results to return per page.
          * @param {Array<string>} [statuses] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersList(createdGte?: string, createdLte?: string, page?: number, search?: string, size?: number, statuses?: Array<string>, options?: any): AxiosPromise<PaginatedOrderListList> {
-            return localVarFp.ordersList(createdGte, createdLte, page, search, size, statuses, options).then((request) => request(axios, basePath));
+        orderItemsList(createdGte?: string, createdLte?: string, page?: number, size?: number, statuses?: Array<string>, options?: any): AxiosPromise<PaginatedOrderItemListList> {
+            return localVarFp.orderItemsList(createdGte, createdLte, page, size, statuses, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} [search] A search term.
+         * @param {number} id A unique integer value identifying this order item.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ordersListMinimumAllList(search?: string, options?: any): AxiosPromise<Array<OrderMinimum>> {
-            return localVarFp.ordersListMinimumAllList(search, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {RemakeRiRequest} remakeRiRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersRemakeRiCreate(id: string, remakeRiRequest: RemakeRiRequest, options?: any): AxiosPromise<RemakeRi> {
-            return localVarFp.ordersRemakeRiCreate(id, remakeRiRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersRetrieve(id: string, options?: any): AxiosPromise<OrderRetrieve> {
-            return localVarFp.ordersRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateRefundRequest} updateRefundRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ordersUpdateRefundCreate(id: string, updateRefundRequest: UpdateRefundRequest, options?: any): AxiosPromise<UpdateRefund> {
-            return localVarFp.ordersUpdateRefundCreate(id, updateRefundRequest, options).then((request) => request(axios, basePath));
+        orderItemsRetrieve(id: number, options?: any): AxiosPromise<OrderItemRetrieve> {
+            return localVarFp.orderItemsRetrieve(id, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for ordersAddMemoCreate operation in OrdersApi.
+ * Request parameters for orderItemsList operation in OrderItemsApi.
  * @export
- * @interface OrdersApiOrdersAddMemoCreateRequest
+ * @interface OrderItemsApiOrderItemsListRequest
  */
-export interface OrdersApiOrdersAddMemoCreateRequest {
+export interface OrderItemsApiOrderItemsListRequest {
     /**
      * 
      * @type {string}
-     * @memberof OrdersApiOrdersAddMemoCreate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {AddOrderMemoRequest}
-     * @memberof OrdersApiOrdersAddMemoCreate
-     */
-    readonly addOrderMemoRequest: AddOrderMemoRequest
-}
-
-/**
- * Request parameters for ordersAddPaymentAdjustmentCreate operation in OrdersApi.
- * @export
- * @interface OrdersApiOrdersAddPaymentAdjustmentCreateRequest
- */
-export interface OrdersApiOrdersAddPaymentAdjustmentCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrdersApiOrdersAddPaymentAdjustmentCreate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {AddPaymentAdjustmentRequest}
-     * @memberof OrdersApiOrdersAddPaymentAdjustmentCreate
-     */
-    readonly addPaymentAdjustmentRequest: AddPaymentAdjustmentRequest
-}
-
-/**
- * Request parameters for ordersByUserList operation in OrdersApi.
- * @export
- * @interface OrdersApiOrdersByUserListRequest
- */
-export interface OrdersApiOrdersByUserListRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrdersApiOrdersByUserList
-     */
-    readonly userId: string
-
-    /**
-     * A search term.
-     * @type {string}
-     * @memberof OrdersApiOrdersByUserList
-     */
-    readonly search?: string
-}
-
-/**
- * Request parameters for ordersChangeStatusCreate operation in OrdersApi.
- * @export
- * @interface OrdersApiOrdersChangeStatusCreateRequest
- */
-export interface OrdersApiOrdersChangeStatusCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrdersApiOrdersChangeStatusCreate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {ChangeStatusRequest}
-     * @memberof OrdersApiOrdersChangeStatusCreate
-     */
-    readonly changeStatusRequest: ChangeStatusRequest
-}
-
-/**
- * Request parameters for ordersDeleteMemoCreate operation in OrdersApi.
- * @export
- * @interface OrdersApiOrdersDeleteMemoCreateRequest
- */
-export interface OrdersApiOrdersDeleteMemoCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrdersApiOrdersDeleteMemoCreate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {DeleteOrderMemoRequest}
-     * @memberof OrdersApiOrdersDeleteMemoCreate
-     */
-    readonly deleteOrderMemoRequest: DeleteOrderMemoRequest
-}
-
-/**
- * Request parameters for ordersList operation in OrdersApi.
- * @export
- * @interface OrdersApiOrdersListRequest
- */
-export interface OrdersApiOrdersListRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrdersApiOrdersList
+     * @memberof OrderItemsApiOrderItemsList
      */
     readonly createdGte?: string
 
     /**
      * 
      * @type {string}
-     * @memberof OrdersApiOrdersList
+     * @memberof OrderItemsApiOrderItemsList
      */
     readonly createdLte?: string
 
     /**
      * A page number within the paginated result set.
      * @type {number}
-     * @memberof OrdersApiOrdersList
+     * @memberof OrderItemsApiOrderItemsList
      */
     readonly page?: number
 
     /**
-     * A search term.
-     * @type {string}
-     * @memberof OrdersApiOrdersList
-     */
-    readonly search?: string
-
-    /**
      * Number of results to return per page.
      * @type {number}
-     * @memberof OrdersApiOrdersList
+     * @memberof OrderItemsApiOrderItemsList
      */
     readonly size?: number
 
     /**
      * 
      * @type {Array<string>}
-     * @memberof OrdersApiOrdersList
+     * @memberof OrderItemsApiOrderItemsList
      */
     readonly statuses?: Array<string>
 }
 
 /**
- * Request parameters for ordersListMinimumAllList operation in OrdersApi.
+ * Request parameters for orderItemsRetrieve operation in OrderItemsApi.
  * @export
- * @interface OrdersApiOrdersListMinimumAllListRequest
+ * @interface OrderItemsApiOrderItemsRetrieveRequest
  */
-export interface OrdersApiOrdersListMinimumAllListRequest {
+export interface OrderItemsApiOrderItemsRetrieveRequest {
     /**
-     * A search term.
-     * @type {string}
-     * @memberof OrdersApiOrdersListMinimumAllList
+     * A unique integer value identifying this order item.
+     * @type {number}
+     * @memberof OrderItemsApiOrderItemsRetrieve
      */
-    readonly search?: string
+    readonly id: number
 }
 
 /**
- * Request parameters for ordersRemakeRiCreate operation in OrdersApi.
+ * OrderItemsApi - object-oriented interface
  * @export
- * @interface OrdersApiOrdersRemakeRiCreateRequest
- */
-export interface OrdersApiOrdersRemakeRiCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrdersApiOrdersRemakeRiCreate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {RemakeRiRequest}
-     * @memberof OrdersApiOrdersRemakeRiCreate
-     */
-    readonly remakeRiRequest: RemakeRiRequest
-}
-
-/**
- * Request parameters for ordersRetrieve operation in OrdersApi.
- * @export
- * @interface OrdersApiOrdersRetrieveRequest
- */
-export interface OrdersApiOrdersRetrieveRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrdersApiOrdersRetrieve
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for ordersUpdateRefundCreate operation in OrdersApi.
- * @export
- * @interface OrdersApiOrdersUpdateRefundCreateRequest
- */
-export interface OrdersApiOrdersUpdateRefundCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof OrdersApiOrdersUpdateRefundCreate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {UpdateRefundRequest}
-     * @memberof OrdersApiOrdersUpdateRefundCreate
-     */
-    readonly updateRefundRequest: UpdateRefundRequest
-}
-
-/**
- * OrdersApi - object-oriented interface
- * @export
- * @class OrdersApi
+ * @class OrderItemsApi
  * @extends {BaseAPI}
  */
-export class OrdersApi extends BaseAPI {
+export class OrderItemsApi extends BaseAPI {
     /**
      * 
-     * @param {OrdersApiOrdersAddMemoCreateRequest} requestParameters Request parameters.
+     * @param {OrderItemsApiOrderItemsListRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof OrdersApi
+     * @memberof OrderItemsApi
      */
-    public ordersAddMemoCreate(requestParameters: OrdersApiOrdersAddMemoCreateRequest, options?: any) {
-        return OrdersApiFp(this.configuration).ordersAddMemoCreate(requestParameters.id, requestParameters.addOrderMemoRequest, options).then((request) => request(this.axios, this.basePath));
+    public orderItemsList(requestParameters: OrderItemsApiOrderItemsListRequest = {}, options?: any) {
+        return OrderItemsApiFp(this.configuration).orderItemsList(requestParameters.createdGte, requestParameters.createdLte, requestParameters.page, requestParameters.size, requestParameters.statuses, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {OrdersApiOrdersAddPaymentAdjustmentCreateRequest} requestParameters Request parameters.
+     * @param {OrderItemsApiOrderItemsRetrieveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof OrdersApi
+     * @memberof OrderItemsApi
      */
-    public ordersAddPaymentAdjustmentCreate(requestParameters: OrdersApiOrdersAddPaymentAdjustmentCreateRequest, options?: any) {
-        return OrdersApiFp(this.configuration).ordersAddPaymentAdjustmentCreate(requestParameters.id, requestParameters.addPaymentAdjustmentRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {OrdersApiOrdersByUserListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrdersApi
-     */
-    public ordersByUserList(requestParameters: OrdersApiOrdersByUserListRequest, options?: any) {
-        return OrdersApiFp(this.configuration).ordersByUserList(requestParameters.userId, requestParameters.search, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {OrdersApiOrdersChangeStatusCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrdersApi
-     */
-    public ordersChangeStatusCreate(requestParameters: OrdersApiOrdersChangeStatusCreateRequest, options?: any) {
-        return OrdersApiFp(this.configuration).ordersChangeStatusCreate(requestParameters.id, requestParameters.changeStatusRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {OrdersApiOrdersDeleteMemoCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrdersApi
-     */
-    public ordersDeleteMemoCreate(requestParameters: OrdersApiOrdersDeleteMemoCreateRequest, options?: any) {
-        return OrdersApiFp(this.configuration).ordersDeleteMemoCreate(requestParameters.id, requestParameters.deleteOrderMemoRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {OrdersApiOrdersListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrdersApi
-     */
-    public ordersList(requestParameters: OrdersApiOrdersListRequest = {}, options?: any) {
-        return OrdersApiFp(this.configuration).ordersList(requestParameters.createdGte, requestParameters.createdLte, requestParameters.page, requestParameters.search, requestParameters.size, requestParameters.statuses, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {OrdersApiOrdersListMinimumAllListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrdersApi
-     */
-    public ordersListMinimumAllList(requestParameters: OrdersApiOrdersListMinimumAllListRequest = {}, options?: any) {
-        return OrdersApiFp(this.configuration).ordersListMinimumAllList(requestParameters.search, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {OrdersApiOrdersRemakeRiCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrdersApi
-     */
-    public ordersRemakeRiCreate(requestParameters: OrdersApiOrdersRemakeRiCreateRequest, options?: any) {
-        return OrdersApiFp(this.configuration).ordersRemakeRiCreate(requestParameters.id, requestParameters.remakeRiRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {OrdersApiOrdersRetrieveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrdersApi
-     */
-    public ordersRetrieve(requestParameters: OrdersApiOrdersRetrieveRequest, options?: any) {
-        return OrdersApiFp(this.configuration).ordersRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {OrdersApiOrdersUpdateRefundCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrdersApi
-     */
-    public ordersUpdateRefundCreate(requestParameters: OrdersApiOrdersUpdateRefundCreateRequest, options?: any) {
-        return OrdersApiFp(this.configuration).ordersUpdateRefundCreate(requestParameters.id, requestParameters.updateRefundRequest, options).then((request) => request(this.axios, this.basePath));
+    public orderItemsRetrieve(requestParameters: OrderItemsApiOrderItemsRetrieveRequest, options?: any) {
+        return OrderItemsApiFp(this.configuration).orderItemsRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -8645,15 +1903,13 @@ export const PackagesApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @param {string} id 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        packagesReprintCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('packagesReprintCreate', 'id', id)
-            const localVarPath = `/packages/{id}/reprint/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+        packagesList: async (page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/packages/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8661,13 +1917,21 @@ export const PackagesApiAxiosParamCreator = function (configuration?: Configurat
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             // authentication jwtAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
 
 
     
@@ -8692,12 +1956,13 @@ export const PackagesApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {string} id 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async packagesReprintCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Package>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.packagesReprintCreate(id, options);
+        async packagesList(page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedPackageList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.packagesList(page, size, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -8712,28 +1977,36 @@ export const PackagesApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
-         * @param {string} id 
+         * @param {number} [page] A page number within the paginated result set.
+         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        packagesReprintCreate(id: string, options?: any): AxiosPromise<Package> {
-            return localVarFp.packagesReprintCreate(id, options).then((request) => request(axios, basePath));
+        packagesList(page?: number, size?: number, options?: any): AxiosPromise<PaginatedPackageList> {
+            return localVarFp.packagesList(page, size, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for packagesReprintCreate operation in PackagesApi.
+ * Request parameters for packagesList operation in PackagesApi.
  * @export
- * @interface PackagesApiPackagesReprintCreateRequest
+ * @interface PackagesApiPackagesListRequest
  */
-export interface PackagesApiPackagesReprintCreateRequest {
+export interface PackagesApiPackagesListRequest {
     /**
-     * 
-     * @type {string}
-     * @memberof PackagesApiPackagesReprintCreate
+     * A page number within the paginated result set.
+     * @type {number}
+     * @memberof PackagesApiPackagesList
      */
-    readonly id: string
+    readonly page?: number
+
+    /**
+     * Number of results to return per page.
+     * @type {number}
+     * @memberof PackagesApiPackagesList
+     */
+    readonly size?: number
 }
 
 /**
@@ -8745,13 +2018,13 @@ export interface PackagesApiPackagesReprintCreateRequest {
 export class PackagesApi extends BaseAPI {
     /**
      * 
-     * @param {PackagesApiPackagesReprintCreateRequest} requestParameters Request parameters.
+     * @param {PackagesApiPackagesListRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PackagesApi
      */
-    public packagesReprintCreate(requestParameters: PackagesApiPackagesReprintCreateRequest, options?: any) {
-        return PackagesApiFp(this.configuration).packagesReprintCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    public packagesList(requestParameters: PackagesApiPackagesListRequest = {}, options?: any) {
+        return PackagesApiFp(this.configuration).packagesList(requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -8764,143 +2037,10 @@ export const ReceivedItemsApiAxiosParamCreator = function (configuration?: Confi
     return {
         /**
          * 
-         * @param {ReceivedItemRequest} receivedItemRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        receivedItemsCreate: async (receivedItemRequest: ReceivedItemRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'receivedItemRequest' is not null or undefined
-            assertParamExists('receivedItemsCreate', 'receivedItemRequest', receivedItemRequest)
-            const localVarPath = `/received-items/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(receivedItemRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsDestroy: async (id: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('receivedItemsDestroy', 'id', id)
-            const localVarPath = `/received-items/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {ForceMakeRiRequest} forceMakeRiRequest 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsForceMakeCreate: async (forceMakeRiRequest: ForceMakeRiRequest, page?: number, search?: string, size?: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'forceMakeRiRequest' is not null or undefined
-            assertParamExists('receivedItemsForceMakeCreate', 'forceMakeRiRequest', forceMakeRiRequest)
-            const localVarPath = `/received-items/force-make/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(forceMakeRiRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsList: async (page?: number, search?: string, size?: number, options: any = {}): Promise<RequestArgs> => {
+        receivedItemsRetrieve: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/received-items/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -8917,218 +2057,11 @@ export const ReceivedItemsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsMakeInventoryCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('receivedItemsMakeInventoryCreate', 'id', id)
-            const localVarPath = `/received-items/{id}/make-inventory/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {PatchedReceivedItemRequest} [patchedReceivedItemRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsPartialUpdate: async (id: number, patchedReceivedItemRequest?: PatchedReceivedItemRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('receivedItemsPartialUpdate', 'id', id)
-            const localVarPath = `/received-items/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedReceivedItemRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsRetrieve: async (id: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('receivedItemsRetrieve', 'id', id)
-            const localVarPath = `/received-items/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsRevertInventoryCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('receivedItemsRevertInventoryCreate', 'id', id)
-            const localVarPath = `/received-items/{id}/revert-inventory/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {ReceivedItemRequest} receivedItemRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsUpdate: async (id: number, receivedItemRequest: ReceivedItemRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('receivedItemsUpdate', 'id', id)
-            // verify required parameter 'receivedItemRequest' is not null or undefined
-            assertParamExists('receivedItemsUpdate', 'receivedItemRequest', receivedItemRequest)
-            const localVarPath = `/received-items/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(receivedItemRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9147,99 +2080,11 @@ export const ReceivedItemsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {ReceivedItemRequest} receivedItemRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async receivedItemsCreate(receivedItemRequest: ReceivedItemRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ReceivedItem>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsCreate(receivedItemRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async receivedItemsDestroy(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsDestroy(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {ForceMakeRiRequest} forceMakeRiRequest 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async receivedItemsForceMakeCreate(forceMakeRiRequest: ForceMakeRiRequest, page?: number, search?: string, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedReceivedItemList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsForceMakeCreate(forceMakeRiRequest, page, search, size, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async receivedItemsList(page?: number, search?: string, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedReceivedItemList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsList(page, search, size, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async receivedItemsMakeInventoryCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsMakeInventoryCreate(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {PatchedReceivedItemRequest} [patchedReceivedItemRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async receivedItemsPartialUpdate(id: number, patchedReceivedItemRequest?: PatchedReceivedItemRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ReceivedItem>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsPartialUpdate(id, patchedReceivedItemRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async receivedItemsRetrieve(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ReceivedItem>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async receivedItemsRevertInventoryCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ReceivedItem>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsRevertInventoryCreate(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {ReceivedItemRequest} receivedItemRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async receivedItemsUpdate(id: number, receivedItemRequest: ReceivedItemRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ReceivedItem>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsUpdate(id, receivedItemRequest, options);
+        async receivedItemsRetrieve(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.receivedItemsRetrieve(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9254,269 +2099,14 @@ export const ReceivedItemsApiFactory = function (configuration?: Configuration, 
     return {
         /**
          * 
-         * @param {ReceivedItemRequest} receivedItemRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        receivedItemsCreate(receivedItemRequest: ReceivedItemRequest, options?: any): AxiosPromise<ReceivedItem> {
-            return localVarFp.receivedItemsCreate(receivedItemRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsDestroy(id: number, options?: any): AxiosPromise<void> {
-            return localVarFp.receivedItemsDestroy(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {ForceMakeRiRequest} forceMakeRiRequest 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsForceMakeCreate(forceMakeRiRequest: ForceMakeRiRequest, page?: number, search?: string, size?: number, options?: any): AxiosPromise<PaginatedReceivedItemList> {
-            return localVarFp.receivedItemsForceMakeCreate(forceMakeRiRequest, page, search, size, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsList(page?: number, search?: string, size?: number, options?: any): AxiosPromise<PaginatedReceivedItemList> {
-            return localVarFp.receivedItemsList(page, search, size, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsMakeInventoryCreate(id: string, options?: any): AxiosPromise<Inventory> {
-            return localVarFp.receivedItemsMakeInventoryCreate(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {PatchedReceivedItemRequest} [patchedReceivedItemRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsPartialUpdate(id: number, patchedReceivedItemRequest?: PatchedReceivedItemRequest, options?: any): AxiosPromise<ReceivedItem> {
-            return localVarFp.receivedItemsPartialUpdate(id, patchedReceivedItemRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsRetrieve(id: number, options?: any): AxiosPromise<ReceivedItem> {
-            return localVarFp.receivedItemsRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsRevertInventoryCreate(id: string, options?: any): AxiosPromise<ReceivedItem> {
-            return localVarFp.receivedItemsRevertInventoryCreate(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this received item.
-         * @param {ReceivedItemRequest} receivedItemRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        receivedItemsUpdate(id: number, receivedItemRequest: ReceivedItemRequest, options?: any): AxiosPromise<ReceivedItem> {
-            return localVarFp.receivedItemsUpdate(id, receivedItemRequest, options).then((request) => request(axios, basePath));
+        receivedItemsRetrieve(options?: any): AxiosPromise<void> {
+            return localVarFp.receivedItemsRetrieve(options).then((request) => request(axios, basePath));
         },
     };
 };
-
-/**
- * Request parameters for receivedItemsCreate operation in ReceivedItemsApi.
- * @export
- * @interface ReceivedItemsApiReceivedItemsCreateRequest
- */
-export interface ReceivedItemsApiReceivedItemsCreateRequest {
-    /**
-     * 
-     * @type {ReceivedItemRequest}
-     * @memberof ReceivedItemsApiReceivedItemsCreate
-     */
-    readonly receivedItemRequest: ReceivedItemRequest
-}
-
-/**
- * Request parameters for receivedItemsDestroy operation in ReceivedItemsApi.
- * @export
- * @interface ReceivedItemsApiReceivedItemsDestroyRequest
- */
-export interface ReceivedItemsApiReceivedItemsDestroyRequest {
-    /**
-     * A unique integer value identifying this received item.
-     * @type {number}
-     * @memberof ReceivedItemsApiReceivedItemsDestroy
-     */
-    readonly id: number
-}
-
-/**
- * Request parameters for receivedItemsForceMakeCreate operation in ReceivedItemsApi.
- * @export
- * @interface ReceivedItemsApiReceivedItemsForceMakeCreateRequest
- */
-export interface ReceivedItemsApiReceivedItemsForceMakeCreateRequest {
-    /**
-     * 
-     * @type {ForceMakeRiRequest}
-     * @memberof ReceivedItemsApiReceivedItemsForceMakeCreate
-     */
-    readonly forceMakeRiRequest: ForceMakeRiRequest
-
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof ReceivedItemsApiReceivedItemsForceMakeCreate
-     */
-    readonly page?: number
-
-    /**
-     * A search term.
-     * @type {string}
-     * @memberof ReceivedItemsApiReceivedItemsForceMakeCreate
-     */
-    readonly search?: string
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof ReceivedItemsApiReceivedItemsForceMakeCreate
-     */
-    readonly size?: number
-}
-
-/**
- * Request parameters for receivedItemsList operation in ReceivedItemsApi.
- * @export
- * @interface ReceivedItemsApiReceivedItemsListRequest
- */
-export interface ReceivedItemsApiReceivedItemsListRequest {
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof ReceivedItemsApiReceivedItemsList
-     */
-    readonly page?: number
-
-    /**
-     * A search term.
-     * @type {string}
-     * @memberof ReceivedItemsApiReceivedItemsList
-     */
-    readonly search?: string
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof ReceivedItemsApiReceivedItemsList
-     */
-    readonly size?: number
-}
-
-/**
- * Request parameters for receivedItemsMakeInventoryCreate operation in ReceivedItemsApi.
- * @export
- * @interface ReceivedItemsApiReceivedItemsMakeInventoryCreateRequest
- */
-export interface ReceivedItemsApiReceivedItemsMakeInventoryCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemsApiReceivedItemsMakeInventoryCreate
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for receivedItemsPartialUpdate operation in ReceivedItemsApi.
- * @export
- * @interface ReceivedItemsApiReceivedItemsPartialUpdateRequest
- */
-export interface ReceivedItemsApiReceivedItemsPartialUpdateRequest {
-    /**
-     * A unique integer value identifying this received item.
-     * @type {number}
-     * @memberof ReceivedItemsApiReceivedItemsPartialUpdate
-     */
-    readonly id: number
-
-    /**
-     * 
-     * @type {PatchedReceivedItemRequest}
-     * @memberof ReceivedItemsApiReceivedItemsPartialUpdate
-     */
-    readonly patchedReceivedItemRequest?: PatchedReceivedItemRequest
-}
-
-/**
- * Request parameters for receivedItemsRetrieve operation in ReceivedItemsApi.
- * @export
- * @interface ReceivedItemsApiReceivedItemsRetrieveRequest
- */
-export interface ReceivedItemsApiReceivedItemsRetrieveRequest {
-    /**
-     * A unique integer value identifying this received item.
-     * @type {number}
-     * @memberof ReceivedItemsApiReceivedItemsRetrieve
-     */
-    readonly id: number
-}
-
-/**
- * Request parameters for receivedItemsRevertInventoryCreate operation in ReceivedItemsApi.
- * @export
- * @interface ReceivedItemsApiReceivedItemsRevertInventoryCreateRequest
- */
-export interface ReceivedItemsApiReceivedItemsRevertInventoryCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ReceivedItemsApiReceivedItemsRevertInventoryCreate
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for receivedItemsUpdate operation in ReceivedItemsApi.
- * @export
- * @interface ReceivedItemsApiReceivedItemsUpdateRequest
- */
-export interface ReceivedItemsApiReceivedItemsUpdateRequest {
-    /**
-     * A unique integer value identifying this received item.
-     * @type {number}
-     * @memberof ReceivedItemsApiReceivedItemsUpdate
-     */
-    readonly id: number
-
-    /**
-     * 
-     * @type {ReceivedItemRequest}
-     * @memberof ReceivedItemsApiReceivedItemsUpdate
-     */
-    readonly receivedItemRequest: ReceivedItemRequest
-}
 
 /**
  * ReceivedItemsApi - object-oriented interface
@@ -9527,101 +2117,12 @@ export interface ReceivedItemsApiReceivedItemsUpdateRequest {
 export class ReceivedItemsApi extends BaseAPI {
     /**
      * 
-     * @param {ReceivedItemsApiReceivedItemsCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ReceivedItemsApi
      */
-    public receivedItemsCreate(requestParameters: ReceivedItemsApiReceivedItemsCreateRequest, options?: any) {
-        return ReceivedItemsApiFp(this.configuration).receivedItemsCreate(requestParameters.receivedItemRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ReceivedItemsApiReceivedItemsDestroyRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ReceivedItemsApi
-     */
-    public receivedItemsDestroy(requestParameters: ReceivedItemsApiReceivedItemsDestroyRequest, options?: any) {
-        return ReceivedItemsApiFp(this.configuration).receivedItemsDestroy(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ReceivedItemsApiReceivedItemsForceMakeCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ReceivedItemsApi
-     */
-    public receivedItemsForceMakeCreate(requestParameters: ReceivedItemsApiReceivedItemsForceMakeCreateRequest, options?: any) {
-        return ReceivedItemsApiFp(this.configuration).receivedItemsForceMakeCreate(requestParameters.forceMakeRiRequest, requestParameters.page, requestParameters.search, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ReceivedItemsApiReceivedItemsListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ReceivedItemsApi
-     */
-    public receivedItemsList(requestParameters: ReceivedItemsApiReceivedItemsListRequest = {}, options?: any) {
-        return ReceivedItemsApiFp(this.configuration).receivedItemsList(requestParameters.page, requestParameters.search, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ReceivedItemsApiReceivedItemsMakeInventoryCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ReceivedItemsApi
-     */
-    public receivedItemsMakeInventoryCreate(requestParameters: ReceivedItemsApiReceivedItemsMakeInventoryCreateRequest, options?: any) {
-        return ReceivedItemsApiFp(this.configuration).receivedItemsMakeInventoryCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ReceivedItemsApiReceivedItemsPartialUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ReceivedItemsApi
-     */
-    public receivedItemsPartialUpdate(requestParameters: ReceivedItemsApiReceivedItemsPartialUpdateRequest, options?: any) {
-        return ReceivedItemsApiFp(this.configuration).receivedItemsPartialUpdate(requestParameters.id, requestParameters.patchedReceivedItemRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ReceivedItemsApiReceivedItemsRetrieveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ReceivedItemsApi
-     */
-    public receivedItemsRetrieve(requestParameters: ReceivedItemsApiReceivedItemsRetrieveRequest, options?: any) {
-        return ReceivedItemsApiFp(this.configuration).receivedItemsRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ReceivedItemsApiReceivedItemsRevertInventoryCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ReceivedItemsApi
-     */
-    public receivedItemsRevertInventoryCreate(requestParameters: ReceivedItemsApiReceivedItemsRevertInventoryCreateRequest, options?: any) {
-        return ReceivedItemsApiFp(this.configuration).receivedItemsRevertInventoryCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ReceivedItemsApiReceivedItemsUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ReceivedItemsApi
-     */
-    public receivedItemsUpdate(requestParameters: ReceivedItemsApiReceivedItemsUpdateRequest, options?: any) {
-        return ReceivedItemsApiFp(this.configuration).receivedItemsUpdate(requestParameters.id, requestParameters.receivedItemRequest, options).then((request) => request(this.axios, this.basePath));
+    public receivedItemsRetrieve(options?: any) {
+        return ReceivedItemsApiFp(this.configuration).receivedItemsRetrieve(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -9634,12 +2135,10 @@ export const ShippingNoticesApiAxiosParamCreator = function (configuration?: Con
     return {
         /**
          * 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        shippingNoticesList: async (page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+        shippingNoticesRetrieve: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/shipping-notices/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -9649,162 +2148,6 @@ export const ShippingNoticesApiAxiosParamCreator = function (configuration?: Con
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesMakeUploadTemplateCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('shippingNoticesMakeUploadTemplateCreate', 'id', id)
-            const localVarPath = `/shipping-notices/{id}/make-upload-template/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesPackageCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('shippingNoticesPackageCreate', 'id', id)
-            const localVarPath = `/shipping-notices/{id}/package/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this shipping notice.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesRetrieve: async (id: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('shippingNoticesRetrieve', 'id', id)
-            const localVarPath = `/shipping-notices/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesSealCreate: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('shippingNoticesSealCreate', 'id', id)
-            const localVarPath = `/shipping-notices/{id}/seal/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9835,53 +2178,11 @@ export const ShippingNoticesApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async shippingNoticesList(page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedShippingNoticeList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesList(page, size, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async shippingNoticesMakeUploadTemplateCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesMakeUploadTemplateCreate(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async shippingNoticesPackageCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesPackageCreate(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this shipping notice.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async shippingNoticesRetrieve(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async shippingNoticesSealCreate(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesSealCreate(id, options);
+        async shippingNoticesRetrieve(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesRetrieve(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9896,129 +2197,14 @@ export const ShippingNoticesApiFactory = function (configuration?: Configuration
     return {
         /**
          * 
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {number} [size] Number of results to return per page.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        shippingNoticesList(page?: number, size?: number, options?: any): AxiosPromise<PaginatedShippingNoticeList> {
-            return localVarFp.shippingNoticesList(page, size, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesMakeUploadTemplateCreate(id: string, options?: any): AxiosPromise<ShippingNotice> {
-            return localVarFp.shippingNoticesMakeUploadTemplateCreate(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesPackageCreate(id: string, options?: any): AxiosPromise<ShippingNotice> {
-            return localVarFp.shippingNoticesPackageCreate(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} id A unique integer value identifying this shipping notice.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesRetrieve(id: number, options?: any): AxiosPromise<ShippingNotice> {
-            return localVarFp.shippingNoticesRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesSealCreate(id: string, options?: any): AxiosPromise<ShippingNotice> {
-            return localVarFp.shippingNoticesSealCreate(id, options).then((request) => request(axios, basePath));
+        shippingNoticesRetrieve(options?: any): AxiosPromise<void> {
+            return localVarFp.shippingNoticesRetrieve(options).then((request) => request(axios, basePath));
         },
     };
 };
-
-/**
- * Request parameters for shippingNoticesList operation in ShippingNoticesApi.
- * @export
- * @interface ShippingNoticesApiShippingNoticesListRequest
- */
-export interface ShippingNoticesApiShippingNoticesListRequest {
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof ShippingNoticesApiShippingNoticesList
-     */
-    readonly page?: number
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof ShippingNoticesApiShippingNoticesList
-     */
-    readonly size?: number
-}
-
-/**
- * Request parameters for shippingNoticesMakeUploadTemplateCreate operation in ShippingNoticesApi.
- * @export
- * @interface ShippingNoticesApiShippingNoticesMakeUploadTemplateCreateRequest
- */
-export interface ShippingNoticesApiShippingNoticesMakeUploadTemplateCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNoticesApiShippingNoticesMakeUploadTemplateCreate
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for shippingNoticesPackageCreate operation in ShippingNoticesApi.
- * @export
- * @interface ShippingNoticesApiShippingNoticesPackageCreateRequest
- */
-export interface ShippingNoticesApiShippingNoticesPackageCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNoticesApiShippingNoticesPackageCreate
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for shippingNoticesRetrieve operation in ShippingNoticesApi.
- * @export
- * @interface ShippingNoticesApiShippingNoticesRetrieveRequest
- */
-export interface ShippingNoticesApiShippingNoticesRetrieveRequest {
-    /**
-     * A unique integer value identifying this shipping notice.
-     * @type {number}
-     * @memberof ShippingNoticesApiShippingNoticesRetrieve
-     */
-    readonly id: number
-}
-
-/**
- * Request parameters for shippingNoticesSealCreate operation in ShippingNoticesApi.
- * @export
- * @interface ShippingNoticesApiShippingNoticesSealCreateRequest
- */
-export interface ShippingNoticesApiShippingNoticesSealCreateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNoticesApiShippingNoticesSealCreate
-     */
-    readonly id: string
-}
 
 /**
  * ShippingNoticesApi - object-oriented interface
@@ -10029,2239 +2215,12 @@ export interface ShippingNoticesApiShippingNoticesSealCreateRequest {
 export class ShippingNoticesApi extends BaseAPI {
     /**
      * 
-     * @param {ShippingNoticesApiShippingNoticesListRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ShippingNoticesApi
      */
-    public shippingNoticesList(requestParameters: ShippingNoticesApiShippingNoticesListRequest = {}, options?: any) {
-        return ShippingNoticesApiFp(this.configuration).shippingNoticesList(requestParameters.page, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ShippingNoticesApiShippingNoticesMakeUploadTemplateCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ShippingNoticesApi
-     */
-    public shippingNoticesMakeUploadTemplateCreate(requestParameters: ShippingNoticesApiShippingNoticesMakeUploadTemplateCreateRequest, options?: any) {
-        return ShippingNoticesApiFp(this.configuration).shippingNoticesMakeUploadTemplateCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ShippingNoticesApiShippingNoticesPackageCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ShippingNoticesApi
-     */
-    public shippingNoticesPackageCreate(requestParameters: ShippingNoticesApiShippingNoticesPackageCreateRequest, options?: any) {
-        return ShippingNoticesApiFp(this.configuration).shippingNoticesPackageCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ShippingNoticesApiShippingNoticesRetrieveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ShippingNoticesApi
-     */
-    public shippingNoticesRetrieve(requestParameters: ShippingNoticesApiShippingNoticesRetrieveRequest, options?: any) {
-        return ShippingNoticesApiFp(this.configuration).shippingNoticesRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ShippingNoticesApiShippingNoticesSealCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ShippingNoticesApi
-     */
-    public shippingNoticesSealCreate(requestParameters: ShippingNoticesApiShippingNoticesSealCreateRequest, options?: any) {
-        return ShippingNoticesApiFp(this.configuration).shippingNoticesSealCreate(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * ShippingNoticesResultUploadApi - axios parameter creator
- * @export
- */
-export const ShippingNoticesResultUploadApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @param {any} file 
-         * @param {string} noticeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesResultUploadUploadCreate: async (file: any, noticeId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'file' is not null or undefined
-            assertParamExists('shippingNoticesResultUploadUploadCreate', 'file', file)
-            // verify required parameter 'noticeId' is not null or undefined
-            assertParamExists('shippingNoticesResultUploadUploadCreate', 'noticeId', noticeId)
-            const localVarPath = `/shipping-notices-result-upload/upload/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-    
-            if (noticeId !== undefined) { 
-                localVarFormParams.append('notice_id', noticeId as any);
-            }
-    
-    
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * ShippingNoticesResultUploadApi - functional programming interface
- * @export
- */
-export const ShippingNoticesResultUploadApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = ShippingNoticesResultUploadApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @param {any} file 
-         * @param {string} noticeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async shippingNoticesResultUploadUploadCreate(file: any, noticeId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShippingNotice>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.shippingNoticesResultUploadUploadCreate(file, noticeId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * ShippingNoticesResultUploadApi - factory interface
- * @export
- */
-export const ShippingNoticesResultUploadApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = ShippingNoticesResultUploadApiFp(configuration)
-    return {
-        /**
-         * 
-         * @param {any} file 
-         * @param {string} noticeId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        shippingNoticesResultUploadUploadCreate(file: any, noticeId: string, options?: any): AxiosPromise<ShippingNotice> {
-            return localVarFp.shippingNoticesResultUploadUploadCreate(file, noticeId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * Request parameters for shippingNoticesResultUploadUploadCreate operation in ShippingNoticesResultUploadApi.
- * @export
- * @interface ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreateRequest
- */
-export interface ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreateRequest {
-    /**
-     * 
-     * @type {any}
-     * @memberof ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreate
-     */
-    readonly file: any
-
-    /**
-     * 
-     * @type {string}
-     * @memberof ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreate
-     */
-    readonly noticeId: string
-}
-
-/**
- * ShippingNoticesResultUploadApi - object-oriented interface
- * @export
- * @class ShippingNoticesResultUploadApi
- * @extends {BaseAPI}
- */
-export class ShippingNoticesResultUploadApi extends BaseAPI {
-    /**
-     * 
-     * @param {ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ShippingNoticesResultUploadApi
-     */
-    public shippingNoticesResultUploadUploadCreate(requestParameters: ShippingNoticesResultUploadApiShippingNoticesResultUploadUploadCreateRequest, options?: any) {
-        return ShippingNoticesResultUploadApiFp(this.configuration).shippingNoticesResultUploadUploadCreate(requestParameters.file, requestParameters.noticeId, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * TimedealProductTemplatesApi - axios parameter creator
- * @export
- */
-export const TimedealProductTemplatesApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesCreate: async (timedealProductTemplateRequest: TimedealProductTemplateRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'timedealProductTemplateRequest' is not null or undefined
-            assertParamExists('timedealProductTemplatesCreate', 'timedealProductTemplateRequest', timedealProductTemplateRequest)
-            const localVarPath = `/timedeal-product-templates/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductTemplateRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesDestroy: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealProductTemplatesDestroy', 'id', id)
-            const localVarPath = `/timedeal-product-templates/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesList: async (page?: number, search?: string, size?: number, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/timedeal-product-templates/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedTimedealProductTemplateRequest} [patchedTimedealProductTemplateRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesPartialUpdate: async (id: string, patchedTimedealProductTemplateRequest?: PatchedTimedealProductTemplateRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealProductTemplatesPartialUpdate', 'id', id)
-            const localVarPath = `/timedeal-product-templates/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedTimedealProductTemplateRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesRetrieve: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealProductTemplatesRetrieve', 'id', id)
-            const localVarPath = `/timedeal-product-templates/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesUpdate: async (id: string, timedealProductTemplateRequest: TimedealProductTemplateRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealProductTemplatesUpdate', 'id', id)
-            // verify required parameter 'timedealProductTemplateRequest' is not null or undefined
-            assertParamExists('timedealProductTemplatesUpdate', 'timedealProductTemplateRequest', timedealProductTemplateRequest)
-            const localVarPath = `/timedeal-product-templates/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductTemplateRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * TimedealProductTemplatesApi - functional programming interface
- * @export
- */
-export const TimedealProductTemplatesApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = TimedealProductTemplatesApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductTemplatesCreate(timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesCreate(timedealProductTemplateRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductTemplatesDestroy(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesDestroy(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductTemplatesList(page?: number, search?: string, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedTimedealProductTemplateList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesList(page, search, size, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedTimedealProductTemplateRequest} [patchedTimedealProductTemplateRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductTemplatesPartialUpdate(id: string, patchedTimedealProductTemplateRequest?: PatchedTimedealProductTemplateRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesPartialUpdate(id, patchedTimedealProductTemplateRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductTemplatesRetrieve(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductTemplatesUpdate(id: string, timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductTemplate>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductTemplatesUpdate(id, timedealProductTemplateRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * TimedealProductTemplatesApi - factory interface
- * @export
- */
-export const TimedealProductTemplatesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = TimedealProductTemplatesApiFp(configuration)
-    return {
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesCreate(timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any): AxiosPromise<TimedealProductTemplate> {
-            return localVarFp.timedealProductTemplatesCreate(timedealProductTemplateRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesDestroy(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.timedealProductTemplatesDestroy(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesList(page?: number, search?: string, size?: number, options?: any): AxiosPromise<PaginatedTimedealProductTemplateList> {
-            return localVarFp.timedealProductTemplatesList(page, search, size, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedTimedealProductTemplateRequest} [patchedTimedealProductTemplateRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesPartialUpdate(id: string, patchedTimedealProductTemplateRequest?: PatchedTimedealProductTemplateRequest, options?: any): AxiosPromise<TimedealProductTemplate> {
-            return localVarFp.timedealProductTemplatesPartialUpdate(id, patchedTimedealProductTemplateRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesRetrieve(id: string, options?: any): AxiosPromise<TimedealProductTemplate> {
-            return localVarFp.timedealProductTemplatesRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {TimedealProductTemplateRequest} timedealProductTemplateRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductTemplatesUpdate(id: string, timedealProductTemplateRequest: TimedealProductTemplateRequest, options?: any): AxiosPromise<TimedealProductTemplate> {
-            return localVarFp.timedealProductTemplatesUpdate(id, timedealProductTemplateRequest, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * Request parameters for timedealProductTemplatesCreate operation in TimedealProductTemplatesApi.
- * @export
- * @interface TimedealProductTemplatesApiTimedealProductTemplatesCreateRequest
- */
-export interface TimedealProductTemplatesApiTimedealProductTemplatesCreateRequest {
-    /**
-     * 
-     * @type {TimedealProductTemplateRequest}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesCreate
-     */
-    readonly timedealProductTemplateRequest: TimedealProductTemplateRequest
-}
-
-/**
- * Request parameters for timedealProductTemplatesDestroy operation in TimedealProductTemplatesApi.
- * @export
- * @interface TimedealProductTemplatesApiTimedealProductTemplatesDestroyRequest
- */
-export interface TimedealProductTemplatesApiTimedealProductTemplatesDestroyRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesDestroy
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for timedealProductTemplatesList operation in TimedealProductTemplatesApi.
- * @export
- * @interface TimedealProductTemplatesApiTimedealProductTemplatesListRequest
- */
-export interface TimedealProductTemplatesApiTimedealProductTemplatesListRequest {
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesList
-     */
-    readonly page?: number
-
-    /**
-     * A search term.
-     * @type {string}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesList
-     */
-    readonly search?: string
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesList
-     */
-    readonly size?: number
-}
-
-/**
- * Request parameters for timedealProductTemplatesPartialUpdate operation in TimedealProductTemplatesApi.
- * @export
- * @interface TimedealProductTemplatesApiTimedealProductTemplatesPartialUpdateRequest
- */
-export interface TimedealProductTemplatesApiTimedealProductTemplatesPartialUpdateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesPartialUpdate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {PatchedTimedealProductTemplateRequest}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesPartialUpdate
-     */
-    readonly patchedTimedealProductTemplateRequest?: PatchedTimedealProductTemplateRequest
-}
-
-/**
- * Request parameters for timedealProductTemplatesRetrieve operation in TimedealProductTemplatesApi.
- * @export
- * @interface TimedealProductTemplatesApiTimedealProductTemplatesRetrieveRequest
- */
-export interface TimedealProductTemplatesApiTimedealProductTemplatesRetrieveRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesRetrieve
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for timedealProductTemplatesUpdate operation in TimedealProductTemplatesApi.
- * @export
- * @interface TimedealProductTemplatesApiTimedealProductTemplatesUpdateRequest
- */
-export interface TimedealProductTemplatesApiTimedealProductTemplatesUpdateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesUpdate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {TimedealProductTemplateRequest}
-     * @memberof TimedealProductTemplatesApiTimedealProductTemplatesUpdate
-     */
-    readonly timedealProductTemplateRequest: TimedealProductTemplateRequest
-}
-
-/**
- * TimedealProductTemplatesApi - object-oriented interface
- * @export
- * @class TimedealProductTemplatesApi
- * @extends {BaseAPI}
- */
-export class TimedealProductTemplatesApi extends BaseAPI {
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductTemplatesApiTimedealProductTemplatesCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductTemplatesApi
-     */
-    public timedealProductTemplatesCreate(requestParameters: TimedealProductTemplatesApiTimedealProductTemplatesCreateRequest, options?: any) {
-        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesCreate(requestParameters.timedealProductTemplateRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductTemplatesApiTimedealProductTemplatesDestroyRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductTemplatesApi
-     */
-    public timedealProductTemplatesDestroy(requestParameters: TimedealProductTemplatesApiTimedealProductTemplatesDestroyRequest, options?: any) {
-        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesDestroy(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductTemplatesApiTimedealProductTemplatesListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductTemplatesApi
-     */
-    public timedealProductTemplatesList(requestParameters: TimedealProductTemplatesApiTimedealProductTemplatesListRequest = {}, options?: any) {
-        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesList(requestParameters.page, requestParameters.search, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductTemplatesApiTimedealProductTemplatesPartialUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductTemplatesApi
-     */
-    public timedealProductTemplatesPartialUpdate(requestParameters: TimedealProductTemplatesApiTimedealProductTemplatesPartialUpdateRequest, options?: any) {
-        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesPartialUpdate(requestParameters.id, requestParameters.patchedTimedealProductTemplateRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductTemplatesApiTimedealProductTemplatesRetrieveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductTemplatesApi
-     */
-    public timedealProductTemplatesRetrieve(requestParameters: TimedealProductTemplatesApiTimedealProductTemplatesRetrieveRequest, options?: any) {
-        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductTemplatesApiTimedealProductTemplatesUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductTemplatesApi
-     */
-    public timedealProductTemplatesUpdate(requestParameters: TimedealProductTemplatesApiTimedealProductTemplatesUpdateRequest, options?: any) {
-        return TimedealProductTemplatesApiFp(this.configuration).timedealProductTemplatesUpdate(requestParameters.id, requestParameters.timedealProductTemplateRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * TimedealProductsApi - axios parameter creator
- * @export
- */
-export const TimedealProductsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductAddRequest} timedealProductAddRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsCreate: async (timedealProductAddRequest: TimedealProductAddRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'timedealProductAddRequest' is not null or undefined
-            assertParamExists('timedealProductsCreate', 'timedealProductAddRequest', timedealProductAddRequest)
-            const localVarPath = `/timedeal-products/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductAddRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsDestroy: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealProductsDestroy', 'id', id)
-            const localVarPath = `/timedeal-products/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsList: async (page?: number, search?: string, size?: number, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/timedeal-products/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedTimedealProductRequest} [patchedTimedealProductRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsPartialUpdate: async (id: string, patchedTimedealProductRequest?: PatchedTimedealProductRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealProductsPartialUpdate', 'id', id)
-            const localVarPath = `/timedeal-products/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedTimedealProductRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsRetrieve: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealProductsRetrieve', 'id', id)
-            const localVarPath = `/timedeal-products/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {TimedealProductAddRequest} timedealProductAddRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsUpdate: async (id: string, timedealProductAddRequest: TimedealProductAddRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealProductsUpdate', 'id', id)
-            // verify required parameter 'timedealProductAddRequest' is not null or undefined
-            assertParamExists('timedealProductsUpdate', 'timedealProductAddRequest', timedealProductAddRequest)
-            const localVarPath = `/timedeal-products/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealProductAddRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * TimedealProductsApi - functional programming interface
- * @export
- */
-export const TimedealProductsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = TimedealProductsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductAddRequest} timedealProductAddRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductsCreate(timedealProductAddRequest: TimedealProductAddRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductAdd>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsCreate(timedealProductAddRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductsDestroy(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsDestroy(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductsList(page?: number, search?: string, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedTimedealProductList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsList(page, search, size, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedTimedealProductRequest} [patchedTimedealProductRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductsPartialUpdate(id: string, patchedTimedealProductRequest?: PatchedTimedealProductRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsPartialUpdate(id, patchedTimedealProductRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductsRetrieve(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProduct>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {TimedealProductAddRequest} timedealProductAddRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealProductsUpdate(id: string, timedealProductAddRequest: TimedealProductAddRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimedealProductAdd>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealProductsUpdate(id, timedealProductAddRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * TimedealProductsApi - factory interface
- * @export
- */
-export const TimedealProductsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = TimedealProductsApiFp(configuration)
-    return {
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {TimedealProductAddRequest} timedealProductAddRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsCreate(timedealProductAddRequest: TimedealProductAddRequest, options?: any): AxiosPromise<TimedealProductAdd> {
-            return localVarFp.timedealProductsCreate(timedealProductAddRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsDestroy(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.timedealProductsDestroy(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsList(page?: number, search?: string, size?: number, options?: any): AxiosPromise<PaginatedTimedealProductList> {
-            return localVarFp.timedealProductsList(page, search, size, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedTimedealProductRequest} [patchedTimedealProductRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsPartialUpdate(id: string, patchedTimedealProductRequest?: PatchedTimedealProductRequest, options?: any): AxiosPromise<TimedealProduct> {
-            return localVarFp.timedealProductsPartialUpdate(id, patchedTimedealProductRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsRetrieve(id: string, options?: any): AxiosPromise<TimedealProduct> {
-            return localVarFp.timedealProductsRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {TimedealProductAddRequest} timedealProductAddRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealProductsUpdate(id: string, timedealProductAddRequest: TimedealProductAddRequest, options?: any): AxiosPromise<TimedealProductAdd> {
-            return localVarFp.timedealProductsUpdate(id, timedealProductAddRequest, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * Request parameters for timedealProductsCreate operation in TimedealProductsApi.
- * @export
- * @interface TimedealProductsApiTimedealProductsCreateRequest
- */
-export interface TimedealProductsApiTimedealProductsCreateRequest {
-    /**
-     * 
-     * @type {TimedealProductAddRequest}
-     * @memberof TimedealProductsApiTimedealProductsCreate
-     */
-    readonly timedealProductAddRequest: TimedealProductAddRequest
-}
-
-/**
- * Request parameters for timedealProductsDestroy operation in TimedealProductsApi.
- * @export
- * @interface TimedealProductsApiTimedealProductsDestroyRequest
- */
-export interface TimedealProductsApiTimedealProductsDestroyRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductsApiTimedealProductsDestroy
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for timedealProductsList operation in TimedealProductsApi.
- * @export
- * @interface TimedealProductsApiTimedealProductsListRequest
- */
-export interface TimedealProductsApiTimedealProductsListRequest {
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof TimedealProductsApiTimedealProductsList
-     */
-    readonly page?: number
-
-    /**
-     * A search term.
-     * @type {string}
-     * @memberof TimedealProductsApiTimedealProductsList
-     */
-    readonly search?: string
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof TimedealProductsApiTimedealProductsList
-     */
-    readonly size?: number
-}
-
-/**
- * Request parameters for timedealProductsPartialUpdate operation in TimedealProductsApi.
- * @export
- * @interface TimedealProductsApiTimedealProductsPartialUpdateRequest
- */
-export interface TimedealProductsApiTimedealProductsPartialUpdateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductsApiTimedealProductsPartialUpdate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {PatchedTimedealProductRequest}
-     * @memberof TimedealProductsApiTimedealProductsPartialUpdate
-     */
-    readonly patchedTimedealProductRequest?: PatchedTimedealProductRequest
-}
-
-/**
- * Request parameters for timedealProductsRetrieve operation in TimedealProductsApi.
- * @export
- * @interface TimedealProductsApiTimedealProductsRetrieveRequest
- */
-export interface TimedealProductsApiTimedealProductsRetrieveRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductsApiTimedealProductsRetrieve
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for timedealProductsUpdate operation in TimedealProductsApi.
- * @export
- * @interface TimedealProductsApiTimedealProductsUpdateRequest
- */
-export interface TimedealProductsApiTimedealProductsUpdateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealProductsApiTimedealProductsUpdate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {TimedealProductAddRequest}
-     * @memberof TimedealProductsApiTimedealProductsUpdate
-     */
-    readonly timedealProductAddRequest: TimedealProductAddRequest
-}
-
-/**
- * TimedealProductsApi - object-oriented interface
- * @export
- * @class TimedealProductsApi
- * @extends {BaseAPI}
- */
-export class TimedealProductsApi extends BaseAPI {
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductsApiTimedealProductsCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductsApi
-     */
-    public timedealProductsCreate(requestParameters: TimedealProductsApiTimedealProductsCreateRequest, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsCreate(requestParameters.timedealProductAddRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductsApiTimedealProductsDestroyRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductsApi
-     */
-    public timedealProductsDestroy(requestParameters: TimedealProductsApiTimedealProductsDestroyRequest, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsDestroy(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductsApiTimedealProductsListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductsApi
-     */
-    public timedealProductsList(requestParameters: TimedealProductsApiTimedealProductsListRequest = {}, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsList(requestParameters.page, requestParameters.search, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductsApiTimedealProductsPartialUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductsApi
-     */
-    public timedealProductsPartialUpdate(requestParameters: TimedealProductsApiTimedealProductsPartialUpdateRequest, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsPartialUpdate(requestParameters.id, requestParameters.patchedTimedealProductRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductsApiTimedealProductsRetrieveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductsApi
-     */
-    public timedealProductsRetrieve(requestParameters: TimedealProductsApiTimedealProductsRetrieveRequest, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealProductsApiTimedealProductsUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealProductsApi
-     */
-    public timedealProductsUpdate(requestParameters: TimedealProductsApiTimedealProductsUpdateRequest, options?: any) {
-        return TimedealProductsApiFp(this.configuration).timedealProductsUpdate(requestParameters.id, requestParameters.timedealProductAddRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * TimedealsApi - axios parameter creator
- * @export
- */
-export const TimedealsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {TimedealRequest} timedealRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsCreate: async (timedealRequest: TimedealRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'timedealRequest' is not null or undefined
-            assertParamExists('timedealsCreate', 'timedealRequest', timedealRequest)
-            const localVarPath = `/timedeals/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsDestroy: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealsDestroy', 'id', id)
-            const localVarPath = `/timedeals/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsList: async (page?: number, search?: string, size?: number, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/timedeals/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedTimedealRequest} [patchedTimedealRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsPartialUpdate: async (id: string, patchedTimedealRequest?: PatchedTimedealRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealsPartialUpdate', 'id', id)
-            const localVarPath = `/timedeals/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(patchedTimedealRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {string} [search] A search term.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsProductsList: async (id: string, search?: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealsProductsList', 'id', id)
-            const localVarPath = `/timedeals/{id}/products/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (search !== undefined) {
-                localVarQueryParameter['search'] = search;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsRetrieve: async (id: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealsRetrieve', 'id', id)
-            const localVarPath = `/timedeals/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {TimedealRequest} timedealRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsUpdate: async (id: string, timedealRequest: TimedealRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('timedealsUpdate', 'id', id)
-            // verify required parameter 'timedealRequest' is not null or undefined
-            assertParamExists('timedealsUpdate', 'timedealRequest', timedealRequest)
-            const localVarPath = `/timedeals/{id}/`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwtAuth required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(timedealRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * TimedealsApi - functional programming interface
- * @export
- */
-export const TimedealsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = TimedealsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {TimedealRequest} timedealRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealsCreate(timedealRequest: TimedealRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsCreate(timedealRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealsDestroy(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsDestroy(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealsList(page?: number, search?: string, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedTimedealList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsList(page, search, size, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedTimedealRequest} [patchedTimedealRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealsPartialUpdate(id: string, patchedTimedealRequest?: PatchedTimedealRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsPartialUpdate(id, patchedTimedealRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {string} [search] A search term.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealsProductsList(id: string, search?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TimedealProduct>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsProductsList(id, search, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealsRetrieve(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsRetrieve(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {TimedealRequest} timedealRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async timedealsUpdate(id: string, timedealRequest: TimedealRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Timedeal>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.timedealsUpdate(id, timedealRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * TimedealsApi - factory interface
- * @export
- */
-export const TimedealsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = TimedealsApiFp(configuration)
-    return {
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {TimedealRequest} timedealRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsCreate(timedealRequest: TimedealRequest, options?: any): AxiosPromise<Timedeal> {
-            return localVarFp.timedealsCreate(timedealRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsDestroy(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.timedealsDestroy(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {number} [page] A page number within the paginated result set.
-         * @param {string} [search] A search term.
-         * @param {number} [size] Number of results to return per page.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsList(page?: number, search?: string, size?: number, options?: any): AxiosPromise<PaginatedTimedealList> {
-            return localVarFp.timedealsList(page, search, size, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {PatchedTimedealRequest} [patchedTimedealRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsPartialUpdate(id: string, patchedTimedealRequest?: PatchedTimedealRequest, options?: any): AxiosPromise<Timedeal> {
-            return localVarFp.timedealsPartialUpdate(id, patchedTimedealRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {string} [search] A search term.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsProductsList(id: string, search?: string, options?: any): AxiosPromise<Array<TimedealProduct>> {
-            return localVarFp.timedealsProductsList(id, search, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsRetrieve(id: string, options?: any): AxiosPromise<Timedeal> {
-            return localVarFp.timedealsRetrieve(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Adaptation of DRF ModelViewSet
-         * @param {string} id 
-         * @param {TimedealRequest} timedealRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        timedealsUpdate(id: string, timedealRequest: TimedealRequest, options?: any): AxiosPromise<Timedeal> {
-            return localVarFp.timedealsUpdate(id, timedealRequest, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * Request parameters for timedealsCreate operation in TimedealsApi.
- * @export
- * @interface TimedealsApiTimedealsCreateRequest
- */
-export interface TimedealsApiTimedealsCreateRequest {
-    /**
-     * 
-     * @type {TimedealRequest}
-     * @memberof TimedealsApiTimedealsCreate
-     */
-    readonly timedealRequest: TimedealRequest
-}
-
-/**
- * Request parameters for timedealsDestroy operation in TimedealsApi.
- * @export
- * @interface TimedealsApiTimedealsDestroyRequest
- */
-export interface TimedealsApiTimedealsDestroyRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealsApiTimedealsDestroy
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for timedealsList operation in TimedealsApi.
- * @export
- * @interface TimedealsApiTimedealsListRequest
- */
-export interface TimedealsApiTimedealsListRequest {
-    /**
-     * A page number within the paginated result set.
-     * @type {number}
-     * @memberof TimedealsApiTimedealsList
-     */
-    readonly page?: number
-
-    /**
-     * A search term.
-     * @type {string}
-     * @memberof TimedealsApiTimedealsList
-     */
-    readonly search?: string
-
-    /**
-     * Number of results to return per page.
-     * @type {number}
-     * @memberof TimedealsApiTimedealsList
-     */
-    readonly size?: number
-}
-
-/**
- * Request parameters for timedealsPartialUpdate operation in TimedealsApi.
- * @export
- * @interface TimedealsApiTimedealsPartialUpdateRequest
- */
-export interface TimedealsApiTimedealsPartialUpdateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealsApiTimedealsPartialUpdate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {PatchedTimedealRequest}
-     * @memberof TimedealsApiTimedealsPartialUpdate
-     */
-    readonly patchedTimedealRequest?: PatchedTimedealRequest
-}
-
-/**
- * Request parameters for timedealsProductsList operation in TimedealsApi.
- * @export
- * @interface TimedealsApiTimedealsProductsListRequest
- */
-export interface TimedealsApiTimedealsProductsListRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealsApiTimedealsProductsList
-     */
-    readonly id: string
-
-    /**
-     * A search term.
-     * @type {string}
-     * @memberof TimedealsApiTimedealsProductsList
-     */
-    readonly search?: string
-}
-
-/**
- * Request parameters for timedealsRetrieve operation in TimedealsApi.
- * @export
- * @interface TimedealsApiTimedealsRetrieveRequest
- */
-export interface TimedealsApiTimedealsRetrieveRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealsApiTimedealsRetrieve
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for timedealsUpdate operation in TimedealsApi.
- * @export
- * @interface TimedealsApiTimedealsUpdateRequest
- */
-export interface TimedealsApiTimedealsUpdateRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TimedealsApiTimedealsUpdate
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {TimedealRequest}
-     * @memberof TimedealsApiTimedealsUpdate
-     */
-    readonly timedealRequest: TimedealRequest
-}
-
-/**
- * TimedealsApi - object-oriented interface
- * @export
- * @class TimedealsApi
- * @extends {BaseAPI}
- */
-export class TimedealsApi extends BaseAPI {
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealsApiTimedealsCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealsApi
-     */
-    public timedealsCreate(requestParameters: TimedealsApiTimedealsCreateRequest, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsCreate(requestParameters.timedealRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealsApiTimedealsDestroyRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealsApi
-     */
-    public timedealsDestroy(requestParameters: TimedealsApiTimedealsDestroyRequest, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsDestroy(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealsApiTimedealsListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealsApi
-     */
-    public timedealsList(requestParameters: TimedealsApiTimedealsListRequest = {}, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsList(requestParameters.page, requestParameters.search, requestParameters.size, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealsApiTimedealsPartialUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealsApi
-     */
-    public timedealsPartialUpdate(requestParameters: TimedealsApiTimedealsPartialUpdateRequest, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsPartialUpdate(requestParameters.id, requestParameters.patchedTimedealRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealsApiTimedealsProductsListRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealsApi
-     */
-    public timedealsProductsList(requestParameters: TimedealsApiTimedealsProductsListRequest, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsProductsList(requestParameters.id, requestParameters.search, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealsApiTimedealsRetrieveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealsApi
-     */
-    public timedealsRetrieve(requestParameters: TimedealsApiTimedealsRetrieveRequest, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsRetrieve(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Adaptation of DRF ModelViewSet
-     * @param {TimedealsApiTimedealsUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TimedealsApi
-     */
-    public timedealsUpdate(requestParameters: TimedealsApiTimedealsUpdateRequest, options?: any) {
-        return TimedealsApiFp(this.configuration).timedealsUpdate(requestParameters.id, requestParameters.timedealRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * TokenApi - axios parameter creator
- * @export
- */
-export const TokenApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
-         * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        tokenCreate: async (tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tokenObtainPairRequestRequest' is not null or undefined
-            assertParamExists('tokenCreate', 'tokenObtainPairRequestRequest', tokenObtainPairRequestRequest)
-            const localVarPath = `/token/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(tokenObtainPairRequestRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-         * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        tokenRefreshCreate: async (tokenRefreshRequestRequest: TokenRefreshRequestRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tokenRefreshRequestRequest' is not null or undefined
-            assertParamExists('tokenRefreshCreate', 'tokenRefreshRequestRequest', tokenRefreshRequestRequest)
-            const localVarPath = `/token/refresh/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(tokenRefreshRequestRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * TokenApi - functional programming interface
- * @export
- */
-export const TokenApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = TokenApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
-         * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async tokenCreate(tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenObtainPairResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenCreate(tokenObtainPairRequestRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-         * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async tokenRefreshCreate(tokenRefreshRequestRequest: TokenRefreshRequestRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenRefreshResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenRefreshCreate(tokenRefreshRequestRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * TokenApi - factory interface
- * @export
- */
-export const TokenApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = TokenApiFp(configuration)
-    return {
-        /**
-         * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
-         * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        tokenCreate(tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options?: any): AxiosPromise<TokenObtainPairResponse> {
-            return localVarFp.tokenCreate(tokenObtainPairRequestRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-         * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        tokenRefreshCreate(tokenRefreshRequestRequest: TokenRefreshRequestRequest, options?: any): AxiosPromise<TokenRefreshResponse> {
-            return localVarFp.tokenRefreshCreate(tokenRefreshRequestRequest, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * Request parameters for tokenCreate operation in TokenApi.
- * @export
- * @interface TokenApiTokenCreateRequest
- */
-export interface TokenApiTokenCreateRequest {
-    /**
-     * 
-     * @type {TokenObtainPairRequestRequest}
-     * @memberof TokenApiTokenCreate
-     */
-    readonly tokenObtainPairRequestRequest: TokenObtainPairRequestRequest
-}
-
-/**
- * Request parameters for tokenRefreshCreate operation in TokenApi.
- * @export
- * @interface TokenApiTokenRefreshCreateRequest
- */
-export interface TokenApiTokenRefreshCreateRequest {
-    /**
-     * 
-     * @type {TokenRefreshRequestRequest}
-     * @memberof TokenApiTokenRefreshCreate
-     */
-    readonly tokenRefreshRequestRequest: TokenRefreshRequestRequest
-}
-
-/**
- * TokenApi - object-oriented interface
- * @export
- * @class TokenApi
- * @extends {BaseAPI}
- */
-export class TokenApi extends BaseAPI {
-    /**
-     * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
-     * @param {TokenApiTokenCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TokenApi
-     */
-    public tokenCreate(requestParameters: TokenApiTokenCreateRequest, options?: any) {
-        return TokenApiFp(this.configuration).tokenCreate(requestParameters.tokenObtainPairRequestRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-     * @param {TokenApiTokenRefreshCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TokenApi
-     */
-    public tokenRefreshCreate(requestParameters: TokenApiTokenRefreshCreateRequest, options?: any) {
-        return TokenApiFp(this.configuration).tokenRefreshCreate(requestParameters.tokenRefreshRequestRequest, options).then((request) => request(this.axios, this.basePath));
+    public shippingNoticesRetrieve(options?: any) {
+        return ShippingNoticesApiFp(this.configuration).shippingNoticesRetrieve(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
