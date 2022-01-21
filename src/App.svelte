@@ -16,6 +16,7 @@
   import TimedealSectionProductDetail from "./pages/timedeals/sections/TimedealSectionProductDetail.svelte";
   import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   import Timedeals from "./pages/timedeals/Timedeals.svelte";
+  import ProductRoutes from "./pages/products/ProductRoutes.svelte";
 </script>
 
 <SvelteToast options={{ duration: 3000 }} />
@@ -104,6 +105,9 @@
         mobile={false}
       />
     </Route>
+  </Route>
+  <Route path="products/*">
+    <ProductRoutes />
   </Route>
   <Route path="login">
     <Login />
