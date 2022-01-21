@@ -7,8 +7,11 @@
     Button,
     TextInput,
     InlineLoading,
+    NumberInput,
+    ButtonSet,
   } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
+  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import InstructionAdder from "./components/InstructionAdder.svelte";
@@ -22,6 +25,8 @@
   let product: Product;
   let isLoading = true;
   let isTouched = false;
+  let discountRate = 0;
+  let inventoryTextInput = "";
 
   onMount(async () => {
     product = await Promise.resolve(response.products[0])!;
@@ -30,6 +35,22 @@
     // products = (await api.product({ id: timedeal.id })).data;
     isLoading = false;
   });
+
+  const handleImageDelete = (id: number) => () => {
+    // todo: remove image
+  };
+
+  const handleAddInventory = (fieldName: string) => () => {
+    // todo
+  };
+
+  const handleChangeInventory = (index: number) => () => {
+    // todo
+  };
+
+  const handleDeleteInventory = () => {
+    // todo
+  };
 
   const handleSubmit = () => {
     // todo add
@@ -49,9 +70,7 @@
 
     <Grid>
       <ContentBox>
-        <Row>
-          <h3>상품 정보</h3>
-        </Row>
+        <h3>상품 정보</h3>
         <Row>
           <Column>
             <TextInput labelText={"상품명"} bind:value={product.alloffName} />
@@ -63,7 +82,7 @@
           <Column>
             <TextInput labelText={"브랜드"} bind:value={product.brandKorName} />
             <TextInput
-              labelText={"할인된 가격 (할인율:" + product.discountRate + "%)"}
+              labelText={"할인된 가격 (할인율:" + discountRate + "%)"}
               bind:value={product.discountedPrice}
             />
           </Column>
@@ -77,10 +96,13 @@
           <Column>
             <div class="bx--label">상품 이미지</div>
             <div class="image-container">
-              <!-- todo: integrate api -->
-              <!-- {#each product.images as image, idx}
-                <div class="image-wrapper" class:mobile>
-                  <img class="image" class:mobile src={image} alt="timedeal" />
+              {#each product.images as image, idx}
+                <div class="image-wrapper">
+                  <img
+                    class="image"
+                    src={image}
+                    alt={[product.alloffName, idx].join("_")}
+                  />
                   <div class="delete-button">
                     <Button
                       tooltipPosition="bottom"
@@ -88,11 +110,11 @@
                       iconDescription="이미지 삭제"
                       icon={TrashCan16}
                       kind="danger"
-                      on:click={() => deleteProductImage(idx)}
+                      on:click={handleImageDelete(idx)}
                     />
                   </div>
                 </div>
-              {/each} -->
+              {/each}
             </div>
           </Column>
         </Row>
@@ -105,6 +127,37 @@
           </Column>
         </Row>
       </ContentBox>
+      <ContentBox>
+        <h3>재고 정보</h3>
+        <Row>
+          <Column>
+            <TextInput
+              labelText={"신규 사이즈 등록"}
+              placeholder="작성 후 추가 버튼을 누르세요"
+              bind:value={inventoryTextInput}
+            />
+            <Button
+              kind="secondary"
+              on:click={handleAddInventory(inventoryTextInput)}>추가</Button
+            >
+            {#each product.inventory as inv, i}
+              <NumberInput
+                label={inv.size}
+                bind:value={inv.quantity}
+                on:change={handleChangeInventory(i)}
+              />
+            {/each}
+          </Column>
+        </Row>
+        <Row>
+          <Column />
+        </Row>
+      </ContentBox>
+      <Row>
+        <ButtonSet class="right-button">
+          <Button on:click={handleSubmit}>상품 수정</Button>
+        </ButtonSet>
+      </Row>
     </Grid>
   {/if}
 </LoggedInFrame>
@@ -125,7 +178,6 @@
     justify-content: flex-end;
   }
 
-  /*
   .image {
     width: auto;
     min-width: 200px;
@@ -151,10 +203,6 @@
     -moz-box-shadow: 5px 5px 13px -5px rgba(0, 0, 0, 0.2);
   }
 
-  .image-wrapper.mobile {
-    width: 100%;
-  }
-
   .image-wrapper > .delete-button {
     position: absolute;
     top: 10px;
@@ -168,11 +216,11 @@
     object-fit: contain;
   }
 
-  .image.mobile {
-    width: 100%;
-  } */
-
   :global(.my-modal .bx--modal .bx--modal-container) {
     width: 90%;
+  }
+
+  :global(.right-button) {
+    margin-left: 1rem;
   }
 </style>

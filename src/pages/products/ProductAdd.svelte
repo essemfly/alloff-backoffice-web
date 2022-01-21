@@ -1,8 +1,5 @@
 <script lang="ts">
-  import InstructionAdder from "./components/InstructionAdder.svelte";
-  import ContentBox from "./components/ContentBox.svelte";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
-
+  import { onMount } from "svelte";
   import {
     Grid,
     Row,
@@ -13,13 +10,38 @@
     FileUploaderDropContainer,
     InlineLoading,
   } from "carbon-components-svelte";
+  import { AlloffProductBrand, Brand, BrandsApi } from "../../api";
+  import LoggedInFrame from "../common/LoggedInFrame.svelte";
+  import InstructionAdder from "./components/InstructionAdder.svelte";
+  import ContentBox from "./components/ContentBox.svelte";
+
+  import { AutocompleteItem } from "../../common/autocomplete/utils";
+  import Autocomplete from "../../common/autocomplete/Autocomplete.svelte";
+
+  let discountrate = 0; // todo: fix
+  let isImagesUploading = false;
+  let inventoryTextInput = "";
+  let brands: Brand[] = [];
+  let productBrand: AlloffProductBrand;
+
+  onMount(async () => {
+    const brandsAPi = new BrandsApi();
+    brands = (await brandsAPi.brandsList()).data;
+  });
 
   const handleSubmit = () => {
     // todo
   };
 
-  let discountrate = 0; // todo: fix
-  let isImagesUploading = false;
+  const handleBrandChange = (selectedValue: AutocompleteItem) => {
+    const selectedBrand = brands.find((b) => b.id === selectedValue.key);
+    if (!selectedBrand) return;
+    productBrand = { _id: selectedBrand.id, ...selectedBrand };
+  };
+
+  const handleAddInventory = (fieldName: string) => () => {
+    // todo
+  };
 </script>
 
 <LoggedInFrame>
@@ -34,17 +56,17 @@
         </Column>
         <Column>
           <div class="bx--label">브랜드</div>
-          <!-- <Autocomplete
+          <Autocomplete
             options={brands.map((brand) => ({
               key: brand.id,
               value: brand.korname,
               subvalue: brand.keyname,
             }))}
-            onSubmit={handleChooseBrand}
+            onSubmit={handleBrandChange}
             placeholder="브랜드 이름/Keyname/ID로 검색"
             labelText="브랜드 검색"
             selectedValue={productBrand?.korname}
-          /> -->
+          />
           <TextInput labelText={"할인된 가격 (할인율:" + discountrate + "%)"} />
         </Column>
       </Row>
@@ -89,6 +111,25 @@
         <Column>
           <InstructionAdder instructionTitle="상품 설명" instructions={[]} />
         </Column>
+      </Row>
+    </ContentBox>
+    <ContentBox>
+      <h3>재고 정보</h3>
+      <Row>
+        <Column>
+          <TextInput
+            labelText={"신규 사이즈 등록"}
+            placeholder="작성 후 추가 버튼을 누르세요"
+            bind:value={inventoryTextInput}
+          />
+          <Button
+            kind="secondary"
+            on:click={handleAddInventory(inventoryTextInput)}>추가</Button
+          >
+        </Column>
+      </Row>
+      <Row>
+        <Column />
       </Row>
     </ContentBox>
     <Row>

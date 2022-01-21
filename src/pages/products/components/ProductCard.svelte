@@ -8,25 +8,14 @@
 
   export let product: Product;
 
-  const handleDeleteClick = async () => {};
-
   const handleCardClick = (event: MouseEvent) => {
     event.preventDefault();
     navigate(`/products/${product.productId}`);
   };
 
-  // const deleteProduct = async (product: TimedealProduct) => {
-  //   if (!confirm("다음의 상품을 삭제합니다. : " + product.name)) return;
-  //   submitting = true;
-  //   try {
-  //     await productApi.timedealProductsDestroy({ id: product.id });
-  //   } catch (e: any) {
-  //     alert("상품 삭제 중 오류가 발생했습니다!");
-  //   } finally {
-  //     submitting = false;
-  //     load();
-  //   }
-  // };
+  const handleDeleteClick = async () => {
+    // todo
+  };
 </script>
 
 <div class="product" on:click={handleCardClick}>
@@ -41,15 +30,13 @@
     />
   </div>
   <div class="image">
-    <!-- todo: replace this to served data -->
-    <!-- <img src={product.images[0]} alt="img" /> -->
     <img
-      src={`https://picsum.photos/300/200?random=${product.productId}`}
-      alt={[product.brandKeyName, product.alloffName].join("-")}
+      src={product.images[0]}
+      alt={[product.brandKorName, product.alloffName].join("-")}
     />
   </div>
   <div class="info">
-    <Tag>{product.brandKeyName}</Tag>
+    <Tag>{product.brandKorName}</Tag>
     <p>{product.brandKorName}</p>
     <h6>{product.alloffName}</h6>
     {#if product.inventory?.reduce((prev, curr) => prev + curr.quantity, 0) === 0}
