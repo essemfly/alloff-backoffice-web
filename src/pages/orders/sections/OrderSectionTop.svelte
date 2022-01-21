@@ -21,7 +21,7 @@
   export let api: OrdersApi;
   export let mobile: boolean;
 
-  let trackingModalOpen: boolean = false;
+  let trackingModalOpen = false;
 
   const statuses = [
     OrderStatusEnum.PaymentFinished,
@@ -38,7 +38,7 @@
   const changeOrderStatus = async (
     status: OrderStatusEnum,
     delivery_tracking_number?: string,
-    delivery_tracking_url?: string
+    delivery_tracking_url?: string,
   ) => {
     if (!confirm("주문상태를 변경합니다: " + getStatusLabel(status))) return;
     submitting = true;

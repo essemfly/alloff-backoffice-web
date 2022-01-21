@@ -3,7 +3,7 @@
 
   import { AutocompleteItem, boldSearchTerm, findMatches } from "./utils";
 
-  export let onSubmit = (result: AutocompleteItem) => {};
+  export let onSubmit = (_: AutocompleteItem) => {};
   export let options: AutocompleteItem[];
   export let keepValueOnSubmit = false;
   export let selectedValue = "";
@@ -66,7 +66,7 @@
     if (!value) return;
 
     onSubmit(value);
-    selectedValue = value.value
+    selectedValue = value.value;
     hideResults();
   };
 

@@ -31,7 +31,7 @@
   let mobile = false;
   let size: "sm" | "md" | "lg" | "xlg" | "max";
 
-  let tabIndex = 0;
+  const tabIndex = 0;
 
   const api = new ShippingNoticesApi();
 
@@ -204,7 +204,7 @@
                   on:click={() => {
                     window.open(
                       `/orders/${i.item.extended_order.code}`,
-                      "_blank"
+                      "_blank",
                     );
                   }}
                 >
@@ -212,13 +212,13 @@
                     {i.item.extended_order.code}<Tag
                       type={getStatusBadgeColor(
                         pkg.order_statuses_by_code.find(
-                          (el) => el.code === i.item.extended_order.code
-                        )?.status
+                          (el) => el.code === i.item.extended_order.code,
+                        )?.status,
                       )}
                       >{getStatusLabel(
                         pkg.order_statuses_by_code.find(
-                          (el) => el.code === i.item.extended_order.code
-                        )?.status
+                          (el) => el.code === i.item.extended_order.code,
+                        )?.status,
                       )}</Tag
                     >
                   </h6>

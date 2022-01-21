@@ -19,7 +19,7 @@ export const findMatches = (options: AutocompleteItem[], searchTerm: string) =>
 export const spanWrapSearchTerm = (
   target: string,
   foundIndex: number,
-  searchTermLength: number
+  searchTermLength: number,
 ) => {
   const searchTerm = target.slice(foundIndex, foundIndex + searchTermLength);
 

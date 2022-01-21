@@ -14,7 +14,7 @@
   import { search } from "../../orders/store";
 
   export let timedeals: Timedeal[] = [];
-  export let isMobile: boolean = false;
+  export let isMobile = false;
 
   const mobileHeaders: DataTableHeader[] = [
     { key: "title", value: "제목" },
@@ -64,9 +64,9 @@
         month: "2-digit",
         day: "2-digit",
         weekday: "narrow",
-		hour: "2-digit",
-		minute: "2-digit",
-		hour12: true,
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
       })}
     {:else}{cell.value}
     {/if}

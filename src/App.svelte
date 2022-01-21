@@ -73,10 +73,18 @@
     </Route>
     <Route path=":id/products/*" let:params>
       <Route path="/">
-        <TimedealSectionProductDetail productId="" productGroupId={params.id} mobile={false} />
+        <TimedealSectionProductDetail
+          productId=""
+          productGroupId={params.id}
+          mobile={false}
+        />
       </Route>
       <Route path=":productid" let:params>
-        <TimedealSectionProductDetail productId={params.productid} productGroupId={params.id} mobile={false} />
+        <TimedealSectionProductDetail
+          productId={params.productid}
+          productGroupId={params.id}
+          mobile={false}
+        />
       </Route>
     </Route>
   </Route>
@@ -90,7 +98,11 @@
   </Route>
   <Route path="timedeal-products/*">
     <Route path=":id" let:params>
-      <TimedealSectionProductDetail productId={params.id} productGroupId="" mobile={false} />
+      <TimedealSectionProductDetail
+        productId={params.id}
+        productGroupId=""
+        mobile={false}
+      />
     </Route>
   </Route>
   <Route path="login">
