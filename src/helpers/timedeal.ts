@@ -1,3 +1,4 @@
+export const a = "1";
 // import { DateTime } from "luxon";
 // import { Timedeal } from "../api";
 
