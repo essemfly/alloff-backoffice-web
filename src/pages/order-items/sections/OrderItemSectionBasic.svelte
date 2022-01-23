@@ -1,44 +1,46 @@
 <script lang="ts">
-  import { TabContent, TextInput, Button, Tag } from "carbon-components-svelte";
-  import {
-OrderItemRetrieve, OrderItemsApi,
-  } from "../../../api";
-  import InfoSection from "../../common/InfoSection.svelte";
+  import { Button, TabContent, TextInput } from "carbon-components-svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
+  import {
+    OrderItemList,
+    OrderItemRetrieve,
+    OrderItemsApi,
+  } from "../../../api";
   import { toLocaleDateTime } from "../../../helpers/datetime";
-  import { admin } from "../../../store";
   import { numberWithCommas } from "../../../helpers/number";
+  import { getTypeLabel } from "../../../helpers/order-item";
+  import { admin } from "../../../store";
+  import InfoSection from "../../common/InfoSection.svelte";
   export let item: OrderItemRetrieve;
-  // export let userOrders: OrderList[];
+  export let userItems: OrderItemList[];
   export let mobile: boolean;
   export let api: OrderItemsApi;
   export let load: () => {};
   export let submitting: boolean;
 
-  // const sendNewMemo = async () => {
-  //   if (newMemo === "") return;
-  //   submitting = true;
-  //   await api.ordersAddMemoCreate({
-  //     id: item.id,
-  //     addOrderMemoRequest: { body: newMemo },
-  //   });
-  //   submitting = false;
-  //   load();
-  // };
-
-  // const deleteMemo = async (memoId: number) => {
-  //   submitting = true;
-  //   try {
-  //     await api.ordersDeleteMemoCreate({
-  //       id: item.id,
-  //       deleteOrderMemoRequest: { memo_id: memoId },
-  //     });
-  //   } catch (e: any) {
-  //     alert("메모를 삭제할 수 없습니다. " + e.response.data.message);
-  //   }
-  //   submitting = false;
-  //   load();
-  // };
+  const sendNewMemo = async () => {
+    if (newMemo === "") return;
+    submitting = true;
+    await api.orderItemsAddMemoCreate({
+      id: item.id,
+      addOrderItemMemoRequest: { body: newMemo },
+    });
+    submitting = false;
+    load();
+  };
+  const deleteMemo = async (memoId: number) => {
+    submitting = true;
+    try {
+      await api.orderItemsDeleteMemoCreate({
+        id: item.id,
+        deleteItemOrderMemoRequest: { memo_id: memoId },
+      });
+    } catch (e: any) {
+      alert("메모를 삭제할 수 없습니다. " + e.response.data.message);
+    }
+    submitting = false;
+    load();
+  };
 
   let newMemo: string = "";
 </script>
@@ -46,205 +48,85 @@ OrderItemRetrieve, OrderItemsApi,
 <TabContent style="padding: 0;">
   <InfoSection
     title="고객정보"
-    menuItems={[
-      {
-        text: "휴대폰 복사",
-        onClick: () => navigator.clipboard.writeText(item.user.mobile),
-      },
-      {
-        onClick: () => navigator.clipboard.writeText(item.user._id),
-        text: "유저 ID 복사",
-      },
-    ]}
     rows={[
-      { header: "휴대폰", body: item.user.mobile },
-      { header: "유저 ID", body: item.user._id },
+      { header: "휴대폰", body: item.order.user.mobile },
+      { header: "유저 ID", body: item.order.user_id },
       {
         header: "주문수",
-        body: `${userOrders.length}건`,
-        href: `/orders/?userid=${item.user._id}`,
+        body: `${userItems.length}건`,
+        href: `/orders/?userid=${item.order.user_id}`,
       },
     ]}
   />
   <InfoSection
     title="배송정보"
-    menuItems={[
-      {
-        text: "전체주소 복사",
-        onClick: () =>
-          navigator.clipboard.writeText(
-            `${item?.payment?.buyeraddress} (${item?.payment?.buyerpostcode})`
-          ),
-      },
-      {
-        text: "주소만 복사",
-        onClick: () =>
-          navigator.clipboard.writeText(item?.payment?.buyeraddress ?? ""),
-      },
-      {
-        text: "우편번호만 복사",
-        onClick: () =>
-          navigator.clipboard.writeText(item?.payment?.buyerpostcode ?? ""),
-      },
-      {
-        text: "이름 복사",
-        onClick: () =>
-          navigator.clipboard.writeText(item?.payment?.buyername ?? ""),
-      },
-      {
-        text: "휴대폰 복사",
-        onClick: () =>
-          navigator.clipboard.writeText(item?.payment?.buyermobile ?? ""),
-      },
-      {
-        hide: item.memo === "",
-        text: "요청사항 복사",
-        onClick: () => navigator.clipboard.writeText(item.memo),
-      },
-      {
-        hide:
-          !item.deliverytrackingnumber || item.deliverytrackingnumber === "",
-        text: "송장번호 복사",
-        onClick: () =>
-          navigator.clipboard.writeText(item.deliverytrackingnumber ?? ""),
-      },
-      {
-        hide: !item.deliverytrackingurl || item.deliverytrackingurl === "",
-        text: "추적 URL 복사",
-        onClick: () =>
-          navigator.clipboard.writeText(item.deliverytrackingurl ?? ""),
-      },
-    ]}
     rows={[
       {
         header: "받는사람",
-        body: `${item?.payment?.buyername} (${item?.payment?.buyermobile})`,
+        body: `${item.order.payment.buyer_name} (${item.order.payment.buyer_mobile})`,
       },
       {
         header: "주소",
-        body: `${item?.payment?.buyeraddress} (${item?.payment?.buyerpostcode})`,
+        body: `${item.order.payment.buyer_address} (${item.order.payment.buyer_post_code})`,
       },
-      { header: "요청사항", body: item.memo },
-      { header: "송장번호", body: item.deliverytrackingnumber },
+      { header: "요청사항", body: item.order.user_memo ?? "" },
+      { header: "송장번호", body: item.tracking_number ?? "" },
       {
         header: "추적 URL",
-        href: item.deliverytrackingurl,
-        body: item.deliverytrackingurl !== "" ? "링크" : "",
+        href: item.tracking_url ?? "",
+        body: item.tracking_url !== "" ? "링크" : "",
       },
     ]}
   />
   <div class="products">
     <h4>상품 정보</h4>
-    {#each item.orders as o, i}
-      <div class="product-item" class:mobile>
-        <div class="product-info">
-          <InfoSection
-            title={`상품 #${i + 1}`}
-            smallTitle
-            menuItems={[
-              {
-                text: "상품명 복사",
-                onClick: () =>
-                  navigator.clipboard.writeText(
-                    (o.product ?? o.alloffproduct)?.name ?? ""
-                  ),
-              },
-              {
-                text: "브랜드 복사",
-                onClick: () =>
-                  navigator.clipboard.writeText(
-                    `${(o.product ?? o.alloffproduct)?.brand.korname} (${
-                      (o.product ?? o.alloffproduct)?.brand.keyname
-                    })`
-                  ),
-              },
-              {
-                text: "상품ID 복사",
-                onClick: () =>
-                  navigator.clipboard.writeText(
-                    `${o?.alloffproduct ? "alloffproduct" : "product"} - ${
-                      (o.product ?? o.alloffproduct)?._id
-                    }`
-                  ),
-              },
-              {
-                text: "재입고처리 (1개)",
-                onClick: async () => {
-                  if (!confirm("재입고처리 하시겠습니까?")) return;
-                  try {
-                    await api.ordersRemakeRiCreate({
-                      id: item.id,
-                      remakeRiRequest: {
-                        product_id:
-                          o.product?._id ?? o.alloffproduct?._id ?? "",
-                        product_type: o.alloffproduct
-                          ? ProductTypeEnum.Timedeal
-                          : ProductTypeEnum.Normal,
-                      },
-                    });
-                  } catch (e) {
-                    alert(e);
-                  } finally {
-                    load();
-                  }
-                },
-              },
-            ]}
-            rows={[
-              {
-                header: "상품타입",
-                body: o.alloffproduct ? "타임딜상품" : "일반상품",
-                tagType: o.alloffproduct ? "green" : "purple",
-              },
-              {
-                header: "상품명",
-                body: (o.product ?? o.alloffproduct)?.name ?? "UNKNOWN",
-              },
-              {
-                header: "사이즈",
-                body: o.size,
-              },
-              {
-                header: "수량",
-                body: `${o.quantity} EA`,
-              },
-              {
-                header: "브랜드",
-                body: `${(o.product ?? o.alloffproduct)?.brand.korname} (${
-                  (o.product ?? o.alloffproduct)?.brand.keyname
-                })`,
-              },
-              {
-                header: "상품 ID",
-                body: (o.product ?? o.alloffproduct)?._id,
-              },
-              {
-                header: "상품 URL",
-                href: o.product?.producturl ?? "",
-                body: o.product?.producturl ? "링크" : "",
-              },
-              {
-                header: "단가",
-                body: `${numberWithCommas(
-                  (o.product ?? o.alloffproduct)?.discountedprice ?? 0
-                )}원`,
-              },
-            ]}
-          />
-        </div>
-        <div>
-          <img
-            class="product-image"
-            class:mobile
-            src={(o.product ?? o.alloffproduct)?.images &&
-            (o.product ?? o.alloffproduct)?.images.length > 0
-              ? (o.product ?? o.alloffproduct).images[0]
-              : ""}
-            alt="product"
-          />
-        </div>
+    <div class="product-item" class:mobile>
+      <div class="product-info">
+        <InfoSection
+          title={item.product_name}
+          smallTitle
+          rows={[
+            {
+              header: "상품타입",
+              body: getTypeLabel(item.order_item_type),
+            },
+            {
+              header: "사이즈",
+              body: item.size,
+            },
+            {
+              header: "수량",
+              body: `${item.quantity} EA`,
+            },
+            {
+              header: "브랜드",
+              body: `${item.brand_korname} (${item.brand_keyname})`,
+            },
+            {
+              header: "상품 ID",
+              body: item.product_id,
+            },
+            {
+              header: "상품 URL",
+              href: item.product_url,
+              body: item.product_url !== "" ? "링크" : "",
+            },
+            {
+              header: "단가",
+              body: `${numberWithCommas(item.sales_price)}원`,
+            },
+          ]}
+        />
       </div>
-    {/each}
+      <div>
+        <img
+          class="product-image"
+          class:mobile
+          src={item.product_img}
+          alt="product"
+        />
+      </div>
+    </div>
   </div>
   <div class="memo">
     <h4>관리자 메모</h4>

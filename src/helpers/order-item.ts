@@ -1,8 +1,9 @@
 import { DateTime } from "luxon";
 import {
+  ActionTypeEnum,
   OrderItemRetrieve,
   OrderItemStatusEnum,
-  OrderItemTypeEnum,
+  OrderItemTypeEnum
 } from "../api";
 
 export const getTypeBadgeColor = (itemType: OrderItemTypeEnum) => {
@@ -130,8 +131,25 @@ export const getOrderItemTimestampByStatus = (
         ? DateTime.fromISO(item.delivery_finished_at)
         : undefined;
     case OrderItemStatusEnum.ConfirmPayment:
-      return item.confirmed_at ? DateTime.fromISO(item.confirmed_at) : undefined;
+      return item.confirmed_at
+        ? DateTime.fromISO(item.confirmed_at)
+        : undefined;
     default:
       return undefined;
+  }
+};
+
+export const getLogTypeLabel = (logType: ActionTypeEnum) => {
+  switch (logType) {
+    case ActionTypeEnum.MemoAdd:
+      return "메모추가";
+    case ActionTypeEnum.MemoDelete:
+      return "메모삭제";
+    case ActionTypeEnum.PaymentAdjustment:
+      return "결제조정";
+    case ActionTypeEnum.RefundUpdate:
+      return "환불처리";
+    case ActionTypeEnum.StatusChange:
+      return "상태변경";
   }
 };

@@ -106,4 +106,7 @@
       <OrderItemDetail idOrCode={params.id} />
     </Route>
   </Route>
+  <Route path="/">
+    <OrderItems />
+  </Route>
 </Router>

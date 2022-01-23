@@ -38,6 +38,32 @@ export enum ActionTypeEnum {
 /**
  * 
  * @export
+ * @interface AddOrderItemMemo
+ */
+export interface AddOrderItemMemo {
+    /**
+     * 
+     * @type {string}
+     * @memberof AddOrderItemMemo
+     */
+    body: string;
+}
+/**
+ * 
+ * @export
+ * @interface AddOrderItemMemoRequest
+ */
+export interface AddOrderItemMemoRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AddOrderItemMemoRequest
+     */
+    body: string;
+}
+/**
+ * 
+ * @export
  * @interface Admin
  */
 export interface Admin {
@@ -126,6 +152,32 @@ export interface ChangeStatusRequest {
      * @memberof ChangeStatusRequest
      */
     delivery_tracking_url?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteItemOrderMemo
+ */
+export interface DeleteItemOrderMemo {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteItemOrderMemo
+     */
+    memo_id: number;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteItemOrderMemoRequest
+ */
+export interface DeleteItemOrderMemoRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteItemOrderMemoRequest
+     */
+    memo_id: number;
 }
 /**
  * 
@@ -2037,6 +2089,86 @@ export const OrderItemsApiAxiosParamCreator = function (configuration?: Configur
     return {
         /**
          * 
+         * @param {number} id 
+         * @param {AddOrderItemMemoRequest} addOrderItemMemoRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        orderItemsAddMemoCreate: async (id: number, addOrderItemMemoRequest: AddOrderItemMemoRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('orderItemsAddMemoCreate', 'id', id)
+            // verify required parameter 'addOrderItemMemoRequest' is not null or undefined
+            assertParamExists('orderItemsAddMemoCreate', 'addOrderItemMemoRequest', addOrderItemMemoRequest)
+            const localVarPath = `/order-items/{id}/add_memo/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addOrderItemMemoRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} userId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        orderItemsByUserList: async (userId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('orderItemsByUserList', 'userId', userId)
+            const localVarPath = `/order-items/by_user/{user_id}/`
+                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {ChangeStatusRequest} changeStatusRequest 
          * @param {*} [options] Override http request option.
@@ -2072,6 +2204,49 @@ export const OrderItemsApiAxiosParamCreator = function (configuration?: Configur
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(changeStatusRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {DeleteItemOrderMemoRequest} deleteItemOrderMemoRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        orderItemsDeleteMemoCreate: async (id: number, deleteItemOrderMemoRequest: DeleteItemOrderMemoRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('orderItemsDeleteMemoCreate', 'id', id)
+            // verify required parameter 'deleteItemOrderMemoRequest' is not null or undefined
+            assertParamExists('orderItemsDeleteMemoCreate', 'deleteItemOrderMemoRequest', deleteItemOrderMemoRequest)
+            const localVarPath = `/order-items/{id}/delete_memo/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deleteItemOrderMemoRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2189,6 +2364,27 @@ export const OrderItemsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {number} id 
+         * @param {AddOrderItemMemoRequest} addOrderItemMemoRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async orderItemsAddMemoCreate(id: number, addOrderItemMemoRequest: AddOrderItemMemoRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddOrderItemMemo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.orderItemsAddMemoCreate(id, addOrderItemMemoRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} userId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async orderItemsByUserList(userId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OrderItemList>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.orderItemsByUserList(userId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {ChangeStatusRequest} changeStatusRequest 
          * @param {*} [options] Override http request option.
@@ -2196,6 +2392,17 @@ export const OrderItemsApiFp = function(configuration?: Configuration) {
          */
         async orderItemsChangeStatusCreate(id: string, changeStatusRequest: ChangeStatusRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChangeStatus>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.orderItemsChangeStatusCreate(id, changeStatusRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {DeleteItemOrderMemoRequest} deleteItemOrderMemoRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async orderItemsDeleteMemoCreate(id: number, deleteItemOrderMemoRequest: DeleteItemOrderMemoRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteItemOrderMemo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.orderItemsDeleteMemoCreate(id, deleteItemOrderMemoRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2234,6 +2441,25 @@ export const OrderItemsApiFactory = function (configuration?: Configuration, bas
     return {
         /**
          * 
+         * @param {number} id 
+         * @param {AddOrderItemMemoRequest} addOrderItemMemoRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        orderItemsAddMemoCreate(id: number, addOrderItemMemoRequest: AddOrderItemMemoRequest, options?: any): AxiosPromise<AddOrderItemMemo> {
+            return localVarFp.orderItemsAddMemoCreate(id, addOrderItemMemoRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} userId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        orderItemsByUserList(userId: string, options?: any): AxiosPromise<Array<OrderItemList>> {
+            return localVarFp.orderItemsByUserList(userId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {ChangeStatusRequest} changeStatusRequest 
          * @param {*} [options] Override http request option.
@@ -2241,6 +2467,16 @@ export const OrderItemsApiFactory = function (configuration?: Configuration, bas
          */
         orderItemsChangeStatusCreate(id: string, changeStatusRequest: ChangeStatusRequest, options?: any): AxiosPromise<ChangeStatus> {
             return localVarFp.orderItemsChangeStatusCreate(id, changeStatusRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {DeleteItemOrderMemoRequest} deleteItemOrderMemoRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        orderItemsDeleteMemoCreate(id: number, deleteItemOrderMemoRequest: DeleteItemOrderMemoRequest, options?: any): AxiosPromise<DeleteItemOrderMemo> {
+            return localVarFp.orderItemsDeleteMemoCreate(id, deleteItemOrderMemoRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2268,6 +2504,41 @@ export const OrderItemsApiFactory = function (configuration?: Configuration, bas
 };
 
 /**
+ * Request parameters for orderItemsAddMemoCreate operation in OrderItemsApi.
+ * @export
+ * @interface OrderItemsApiOrderItemsAddMemoCreateRequest
+ */
+export interface OrderItemsApiOrderItemsAddMemoCreateRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemsApiOrderItemsAddMemoCreate
+     */
+    readonly id: number
+
+    /**
+     * 
+     * @type {AddOrderItemMemoRequest}
+     * @memberof OrderItemsApiOrderItemsAddMemoCreate
+     */
+    readonly addOrderItemMemoRequest: AddOrderItemMemoRequest
+}
+
+/**
+ * Request parameters for orderItemsByUserList operation in OrderItemsApi.
+ * @export
+ * @interface OrderItemsApiOrderItemsByUserListRequest
+ */
+export interface OrderItemsApiOrderItemsByUserListRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemsApiOrderItemsByUserList
+     */
+    readonly userId: string
+}
+
+/**
  * Request parameters for orderItemsChangeStatusCreate operation in OrderItemsApi.
  * @export
  * @interface OrderItemsApiOrderItemsChangeStatusCreateRequest
@@ -2286,6 +2557,27 @@ export interface OrderItemsApiOrderItemsChangeStatusCreateRequest {
      * @memberof OrderItemsApiOrderItemsChangeStatusCreate
      */
     readonly changeStatusRequest: ChangeStatusRequest
+}
+
+/**
+ * Request parameters for orderItemsDeleteMemoCreate operation in OrderItemsApi.
+ * @export
+ * @interface OrderItemsApiOrderItemsDeleteMemoCreateRequest
+ */
+export interface OrderItemsApiOrderItemsDeleteMemoCreateRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderItemsApiOrderItemsDeleteMemoCreate
+     */
+    readonly id: number
+
+    /**
+     * 
+     * @type {DeleteItemOrderMemoRequest}
+     * @memberof OrderItemsApiOrderItemsDeleteMemoCreate
+     */
+    readonly deleteItemOrderMemoRequest: DeleteItemOrderMemoRequest
 }
 
 /**
@@ -2353,6 +2645,28 @@ export interface OrderItemsApiOrderItemsRetrieveRequest {
 export class OrderItemsApi extends BaseAPI {
     /**
      * 
+     * @param {OrderItemsApiOrderItemsAddMemoCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrderItemsApi
+     */
+    public orderItemsAddMemoCreate(requestParameters: OrderItemsApiOrderItemsAddMemoCreateRequest, options?: any) {
+        return OrderItemsApiFp(this.configuration).orderItemsAddMemoCreate(requestParameters.id, requestParameters.addOrderItemMemoRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {OrderItemsApiOrderItemsByUserListRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrderItemsApi
+     */
+    public orderItemsByUserList(requestParameters: OrderItemsApiOrderItemsByUserListRequest, options?: any) {
+        return OrderItemsApiFp(this.configuration).orderItemsByUserList(requestParameters.userId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {OrderItemsApiOrderItemsChangeStatusCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2360,6 +2674,17 @@ export class OrderItemsApi extends BaseAPI {
      */
     public orderItemsChangeStatusCreate(requestParameters: OrderItemsApiOrderItemsChangeStatusCreateRequest, options?: any) {
         return OrderItemsApiFp(this.configuration).orderItemsChangeStatusCreate(requestParameters.id, requestParameters.changeStatusRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {OrderItemsApiOrderItemsDeleteMemoCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrderItemsApi
+     */
+    public orderItemsDeleteMemoCreate(requestParameters: OrderItemsApiOrderItemsDeleteMemoCreateRequest, options?: any) {
+        return OrderItemsApiFp(this.configuration).orderItemsDeleteMemoCreate(requestParameters.id, requestParameters.deleteItemOrderMemoRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

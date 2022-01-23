@@ -5,18 +5,16 @@
     Tab,
     Tabs,
   } from "carbon-components-svelte";
-import { OrderItemRetrieve, OrderItemsApi } from "../../api";
+  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "../../api";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  import OrderSectionBasic from "./sections/OrderItemSectionBasic.svelte";
-  import OrderSectionLogs from "./sections/OrderSectionLogs.svelte";
-  import OrderSectionPayment from "./sections/OrderSectionPayment.svelte";
-  import OrderSectionPg from "./sections/OrderSectionPG.svelte";
-  import OrderSectionTop from "./sections/OrderItemSectionTop.svelte";
+  import OrderItemSectionBasic from "./sections/OrderItemSectionBasic.svelte";
+  import OrderItemSectionTop from "./sections/OrderItemSectionTop.svelte";
+  import OrderItemSectionLogs from "./sections/OrderItemSectionLogs.svelte";
 
   export let idOrCode: string;
 
   let item: OrderItemRetrieve | undefined = undefined;
-  // let userOrders: OrderList[] = [];
+  let userItems: OrderItemList[] = [];
   let submitting = false;
   let loading = true;
   let mobile = false;
@@ -29,11 +27,11 @@ import { OrderItemRetrieve, OrderItemsApi } from "../../api";
     const { data } = await api.orderItemsRetrieve({ id: idOrCode });
     item = data;
 
-    // const userOrdersRes = await api.ordersByUserList({
-    //   userId: order.user._id,
-    // });
-
-    // userOrders = userOrdersRes.data;
+    userItems = (
+      await api.orderItemsByUserList({
+        userId: item.order.user_id,
+      })
+    ).data;
 
     loading = false;
   };
@@ -60,20 +58,22 @@ import { OrderItemRetrieve, OrderItemsApi } from "../../api";
     </div>
   {:else}
     <Breakpoint bind:size />
-    <OrderSectionTop {...{ item, load, api, mobile }} bind:submitting />
+    <OrderItemSectionTop {...{ item, load, api, mobile }} bind:submitting />
     <Tabs bind:selected={selectedIndex}>
       <Tab label="기본정보" />
-      <Tab label="결제" />
-      <Tab label="PG" />
       <Tab label="관리이력" />
+      <!-- <Tab label="결제" /> -->
+      <!-- <Tab label="PG" /> -->
       <div slot="content">
-        <!-- <OrderSectionBasic
-          {...{ item, mobile, load, api}}
+        <OrderItemSectionBasic
+          {...{ item, mobile, load, api, userItems }}
           bind:submitting
         />
+        <OrderItemSectionLogs {item} />
+        <!--
         <OrderSectionPayment {...{ order, api, load }} bind:submitting />
         <OrderSectionPg {order} />
-        <OrderSectionLogs {order} /> -->
+        -->
       </div>
     </Tabs>
   {/if}
