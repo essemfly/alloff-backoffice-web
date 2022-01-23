@@ -80,6 +80,56 @@ export enum AlimtalkTypeEnum {
 /**
  * 
  * @export
+ * @interface ChangeStatus
+ */
+export interface ChangeStatus {
+    /**
+     * 
+     * @type {OrderItemStatusEnum}
+     * @memberof ChangeStatus
+     */
+    status: OrderItemStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChangeStatus
+     */
+    delivery_tracking_number?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChangeStatus
+     */
+    delivery_tracking_url?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ChangeStatusRequest
+ */
+export interface ChangeStatusRequest {
+    /**
+     * 
+     * @type {OrderItemStatusEnum}
+     * @memberof ChangeStatusRequest
+     */
+    status: OrderItemStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChangeStatusRequest
+     */
+    delivery_tracking_number?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChangeStatusRequest
+     */
+    delivery_tracking_url?: string;
+}
+/**
+ * 
+ * @export
  * @interface Inventory
  */
 export interface Inventory {
@@ -213,16 +263,10 @@ export interface Order {
     payment: Payment;
     /**
      * 
-     * @type {{ [key: string]: any; }}
+     * @type {Array<OrderPaymentAdjustment>}
      * @memberof Order
      */
-    iamport: { [key: string]: any; };
-    /**
-     * 
-     * @type {OrderPaymentAdjustment}
-     * @memberof Order
-     */
-    payment_adjustments: OrderPaymentAdjustment;
+    payment_adjustments: Array<OrderPaymentAdjustment>;
     /**
      * 
      * @type {string}
@@ -549,6 +593,36 @@ export interface OrderItemList {
      * @type {string}
      * @memberof OrderItemList
      */
+    payment_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    product_preparing_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    foreign_product_inspecting_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    delivery_preparing_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    foreign_delivery_started_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
     delivery_started_at?: string | null;
     /**
      * 
@@ -556,6 +630,12 @@ export interface OrderItemList {
      * @memberof OrderItemList
      */
     delivery_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    confirmed_at?: string | null;
     /**
      * 
      * @type {string}
@@ -573,7 +653,37 @@ export interface OrderItemList {
      * @type {string}
      * @memberof OrderItemList
      */
-    confirmed_at?: string | null;
+    exchange_requested_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    exchange_started_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    exchange_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    return_requested_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    return_started_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemList
+     */
+    return_finished_at?: string | null;
 }
 /**
  * 
@@ -822,6 +932,36 @@ export interface OrderItemRetrieve {
      * @type {string}
      * @memberof OrderItemRetrieve
      */
+    payment_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    product_preparing_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    foreign_product_inspecting_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    delivery_preparing_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    foreign_delivery_started_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
     delivery_started_at?: string | null;
     /**
      * 
@@ -829,6 +969,12 @@ export interface OrderItemRetrieve {
      * @memberof OrderItemRetrieve
      */
     delivery_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    confirmed_at?: string | null;
     /**
      * 
      * @type {string}
@@ -846,7 +992,37 @@ export interface OrderItemRetrieve {
      * @type {string}
      * @memberof OrderItemRetrieve
      */
-    confirmed_at?: string | null;
+    exchange_requested_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    exchange_started_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    exchange_finished_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    return_requested_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    return_started_at?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemRetrieve
+     */
+    return_finished_at?: string | null;
 }
 /**
  * 
@@ -872,6 +1048,30 @@ export interface OrderItemStatusChangeLog {
      * @memberof OrderItemStatusChangeLog
      */
     status_to: OrderItemStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemStatusChangeLog
+     */
+    tracking_number_from?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemStatusChangeLog
+     */
+    tracking_number_to?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemStatusChangeLog
+     */
+    tracking_url_from?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemStatusChangeLog
+     */
+    tracking_url_to?: string | null;
     /**
      * 
      * @type {number}
@@ -1200,29 +1400,29 @@ export interface PaginatedPackageList {
     results?: Array<Package>;
 }
 /**
- * Serializer for DynamicDocuments.  Maps all undefined fields to :class:`fields.DynamicField`.
+ * 
  * @export
  * @interface Payment
  */
 export interface Payment {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof Payment
      */
-    id: string;
+    id: number;
     /**
      * 
      * @type {string}
      * @memberof Payment
      */
-    impuid: string;
+    imp_uid: string;
     /**
      * 
-     * @type {string}
+     * @type {PaymentStatusEnum}
      * @memberof Payment
      */
-    paymentstatus: string;
+    payment_status: PaymentStatusEnum;
     /**
      * 
      * @type {string}
@@ -1234,7 +1434,7 @@ export interface Payment {
      * @type {string}
      * @memberof Payment
      */
-    paymethod: string;
+    pay_method: string;
     /**
      * 
      * @type {string}
@@ -1246,7 +1446,7 @@ export interface Payment {
      * @type {string}
      * @memberof Payment
      */
-    merchantuid: string;
+    merchant_uid: string;
     /**
      * 
      * @type {number}
@@ -1258,38 +1458,65 @@ export interface Payment {
      * @type {string}
      * @memberof Payment
      */
-    buyername: string;
+    buyer_name: string;
     /**
      * 
      * @type {string}
      * @memberof Payment
      */
-    buyermobile: string;
+    buyer_mobile: string;
     /**
      * 
      * @type {string}
      * @memberof Payment
      */
-    buyeraddress: string;
+    buyer_address: string;
     /**
      * 
      * @type {string}
      * @memberof Payment
      */
-    buyerpostcode: string;
+    buyer_post_code: string;
     /**
      * 
      * @type {string}
      * @memberof Payment
      */
-    created: string;
+    company: string;
     /**
      * 
      * @type {string}
      * @memberof Payment
      */
-    updated: string;
+    app_scheme: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    created_at: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Payment
+     */
+    updated_at: string;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export enum PaymentStatusEnum {
+    Created = 'PAYMENT_CREATED',
+    Confirmed = 'PAYMENT_CONFIRMED',
+    TimeOut = 'PAYMENT_TIME_OUT',
+    Canceled = 'PAYMENT_CANCELED',
+    RefundRequested = 'PAYMENT_REFUND_REQUESTED',
+    RefundFinished = 'PAYMENT_REFUND_FINISHED'
+}
+
 /**
  * 
  * @export
@@ -1302,6 +1529,76 @@ export interface Profile {
      * @memberof Profile
      */
     name: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenObtainPairRequestRequest
+ */
+export interface TokenObtainPairRequestRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenObtainPairRequestRequest
+     */
+    username: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenObtainPairRequestRequest
+     */
+    password: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenObtainPairResponse
+ */
+export interface TokenObtainPairResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenObtainPairResponse
+     */
+    access: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenObtainPairResponse
+     */
+    refresh: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenRefreshRequestRequest
+ */
+export interface TokenRefreshRequestRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenRefreshRequestRequest
+     */
+    refresh: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenRefreshResponse
+ */
+export interface TokenRefreshResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenRefreshResponse
+     */
+    access: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenRefreshResponse
+     */
+    refresh: string;
 }
 
 /**
@@ -1398,6 +1695,104 @@ export class DefaultApi extends BaseAPI {
      */
     public inventoriesList(options?: any) {
         return DefaultApiFp(this.configuration).inventoriesList(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * AdminUserApi - axios parameter creator
+ * @export
+ */
+export const AdminUserApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Adaptation of DRF GenericViewSet
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminUserMeRetrieve: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/admin-user/me/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AdminUserApi - functional programming interface
+ * @export
+ */
+export const AdminUserApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AdminUserApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Adaptation of DRF GenericViewSet
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async adminUserMeRetrieve(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Admin>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.adminUserMeRetrieve(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * AdminUserApi - factory interface
+ * @export
+ */
+export const AdminUserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AdminUserApiFp(configuration)
+    return {
+        /**
+         * Adaptation of DRF GenericViewSet
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        adminUserMeRetrieve(options?: any): AxiosPromise<Admin> {
+            return localVarFp.adminUserMeRetrieve(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AdminUserApi - object-oriented interface
+ * @export
+ * @class AdminUserApi
+ * @extends {BaseAPI}
+ */
+export class AdminUserApi extends BaseAPI {
+    /**
+     * Adaptation of DRF GenericViewSet
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminUserApi
+     */
+    public adminUserMeRetrieve(options?: any) {
+        return AdminUserApiFp(this.configuration).adminUserMeRetrieve(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1642,6 +2037,49 @@ export const OrderItemsApiAxiosParamCreator = function (configuration?: Configur
     return {
         /**
          * 
+         * @param {string} id 
+         * @param {ChangeStatusRequest} changeStatusRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        orderItemsChangeStatusCreate: async (id: string, changeStatusRequest: ChangeStatusRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('orderItemsChangeStatusCreate', 'id', id)
+            // verify required parameter 'changeStatusRequest' is not null or undefined
+            assertParamExists('orderItemsChangeStatusCreate', 'changeStatusRequest', changeStatusRequest)
+            const localVarPath = `/order-items/{id}/change_status/`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwtAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(changeStatusRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} [createdGte] 
          * @param {string} [createdLte] 
          * @param {number} [page] A page number within the paginated result set.
@@ -1704,11 +2142,11 @@ export const OrderItemsApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
-         * @param {number} id A unique integer value identifying this order item.
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        orderItemsRetrieve: async (id: number, options: any = {}): Promise<RequestArgs> => {
+        orderItemsRetrieve: async (id: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('orderItemsRetrieve', 'id', id)
             const localVarPath = `/order-items/{id}/`
@@ -1751,6 +2189,17 @@ export const OrderItemsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {string} id 
+         * @param {ChangeStatusRequest} changeStatusRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async orderItemsChangeStatusCreate(id: string, changeStatusRequest: ChangeStatusRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChangeStatus>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.orderItemsChangeStatusCreate(id, changeStatusRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} [createdGte] 
          * @param {string} [createdLte] 
          * @param {number} [page] A page number within the paginated result set.
@@ -1765,11 +2214,11 @@ export const OrderItemsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {number} id A unique integer value identifying this order item.
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async orderItemsRetrieve(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderItemRetrieve>> {
+        async orderItemsRetrieve(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderItemRetrieve>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.orderItemsRetrieve(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1785,6 +2234,16 @@ export const OrderItemsApiFactory = function (configuration?: Configuration, bas
     return {
         /**
          * 
+         * @param {string} id 
+         * @param {ChangeStatusRequest} changeStatusRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        orderItemsChangeStatusCreate(id: string, changeStatusRequest: ChangeStatusRequest, options?: any): AxiosPromise<ChangeStatus> {
+            return localVarFp.orderItemsChangeStatusCreate(id, changeStatusRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} [createdGte] 
          * @param {string} [createdLte] 
          * @param {number} [page] A page number within the paginated result set.
@@ -1798,15 +2257,36 @@ export const OrderItemsApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
-         * @param {number} id A unique integer value identifying this order item.
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        orderItemsRetrieve(id: number, options?: any): AxiosPromise<OrderItemRetrieve> {
+        orderItemsRetrieve(id: string, options?: any): AxiosPromise<OrderItemRetrieve> {
             return localVarFp.orderItemsRetrieve(id, options).then((request) => request(axios, basePath));
         },
     };
 };
+
+/**
+ * Request parameters for orderItemsChangeStatusCreate operation in OrderItemsApi.
+ * @export
+ * @interface OrderItemsApiOrderItemsChangeStatusCreateRequest
+ */
+export interface OrderItemsApiOrderItemsChangeStatusCreateRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderItemsApiOrderItemsChangeStatusCreate
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {ChangeStatusRequest}
+     * @memberof OrderItemsApiOrderItemsChangeStatusCreate
+     */
+    readonly changeStatusRequest: ChangeStatusRequest
+}
 
 /**
  * Request parameters for orderItemsList operation in OrderItemsApi.
@@ -1857,11 +2337,11 @@ export interface OrderItemsApiOrderItemsListRequest {
  */
 export interface OrderItemsApiOrderItemsRetrieveRequest {
     /**
-     * A unique integer value identifying this order item.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof OrderItemsApiOrderItemsRetrieve
      */
-    readonly id: number
+    readonly id: string
 }
 
 /**
@@ -1871,6 +2351,17 @@ export interface OrderItemsApiOrderItemsRetrieveRequest {
  * @extends {BaseAPI}
  */
 export class OrderItemsApi extends BaseAPI {
+    /**
+     * 
+     * @param {OrderItemsApiOrderItemsChangeStatusCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrderItemsApi
+     */
+    public orderItemsChangeStatusCreate(requestParameters: OrderItemsApiOrderItemsChangeStatusCreateRequest, options?: any) {
+        return OrderItemsApiFp(this.configuration).orderItemsChangeStatusCreate(requestParameters.id, requestParameters.changeStatusRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {OrderItemsApiOrderItemsListRequest} requestParameters Request parameters.
@@ -2221,6 +2712,202 @@ export class ShippingNoticesApi extends BaseAPI {
      */
     public shippingNoticesRetrieve(options?: any) {
         return ShippingNoticesApiFp(this.configuration).shippingNoticesRetrieve(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * TokenApi - axios parameter creator
+ * @export
+ */
+export const TokenApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
+         * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenCreate: async (tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tokenObtainPairRequestRequest' is not null or undefined
+            assertParamExists('tokenCreate', 'tokenObtainPairRequestRequest', tokenObtainPairRequestRequest)
+            const localVarPath = `/token/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tokenObtainPairRequestRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
+         * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenRefreshCreate: async (tokenRefreshRequestRequest: TokenRefreshRequestRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tokenRefreshRequestRequest' is not null or undefined
+            assertParamExists('tokenRefreshCreate', 'tokenRefreshRequestRequest', tokenRefreshRequestRequest)
+            const localVarPath = `/token/refresh/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tokenRefreshRequestRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TokenApi - functional programming interface
+ * @export
+ */
+export const TokenApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TokenApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
+         * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tokenCreate(tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenObtainPairResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenCreate(tokenObtainPairRequestRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
+         * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tokenRefreshCreate(tokenRefreshRequestRequest: TokenRefreshRequestRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenRefreshResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tokenRefreshCreate(tokenRefreshRequestRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * TokenApi - factory interface
+ * @export
+ */
+export const TokenApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TokenApiFp(configuration)
+    return {
+        /**
+         * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
+         * @param {TokenObtainPairRequestRequest} tokenObtainPairRequestRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenCreate(tokenObtainPairRequestRequest: TokenObtainPairRequestRequest, options?: any): AxiosPromise<TokenObtainPairResponse> {
+            return localVarFp.tokenCreate(tokenObtainPairRequestRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
+         * @param {TokenRefreshRequestRequest} tokenRefreshRequestRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tokenRefreshCreate(tokenRefreshRequestRequest: TokenRefreshRequestRequest, options?: any): AxiosPromise<TokenRefreshResponse> {
+            return localVarFp.tokenRefreshCreate(tokenRefreshRequestRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for tokenCreate operation in TokenApi.
+ * @export
+ * @interface TokenApiTokenCreateRequest
+ */
+export interface TokenApiTokenCreateRequest {
+    /**
+     * 
+     * @type {TokenObtainPairRequestRequest}
+     * @memberof TokenApiTokenCreate
+     */
+    readonly tokenObtainPairRequestRequest: TokenObtainPairRequestRequest
+}
+
+/**
+ * Request parameters for tokenRefreshCreate operation in TokenApi.
+ * @export
+ * @interface TokenApiTokenRefreshCreateRequest
+ */
+export interface TokenApiTokenRefreshCreateRequest {
+    /**
+     * 
+     * @type {TokenRefreshRequestRequest}
+     * @memberof TokenApiTokenRefreshCreate
+     */
+    readonly tokenRefreshRequestRequest: TokenRefreshRequestRequest
+}
+
+/**
+ * TokenApi - object-oriented interface
+ * @export
+ * @class TokenApi
+ * @extends {BaseAPI}
+ */
+export class TokenApi extends BaseAPI {
+    /**
+     * Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
+     * @param {TokenApiTokenCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenApi
+     */
+    public tokenCreate(requestParameters: TokenApiTokenCreateRequest, options?: any) {
+        return TokenApiFp(this.configuration).tokenCreate(requestParameters.tokenObtainPairRequestRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
+     * @param {TokenApiTokenRefreshCreateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenApi
+     */
+    public tokenRefreshCreate(requestParameters: TokenApiTokenRefreshCreateRequest, options?: any) {
+        return TokenApiFp(this.configuration).tokenRefreshCreate(requestParameters.tokenRefreshRequestRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

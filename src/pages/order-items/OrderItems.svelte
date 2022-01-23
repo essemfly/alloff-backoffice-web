@@ -1,19 +1,19 @@
 <script lang="ts">
   import {
-    Checkbox,
-    DatePicker,
-    DatePickerInput,
-    Pagination,
+  Checkbox,
+  DatePicker,
+  DatePickerInput,
+  Pagination
   } from "carbon-components-svelte";
+  import { DateTime } from "luxon";
+  import { useLocation } from "svelte-navigator";
+  import { OrderItemList,OrderItemsApi,OrderItemStatusEnum } from "../../api";
+  import { ORDER_ITEM_STATUSES } from "../../constants";
   import MediaQuery from "../../helpers/MediaQuery.svelte";
+  import { getStatusLabel } from "../../helpers/order-item";
+  import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import OrderItemsTable from "./components/OrderItemsTable.svelte";
   import { search } from "./store";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  import { useLocation } from "svelte-navigator";
-  import { getStatusLabel } from "../../helpers/order-item";
-  import { DateTime } from "luxon";
-  import { OrderItemList, OrderItemsApi, OrderItemStatusEnum } from "../../api";
-
   const location = useLocation();
   const params = new URLSearchParams($location.search);
   const userId = params.get("userid");
@@ -24,24 +24,8 @@
   let totalItems = 0;
   let createdGte = DateTime.now().minus({ days: 7 }).toISO().split("T")[0];
   let createdLte = DateTime.now().toISO().split("T")[0];
-  const _statuses: OrderItemStatusEnum[] = [
-    OrderItemStatusEnum.PaymentFinished,
-    OrderItemStatusEnum.ProductPreparing,
-    OrderItemStatusEnum.ForeignProductInspecting,
-    OrderItemStatusEnum.DeliveryPreparing,
-    OrderItemStatusEnum.ForeignDeliveryStarted,
-    OrderItemStatusEnum.DeliveryStarted,
-    OrderItemStatusEnum.DeliveryFinished,
-    OrderItemStatusEnum.ConfirmPayment,
-    OrderItemStatusEnum.CancelFinished,
-    OrderItemStatusEnum.ExchangeRequested,
-    OrderItemStatusEnum.ExchangePending,
-    OrderItemStatusEnum.ExchangeFinished,
-    OrderItemStatusEnum.ReturnRequested,
-    OrderItemStatusEnum.ReturnPending,
-    OrderItemStatusEnum.ReturnFinished,
-  ];
-  let statuses = [..._statuses];
+
+  let statuses = [...ORDER_ITEM_STATUSES];
   const pageSizes = [20, 50, 100];
   const api = new OrderItemsApi();
   const load = async (
@@ -106,7 +90,7 @@
           matches ? "column" : "row"
         };`}
       >
-        {#each _statuses as status}
+        {#each ORDER_ITEM_STATUSES as status}
           <Checkbox
             labelText={getStatusLabel(status)}
             checked={statuses.includes(status)}

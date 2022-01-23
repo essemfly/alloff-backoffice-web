@@ -5,43 +5,43 @@
     Tab,
     Tabs,
   } from "carbon-components-svelte";
-  import { OrderList, OrderRetrieve, OrdersApi } from "../../api";
+import { OrderItemRetrieve, OrderItemsApi } from "../../api";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  import OrderSectionBasic from "./sections/OrderSectionBasic.svelte";
+  import OrderSectionBasic from "./sections/OrderItemSectionBasic.svelte";
   import OrderSectionLogs from "./sections/OrderSectionLogs.svelte";
   import OrderSectionPayment from "./sections/OrderSectionPayment.svelte";
   import OrderSectionPg from "./sections/OrderSectionPG.svelte";
-  import OrderSectionTop from "./sections/OrderSectionTop.svelte";
+  import OrderSectionTop from "./sections/OrderItemSectionTop.svelte";
 
-  export let orderIdOrCode: string;
+  export let idOrCode: string;
 
-  let order: OrderRetrieve | undefined = undefined;
-  let userOrders: OrderList[] = [];
+  let item: OrderItemRetrieve | undefined = undefined;
+  // let userOrders: OrderList[] = [];
   let submitting = false;
   let loading = true;
   let mobile = false;
   let size: "sm" | "md" | "lg" | "xlg" | "max";
 
-  const api = new OrdersApi();
+  const api = new OrderItemsApi();
 
   const load = async () => {
     loading = true;
+    const { data } = await api.orderItemsRetrieve({ id: idOrCode });
+    item = data;
 
-    const { data } = await api.ordersRetrieve({ id: orderIdOrCode });
-    order = data;
+    // const userOrdersRes = await api.ordersByUserList({
+    //   userId: order.user._id,
+    // });
 
-    const userOrdersRes = await api.ordersByUserList({
-      userId: order.user._id,
-    });
-
-    userOrders = userOrdersRes.data;
+    // userOrders = userOrdersRes.data;
 
     loading = false;
   };
 
   $: mobile = size === "sm";
   $: {
-    if (orderIdOrCode) {
+    console.log(idOrCode);
+    if (idOrCode) {
       load();
     }
   }
@@ -50,7 +50,7 @@
 </script>
 
 <LoggedInFrame>
-  {#if loading || submitting || !order}
+  {#if loading || submitting || !item}
     <div class="overlay">
       <div>
         <InlineLoading
@@ -60,20 +60,20 @@
     </div>
   {:else}
     <Breakpoint bind:size />
-    <OrderSectionTop {...{ order, load, api, mobile }} bind:submitting />
+    <OrderSectionTop {...{ item, load, api, mobile }} bind:submitting />
     <Tabs bind:selected={selectedIndex}>
       <Tab label="기본정보" />
       <Tab label="결제" />
       <Tab label="PG" />
       <Tab label="관리이력" />
       <div slot="content">
-        <OrderSectionBasic
-          {...{ order, mobile, load, api, userOrders }}
+        <!-- <OrderSectionBasic
+          {...{ item, mobile, load, api}}
           bind:submitting
         />
         <OrderSectionPayment {...{ order, api, load }} bind:submitting />
         <OrderSectionPg {order} />
-        <OrderSectionLogs {order} />
+        <OrderSectionLogs {order} /> -->
       </div>
     </Tabs>
   {/if}

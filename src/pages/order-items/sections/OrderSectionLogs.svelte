@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { TabContent } from "carbon-components-svelte";
   import { ActionTypeEnum, OrderRetrieve } from "../../../api";
   import { toLocaleDateTime } from "../../../helpers/datetime";
@@ -46,4 +46,4 @@
       })(),
     }))}
   />
-</TabContent>
+</TabContent> -->

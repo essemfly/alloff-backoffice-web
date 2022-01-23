@@ -1,18 +1,12 @@
 <script lang="ts">
   import {
-    Button,
-    ComposedModal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Checkbox,
-    TextInput,
-    Link,
+  Checkbox,ComposedModal,Link,ModalBody,
+  ModalFooter,ModalHeader,TextInput
   } from "carbon-components-svelte";
-  import { OrderStatusEnum } from "../../../api";
+  import { OrderItemStatusEnum, } from "../../../api";
 
-  export let changeOrderStatus: (
-    status: OrderStatusEnum,
+  export let changeOrderItemStatus: (
+    status: OrderItemStatusEnum,
     deliveryTrackingNumber?: string,
     deliveryTrackingUrl?: string
   ) => Promise<void>;
@@ -39,8 +33,8 @@
 <ComposedModal
   bind:open
   on:submit={async () => {
-    await changeOrderStatus(
-      OrderStatusEnum.DeliveryStarted,
+    await changeOrderItemStatus(
+      OrderItemStatusEnum.DeliveryStarted,
       deliveryTrackingNumber,
       deliveryTrackingUrl
     );

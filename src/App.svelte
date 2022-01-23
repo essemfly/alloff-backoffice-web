@@ -1,9 +1,10 @@
 <script lang="ts">
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import "carbon-components-svelte/css/g10.css";
-  import { Route, Router, useParams } from "svelte-navigator";
+  import { Route, Router } from "svelte-navigator";
+  import OrderItemDetail from "./pages/order-items/OrderItemDetail.svelte";
   // import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
-  // import Login from "./pages/auth/Login.svelte";
+  import Login from "./pages/auth/Login.svelte";
   // import Brands from "./pages/brands/brands.svelte";
   // import Inventories from "./pages/logistics/inventories/Inventories.svelte";
   // import Recieve from "./pages/logistics/receive/Recieve.svelte";
@@ -93,11 +94,16 @@
     <Route path=":id" let:params>
       <TimedealSectionProductDetail productId={params.id} productGroupId="" mobile={false} />
     </Route>
-  </Route>
+  </Route>-->
   <Route path="login">
     <Login />
-  </Route> -->
-  <Route path="items">
-    <OrderItems />
+  </Route>
+  <Route path="items/*">
+    <Route path="/">
+      <OrderItems />
+    </Route>
+    <Route path=":id" let:params>
+      <OrderItemDetail idOrCode={params.id} />
+    </Route>
   </Route>
 </Router>

@@ -1,47 +1,44 @@
 <script lang="ts">
   import { TabContent, TextInput, Button, Tag } from "carbon-components-svelte";
   import {
-    OrderList,
-    OrderRetrieve,
-    OrdersApi,
-    ProductTypeEnum,
+OrderItemRetrieve, OrderItemsApi,
   } from "../../../api";
   import InfoSection from "../../common/InfoSection.svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { admin } from "../../../store";
   import { numberWithCommas } from "../../../helpers/number";
-  export let order: OrderRetrieve;
-  export let userOrders: OrderList[];
+  export let item: OrderItemRetrieve;
+  // export let userOrders: OrderList[];
   export let mobile: boolean;
-  export let api: OrdersApi;
+  export let api: OrderItemsApi;
   export let load: () => {};
   export let submitting: boolean;
 
-  const sendNewMemo = async () => {
-    if (newMemo === "") return;
-    submitting = true;
-    await api.ordersAddMemoCreate({
-      id: order.id,
-      addOrderMemoRequest: { body: newMemo },
-    });
-    submitting = false;
-    load();
-  };
+  // const sendNewMemo = async () => {
+  //   if (newMemo === "") return;
+  //   submitting = true;
+  //   await api.ordersAddMemoCreate({
+  //     id: item.id,
+  //     addOrderMemoRequest: { body: newMemo },
+  //   });
+  //   submitting = false;
+  //   load();
+  // };
 
-  const deleteMemo = async (memoId: number) => {
-    submitting = true;
-    try {
-      await api.ordersDeleteMemoCreate({
-        id: order.id,
-        deleteOrderMemoRequest: { memo_id: memoId },
-      });
-    } catch (e: any) {
-      alert("메모를 삭제할 수 없습니다. " + e.response.data.message);
-    }
-    submitting = false;
-    load();
-  };
+  // const deleteMemo = async (memoId: number) => {
+  //   submitting = true;
+  //   try {
+  //     await api.ordersDeleteMemoCreate({
+  //       id: item.id,
+  //       deleteOrderMemoRequest: { memo_id: memoId },
+  //     });
+  //   } catch (e: any) {
+  //     alert("메모를 삭제할 수 없습니다. " + e.response.data.message);
+  //   }
+  //   submitting = false;
+  //   load();
+  // };
 
   let newMemo: string = "";
 </script>
@@ -52,20 +49,20 @@
     menuItems={[
       {
         text: "휴대폰 복사",
-        onClick: () => navigator.clipboard.writeText(order.user.mobile),
+        onClick: () => navigator.clipboard.writeText(item.user.mobile),
       },
       {
-        onClick: () => navigator.clipboard.writeText(order.user._id),
+        onClick: () => navigator.clipboard.writeText(item.user._id),
         text: "유저 ID 복사",
       },
     ]}
     rows={[
-      { header: "휴대폰", body: order.user.mobile },
-      { header: "유저 ID", body: order.user._id },
+      { header: "휴대폰", body: item.user.mobile },
+      { header: "유저 ID", body: item.user._id },
       {
         header: "주문수",
         body: `${userOrders.length}건`,
-        href: `/orders/?userid=${order.user._id}`,
+        href: `/orders/?userid=${item.user._id}`,
       },
     ]}
   />
@@ -76,69 +73,69 @@
         text: "전체주소 복사",
         onClick: () =>
           navigator.clipboard.writeText(
-            `${order?.payment?.buyeraddress} (${order?.payment?.buyerpostcode})`
+            `${item?.payment?.buyeraddress} (${item?.payment?.buyerpostcode})`
           ),
       },
       {
         text: "주소만 복사",
         onClick: () =>
-          navigator.clipboard.writeText(order?.payment?.buyeraddress ?? ""),
+          navigator.clipboard.writeText(item?.payment?.buyeraddress ?? ""),
       },
       {
         text: "우편번호만 복사",
         onClick: () =>
-          navigator.clipboard.writeText(order?.payment?.buyerpostcode ?? ""),
+          navigator.clipboard.writeText(item?.payment?.buyerpostcode ?? ""),
       },
       {
         text: "이름 복사",
         onClick: () =>
-          navigator.clipboard.writeText(order?.payment?.buyername ?? ""),
+          navigator.clipboard.writeText(item?.payment?.buyername ?? ""),
       },
       {
         text: "휴대폰 복사",
         onClick: () =>
-          navigator.clipboard.writeText(order?.payment?.buyermobile ?? ""),
+          navigator.clipboard.writeText(item?.payment?.buyermobile ?? ""),
       },
       {
-        hide: order.memo === "",
+        hide: item.memo === "",
         text: "요청사항 복사",
-        onClick: () => navigator.clipboard.writeText(order.memo),
+        onClick: () => navigator.clipboard.writeText(item.memo),
       },
       {
         hide:
-          !order.deliverytrackingnumber || order.deliverytrackingnumber === "",
+          !item.deliverytrackingnumber || item.deliverytrackingnumber === "",
         text: "송장번호 복사",
         onClick: () =>
-          navigator.clipboard.writeText(order.deliverytrackingnumber ?? ""),
+          navigator.clipboard.writeText(item.deliverytrackingnumber ?? ""),
       },
       {
-        hide: !order.deliverytrackingurl || order.deliverytrackingurl === "",
+        hide: !item.deliverytrackingurl || item.deliverytrackingurl === "",
         text: "추적 URL 복사",
         onClick: () =>
-          navigator.clipboard.writeText(order.deliverytrackingurl ?? ""),
+          navigator.clipboard.writeText(item.deliverytrackingurl ?? ""),
       },
     ]}
     rows={[
       {
         header: "받는사람",
-        body: `${order?.payment?.buyername} (${order?.payment?.buyermobile})`,
+        body: `${item?.payment?.buyername} (${item?.payment?.buyermobile})`,
       },
       {
         header: "주소",
-        body: `${order?.payment?.buyeraddress} (${order?.payment?.buyerpostcode})`,
+        body: `${item?.payment?.buyeraddress} (${item?.payment?.buyerpostcode})`,
       },
-      { header: "요청사항", body: order.memo },
-      { header: "송장번호", body: order.deliverytrackingnumber },
+      { header: "요청사항", body: item.memo },
+      { header: "송장번호", body: item.deliverytrackingnumber },
       {
         header: "추적 URL",
-        href: order.deliverytrackingurl,
-        body: order.deliverytrackingurl !== "" ? "링크" : "",
+        href: item.deliverytrackingurl,
+        body: item.deliverytrackingurl !== "" ? "링크" : "",
       },
     ]}
   />
   <div class="products">
     <h4>상품 정보</h4>
-    {#each order.orders as o, i}
+    {#each item.orders as o, i}
       <div class="product-item" class:mobile>
         <div class="product-info">
           <InfoSection
@@ -176,7 +173,7 @@
                   if (!confirm("재입고처리 하시겠습니까?")) return;
                   try {
                     await api.ordersRemakeRiCreate({
-                      id: order.id,
+                      id: item.id,
                       remakeRiRequest: {
                         product_id:
                           o.product?._id ?? o.alloffproduct?._id ?? "",
@@ -266,7 +263,7 @@
       />
     </div>
     <div class="memo-items">
-      {#each order.memos as memo}
+      {#each item.memos as memo}
         <div class="memo-item" class:mobile>
           <caption>[{toLocaleDateTime(memo.created_at)}]&nbsp;</caption>
           {memo.body}&nbsp;

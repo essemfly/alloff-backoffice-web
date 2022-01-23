@@ -1,4 +1,9 @@
-import { OrderItemStatusEnum, OrderItemTypeEnum } from "../api";
+import { DateTime } from "luxon";
+import {
+  OrderItemRetrieve,
+  OrderItemStatusEnum,
+  OrderItemTypeEnum,
+} from "../api";
 
 export const getTypeBadgeColor = (itemType: OrderItemTypeEnum) => {
   switch (itemType) {
@@ -11,7 +16,8 @@ export const getTypeBadgeColor = (itemType: OrderItemTypeEnum) => {
     case OrderItemTypeEnum.UnknownOrder:
       return "cool-gray";
   }
-};export const getTypeLabel = (itemType: OrderItemTypeEnum) => {
+};
+export const getTypeLabel = (itemType: OrderItemTypeEnum) => {
   switch (itemType) {
     case OrderItemTypeEnum.NormalOrder:
       return "일반";
@@ -96,5 +102,36 @@ export const getStatusLabel = (status: OrderItemStatusEnum | undefined) => {
       return "반품완료";
     default:
       return "UNKNOWN";
+  }
+};
+
+export const getOrderItemTimestampByStatus = (
+  status: OrderItemStatusEnum,
+  item: OrderItemRetrieve
+): DateTime | undefined => {
+  switch (status) {
+    case OrderItemStatusEnum.PaymentFinished:
+      return item.ordered_at ? DateTime.fromISO(item.ordered_at) : undefined;
+    case OrderItemStatusEnum.ReturnRequested:
+    case OrderItemStatusEnum.ExchangeRequested:
+      return item.cancel_requested_at
+        ? DateTime.fromISO(item.cancel_requested_at)
+        : undefined;
+    case OrderItemStatusEnum.CancelFinished:
+      return item.cancel_finished_at
+        ? DateTime.fromISO(item.cancel_finished_at)
+        : undefined;
+    case OrderItemStatusEnum.DeliveryStarted:
+      return item.delivery_started_at
+        ? DateTime.fromISO(item.delivery_started_at)
+        : undefined;
+    case OrderItemStatusEnum.DeliveryFinished:
+      return item.delivery_finished_at
+        ? DateTime.fromISO(item.delivery_finished_at)
+        : undefined;
+    case OrderItemStatusEnum.ConfirmPayment:
+      return item.confirmed_at ? DateTime.fromISO(item.confirmed_at) : undefined;
+    default:
+      return undefined;
   }
 };

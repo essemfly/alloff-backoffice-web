@@ -57,7 +57,7 @@ import { OrderItemList } from "../../../api";
   rows={items}
   sortable
   on:click:row={(e) => {
-    const url = `/items/${e.detail.code.toLowerCase()}`;
+    const url = `/items/${e.detail.order_item_code}`;
     if (isMobile) {
       window.location.href = url;
       return;

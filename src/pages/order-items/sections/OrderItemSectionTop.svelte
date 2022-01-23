@@ -4,49 +4,43 @@
     OverflowMenuItem,
     Tag,
   } from "carbon-components-svelte";
-  import { OrderRetrieve, OrderStatusEnum, OrdersApi } from "../../../api";
   import {
-    getOrderTimestampByStatus,
+    OrderItemRetrieve,
+    OrderItemsApi,
+    OrderItemStatusEnum,
+  } from "../../../api";
+  import {
+    getOrderItemTimestampByStatus,
+    // getOrderTimestampByStatus,
     getStatusBadgeColor,
     getStatusLabel,
     getTypeBadgeColor,
     getTypeLabel,
-    toChangeStatusEnum,
-  } from "../../../helpers/order";
+    // toChangeStatusEnum,
+  } from "../../../helpers/order-item";
   import SquareTag from "../../../common/SquareTag.svelte";
   import TrackingInputModal from "../components/TrackingInputModal.svelte";
-  export let order: OrderRetrieve;
+  import { ORDER_ITEM_STATUSES } from "../../../constants";
+  export let item: OrderItemRetrieve;
   export let submitting: boolean;
   export let load: () => void;
-  export let api: OrdersApi;
+  export let api: OrderItemsApi;
   export let mobile: boolean;
 
   let trackingModalOpen: boolean = false;
 
-  const statuses = [
-    OrderStatusEnum.PaymentFinished,
-    OrderStatusEnum.ProductPreparing,
-    OrderStatusEnum.DeliveryPreparing,
-    OrderStatusEnum.DeliveryStarted,
-    OrderStatusEnum.DeliveryFinished,
-    OrderStatusEnum.CancelRequested,
-    OrderStatusEnum.CancelPending,
-    OrderStatusEnum.CancelFinished,
-    OrderStatusEnum.ConfirmPayment,
-  ];
-
-  const changeOrderStatus = async (
-    status: OrderStatusEnum,
+  const changeOrderItemStatus = async (
+    status: OrderItemStatusEnum,
     delivery_tracking_number?: string,
     delivery_tracking_url?: string
   ) => {
     if (!confirm("주문상태를 변경합니다: " + getStatusLabel(status))) return;
     submitting = true;
     try {
-      await api.ordersChangeStatusCreate({
-        id: order.id,
+      await api.orderItemsChangeStatusCreate({
+        id: item.id.toString(),
         changeStatusRequest: {
-          status: toChangeStatusEnum(status),
+          status,
           delivery_tracking_number,
           delivery_tracking_url,
         },
@@ -60,30 +54,30 @@
     }
   };
 
-  const handleChangeOrderStatus = async (status: OrderStatusEnum) => {
-    if (status === order?.orderstatus) return;
-    if (status === OrderStatusEnum.DeliveryStarted) {
+  const handleChangeOrderStatus = async (status: OrderItemStatusEnum) => {
+    if (status === item?.order_item_status) return;
+    if (status === OrderItemStatusEnum.DeliveryStarted) {
       trackingModalOpen = true;
       return;
     }
-    changeOrderStatus(status);
+    changeOrderItemStatus(status);
   };
 </script>
 
-<h3 style="margin-bottom: 10px;">{order.code}</h3>
-<h6>🙋‍♀️{order.payment.buyername} 👚{order.payment.name}</h6>
+<h3 style="margin-bottom: 10px;">{item.order_item_code}</h3>
+<h6>🙋‍♀️{item.order.user.name} 👚{item.product_name}</h6>
 <div class="title">
-  <Tag type={getTypeBadgeColor(order.ordertype)} style="margin-left: 0px;"
-    >{getTypeLabel(order.ordertype)} 주문</Tag
+  <Tag type={getTypeBadgeColor(item.order_item_type)} style="margin-left: 0px;"
+    >{getTypeLabel(item.order_item_type)} 주문</Tag
   >
-  <Tag type="cool-gray">{order.id}</Tag>
+  <Tag type="cool-gray">{item.id}</Tag>
   <OverflowMenu>
     <OverflowMenuItem
-      on:click={() => navigator.clipboard.writeText(order.code)}
+      on:click={() => navigator.clipboard.writeText(item.order_item_code)}
       text="코드 복사"
     />
     <OverflowMenuItem
-      on:click={() => navigator.clipboard.writeText(order.id)}
+      on:click={() => navigator.clipboard.writeText(item.id.toString())}
       text="주문 ID 복사"
     />
     <OverflowMenuItem
@@ -94,20 +88,18 @@
 </div>
 
 <div class:mobile-tags={mobile} class:tags={!mobile}>
-  {#each statuses as status}
+  {#each ORDER_ITEM_STATUSES as status}
     <SquareTag
       fullWidth={!mobile}
       onClick={() => handleChangeOrderStatus(status)}
-      type={status === order.orderstatus
-        ? status === OrderStatusEnum.PaymentFinished
-          ? "high-contrast"
-          : getStatusBadgeColor(status)
+      type={status === item.order_item_status
+        ? getStatusBadgeColor(status)
         : undefined}
       ><div style="text-align: center;">
         {getStatusLabel(status)}
       </div>
       <div>
-        {getOrderTimestampByStatus(status, order)
+        {getOrderItemTimestampByStatus(status, item)
           ?.setLocale("ko")
           .toLocaleString({
             month: "numeric",
@@ -120,7 +112,7 @@
     >
   {/each}
 </div>
-<TrackingInputModal {changeOrderStatus} bind:open={trackingModalOpen} />
+<TrackingInputModal {changeOrderItemStatus} bind:open={trackingModalOpen} />
 
 <style>
   .title {

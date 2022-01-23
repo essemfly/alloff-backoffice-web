@@ -27,7 +27,7 @@
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
   import { onMount } from "svelte";
   import { useLocation } from "svelte-navigator";
-  // import { AdminUserApi } from "../../api";
+  import { AdminUserApi } from "../../api";
   import { removeTokens } from "../../core/auth";
   import { admin } from "../../store";
 
@@ -37,13 +37,13 @@
   const location = useLocation();
 
   onMount(async () => {
-    // const adminUserApi = new AdminUserApi();
-    // try {
-    //   const { data } = await adminUserApi.adminUserMeRetrieve();
-    //   admin.set(data);
-    // } catch {
-    //   // DO NOTHING
-    // }
+    const adminUserApi = new AdminUserApi();
+    try {
+      const { data } = await adminUserApi.adminUserMeRetrieve();
+      admin.set(data);
+    } catch {
+      // DO NOTHING
+    }
   });
 
   const logout = async () => {
