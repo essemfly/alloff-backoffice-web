@@ -2,11 +2,10 @@
   import { Button, Tag } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { navigate } from "svelte-navigator";
-
-  // dummys
-  import { Product } from "../samples/response";
+  import { Product, ProductsApi } from "../../../api";
 
   export let product: Product;
+  const productApi = new ProductsApi();
 
   const handleCardClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -14,8 +13,11 @@
   };
 
   const handleDeleteClick = async () => {
-    // todo
+    // todo: remove api
+    // productApi.productsUpdate
   };
+
+  console.log(product);
 </script>
 
 <div class="product" on:click={handleCardClick}>

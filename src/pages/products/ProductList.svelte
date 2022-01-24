@@ -6,17 +6,15 @@
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import ProductCard from "./components/ProductCard.svelte";
 
-  // dummys
-  import { response, Product } from "./samples/response";
+  import { Product, ProductsApi } from "../../api";
 
   let products: Product[] = [];
+  const productApi = new ProductsApi();
 
   onMount(async () => {
-    const res = await Promise.resolve(response);
-    products = res.products;
-
-    // todo: integrate api
-    // products = (await api.timedealsProductsList({ id: timedeal.id })).data;
+    const res = await productApi.productsList();
+    console.log(res, res.data);
+    products = (await productApi.productsList()).data;
   });
 
   const handleAddClick = (event: MouseEvent) => {
