@@ -13,12 +13,10 @@
   import Save16 from "carbon-icons-svelte/lib/Save16";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
+  import { Product, ProductsApi } from "../../api";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import InstructionAdder from "./components/InstructionAdder.svelte";
   import ContentBox from "./components/ContentBox.svelte";
-
-  // dummys
-  import { Product, response } from "./samples/response";
 
   export let productId: string;
 
@@ -29,10 +27,9 @@
   let inventoryTextInput = "";
 
   onMount(async () => {
-    product = await Promise.resolve(response.products[0])!;
-
-    // todo: integrate api
-    // products = (await api.product({ id: timedeal.id })).data;
+    const productApi = new ProductsApi();
+    const res = await productApi.productsRetrieve({ id: productId });
+    product = res.data;
     isLoading = false;
   });
 

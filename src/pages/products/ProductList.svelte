@@ -1,14 +1,18 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
-  import { Button } from "carbon-components-svelte";
+  import { Button, Search } from "carbon-components-svelte";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import ProductCard from "./components/ProductCard.svelte";
+  import Pagination from "../../components/Pagination.svelte";
 
   import { Product, ProductsApi } from "../../api";
 
   let products: Product[] = [];
+  let page = 1;
+  let totalItems = 0;
+
   const productApi = new ProductsApi();
 
   onMount(async () => {
@@ -26,6 +30,8 @@
   <div class="button-wrapper">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
+  <Pagination {page} {totalItems} />
+  <Search />
   <ul class="product-list">
     {#each products as product}
       <ProductCard {product} />
@@ -34,6 +40,8 @@
   <div class="button-wrapper">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
+  <Pagination {page} {totalItems} />
+  <Search />
 </LoggedInFrame>
 
 <style>
@@ -41,6 +49,8 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    flex: 1 0 21%; /* explanation below */
+    justify-content: space-between;
   }
 
   .button-wrapper {
