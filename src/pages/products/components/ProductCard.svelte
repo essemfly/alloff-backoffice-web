@@ -9,7 +9,7 @@
 
   const handleCardClick = (event: MouseEvent) => {
     event.preventDefault();
-    navigate(`/products/${product.productId}`);
+    navigate(`/products/${product.product_id}`);
   };
 
   const handleDeleteClick = async () => {
@@ -34,14 +34,13 @@
   <div class="image">
     <img
       src={product.images[0]}
-      alt={[product.brandKorName, product.alloffName].join("-")}
+      alt={[product.brand_kor_name, product.alloff_name].join("-")}
     />
   </div>
   <div class="info">
-    <Tag>{product.brandKorName}</Tag>
-    <p>{product.brandKorName}</p>
-    <h6>{product.alloffName}</h6>
-    {#if product.inventory?.reduce((prev, curr) => prev + curr.quantity, 0) === 0}
+    <p>{product.brand_kor_name}</p>
+    <h6>{product.alloff_name}</h6>
+    {#if product.inventory.reduce((prev, curr) => prev + curr.quantity, 0) === 0}
       <Tag type="red">⚠️ 재고없음</Tag>
     {/if}
     {#each product.inventory as inventory}

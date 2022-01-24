@@ -13,8 +13,7 @@
 
   onMount(async () => {
     const res = await productApi.productsList();
-    console.log(res, res.data);
-    products = (await productApi.productsList()).data;
+    products = res.data;
   });
 
   const handleAddClick = (event: MouseEvent) => {
