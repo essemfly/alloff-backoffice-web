@@ -16,19 +16,19 @@
 
 <div class="title">
   {#if status}
-    <Tag type={getTimedealStatusColor(status)} style="margin-left: 0px;"
-      >{status}</Tag
-    >
+    <Tag type={getTimedealStatusColor(status)} style="margin-left: 0px;">
+      {status}
+    </Tag>
   {/if}
   {#if $newStatus}
-    <Tag type={getTimedealStatusColor($newStatus)} style="margin-left: 0px;"
-      >WILL BE {$newStatus}</Tag
-    >
+    <Tag type={getTimedealStatusColor($newStatus)} style="margin-left: 0px;">
+      WILL BE {$newStatus}
+    </Tag>
   {/if}
   {#if timedeal}
     <OverflowMenu>
       <OverflowMenuItem
-        on:click={() => navigator.clipboard.writeText(timedeal?.id ?? '')}
+        on:click={() => navigator.clipboard.writeText(timedeal?.id ?? "")}
         text="ID 복사"
       />
     </OverflowMenu>

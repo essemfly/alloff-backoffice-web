@@ -32,11 +32,11 @@
       referenceid: "",
     };
 
-  let touched = true;
+  const touched = true;
   let complete: CreateNotificationRequest | undefined;
 
   $: {
-    let newComplete: CreateNotificationRequest = {
+    const newComplete: CreateNotificationRequest = {
       title: title,
       message: message,
       referenceid: referenceid,

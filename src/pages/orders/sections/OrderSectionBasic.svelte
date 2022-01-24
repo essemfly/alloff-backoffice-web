@@ -43,7 +43,7 @@
     load();
   };
 
-  let newMemo: string = "";
+  let newMemo = "";
 </script>
 
 <TabContent style="padding: 0;">
@@ -76,7 +76,7 @@
         text: "전체주소 복사",
         onClick: () =>
           navigator.clipboard.writeText(
-            `${order?.payment?.buyeraddress} (${order?.payment?.buyerpostcode})`
+            `${order?.payment?.buyeraddress} (${order?.payment?.buyerpostcode})`,
           ),
       },
       {
@@ -149,7 +149,7 @@
                 text: "상품명 복사",
                 onClick: () =>
                   navigator.clipboard.writeText(
-                    (o.product ?? o.alloffproduct)?.name ?? ""
+                    (o.product ?? o.alloffproduct)?.name ?? "",
                   ),
               },
               {
@@ -158,7 +158,7 @@
                   navigator.clipboard.writeText(
                     `${(o.product ?? o.alloffproduct)?.brand.korname} (${
                       (o.product ?? o.alloffproduct)?.brand.keyname
-                    })`
+                    })`,
                   ),
               },
               {
@@ -167,7 +167,7 @@
                   navigator.clipboard.writeText(
                     `${o?.alloffproduct ? "alloffproduct" : "product"} - ${
                       (o.product ?? o.alloffproduct)?._id
-                    }`
+                    }`,
                   ),
               },
               {
@@ -229,7 +229,7 @@
               {
                 header: "단가",
                 body: `${numberWithCommas(
-                  (o.product ?? o.alloffproduct)?.discountedprice ?? 0
+                  (o.product ?? o.alloffproduct)?.discountedprice ?? 0,
                 )}원`,
               },
             ]}

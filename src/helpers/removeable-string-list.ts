@@ -12,7 +12,7 @@ export class RemovableStringList {
   }) {
     const { initialValues, onChange, onAdd } = options;
     this._hashMap = writable(
-      initialValues?.map((body) => ({ key: shortid(), body })) ?? []
+      initialValues?.map((body) => ({ key: shortid(), body })) ?? [],
     );
     if (onChange) {
       this._hashMap.subscribe(onChange);
@@ -43,7 +43,7 @@ export class RemovableStringList {
 
   remove(removeKey: string) {
     this._hashMap.update((state) =>
-      state.filter(({ key }) => key !== removeKey)
+      state.filter(({ key }) => key !== removeKey),
     );
   }
 }

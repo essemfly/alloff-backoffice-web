@@ -43,10 +43,10 @@ axios.interceptors.response.use(
     }
     // console.log("?????????????????", { error });
     throw error;
-  }
+  },
 );
 
-var app = new App({
+const app = new App({
   target: document.body,
 });
 

@@ -84,7 +84,11 @@
               {row.body}
             </Link>
           {:else if row.tagType}
-            <Tag type={row.tagType} style="margin-left:0; margin-top:0; margin-bottom: 0;">{row.body}</Tag>
+            <Tag
+              type={row.tagType}
+              style="margin-left:0; margin-top:0; margin-bottom: 0;"
+              >{row.body}</Tag
+            >
           {:else}
             {row.body}
           {/if}

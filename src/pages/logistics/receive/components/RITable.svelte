@@ -15,7 +15,7 @@
   import { search } from "../store";
 
   export let ris: ReceivedItem[] = [];
-  export let isMobile: boolean = false;
+  export let isMobile = false;
   export let reload: () => Promise<void>;
   export let receive: (id: number) => Promise<void>;
   export let revert: (id: number) => Promise<void>;
@@ -93,7 +93,7 @@
         hour12: true,
       })}
     {:else if cell.key === "images"}
-      <img src={row.images[0]} width="100" />
+      <img src={row.images[0]} width="100" alt="타임딜 이미지" />
     {:else if cell.key.includes("time")}
       {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
         month: "2-digit",

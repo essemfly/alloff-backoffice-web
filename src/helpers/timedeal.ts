@@ -2,6 +2,7 @@ export const a = "1";
 // import { DateTime } from "luxon";
 // import { Timedeal } from "../api";
 
+<<<<<<< HEAD
 // export type TimedealDomainStatus = "PENDING" | "OPEN" | "CLOSED";
 // function getTimedealStatus(timedeal: Timedeal): TimedealDomainStatus;
 // function getTimedealStatus(
@@ -15,6 +16,21 @@ export const a = "1";
 //   if (timedealOrStarttime instanceof Date && finishTime === undefined) {
 //     throw new Error("starttime must accompany finishtime!");
 //   }
+=======
+export type TimedealDomainStatus = "PENDING" | "OPEN" | "CLOSED";
+function getTimedealStatus(timedeal: Timedeal): TimedealDomainStatus;
+function getTimedealStatus(
+  starttime: Date,
+  finishtime: Date,
+): TimedealDomainStatus;
+function getTimedealStatus(
+  timedealOrStarttime: Timedeal | Date,
+  finishTime?: Date,
+): TimedealDomainStatus {
+  if (timedealOrStarttime instanceof Date && finishTime === undefined) {
+    throw new Error("starttime must accompany finishtime!");
+  }
+>>>>>>> dc675949bebabe387d2e21fbf8ee890a3d3d9332
 
 //   const startsAt =
 //     timedealOrStarttime instanceof Date

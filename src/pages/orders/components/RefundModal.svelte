@@ -11,7 +11,7 @@
   export let updateRefundInfo: (
     refundDeliveryPrice: number,
     refundPrice: number,
-    refundAmount: number
+    refundAmount: number,
   ) => Promise<void>;
 
   export let open = false;
@@ -66,13 +66,13 @@
       {#if refundAmount <= paymentAdjustmentSum}
         <p style="color: red;">
           새로운 환불총액은 기환불총액보다 커야합니다. (기환불총액: {numberWithCommas(
-            paymentAdjustmentSum
+            paymentAdjustmentSum,
           )}원)
         </p>
       {:else if refundFee > orderTotalPrice}
         <p style="color: red;">
           공제액은 주문가액보다 작아야합니다. (주문가액: {numberWithCommas(
-            orderTotalPrice
+            orderTotalPrice,
           )}원)
         </p>
       {/if}

@@ -14,7 +14,7 @@
   export let changeOrderStatus: (
     status: OrderStatusEnum,
     deliveryTrackingNumber?: string,
-    deliveryTrackingUrl?: string
+    deliveryTrackingUrl?: string,
   ) => Promise<void>;
 
   export let open = false;
@@ -42,7 +42,7 @@
     await changeOrderStatus(
       OrderStatusEnum.DeliveryStarted,
       deliveryTrackingNumber,
-      deliveryTrackingUrl
+      deliveryTrackingUrl,
     );
     open = false;
   }}
