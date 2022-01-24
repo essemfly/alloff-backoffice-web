@@ -26,8 +26,6 @@ export interface Product {
   isRemoved: boolean;
 }
 
-// export type Product = any;
-
 interface ListRes {
   products: Product[];
   offset: number;
@@ -35,6 +33,16 @@ interface ListRes {
   totalCounts: number;
   listQuery?: string | null;
 }
+
+export interface Brand {
+  key?: any;
+  id: any;
+  _id?: any;
+  korname: string;
+  keyname: string;
+}
+
+export type AlloffProductBrand = Brand;
 
 export const response: ListRes = {
   products: [

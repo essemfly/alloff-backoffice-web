@@ -10,13 +10,14 @@
     FileUploaderDropContainer,
     InlineLoading,
   } from "carbon-components-svelte";
-  import { AlloffProductBrand, Brand, BrandsApi } from "../../api";
+  // import { AlloffProductBrand, Brand, BrandsApi } from "../../api";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import InstructionAdder from "./components/InstructionAdder.svelte";
   import ContentBox from "./components/ContentBox.svelte";
 
   import { AutocompleteItem } from "../../common/autocomplete/utils";
   import Autocomplete from "../../common/autocomplete/Autocomplete.svelte";
+  import { AlloffProductBrand, Brand } from "./samples/response"; // todo: remove
 
   let discountrate = 0; // todo: fix
   let isImagesUploading = false;
@@ -25,8 +26,9 @@
   let productBrand: AlloffProductBrand;
 
   onMount(async () => {
-    const brandsAPi = new BrandsApi();
-    brands = (await brandsAPi.brandsList()).data;
+    // todo: api integrate
+    // const brandsAPi = new BrandsApi();
+    // brands = (await brandsAPi.brandsList()).data;
   });
 
   const handleSubmit = () => {
@@ -42,6 +44,8 @@
   const handleAddInventory = (fieldName: string) => () => {
     // todo
   };
+
+  console.log("s");
 </script>
 
 <LoggedInFrame>
