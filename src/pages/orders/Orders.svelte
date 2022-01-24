@@ -24,7 +24,7 @@
     statuses: OrderStatusEnum[],
     createdGte: string,
     createdLte: string,
-    search?: string
+    search?: string,
   ) => {
     if (userId) {
       const res = await api.ordersByUserList({ userId });
@@ -75,44 +75,47 @@
     statuses,
     createdGte,
     createdLte,
-    $search.trim() === "" ? undefined : $search
+    $search.trim() === "" ? undefined : $search,
   );
 </script>
 
 <LoggedInFrame>
   <MediaQuery query="(max-width: 480px)" let:matches>
-
-  {#if userId}
-    <h6>USER ID: {userId}</h6>
-    <div style="height:10px;" />
-  {/if}
-  {#if !userId}
-    <DatePicker
-      datePickerType="range"
-      bind:valueFrom={createdGte}
-      bind:valueTo={createdLte}
-      dateFormat="Y-m-d"
-    >
-      <DatePickerInput labelText="시작일" placeholder="yyyy-mm-dd" />
-      <DatePickerInput labelText="종료일" placeholder="yyyy-mm-dd" />
-    </DatePicker>
-    <div style={`margin-top: 10px; margin-bottom: 5px; display: flex; align-items: center; flex-direction: ${matches ? "column" : "row"};`}>
-      {#each [OrderStatusEnum.PaymentFinished, OrderStatusEnum.ProductPreparing, OrderStatusEnum.DeliveryPreparing, OrderStatusEnum.DeliveryStarted, OrderStatusEnum.DeliveryFinished, OrderStatusEnum.ConfirmPayment, OrderStatusEnum.CancelRequested, OrderStatusEnum.CancelPending, OrderStatusEnum.CancelFinished] as status}
-        <Checkbox
-          labelText={getStatusLabel(status)}
-          checked={statuses.includes(status)}
-          on:check={(e) => {
-            if (e.detail) {
-              statuses = [...statuses, status];
-            } else {
-              statuses = statuses.filter((s) => s !== status);
-            }
-          }}
-        />
-      {/each}
-    </div>
-    <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
-  {/if}
+    {#if userId}
+      <h6>USER ID: {userId}</h6>
+      <div style="height:10px;" />
+    {/if}
+    {#if !userId}
+      <DatePicker
+        datePickerType="range"
+        bind:valueFrom={createdGte}
+        bind:valueTo={createdLte}
+        dateFormat="Y-m-d"
+      >
+        <DatePickerInput labelText="시작일" placeholder="yyyy-mm-dd" />
+        <DatePickerInput labelText="종료일" placeholder="yyyy-mm-dd" />
+      </DatePicker>
+      <div
+        style={`margin-top: 10px; margin-bottom: 5px; display: flex; align-items: center; flex-direction: ${
+          matches ? "column" : "row"
+        };`}
+      >
+        {#each [OrderStatusEnum.PaymentFinished, OrderStatusEnum.ProductPreparing, OrderStatusEnum.DeliveryPreparing, OrderStatusEnum.DeliveryStarted, OrderStatusEnum.DeliveryFinished, OrderStatusEnum.ConfirmPayment, OrderStatusEnum.CancelRequested, OrderStatusEnum.CancelPending, OrderStatusEnum.CancelFinished] as status}
+          <Checkbox
+            labelText={getStatusLabel(status)}
+            checked={statuses.includes(status)}
+            on:check={(e) => {
+              if (e.detail) {
+                statuses = [...statuses, status];
+              } else {
+                statuses = statuses.filter((s) => s !== status);
+              }
+            }}
+          />
+        {/each}
+      </div>
+      <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
+    {/if}
     <OrdersTable isMobile={matches} {orders} canSearch={!userId} />
   </MediaQuery>
 </LoggedInFrame>

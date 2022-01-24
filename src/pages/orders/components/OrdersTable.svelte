@@ -23,8 +23,8 @@
   import { search } from "../store";
 
   export let orders: OrderList[] = [];
-  export let isMobile: boolean = false;
-  export let canSearch: boolean = true;
+  export let isMobile = false;
+  export let canSearch = true;
 
   const mobileHeaders: DataTableHeader[] = [
     { key: "code", value: "코드" },

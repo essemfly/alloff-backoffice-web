@@ -33,7 +33,7 @@
           : "";
         const statusChange = log.status_change
           ? `[STATUS: ${getStatusLabel(
-              log.status_change.status_from
+              log.status_change.status_from,
             )} -> ${getStatusLabel(log.status_change.status_to)}] `
           : "";
         const trackingChange =

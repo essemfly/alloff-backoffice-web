@@ -13,7 +13,7 @@
   import { NotificationsApi } from "../../../api";
 
   export let notifications: Notification[] = [];
-  export let isMobile: boolean = false;
+  export let isMobile = false;
 
   const api = new NotificationsApi();
 

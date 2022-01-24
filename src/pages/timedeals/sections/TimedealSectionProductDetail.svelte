@@ -3,8 +3,6 @@
   import LoggedInFrame from "../../common/LoggedInFrame.svelte";
   import ContentBox from "../components/ContentBox.svelte";
   import ProductTemplateTable from "../components/ProductTemplateTable.svelte";
-  import { RemovableStringList } from "../../../helpers/removeable-string-list";
-  import StringList from "../../common/StringList.svelte";
   import { AutocompleteItem } from "../../../common/autocomplete/utils";
   import Autocomplete from "../../../common/autocomplete/Autocomplete.svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
@@ -17,8 +15,6 @@
     Button,
     Modal,
     TextInput,
-    Select,
-    SelectItem,
     ContentSwitcher,
     Switch,
     FileUploaderDropContainer,
@@ -202,7 +198,7 @@
   };
 
   const saveTimedealProduct = async () => {
-    let newProduct: TimedealProductAddRequest = {
+    const newProduct: TimedealProductAddRequest = {
       ...product,
     };
 
@@ -228,7 +224,7 @@
   };
 
   const editTimedealProduct = async () => {
-    let newProduct: TimedealProductAddRequest = {
+    const newProduct: TimedealProductAddRequest = {
       ...product,
     };
 

@@ -14,7 +14,7 @@
     page: number,
     size: number,
     statuses: InventoryStatusEnum[],
-    search?: string
+    search?: string,
   ) => {
     const {
       data: { count, results },
@@ -33,17 +33,15 @@
   let page = 1;
   let pageSize = 50;
   let totalItems = 0;
-  let location: string | undefined = undefined;
-  let statuses: InventoryStatusEnum[] = [
-    InventoryStatusEnum.InStock,
-  ];
+  const location: string | undefined = undefined;
+  let statuses: InventoryStatusEnum[] = [InventoryStatusEnum.InStock];
   const pageSizes = [50, 100, 200];
 
   $: load(
     page,
     pageSize,
     statuses,
-    $search.trim() === "" ? undefined : $search
+    $search.trim() === "" ? undefined : $search,
   );
 </script>
 

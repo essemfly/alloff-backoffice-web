@@ -15,7 +15,7 @@
   const imageApi = new ImageUploadApi();
 
   export let brand: Brand;
-  export let mobile: Boolean;
+  export let mobile: boolean;
 
   let tempGuide = {
     label: "",
@@ -94,15 +94,15 @@
       .brandsPartialUpdate({
         id: brand.id,
         patchedBrandRequest: {
-          onpopular: onPopular === "true" ? true: false,
-          isopen: isOpen === "true" ? true: false,
-          ishide: isHide === "true" ? true: false,
+          onpopular: onPopular === "true" ? true : false,
+          isopen: isOpen === "true" ? true : false,
+          ishide: isHide === "true" ? true : false,
         },
       })
       .then((res) => {
         console.log("res", res);
       });
-  }
+  };
 </script>
 
 <div class="brand" class:mobile>
@@ -125,15 +125,27 @@
     <p>{brand.description}</p>
     <p>최대 할인율: {brand.maxdiscountrate}%</p>
     <hr />
-    <RadioButtonGroup legendText="인기있는 브랜드" bind:selected={onPopular} on:change={updateStatus}>
+    <RadioButtonGroup
+      legendText="인기있는 브랜드"
+      bind:selected={onPopular}
+      on:change={updateStatus}
+    >
       <RadioButton labelText="True" value="true" />
       <RadioButton labelText="False" value="false" />
     </RadioButtonGroup>
-    <RadioButtonGroup legendText="브랜드 오픈여부" bind:selected={isOpen} on:change={updateStatus}>
+    <RadioButtonGroup
+      legendText="브랜드 오픈여부"
+      bind:selected={isOpen}
+      on:change={updateStatus}
+    >
       <RadioButton labelText="Open" value="true" />
       <RadioButton labelText="Closed" value="false" />
     </RadioButtonGroup>
-    <RadioButtonGroup legendText="숨김처리" bind:selected={isHide} on:change={updateStatus}>
+    <RadioButtonGroup
+      legendText="숨김처리"
+      bind:selected={isHide}
+      on:change={updateStatus}
+    >
       <RadioButton labelText="Yes" value="true" />
       <RadioButton labelText="No" value="false" />
     </RadioButtonGroup>

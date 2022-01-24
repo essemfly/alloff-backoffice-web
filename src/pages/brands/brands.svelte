@@ -15,7 +15,7 @@
 
   let brands: Brand[] = [];
 
-  let createBrandModalOpen: boolean = false;
+  let createBrandModalOpen = false;
   const brandsAPi = new BrandsApi();
 
   const closeModal = () => {

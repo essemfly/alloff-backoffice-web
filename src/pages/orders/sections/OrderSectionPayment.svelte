@@ -20,7 +20,7 @@
   const updateRefundInfo = async (
     refundPrice: number,
     refundDeliveryPrice: number,
-    refundAmount: number
+    refundAmount: number,
   ) => {
     submitting = true;
     await api.ordersUpdateRefundCreate({
@@ -38,7 +38,7 @@
   const adjustPayment = async (
     reason: string,
     method: MethodEnum,
-    bank_account_info?: string
+    bank_account_info?: string,
   ) => {
     if (refundableAmount <= 0) return;
     submitting = true;
@@ -106,7 +106,7 @@
         {
           header: "실행 후 잔고",
           body: `${numberWithCommas(
-            order.totalprice - order.refund.refundamount
+            order.totalprice - order.refund.refundamount,
           )}원`,
         },
       ]}
@@ -129,9 +129,9 @@
         {
           header: "환불총액",
           body: `${numberWithCommas(
-            order.refund.refundamount
+            order.refund.refundamount,
           )}원 (총 ${numberWithCommas(
-            order.refund.refundprice + order.refund.refunddeliveryprice
+            order.refund.refundprice + order.refund.refunddeliveryprice,
           )} 공제)`,
         },
         // {
@@ -149,7 +149,7 @@
       rows={order.payment_adjustments.map((adj, i) => ({
         header: `#${i + 1}`,
         body: `${numberWithCommas(adj.amount)}원 (잔액: ${numberWithCommas(
-          adj.previous_balance
+          adj.previous_balance,
         )} -> ${numberWithCommas(adj.resulting_balance)}) 실행: ${
           adj.admin.profile.name
         }`,

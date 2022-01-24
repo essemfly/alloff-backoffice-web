@@ -1,7 +1,5 @@
 <script lang="ts">
-  import {
-  TabContent
-  } from "carbon-components-svelte";
+  import { TabContent } from "carbon-components-svelte";
   import { OrderRetrieve } from "../../../api";
   import { numberWithCommas } from "../../../helpers/number";
   import InfoSection from "../../common/InfoSection.svelte";
@@ -21,8 +19,7 @@
         },
         {
           text: "PG ID 복사",
-          onClick: () =>
-            navigator.clipboard.writeText(order.iamport.imp_uid),
+          onClick: () => navigator.clipboard.writeText(order.iamport.imp_uid),
         },
       ]}
       rows={[

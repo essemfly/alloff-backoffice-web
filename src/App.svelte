@@ -18,6 +18,7 @@
   // import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   // import Timedeals from "./pages/timedeals/Timedeals.svelte";
   import OrderItems from "./pages/order-items/OrderItems.svelte";
+  import ProductRoutes from "./pages/products/ProductRoutes.svelte";
 </script>
 
 <SvelteToast options={{ duration: 3000 }} />
@@ -75,10 +76,18 @@
     </Route>
     <Route path=":id/products/*" let:params>
       <Route path="/">
-        <TimedealSectionProductDetail productId="" productGroupId={params.id} mobile={false} />
+        <TimedealSectionProductDetail
+          productId=""
+          productGroupId={params.id}
+          mobile={false}
+        />
       </Route>
       <Route path=":productid" let:params>
-        <TimedealSectionProductDetail productId={params.productid} productGroupId={params.id} mobile={false} />
+        <TimedealSectionProductDetail
+          productId={params.productid}
+          productGroupId={params.id}
+          mobile={false}
+        />
       </Route>
     </Route>
   </Route>
@@ -92,9 +101,16 @@
   </Route>
   <Route path="timedeal-products/*">
     <Route path=":id" let:params>
-      <TimedealSectionProductDetail productId={params.id} productGroupId="" mobile={false} />
+      <TimedealSectionProductDetail
+        productId={params.id}
+        productGroupId=""
+        mobile={false}
+      />
     </Route>
   </Route>-->
+  <Route path="products/*">
+    <ProductRoutes />
+  </Route>
   <Route path="login">
     <Login />
   </Route>

@@ -21,8 +21,10 @@
 </script>
 
 <Tag
-  style={(!!onClick ? style + "cursor: pointer;" : style) +
+  style={(onClick ? style + "cursor: pointer;" : style) +
     (fullWidth ? "width: 100%;" : "")}
   on:click={onClick}
-  {type}><slot /></Tag
+  {type}
 >
+  <slot />
+</Tag>

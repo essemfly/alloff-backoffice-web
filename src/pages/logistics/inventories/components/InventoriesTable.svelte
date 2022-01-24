@@ -15,7 +15,7 @@
   import { search } from "../store";
 
   export let inventories: Inventory[] = [];
-  export let isMobile: boolean = false;
+  export let isMobile = false;
 
   const mobileHeaders: DataTableHeader[] = [
     { key: "code", value: "코드" },

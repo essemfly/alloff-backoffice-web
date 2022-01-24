@@ -9,7 +9,7 @@
   } from "carbon-components-svelte/types/DataTable/DataTable";
   import { TimedealProductTemplate } from "../../../api";
 
-  let tableKeys: DataTableHeader[] = [
+  const tableKeys: DataTableHeader[] = [
     { key: "brand.keyname", value: "KEYNAME" },
     { key: "producttype", value: "상품타입" },
     { key: "name", value: "상품명" },
@@ -19,7 +19,6 @@
   ];
   export let templateData: DataTableValue[] = [];
   export let onCloseModal: (arg: DataTableRow) => void;
-  
 </script>
 
 <div>
@@ -28,7 +27,7 @@
     rows={templateData}
     on:click:row={(e) => {
       console.log("E", e.detail);
-      onCloseModal(e.detail)
+      onCloseModal(e.detail);
     }}
   >
     <span slot="cell" let:cell let:row>

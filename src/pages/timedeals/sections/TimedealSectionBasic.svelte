@@ -92,8 +92,8 @@
       newStatus.set(
         getTimedealStatus(
           new Date(newStartTime ?? starttime),
-          new Date(newFinishTime ?? finishtime)
-        )
+          new Date(newFinishTime ?? finishtime),
+        ),
       );
     }
 
@@ -135,7 +135,7 @@
     };
 
     partial = Object.fromEntries(
-      Object.entries(newPartial).filter(([_, val]) => !!val)
+      Object.entries(newPartial).filter(([_, val]) => !!val),
     );
 
     touched = Object.entries(partial).length > 0;
@@ -291,7 +291,7 @@
   .image.mobile {
     width: 100%;
   }
-
+  /* 
   .memo-form {
     margin-top: 10px;
     display: flex;
@@ -318,5 +318,5 @@
     margin-left: 3px;
     font-size: 10px;
     cursor: pointer;
-  }
+  } */
 </style>
