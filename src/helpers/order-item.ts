@@ -3,7 +3,7 @@ import {
   ActionTypeEnum,
   OrderItemRetrieve,
   OrderItemStatusEnum,
-  OrderItemTypeEnum
+  OrderItemTypeEnum,
 } from "../api";
 
 export const getTypeBadgeColor = (itemType: OrderItemTypeEnum) => {
@@ -32,7 +32,7 @@ export const getTypeLabel = (itemType: OrderItemTypeEnum) => {
 };
 
 export const getStatusBadgeColor = (
-  status: OrderItemStatusEnum | undefined
+  status: OrderItemStatusEnum | undefined,
 ) => {
   switch (status) {
     case OrderItemStatusEnum.Created:
@@ -108,32 +108,30 @@ export const getStatusLabel = (status: OrderItemStatusEnum | undefined) => {
 
 export const getOrderItemTimestampByStatus = (
   status: OrderItemStatusEnum,
-  item: OrderItemRetrieve
+  item: OrderItemRetrieve,
 ): DateTime | undefined => {
   switch (status) {
     case OrderItemStatusEnum.PaymentFinished:
-      return item.ordered_at ? DateTime.fromISO(item.ordered_at) : undefined;
+      return item.orderedAt ? DateTime.fromISO(item.orderedAt) : undefined;
     case OrderItemStatusEnum.ReturnRequested:
     case OrderItemStatusEnum.ExchangeRequested:
-      return item.cancel_requested_at
-        ? DateTime.fromISO(item.cancel_requested_at)
+      return item.cancelRequestedAt
+        ? DateTime.fromISO(item.cancelRequestedAt)
         : undefined;
     case OrderItemStatusEnum.CancelFinished:
-      return item.cancel_finished_at
-        ? DateTime.fromISO(item.cancel_finished_at)
+      return item.cancelFinishedAt
+        ? DateTime.fromISO(item.cancelFinishedAt)
         : undefined;
     case OrderItemStatusEnum.DeliveryStarted:
-      return item.delivery_started_at
-        ? DateTime.fromISO(item.delivery_started_at)
+      return item.deliveryStartedAt
+        ? DateTime.fromISO(item.deliveryStartedAt)
         : undefined;
     case OrderItemStatusEnum.DeliveryFinished:
-      return item.delivery_finished_at
-        ? DateTime.fromISO(item.delivery_finished_at)
+      return item.deliveryFinishedAt
+        ? DateTime.fromISO(item.deliveryFinishedAt)
         : undefined;
     case OrderItemStatusEnum.ConfirmPayment:
-      return item.confirmed_at
-        ? DateTime.fromISO(item.confirmed_at)
-        : undefined;
+      return item.confirmedAt ? DateTime.fromISO(item.confirmedAt) : undefined;
     default:
       return undefined;
   }
