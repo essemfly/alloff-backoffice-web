@@ -1,14 +1,12 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { TokenApi } from "./api";
-import { AxiosError } from "axios";
 import App from "./App.svelte";
-import { getTokens, removeTokens, setTokens } from "./core/auth";
+import { getTokens, setTokens } from "./core/auth";
 
 const toLogin = () => {
   window.location.href = "/login";
 };
 
-// axios.defaults.withCredentials = true;
 axios.interceptors.request.use((config) => {
   const { access } = getTokens();
   config.headers = {
