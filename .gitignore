@@ -6,3 +6,10 @@ node_modules
 **/.DS_Store
 
 src/api
+/src/api
+src/api/*
+
+
+.tool-versions
+
+*.log
