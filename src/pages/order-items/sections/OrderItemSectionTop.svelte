@@ -10,6 +10,8 @@
     OrderItemStatusEnum,
   } from "../../../api";
   import {
+getIsForeignBadgeColor,
+    getIsForeignLabel,
     getOrderItemTimestampByStatus,
     // getOrderTimestampByStatus,
     getStatusBadgeColor,
@@ -20,7 +22,10 @@
   } from "../../../helpers/order-item";
   import SquareTag from "../../../common/SquareTag.svelte";
   import TrackingInputModal from "../components/TrackingInputModal.svelte";
-  import { ORDER_ITEM_STATUSES } from "../../../constants";
+  import {
+    ORDER_ITEM_ALL_STATUSES,
+    ORDER_ITEM_DOMESTIC_STATUSES,
+  } from "../../../constants";
   export let item: OrderItemRetrieve;
   export let submitting: boolean;
   export let load: () => void;
@@ -32,7 +37,7 @@
   const changeOrderItemStatus = async (
     status: OrderItemStatusEnum,
     tracking_number?: string,
-    tracking_url?: string
+    tracking_url?: string,
   ) => {
     if (!confirm("주문상태를 변경합니다: " + getStatusLabel(status))) return;
     submitting = true;
@@ -67,10 +72,11 @@
 <h3 style="margin-bottom: 10px;">{item.order_item_code}</h3>
 <h6>🙋‍♀️{item.order.user.name} 👚{item.product_name}</h6>
 <div class="title">
+  <Tag type={getIsForeignBadgeColor(item.is_foreign)}>{getIsForeignLabel(item.is_foreign)} 소싱</Tag>
   <Tag type={getTypeBadgeColor(item.order_item_type)} style="margin-left: 0px;"
     >{getTypeLabel(item.order_item_type)} 주문</Tag
   >
-  <Tag type="cool-gray">{item.id}</Tag>
+  <Tag type="cool-gray">DB #{item.id}</Tag>
   <OverflowMenu>
     <OverflowMenuItem
       on:click={() => navigator.clipboard.writeText(item.order_item_code)}
@@ -88,7 +94,7 @@
 </div>
 
 <div class:mobile-tags={mobile} class:tags={!mobile}>
-  {#each ORDER_ITEM_STATUSES as status}
+  {#each item.is_foreign ? ORDER_ITEM_ALL_STATUSES : ORDER_ITEM_DOMESTIC_STATUSES as status}
     <SquareTag
       fullWidth={!mobile}
       onClick={() => handleChangeOrderStatus(status)}

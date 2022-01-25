@@ -8,7 +8,7 @@
   } from "../../../api";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { numberWithCommas } from "../../../helpers/number";
-  import { getTypeLabel } from "../../../helpers/order-item";
+  import { getIsForeignLabel, getTypeLabel } from "../../../helpers/order-item";
   import { admin } from "../../../store";
   import InfoSection from "../../common/InfoSection.svelte";
   export let item: OrderItemRetrieve;
@@ -92,6 +92,10 @@
             {
               header: "상품타입",
               body: getTypeLabel(item.order_item_type),
+            },
+            {
+              header: "해외소싱여부",
+              body: getIsForeignLabel(item.is_foreign),
             },
             {
               header: "사이즈",

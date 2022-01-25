@@ -8,7 +8,7 @@
   import { DateTime } from "luxon";
   import { useLocation } from "svelte-navigator";
   import { OrderItemList,OrderItemsApi,OrderItemStatusEnum } from "../../api";
-  import { ORDER_ITEM_STATUSES } from "../../constants";
+  import { ORDER_ITEM_ALL_STATUSES } from "../../constants";
   import MediaQuery from "../../helpers/MediaQuery.svelte";
   import { getStatusLabel } from "../../helpers/order-item";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
@@ -25,7 +25,7 @@
   let createdGte = DateTime.now().minus({ days: 7 }).toISO().split("T")[0];
   let createdLte = DateTime.now().toISO().split("T")[0];
 
-  let statuses = [...ORDER_ITEM_STATUSES];
+  let statuses = [...ORDER_ITEM_ALL_STATUSES];
   const pageSizes = [20, 50, 100];
   const api = new OrderItemsApi();
   const load = async (
@@ -90,7 +90,7 @@
           matches ? "column" : "row"
         };`}
       >
-        {#each ORDER_ITEM_STATUSES as status}
+        {#each ORDER_ITEM_ALL_STATUSES as status}
           <Checkbox
             labelText={getStatusLabel(status)}
             checked={statuses.includes(status)}

@@ -155,3 +155,6 @@ export const getLogTypeLabel = (logType: ActionTypeEnum) => {
       return "재입고처리";
   }
 };
+
+export const getIsForeignLabel = (isForeign: boolean) => isForeign ? "해외" : "국내";
+export const getIsForeignBadgeColor = (isForeign: boolean) => isForeign ? "magenta" : "cyan";
