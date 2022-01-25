@@ -76,11 +76,11 @@ export const getStatusLabel = (status: OrderItemStatusEnum | undefined) => {
     case OrderItemStatusEnum.ProductPreparing:
       return "상품준비중";
     case OrderItemStatusEnum.ForeignProductInspecting:
-      return "해외검수중";
+      return "현지검수중";
     case OrderItemStatusEnum.DeliveryPreparing:
       return "배송준비중";
     case OrderItemStatusEnum.ForeignDeliveryStarted:
-      return "해외배송준비중";
+      return "해외배송중";
     case OrderItemStatusEnum.DeliveryStarted:
       return "배송시작";
     case OrderItemStatusEnum.DeliveryFinished:
@@ -112,26 +112,26 @@ export const getOrderItemTimestampByStatus = (
 ): DateTime | undefined => {
   switch (status) {
     case OrderItemStatusEnum.PaymentFinished:
-      return item.orderedAt ? DateTime.fromISO(item.orderedAt) : undefined;
+      return item.ordered_at ? DateTime.fromISO(item.ordered_at) : undefined;
     case OrderItemStatusEnum.ReturnRequested:
     case OrderItemStatusEnum.ExchangeRequested:
-      return item.cancelRequestedAt
-        ? DateTime.fromISO(item.cancelRequestedAt)
+      return item.cancel_requested_at
+        ? DateTime.fromISO(item.cancel_requested_at)
         : undefined;
     case OrderItemStatusEnum.CancelFinished:
-      return item.cancelFinishedAt
-        ? DateTime.fromISO(item.cancelFinishedAt)
+      return item.cancel_finished_at
+        ? DateTime.fromISO(item.cancel_finished_at)
         : undefined;
     case OrderItemStatusEnum.DeliveryStarted:
-      return item.deliveryStartedAt
-        ? DateTime.fromISO(item.deliveryStartedAt)
+      return item.delivery_started_at
+        ? DateTime.fromISO(item.delivery_started_at)
         : undefined;
     case OrderItemStatusEnum.DeliveryFinished:
-      return item.deliveryFinishedAt
-        ? DateTime.fromISO(item.deliveryFinishedAt)
+      return item.delivery_finished_at
+        ? DateTime.fromISO(item.delivery_finished_at)
         : undefined;
     case OrderItemStatusEnum.ConfirmPayment:
-      return item.confirmedAt ? DateTime.fromISO(item.confirmedAt) : undefined;
+      return item.confirmed_at ? DateTime.fromISO(item.confirmed_at) : undefined;
     default:
       return undefined;
   }

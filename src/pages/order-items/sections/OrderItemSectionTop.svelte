@@ -31,8 +31,8 @@
 
   const changeOrderItemStatus = async (
     status: OrderItemStatusEnum,
-    delivery_tracking_number?: string,
-    delivery_tracking_url?: string
+    tracking_number?: string,
+    tracking_url?: string
   ) => {
     if (!confirm("주문상태를 변경합니다: " + getStatusLabel(status))) return;
     submitting = true;
@@ -41,8 +41,8 @@
         id: item.id.toString(),
         changeStatusRequest: {
           status,
-          delivery_tracking_number,
-          delivery_tracking_url,
+          tracking_number,
+          tracking_url,
         },
       });
     } catch (e: any) {
