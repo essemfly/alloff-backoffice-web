@@ -1,6 +1,6 @@
 <script lang="ts">
   import { TabContent } from "carbon-components-svelte";
-  import { ActionTypeEnum, OrderItemRetrieve,  } from "../../../api";
+  import { ActionTypeEnum, OrderItemRetrieve } from "../../../api";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { getLogTypeLabel, getStatusLabel } from "../../../helpers/order-item";
   import InfoSection from "../../common/InfoSection.svelte";
@@ -33,7 +33,7 @@
           : "";
         const statusChange = log.status_change
           ? `[STATUS: ${getStatusLabel(
-              log.status_change.status_from
+              log.status_change.status_from,
             )} -> ${getStatusLabel(log.status_change.status_to)}] `
           : "";
         const trackingChange =
@@ -42,7 +42,12 @@
             log.status_change.tracking_number_to
             ? `[TRACKING: tracking ${log.status_change.tracking_number_from} -> ${log.status_change.tracking_number_to}] `
             : "";
-        return statusChange + refund + trackingChange + alimtalk + memo + base;
+        const receivedItem =
+          (log.action_type === ActionTypeEnum.ReceivedItem ||
+          log.action_type === ActionTypeEnum.ForceReceivedItem)
+            ? `[입고: ${log.detail}] `
+            : "";
+        return statusChange + receivedItem +  refund + trackingChange + alimtalk + memo + base;
       })(),
     }))}
   />

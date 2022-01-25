@@ -85,6 +85,9 @@
         <InfoSection
           title={item.product_name}
           smallTitle
+          menuItems={[{ text: "재입고처리 (1개)", onClick: () => {
+            api.orderItemsForceMakeRiCreate({id: item.id, forceMakeRiRequest: {quantity: 1}}).then(() => window.location.reload());
+          } }]}
           rows={[
             {
               header: "상품타입",

@@ -149,5 +149,9 @@ export const getLogTypeLabel = (logType: ActionTypeEnum) => {
       return "환불처리";
     case ActionTypeEnum.StatusChange:
       return "상태변경";
+    case ActionTypeEnum.ReceivedItem:
+      return "입고지시";
+    case ActionTypeEnum.ForceReceivedItem:
+      return "재입고처리";
   }
 };
