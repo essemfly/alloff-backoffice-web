@@ -4,7 +4,7 @@
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import ProductForm from "./components/ProductForm.svelte";
-  import { Product, ProductsApi } from "../../api";
+  import { CreateProductRequestRequest, Product, ProductsApi } from "../../api";
 
   let isTouched = true;
   let product: Product = {
@@ -33,8 +33,10 @@
 
   const handleSubmit = async () => {
     const productApi = new ProductsApi();
-    const res = await productApi.productsCreate({ productRequest: product });
-    console.log(res);
+    const res = await productApi.productsCreate({
+      createProductRequestRequest:
+        product as unknown as CreateProductRequestRequest,
+    });
   };
 </script>
 

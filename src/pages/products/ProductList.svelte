@@ -1,4 +1,5 @@
 <script lang="ts">
+  import debounce from "lodash/debounce";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import { Button, Search } from "carbon-components-svelte";
@@ -11,19 +12,35 @@
 
   let products: Product[] = [];
   let page = 1;
+  let pageSize = 50;
   let totalItems = 0;
 
   const productApi = new ProductsApi();
 
-  onMount(async () => {
-    const res = await productApi.productsList();
+  const load = async (page: number, size: number, search?: string) => {
+    const res = await productApi.productsList({
+      page,
+      search,
+      size,
+      location,
+    });
     products = res.data;
+    totalItems = res.data.length; // todo: fix
+  };
+
+  onMount(async () => {
+    await load(1, pageSize);
   });
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
     navigate("/products/add");
   };
+
+  const handleSearch = debounce((e) => {
+    const value = e.target.value.trim();
+    load(1, pageSize, value);
+  }, 300);
 </script>
 
 <LoggedInFrame>
@@ -31,7 +48,7 @@
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
   <Pagination {page} {totalItems} />
-  <Search />
+  <Search on:input={handleSearch} />
   <ul class="product-list">
     {#each products as product}
       <ProductCard {product} />
