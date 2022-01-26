@@ -25,6 +25,8 @@
     isTouched =
       (_newDateTime === null && (!!dateValue || !!timeValue)) ||
       (_newDateTime !== null && _newDateTime !== value);
+
+    value = _newDateTime;
   }
 
   const handleFocus = (event: FocusEvent) => {
