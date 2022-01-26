@@ -27,7 +27,7 @@
 </script>
 
 <LoggedInFrame>
-  <div class="button-wrapper">
+  <div class="button-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
   <Pagination {page} {totalItems} />
@@ -37,7 +37,7 @@
       <ProductCard {product} />
     {/each}
   </ul>
-  <div class="button-wrapper">
+  <div class="button-wrapper mt10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
   <Pagination {page} {totalItems} />
@@ -57,5 +57,13 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+  }
+
+  .mb10 {
+    margin-bottom: 10px;
+  }
+
+  .mt10 {
+    margin-top: 10px;
   }
 </style>

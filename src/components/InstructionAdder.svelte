@@ -1,0 +1,77 @@
+<script lang="ts">
+  import {
+    UnorderedList,
+    ListItem,
+    TextInput,
+    Button,
+    Tile,
+  } from "carbon-components-svelte";
+  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
+  export let instructionTitle: string;
+  export let instructions: string[];
+  let newInstruction = "";
+
+  function addInstruction(newString: string) {
+    if (newString !== "") {
+      instructions.push(newString);
+      instructions = instructions;
+      newInstruction = "";
+    }
+  }
+
+  function removeInstruction(idx: number) {
+    instructions.splice(idx, 1);
+    instructions = instructions;
+  }
+</script>
+
+<div class="adder-box">
+  <TextInput
+    labelText={instructionTitle}
+    placeholder="작성 후 추가 버튼을 누르세요"
+    bind:value={newInstruction}
+  />
+  <Button kind="secondary" on:click={() => addInstruction(newInstruction)}>
+    추가
+  </Button>
+
+  <UnorderedList>
+    {#each instructions as item, idx}
+      <Tile class={"list-tile"}>
+        <ListItem class={"list-item"}>{item}</ListItem>
+        <Button
+          size="small"
+          icon={TrashCan16}
+          kind="danger"
+          class="memo-delete"
+          iconDescription="Delete"
+          on:click={() => removeInstruction(idx)}
+        />
+      </Tile>
+    {/each}
+  </UnorderedList>
+</div>
+
+<style>
+  :global(.list-tile) {
+    min-height: 0;
+    padding: 0.3rem;
+    box-shadow: 0.1px rgba(0, 0, 0, 0.1);
+  }
+  :global(.list-item) {
+    background-color: rgb(198, 246, 213);
+    padding: 0.8rem;
+    border-radius: 0.1rem;
+  }
+
+  :global(.bx--label) {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.25rem;
+  }
+
+  :global(.adder-box) {
+    margin: 1rem 0.2rem;
+  }
+</style>

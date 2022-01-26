@@ -8,8 +8,7 @@
     Toggle,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import { AutocompleteItem } from "../../../common/autocomplete/utils";
-  import Autocomplete from "../../../common/autocomplete/Autocomplete.svelte";
+  import { Autocomplete, AutocompleteItem } from "../../../common/autocomplete";
 
   import { Product, Brand, BrandsApi } from "../../../api";
   import InstructionAdder from "./InstructionAdder.svelte";
@@ -24,8 +23,7 @@
   let brands: Brand[] = [];
 
   const handleBrandChange = (selected: AutocompleteItem) => {
-    form.brand_kor_name = selected.value;
-    form.brand_key_name = selected.key;
+    form.brand_key_name = selected.subvalue;
   };
 
   const handleAddInventory = () => {
