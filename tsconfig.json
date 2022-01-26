@@ -23,7 +23,6 @@
     "resolveJsonModule": true,
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
-    "importsNotUsedAsValues": "preserve", 
-    "strictDomEventTypes": false,
+    "importsNotUsedAsValues": "preserve"
   }
 }
