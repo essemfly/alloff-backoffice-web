@@ -22,8 +22,8 @@
 
   let product: Product;
   let isLoading = true;
-  let isTouched = false;
-  let discountRate = 0;
+  let isTouched = true;
+  let discountRate = "0";
   let inventoryTextInput = "";
 
   onMount(async () => {
@@ -31,6 +31,11 @@
     const res = await productApi.productsRetrieve({ id: productId });
     product = res.data;
     isLoading = false;
+    discountRate = (
+      ((product.original_price - product.discounted_price) /
+        product.original_price) *
+      100
+    ).toFixed(0);
   });
 
   const handleImageDelete = (id: number) => () => {
@@ -58,35 +63,36 @@
   {#if isLoading}
     <InlineLoading status="active" description="On Loading..." />
   {:else}
-    <h1>{product.alloffName}</h1>
     <div class="button-wrapper">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
         {"수정"}
       </Button>
     </div>
-
     <Grid>
       <ContentBox>
         <h3>상품 정보</h3>
         <Row>
           <Column>
-            <TextInput labelText={"상품명"} bind:value={product.alloffName} />
+            <TextInput labelText={"상품명"} bind:value={product.alloff_name} />
             <TextInput
               labelText={"기존 가격"}
-              bind:value={product.originalPrice}
+              bind:value={product.original_price}
             />
           </Column>
           <Column>
-            <TextInput labelText={"브랜드"} bind:value={product.brandKorName} />
+            <TextInput
+              labelText={"브랜드"}
+              bind:value={product.brand_kor_name}
+            />
             <TextInput
               labelText={"할인된 가격 (할인율:" + discountRate + "%)"}
-              bind:value={product.discountedPrice}
+              bind:value={product.discounted_price}
             />
           </Column>
         </Row>
         <Row>
           <Column>
-            <TextInput labelText="제품번호" bind:value={product.productId} />
+            <TextInput labelText="제품번호" bind:value={product.product_id} />
           </Column>
         </Row>
         <Row>
@@ -98,7 +104,7 @@
                   <img
                     class="image"
                     src={image}
-                    alt={[product.alloffName, idx].join("_")}
+                    alt={[product.alloff_name, idx].join("_")}
                   />
                   <div class="delete-button">
                     <Button
