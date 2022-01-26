@@ -11,7 +11,7 @@
     title: "",
     short_title: "",
     image_url: "",
-    start_time: "1234-01-01T04:07:00.000Z",
+    start_time: "",
     finish_time: "",
     product_group_id: "",
     products: [],
@@ -21,7 +21,7 @@
   const handleSubmit = async () => {
     const productApi = new ProductGroupsApi();
     const res = await productApi.productGroupsCreate({
-      productGroupRequest: productGroup,
+      createProductGroupSeriazlierRequest: productGroup,
     });
   };
 </script>

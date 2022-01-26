@@ -9,6 +9,7 @@
 
   export let label: string;
   export let value: string[];
+  export let multiple = false;
 
   let isImageUploading = false;
 
@@ -55,7 +56,7 @@
 {/if}
 <FileUploaderDropContainer
   labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
-  multiple
+  {multiple}
   accept={["image/*"]}
   on:add={handleImageAdd}
 />

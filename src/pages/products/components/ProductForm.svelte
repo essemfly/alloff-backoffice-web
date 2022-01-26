@@ -102,7 +102,11 @@
   </Row>
   <Row>
     <Column>
-      <ImageUploadField label={"상품 이미지"} value={form.images ?? []} />
+      <ImageUploadField
+        label={"상품 이미지"}
+        value={form.images ?? []}
+        multiple
+      />
     </Column>
   </Row>
   <Row>
@@ -118,6 +122,7 @@
       <ImageUploadField
         label={"상품 설명 이미지"}
         value={form.description_images ?? []}
+        multiple
       />
     </Column>
   </Row>
@@ -153,10 +158,16 @@
   </Row>
   <Row>
     <Column>
-      <Toggle labelText="반품가능 여부" bind:value={form.is_refund_possible} />
+      <Toggle
+        labelText="반품가능 여부"
+        bind:toggled={form.is_refund_possible}
+      />
     </Column>
     <Column>
-      <Toggle labelText="해외배송 여부" bind:value={form.is_foreign_delivery} />
+      <Toggle
+        labelText="해외배송 여부"
+        bind:toggled={form.is_foreign_delivery}
+      />
     </Column>
   </Row>
 </ContentBox>
@@ -164,10 +175,10 @@
   <h3>재고 정보</h3>
   <Row>
     <Column>
-      <Toggle labelText="판매불가 여부" bind:value={form.is_removed} />
+      <Toggle labelText="판매불가 여부" bind:toggled={form.is_removed} />
     </Column>
     <Column>
-      <Toggle labelText="품절 여부" bind:value={form.is_soldout} />
+      <Toggle labelText="품절 여부" bind:toggled={form.is_soldout} />
     </Column>
   </Row>
   <Row>
