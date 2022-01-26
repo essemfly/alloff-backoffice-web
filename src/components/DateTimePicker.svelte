@@ -9,7 +9,28 @@
   export let label: string;
   export let value: string;
 
-  const dateTimeValue = value ? DateTime.fromISO(value) : undefined;
+  console.log(
+    DateTime.fromISO(value),
+    DateTime.fromSQL(value.replace(" UTC", "")),
+  );
+
+  const parseDate = (originDate: string) => {
+    if (!value) {
+      return undefined;
+    }
+    const parsedFromIso = DateTime.fromISO(originDate);
+    if (parsedFromIso.isValid) {
+      return parsedFromIso;
+    }
+    const utcRemovedOriginDate = originDate.replace(" UTC", "");
+    const parsedFromSql = DateTime.fromSQL(utcRemovedOriginDate);
+    if (parsedFromSql.isValid) {
+      return parsedFromSql;
+    }
+    return undefined;
+  };
+
+  const dateTimeValue = parseDate(value);
 
   let dateValue = dateTimeValue?.toISODate();
   let timeValue = dateTimeValue?.toFormat("HH:mm");
