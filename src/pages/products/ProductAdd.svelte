@@ -1,148 +1,70 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import {
-    Grid,
-    Row,
-    Column,
-    ButtonSet,
-    Button,
-    TextInput,
-    FileUploaderDropContainer,
-    InlineLoading,
-  } from "carbon-components-svelte";
-  // import { AlloffProductBrand, Brand, BrandsApi } from "../../api";
+  import { Grid, Button } from "carbon-components-svelte";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  import InstructionAdder from "./components/InstructionAdder.svelte";
-  import ContentBox from "./components/ContentBox.svelte";
+  import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { AutocompleteItem } from "../../common/autocomplete/utils";
-  import Autocomplete from "../../common/autocomplete/Autocomplete.svelte";
-  import { AlloffProductBrand, Brand } from "./samples/response"; // todo: remove
+  import ProductForm from "./components/ProductForm.svelte";
+  import { Product, ProductsApi } from "../../api";
 
-  let discountrate = 0; // todo: fix
-  let isImagesUploading = false;
-  let inventoryTextInput = "";
-  let brands: Brand[] = [];
-  let productBrand: AlloffProductBrand;
-
-  onMount(async () => {
-    // todo: api integrate
-    // const brandsAPi = new BrandsApi();
-    // brands = (await brandsAPi.brandsList()).data;
-  });
-
-  const handleSubmit = () => {
-    // todo
+  let isTouched = true;
+  let product: Product = {
+    alloff_product_id: "",
+    alloff_name: "",
+    product_id: "",
+    brand_kor_name: "",
+    category_name: "",
+    alloff_category_name: "",
+    is_foreign_delivery: true,
+    is_refund_possible: true,
+    is_removed: true,
+    is_soldout: true,
+    original_price: 0,
+    discounted_price: 0,
+    special_price: 0,
+    earliest_delivery_days: 0,
+    latest_delivery_days: 0,
+    refund_fee: 0,
+    total_score: 0,
+    description: [],
+    images: [],
+    description_images: [],
+    inventory: [],
   };
 
-  const handleBrandChange = (selectedValue: AutocompleteItem) => {
-    const selectedBrand = brands.find((b) => b.id === selectedValue.key);
-    if (!selectedBrand) return;
-    productBrand = { _id: selectedBrand.id, ...selectedBrand };
+  const handleSubmit = async () => {
+    const productApi = new ProductsApi();
+    const res = await productApi.productsCreate({ productRequest: product });
+    console.log(res);
   };
-
-  const handleAddInventory = (fieldName: string) => () => {
-    // todo
-  };
-
-  console.log("s");
 </script>
 
 <LoggedInFrame>
   <Grid>
-    <h1>상품 등록</h1>
-    <ContentBox>
-      <h3>상품 정보</h3>
-      <Row>
-        <Column>
-          <TextInput labelText={"상품명"} />
-          <TextInput labelText={"기존 가격"} />
-        </Column>
-        <Column>
-          <div class="bx--label">브랜드</div>
-          <Autocomplete
-            options={brands.map((brand) => ({
-              key: brand.id,
-              value: brand.korname,
-              subvalue: brand.keyname,
-            }))}
-            onSubmit={handleBrandChange}
-            placeholder="브랜드 이름/Keyname/ID로 검색"
-            labelText="브랜드 검색"
-            selectedValue={productBrand?.korname}
-          />
-          <TextInput labelText={"할인된 가격 (할인율:" + discountrate + "%)"} />
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <TextInput labelText="제품번호" />
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <div class="bx--label">상품 이미지</div>
-          <div class="image-container" />
-          {#if isImagesUploading}
-            <InlineLoading
-              status="active"
-              description="이미지를 업로드하는 중..."
-            />
-          {/if}
-          <FileUploaderDropContainer
-            labelText="여기에 파일을 드래그하거나 이곳을 클릭해서 파일을 선택하세요."
-            multiple
-            accept={["image/*"]}
-            on:add={async (e) => {
-              const files = e.detail;
-              isImagesUploading = true;
-              for (let i = 0; i < files.length; i++) {
-                // Needs refactoring --- keep the file sequence but upload asynchronously
-                await Promise.resolve();
-                // await imageApi
-                //   .imageUploadUploadCreate({ file: files[i] })
-                //   .then((res) => {
-                //     const { random_key, url } = res.data;
-                //     product.images = [...product.images, url];
-                //   });
-              }
-              isImagesUploading = false;
-            }}
-          />
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <InstructionAdder instructionTitle="상품 설명" instructions={[]} />
-        </Column>
-      </Row>
-    </ContentBox>
-    <ContentBox>
-      <h3>재고 정보</h3>
-      <Row>
-        <Column>
-          <TextInput
-            labelText={"신규 사이즈 등록"}
-            placeholder="작성 후 추가 버튼을 누르세요"
-            bind:value={inventoryTextInput}
-          />
-          <Button
-            kind="secondary"
-            on:click={handleAddInventory(inventoryTextInput)}>추가</Button
-          >
-        </Column>
-      </Row>
-      <Row>
-        <Column />
-      </Row>
-    </ContentBox>
-    <Row>
-      <ButtonSet class="right-button">
-        <Button on:click={handleSubmit}>상품 등록</Button>
-      </ButtonSet>
-    </Row>
+    <div class="button-wrapper mb10">
+      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+        상품 등록
+      </Button>
+    </div>
+    <ProductForm form={product} />
+    <div class="button-wrapper mt10">
+      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+        상품 등록
+      </Button>
+    </div>
   </Grid>
 </LoggedInFrame>
 
 <style>
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mb10 {
+    margin-bottom: 10px;
+  }
+
+  .mt10 {
+    margin-top: 10px;
+  }
 </style>
