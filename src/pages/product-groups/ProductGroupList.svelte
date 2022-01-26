@@ -1,26 +1,19 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { navigate } from "svelte-navigator";
-  import {
-    Button,
-    DataTable,
-    Search,
-    Toolbar,
-    ToolbarContent,
-    ToolbarSearch,
-  } from "carbon-components-svelte";
-  import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
-  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  // import ProductGroupCard from "./components/ProductGroupCard.svelte";
-  import Pagination from "../../components/Pagination.svelte";
-
-  import { ProductGroup, ProductGroupsApi } from "../../api";
   import { DateTime } from "luxon";
   import debounce from "lodash/debounce";
+  import { onMount } from "svelte";
+  import { navigate } from "svelte-navigator";
+  import { Button, DataTable, Search } from "carbon-components-svelte";
+  import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
+  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
+
+  import { ProductGroup, ProductGroupsApi } from "../../api";
+  import LoggedInFrame from "../common/LoggedInFrame.svelte";
+  import Pagination from "../../components/Pagination.svelte";
 
   let productGroups: Array<ProductGroup & { id: string }> = [];
   let page = 1;
+  let pageSize = 50;
   let totalItems = 0;
 
   const productGroupApi = new ProductGroupsApi();
@@ -33,19 +26,43 @@
     { key: "finish_time", value: "종료일시" },
   ];
 
-  onMount(async () => {
-    const res = await productGroupApi.productGroupsList();
+  const load = async (page: number, size: number, search?: string) => {
+    const res = await productGroupApi.productGroupsList({
+      page,
+      search,
+      size,
+      location,
+    });
     productGroups = res.data.map((x) => ({ ...x, id: x.product_group_id }));
+
+    totalItems = res.data.length; // todo: fix
+  };
+
+  onMount(async () => {
+    await load(1, pageSize);
   });
+
+  const formatDate = (originDate: string) => {
+    const formatted = DateTime.fromSQL(originDate.replace(" UTC", ""))
+      .setLocale("ko")
+      .toLocaleString({ month: "short", day: "numeric", weekday: "narrow" });
+    return formatted;
+  };
+
+  const handleSearch = debounce((e) => {
+    const value = e.target.value.trim();
+    load(1, pageSize, value);
+  }, 300);
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
     navigate("/product-groups/add");
   };
 
-  const handleSearch = debounce((e) => {
-    // search.set(e.target.value);
-  }, 300);
+  const handleRowClick = (event: CustomEvent) => {
+    event.preventDefault();
+    navigate(`/product-groups/${event.detail.product_group_id}`);
+  };
 </script>
 
 <LoggedInFrame>
@@ -53,22 +70,18 @@
     <Button icon={DocumentAdd16} on:click={handleAddClick}>컬렉션 추가</Button>
   </div>
   <Pagination {page} {totalItems} />
-  <Search />
-  <DataTable {headers} rows={productGroups} sortable>
-    <Toolbar>
-      <ToolbarContent>
-        <ToolbarSearch on:input={handleSearch} />
-      </ToolbarContent>
-    </Toolbar>
-    <span slot="cell" let:cell let:row>
+  <Search on:input={handleSearch} />
+  <DataTable
+    {headers}
+    rows={productGroups}
+    sortable
+    on:click:row={handleRowClick}
+  >
+    <span slot="cell" let:cell>
       {#if cell.key === "image_url"}
-        <img src={cell.value} alt={"thumbnail"} />
+        <img src={cell.value} alt={"thumbnail"} class="cell_thumb" />
       {:else if cell.key === "start_time" || cell.key === "finish_time"}
-        {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
-          month: "short",
-          day: "numeric",
-          weekday: "narrow",
-        })}
+        {formatDate(cell.value)}
       {:else}{cell.value}
       {/if}
     </span>
@@ -76,17 +89,13 @@
   <div class="button-wrapper mt10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>컬렉션 추가</Button>
   </div>
-  <Pagination {page} {totalItems} />
-  <Search />
 </LoggedInFrame>
 
 <style>
-  .product-group-list {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    flex: 1 0 21%; /* explanation below */
-    justify-content: space-between;
+  .cell_thumb {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
   }
 
   .button-wrapper {

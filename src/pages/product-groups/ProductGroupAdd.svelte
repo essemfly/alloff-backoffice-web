@@ -19,8 +19,8 @@
   };
 
   const handleSubmit = async () => {
-    const productApi = new ProductGroupsApi();
-    const res = await productApi.productGroupsCreate({
+    const productGroupApi = new ProductGroupsApi();
+    await productGroupApi.productGroupsCreate({
       createProductGroupSeriazlierRequest: productGroup,
     });
   };
