@@ -19,6 +19,7 @@
   // import Timedeals from "./pages/timedeals/Timedeals.svelte";
   import OrderItems from "./pages/order-items/OrderItems.svelte";
   import ProductRoutes from "./pages/products/ProductRoutes.svelte";
+  import ProductGroupRoutes from "./pages/product-groups/ProductGroupRoutes.svelte";
 </script>
 
 <SvelteToast options={{ duration: 3000 }} />
@@ -112,5 +113,8 @@
   </Route>
   <Route path="products/*">
     <ProductRoutes />
+  </Route>
+  <Route path="product-groups/*">
+    <ProductGroupRoutes />
   </Route>
 </Router>

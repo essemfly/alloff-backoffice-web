@@ -113,6 +113,11 @@
       text="상품"
       isSelected={$location.pathname === "/products"}
     />
+    <HeaderNavItem
+      href="/product-groups"
+      text="컬렉션"
+      isSelected={$location.pathname === "/product-groups"}
+    />
   </HeaderNav>
 
   <SideNav bind:isOpen={isSideNavOpen}>
