@@ -28,13 +28,13 @@
 
   const headers: DataTableHeader[] = [
     { key: "id", value: "ID" },
-    { key: "item_name", value: "상품명" },
+    { key: "product_name", value: "상품명" },
     { key: "brand_keyname", value: "브랜드" },
-    { key: "sourcing_code", value: "소싱코드" },
+    { key: "code", value: "소싱코드" },
     { key: "size", value: "사이즈" },
     { key: "status", value: "상태" },
-    { key: "ordered", value: "주문일시" },
-    { key: "images", value: "이미지" },
+    { key: "created_at", value: "주문일시" },
+    { key: "product_img", value: "이미지" },
     { key: "receive_button", value: "입고처리" },
   ];
 
@@ -83,7 +83,7 @@
         }}
         kind={row.status === "RECEIVED" ? "danger" : "primary"}
       />
-    {:else if cell.key === "ordered"}
+    {:else if cell.key === "created_at"}
       {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
         month: "2-digit",
         day: "2-digit",
@@ -92,8 +92,8 @@
         minute: "2-digit",
         hour12: true,
       })}
-    {:else if cell.key === "images"}
-      <img src={row.images[0]} width="100" alt="타임딜 이미지" />
+    {:else if cell.key === "product_img"}
+      <img src={row.product_img} width="100" alt="상품 이미지" />
     {:else if cell.key.includes("time")}
       {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
         month: "2-digit",

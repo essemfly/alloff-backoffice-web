@@ -43,9 +43,9 @@
             ? `[TRACKING: tracking ${log.status_change.tracking_number_from} -> ${log.status_change.tracking_number_to}] `
             : "";
         const receivedItem =
-          (log.action_type === ActionTypeEnum.ReceivedItem ||
-          log.action_type === ActionTypeEnum.ForceReceivedItem)
-            ? `[입고: ${log.detail}] `
+          (log.action_type === ActionTypeEnum.GeneratedReceivedItem ||
+          log.action_type === ActionTypeEnum.ForceGeneratedReceivedItem)
+            ? `[입고지시서: ${log.detail}] `
             : "";
         return statusChange + receivedItem +  refund + trackingChange + alimtalk + memo + base;
       })(),

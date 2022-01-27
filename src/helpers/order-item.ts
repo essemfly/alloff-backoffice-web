@@ -3,7 +3,7 @@ import {
   ActionTypeEnum,
   OrderItemRetrieve,
   OrderItemStatusEnum,
-  OrderItemTypeEnum,
+  OrderItemTypeEnum
 } from "../api";
 
 export const getTypeBadgeColor = (itemType: OrderItemTypeEnum) => {
@@ -106,32 +106,34 @@ export const getStatusLabel = (status: OrderItemStatusEnum | undefined) => {
   }
 };
 
+const parseISODate = (isoDate: string | null | undefined) => isoDate ? DateTime.fromISO(isoDate) : undefined;
+
 export const getOrderItemTimestampByStatus = (
   status: OrderItemStatusEnum,
   item: OrderItemRetrieve,
 ): DateTime | undefined => {
   switch (status) {
     case OrderItemStatusEnum.PaymentFinished:
-      return item.ordered_at ? DateTime.fromISO(item.ordered_at) : undefined;
+      return parseISODate(item.ordered_at);
     case OrderItemStatusEnum.ReturnRequested:
     case OrderItemStatusEnum.ExchangeRequested:
-      return item.cancel_requested_at
-        ? DateTime.fromISO(item.cancel_requested_at)
-        : undefined;
+      return parseISODate(item.cancel_requested_at);
     case OrderItemStatusEnum.CancelFinished:
-      return item.cancel_finished_at
-        ? DateTime.fromISO(item.cancel_finished_at)
-        : undefined;
+      return parseISODate(item.cancel_finished_at);
     case OrderItemStatusEnum.DeliveryStarted:
-      return item.delivery_started_at
-        ? DateTime.fromISO(item.delivery_started_at)
-        : undefined;
+      return parseISODate(item.delivery_started_at);
     case OrderItemStatusEnum.DeliveryFinished:
-      return item.delivery_finished_at
-        ? DateTime.fromISO(item.delivery_finished_at)
-        : undefined;
+      return parseISODate(item.delivery_finished_at);
     case OrderItemStatusEnum.ConfirmPayment:
-      return item.confirmed_at ? DateTime.fromISO(item.confirmed_at) : undefined;
+      return parseISODate(item.confirmed_at);
+    case OrderItemStatusEnum.ReturnPending:
+      return parseISODate(item.return_started_at);
+    case OrderItemStatusEnum.ExchangePending:
+      return parseISODate(item.exchange_started_at);
+    case OrderItemStatusEnum.ReturnFinished:
+      return parseISODate(item.return_finished_at);
+    case OrderItemStatusEnum.ExchangeFinished:
+      return parseISODate(item.exchange_finished_at);
     default:
       return undefined;
   }
