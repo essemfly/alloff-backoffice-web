@@ -1,9 +1,9 @@
 import { DateTime } from "luxon";
 import {
-  ActionTypeEnum,
   OrderItemRetrieve,
+  ActionTypeEnum,
   OrderItemStatusEnum,
-  OrderItemTypeEnum
+  OrderItemTypeEnum,
 } from "../api";
 
 export const getTypeBadgeColor = (itemType: OrderItemTypeEnum) => {

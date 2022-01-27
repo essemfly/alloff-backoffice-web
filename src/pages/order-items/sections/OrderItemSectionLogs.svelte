@@ -14,11 +14,11 @@
     menuItems={[]}
     fontSize={11}
     rows={item.logs.map((log) => ({
-      header: getLogTypeLabel(log.action_type),
+      header: getLogTypeLabel(log.action_type) ?? "정의되지 않은 액션",
       body: (() => {
         const base = `by ${log.admin.profile.name} (${
           log.admin.username
-        }) at ${toLocaleDateTime(log.performed_at)}`;
+        }) at ${toLocaleDateTime(log.created_at)}`;
         const refund =
           log.action_type === ActionTypeEnum.RefundUpdate && log.refund_update
             ? `[REFUND: REFUND ${log.refund_update.refund_amount} / DEDUCT delivery ${log.refund_update.refund_delivery_price}] `

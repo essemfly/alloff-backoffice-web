@@ -54,7 +54,7 @@
       {
         header: "주문수",
         body: `${userItems.length}건`,
-        href: `/orders/?userid=${item.order.user_id}`,
+        href: `/orders/?userid=${item.order.user.id}`,
       },
     ]}
   />
@@ -86,7 +86,7 @@
           title={item.product_name}
           smallTitle
           menuItems={[{ text: "재입고처리 (1개)", onClick: () => {
-            api.orderItemsForceMakeRiCreate({id: item.id, forceMakeRiRequest: {quantity: 1}}).then(() => window.location.reload());
+            // api.orderItemsForceMakeRiCreate({id: item.id, forceMakeRiRequest: {quantity: 1}}).then(() => window.location.reload());
           } }]}
           rows={[
             {
@@ -115,7 +115,7 @@
             },
             {
               header: "상품 URL",
-              href: item.product_url,
+              href: item.product_url ?? "",
               body: item.product_url !== "" ? "링크" : "",
             },
             {

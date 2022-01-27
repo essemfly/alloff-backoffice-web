@@ -43,7 +43,7 @@ getIsForeignBadgeColor,
     submitting = true;
     try {
       await api.orderItemsChangeStatusCreate({
-        id: item.id.toString(),
+        id: item.id,
         changeStatusRequest: {
           status,
           tracking_number,

@@ -16,6 +16,7 @@
 
     totalItems = count ?? 0;
     ris = results ?? [];
+    
   };
 
   const receive = async (id: number) => {
