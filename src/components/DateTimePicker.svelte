@@ -9,11 +9,6 @@
   export let label: string;
   export let value: string;
 
-  console.log(
-    DateTime.fromISO(value),
-    DateTime.fromSQL(value.replace(" UTC", "")),
-  );
-
   const parseDate = (originDate: string) => {
     if (!value) {
       return undefined;
@@ -50,13 +45,13 @@
     value = _newDateTime;
   }
 
-  const handleFocus = (event: FocusEvent) => {
-    const { value } = event.target as HTMLInputElement;
+  const handleFocus = (event: FocusEvent & { target: HTMLInputElement }) => {
+    const { value } = event.target;
     timeValue = value.replace(":", "");
   };
 
-  const handleBlur = (event: FocusEvent) => {
-    const { value } = event.target as HTMLInputElement;
+  const handleBlur = (event: FocusEvent & { target: HTMLInputElement }) => {
+    const { value } = event.target;
     if (value.length > 2) {
       const [hh, mm] = value.match(/.{1,2}/g) as string[];
       timeValue = [hh, mm].join(":");
