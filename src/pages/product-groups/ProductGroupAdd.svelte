@@ -4,7 +4,7 @@
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import ProductForm from "./components/ProductGroupForm.svelte";
-  import { ProductGroup, ProductGroupsApi } from "../../api";
+  import { ProductGroup, ProductGroupsApi, ProductInGroup } from "../../api";
 
   let isTouched = true;
   let productGroup: ProductGroup = {
@@ -30,13 +30,13 @@
   <Grid>
     <div class="button-wrapper mb10">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-        상품 등록
+        컬렉션 등록
       </Button>
     </div>
-    <ProductForm form={productGroup} />
+    <ProductForm bind:form={productGroup} isAdding />
     <div class="button-wrapper mt10">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-        상품 등록
+        컬렉션 등록
       </Button>
     </div>
   </Grid>

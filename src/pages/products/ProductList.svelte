@@ -57,8 +57,6 @@
   <div class="button-wrapper mt10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
-  <Pagination {page} {totalItems} />
-  <Search />
 </LoggedInFrame>
 
 <style>

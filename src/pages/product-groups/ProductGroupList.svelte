@@ -69,8 +69,9 @@
   <div class="button-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>컬렉션 추가</Button>
   </div>
-  <Pagination {page} {totalItems} />
-  <Search on:input={handleSearch} />
+  <!-- Pagination 및 검색은 차후 추가 -->
+  <!-- <Pagination {page} {totalItems} />
+  <Search on:input={handleSearch} /> -->
   <DataTable
     {headers}
     rows={productGroups}
