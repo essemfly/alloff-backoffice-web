@@ -49,10 +49,10 @@
     return formatted;
   };
 
-  const handleSearch = debounce((e) => {
-    const value = e.target.value.trim();
-    load(1, pageSize, value);
-  }, 300);
+  // const handleSearch = debounce((e) => {
+  //   const value = e.target.value.trim();
+  //   load(1, pageSize, value);
+  // }, 300);
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -75,8 +75,8 @@
   <DataTable
     {headers}
     rows={productGroups}
-    sortable
     on:click:row={handleRowClick}
+    sortable
   >
     <span slot="cell" let:cell>
       {#if cell.key === "image_url"}
@@ -93,6 +93,10 @@
 </LoggedInFrame>
 
 <style>
+  :global(.bx--data-table tr) {
+    cursor: pointer;
+  }
+
   .cell_thumb {
     width: 100px;
     height: 100px;
