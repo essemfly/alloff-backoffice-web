@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { Route, Router, useParams } from "svelte-navigator";
-  import ProductAdd from "./ProductAdd.svelte";
-  import ProductDetail from "./ProductDetail.svelte";
-  import ProductList from "./ProductList.svelte";
+  import { Route } from "svelte-navigator";
+  import ProductAdd from "./views/ProductAdd.svelte";
+  import ProductDetail from "./views/ProductDetail.svelte";
+  import ProductList from "./views/ProductList.svelte";
 </script>
 
 <Route path="/">

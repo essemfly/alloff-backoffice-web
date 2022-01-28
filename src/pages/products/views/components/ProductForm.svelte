@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import {
     Row,
     Column,
@@ -8,13 +9,15 @@
     Toggle,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import { Autocomplete, AutocompleteItem } from "../../../common/autocomplete";
+  import {
+    Autocomplete,
+    AutocompleteItem,
+  } from "../../../../common/autocomplete";
 
-  import { Product, Brand, BrandsApi } from "../../../api";
+  import { Product, Brand, BrandsApi } from "../../../../api";
   import InstructionAdder from "./InstructionAdder.svelte";
   import ContentBox from "./ContentBox.svelte";
-  import ImageUploadField from "../../../components/ImageUploadField.svelte";
-  import { onMount } from "svelte";
+  import ImageUploadField from "../../../../components/ImageUploadField.svelte";
 
   export let form: Product;
 

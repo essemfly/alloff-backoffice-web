@@ -1,10 +1,14 @@
 <script lang="ts">
   import { Grid, Button } from "carbon-components-svelte";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
+  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import ProductForm from "./components/ProductForm.svelte";
-  import { CreateProductRequestRequest, Product, ProductsApi } from "../../api";
+  import {
+    CreateProductRequestRequest,
+    Product,
+    ProductsApi,
+  } from "../../../api";
 
   let isTouched = true;
   let product: Product = {

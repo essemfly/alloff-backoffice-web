@@ -3,8 +3,12 @@
   import { Grid, Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { EditProductRequestRequest, Product, ProductsApi } from "../../api";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
+  import {
+    EditProductRequestRequest,
+    Product,
+    ProductsApi,
+  } from "../../../api";
+  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
   import ProductForm from "./components/ProductForm.svelte";
 
   const productApi = new ProductsApi();

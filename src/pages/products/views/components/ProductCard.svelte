@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { navigate } from "svelte-navigator";
   import {
     Button,
     Tag,
@@ -9,8 +10,7 @@
     StructuredListBody,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import { navigate } from "svelte-navigator";
-  import { Product, ProductsApi } from "../../../api";
+  import { Product, ProductsApi } from "../../../../api";
 
   export let product: Product;
   const productApi = new ProductsApi();
