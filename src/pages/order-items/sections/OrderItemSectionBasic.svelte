@@ -54,7 +54,7 @@
       {
         header: "주문수",
         body: `${userItems.length}건`,
-        href: `/orders/?userid=${item.order.user.id}`,
+        href: `/items/?userid=${item.order.user.id}`,
       },
     ]}
   />
@@ -85,9 +85,16 @@
         <InfoSection
           title={item.product_name}
           smallTitle
-          menuItems={[{ text: "재입고처리 (1개)", onClick: () => {
-            // api.orderItemsForceMakeRiCreate({id: item.id, forceMakeRiRequest: {quantity: 1}}).then(() => window.location.reload());
-          } }]}
+          menuItems={[
+            {
+              text: "재입고처리 (1개)",
+              onClick: () => {
+                api
+                  .orderItemsForceReceiveCreate({ id: item.id })
+                  .then(() => window.location.reload());
+              },
+            },
+          ]}
           rows={[
             {
               header: "상품타입",

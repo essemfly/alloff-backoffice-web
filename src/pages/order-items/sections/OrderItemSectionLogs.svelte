@@ -45,7 +45,7 @@
         const receivedItem =
           (log.action_type === ActionTypeEnum.GeneratedReceivedItem ||
           log.action_type === ActionTypeEnum.ForceGeneratedReceivedItem)
-            ? `[입고지시서: ${log.detail}] `
+            ? `[입고지시 - ${log.received_item?.is_force ? "강제재입고" : "상태변경입고"}: ${log.detail}] `
             : "";
         return statusChange + receivedItem +  refund + trackingChange + alimtalk + memo + base;
       })(),

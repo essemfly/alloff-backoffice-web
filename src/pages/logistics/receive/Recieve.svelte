@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Pagination } from "carbon-components-svelte";
-  import { ReceivedItem, ReceivedItemsApi } from "../../../api";
+  import { OrderItemsApi, ReceivedItem, ReceivedItemsApi } from "../../../api";
   import MediaQuery from "../../../helpers/MediaQuery.svelte";
   import LoggedInFrame from "../../common/LoggedInFrame.svelte";
   import RiTable from "./components/RITable.svelte";
@@ -16,18 +16,27 @@
 
     totalItems = count ?? 0;
     ris = results ?? [];
-    
   };
 
-  const receive = async (id: number) => {
-    await api.receivedItemsMakeInventoryCreate({
-      id: id.toString(),
+  const receive = async (id: number) => 
+    await api.receivedItemsReceiveInventoryCreate({
+      id,
     });
-  };
 
-  const revert = async (id: number) => {
+  const cancel = async (id: number) => 
+    await api.receivedItemsCancelReceivingCreate({
+      id,
+    });
+
+  const revert = async (id: number) => 
     await api.receivedItemsRevertInventoryCreate({
-      id: id.toString(),
+      id,
+    });
+
+  const forceReceive = async (orderItemId: number) => {
+    const itemsApi = new OrderItemsApi();
+    return await itemsApi.orderItemsForceReceiveCreate({
+      id: orderItemId,
     });
   };
 
@@ -46,8 +55,7 @@
       isMobile={matches}
       {ris}
       reload={() => load(page, pageSize, $search)}
-      {receive}
-      {revert}
+      {...{receive, revert, forceReceive, cancel}}
     />
   </MediaQuery>
 </LoggedInFrame>

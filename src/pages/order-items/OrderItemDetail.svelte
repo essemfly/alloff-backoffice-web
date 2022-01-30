@@ -27,11 +27,11 @@
     const { data } = await api.orderItemsRetrieve({ id: idOrCode });
     item = data;
 
-    // userItems = (
-    //   await api.orderItemsByUserList({
-    //     userId: item.order.user_id,
-    //   })
-    // ).data;
+    userItems = (
+      await api.orderItemsList({
+        userId: item.order.user_id,
+      })
+    ).data.results;
 
     loading = false;
   };

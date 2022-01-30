@@ -1,13 +1,13 @@
 <script lang="ts">
   import {
-  Checkbox,
-  DatePicker,
-  DatePickerInput,
-  Pagination
+    Checkbox,
+    DatePicker,
+    DatePickerInput,
+    Pagination,
   } from "carbon-components-svelte";
   import { DateTime } from "luxon";
   import { useLocation } from "svelte-navigator";
-  import { OrderItemList,OrderItemsApi,OrderItemStatusEnum } from "../../api";
+  import { OrderItemList, OrderItemsApi, OrderItemStatusEnum } from "../../api";
   import { ORDER_ITEM_ALL_STATUSES } from "../../constants";
   import MediaQuery from "../../helpers/MediaQuery.svelte";
   import { getStatusLabel } from "../../helpers/order-item";
@@ -34,24 +34,24 @@
     statuses: OrderItemStatusEnum[],
     createdGte: string,
     createdLte: string,
-    search?: string
+    search?: string,
   ) => {
     if (userId) {
-      // const res = await api.ordersByUserList({ userId });
-      // orders = res.data;
+      const res = await api.orderItemsList({ userId });
+      items = res.data.results;
     } else {
       const {
         data: { count, results },
       } = await api.orderItemsList({
         page: p,
-        // search,
+        search,
         size,
         statuses,
-        createdGte: DateTime.fromISO(createdGte).toISO(),
-        createdLte: DateTime.fromISO(createdLte)
-          .plus({ days: 1 })
-          .minus({ milliseconds: 1 })
-          .toISO(),
+        // createdGte: DateTime.fromISO(createdGte).toISO(),
+        // createdLte: DateTime.fromISO(createdLte)
+        //   .plus({ days: 1 })
+        //   .minus({ milliseconds: 1 })
+        //   .toISO(),
       });
 
       totalItems = count ?? 0;
@@ -65,7 +65,7 @@
     statuses,
     createdGte,
     createdLte,
-    $search.trim() === "" ? undefined : $search
+    $search.trim() === "" ? undefined : $search,
   );
 </script>
 

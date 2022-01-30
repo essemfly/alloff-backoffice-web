@@ -67,9 +67,9 @@
 
   <HeaderNav>
     <HeaderNavItem
-      href="/orders"
+      href="/items"
       text="주문"
-      isSelected={$location.pathname === "/orders"}
+      isSelected={$location.pathname === "/items"}
     />
     <HeaderNavItem
       href="/timedeals"
