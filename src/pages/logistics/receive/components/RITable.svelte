@@ -53,9 +53,7 @@
 {#if loading}
   <div class="overlay">
     <div>
-      <InlineLoading
-        description="LOADING..."
-      />
+      <InlineLoading description="LOADING..." />
     </div>
   </div>
 {:else}
@@ -81,7 +79,7 @@
       </ToolbarContent>
     </Toolbar>
     <span slot="cell" let:cell let:row>
-      {#if cell.key == "receive_button" && (row.status === ReceivedItemStatusEnum.OnReceiving || row.status === ReceivedItemStatusEnum.Reverted)}
+      {#if cell.key == "receive_button" && (row.status === ReceivedItemStatusEnum.OnReceiving || row.status === ReceivedItemStatusEnum.Reverted || row.status === ReceivedItemStatusEnum.Canceled)}
         <Button
           iconDescription={row.status === ReceivedItemStatusEnum.OnReceiving
             ? "입고처리"
@@ -96,7 +94,10 @@
             if (row.status === ReceivedItemStatusEnum.OnReceiving) {
               await receive(row.id);
               await reload();
-            } else if (row.status === ReceivedItemStatusEnum.Reverted) {
+            } else if (
+              row.status === ReceivedItemStatusEnum.Reverted ||
+              row.status === ReceivedItemStatusEnum.Canceled
+            ) {
               await forceReceive(row.order_item.id);
               window.location.reload();
             }

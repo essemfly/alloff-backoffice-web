@@ -42,12 +42,36 @@
             log.status_change.tracking_number_to
             ? `[TRACKING: tracking ${log.status_change.tracking_number_from} -> ${log.status_change.tracking_number_to}] `
             : "";
-        const receivedItem =
-          (log.action_type === ActionTypeEnum.GeneratedReceivedItem ||
-          log.action_type === ActionTypeEnum.ForceGeneratedReceivedItem)
-            ? `[입고지시 - ${log.received_item?.is_force ? "강제재입고" : "상태변경입고"}: ${log.detail}] `
+        const generatedReceived =
+          log.action_type === ActionTypeEnum.GeneratedReceivedItem
+            ? `[입고지시 - ${
+                log.received_item?.is_force ? "강제재입고" : "상태변경입고"
+              }: ${log.detail}] `
             : "";
-        return statusChange + receivedItem +  refund + trackingChange + alimtalk + memo + base;
+        const canceledReceived =
+          log.action_type === ActionTypeEnum.CanceledReceivedItem
+            ? `[입고요청취소: ${log.detail}] `
+            : "";
+        const receivedInventory =
+          log.action_type === ActionTypeEnum.ReceivedInventory
+            ? `[입고처리: ${log.detail} / 재고 코드: ${log.inventory?.inventory_code}] `
+            : "";
+        const revertedInventory =
+          log.action_type === ActionTypeEnum.RevertedInventory
+            ? `[재고원복입고취소: ${log.detail}] `
+            : "";
+        return (
+          statusChange +
+          generatedReceived +
+          canceledReceived +
+          receivedInventory +
+          revertedInventory +
+          refund +
+          trackingChange +
+          alimtalk +
+          memo +
+          base
+        );
       })(),
     }))}
   />

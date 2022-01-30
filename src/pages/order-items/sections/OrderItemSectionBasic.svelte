@@ -88,10 +88,11 @@
           menuItems={[
             {
               text: "재입고처리 (1개)",
-              onClick: () => {
-                api
-                  .orderItemsForceReceiveCreate({ id: item.id })
-                  .then(() => window.location.reload());
+              onClick: async () => {
+                submitting = true;
+                await api.orderItemsForceReceiveCreate({ id: item.id });
+                submitting = false;
+                window.location.reload();
               },
             },
           ]}
