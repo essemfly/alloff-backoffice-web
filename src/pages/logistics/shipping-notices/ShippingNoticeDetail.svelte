@@ -12,20 +12,20 @@
   import {
     OrderStatusEnum,
     Package,
-    PackagesApi,
+    // PackagesApi,
     PackageStatusEnum,
-    ShippingNotice,
+    ShippingNoticeRetrieve,
     ShippingNoticesApi,
-    ShippingNoticesResultUploadApi,
+    // ShippingNoticesResultUploadApi,
     ShippingNoticeStatusEnum,
   } from "../../../api";
   import LoggedInFrame from "../../common/LoggedInFrame.svelte";
   import Package16 from "carbon-icons-svelte/lib/Package16";
-  import { getStatusBadgeColor, getStatusLabel } from "../../../helpers/order";
+  import { getStatusBadgeColor, getStatusLabel } from "../../../helpers/order-item";
 
   export let noticeId: string | undefined = undefined;
 
-  let notice: ShippingNotice | undefined;
+  let notice: ShippingNoticeRetrieve | undefined;
   let submitting = false;
   let loading = !!noticeId;
   let mobile = false;
@@ -48,54 +48,54 @@
   const submitPackaging = async () => {
     if (!noticeId) return;
     submitting = true;
-    notice = (await api.shippingNoticesPackageCreate({ id: noticeId })).data;
+    // notice = (await api.shippingNoticesPackageCreate({ id: noticeId })).data;
     submitting = false;
   };
 
   const submitSeal = async () => {
     if (!noticeId) return;
     submitting = true;
-    notice = (await api.shippingNoticesSealCreate({ id: noticeId })).data;
+    // notice = (await api.shippingNoticesSealCreate({ id: noticeId })).data;
     submitting = false;
   };
 
   const submitMakeTemplate = async () => {
     if (!noticeId) return;
     submitting = true;
-    notice = (
-      await api.shippingNoticesMakeUploadTemplateCreate({ id: noticeId })
-    ).data;
+    // notice = (
+      // await api.shippingNoticesMakeUploadTemplateCreate({ id: noticeId })
+    // ).data;
     submitting = false;
   };
 
   const submitUploadResult = async (file: File) => {
     if (!noticeId) return;
     submitting = true;
-    try {
-      const resultApi = new ShippingNoticesResultUploadApi();
-      notice = (
-        await resultApi.shippingNoticesResultUploadUploadCreate({
-          file,
-          noticeId,
-        })
-      ).data;
-    } catch (e: any) {
-      alert(e.message);
-    } finally {
-      submitting = false;
-    }
+    // try {
+    //   const resultApi = new ShippingNoticesResultUploadApi();
+    //   notice = (
+    //     await resultApi.shippingNoticesResultUploadUploadCreate({
+    //       file,
+    //       noticeId,
+    //     })
+    //   ).data;
+    // } catch (e: any) {
+    //   alert(e.message);
+    // } finally {
+    //   submitting = false;
+    // }
   };
 
   const submitReprintLabel = async (pkg: Package) => {
     submitting = true;
-    const packageApi = new PackagesApi();
-    try {
-      await packageApi.packagesReprintCreate({ id: pkg.id.toString() });
-    } catch (e: any) {
-      alert(e.message);
-    } finally {
-      submitting = false;
-    }
+    // const packageApi = new PackagesApi();
+    // try {
+    //   await packageApi.packagesReprintCreate({ id: pkg.id.toString() });
+    // } catch (e: any) {
+    //   alert(e.message);
+    // } finally {
+    //   submitting = false;
+    // }
   };
 
   $: mobile = size === "sm";
@@ -149,10 +149,10 @@
           {#each notice.items as item}
             <div>
               <Tag type="cyan" style="font-family: monospace; margin-left: 0;"
-                >{item.item.extended_order.code}</Tag
+                >{item.order_item.order_item_code}</Tag
               ><Tag style="font-family: monospace;" type="gray"
                 >{item.inventory.code}</Tag
-              >{item.item.name}
+              >{item.order_item.product_name}
             </div>
           {/each}
         </div>
@@ -179,25 +179,25 @@
         {#each notice.packages as pkg}
           <div class="package">
             <h6>{pkg.code}</h6>
-            <h5>{pkg.recipient_name} ({pkg.recipient_mobile})</h5>
-            {pkg.address} ({pkg.postcode})<br />
-            <Tag type="blue">{pkg.shipping_notice_items.length}EA</Tag>
+            <h5>{pkg.customer_name} ({pkg.customer_mobile})</h5>
+            {pkg.address} ({pkg.postal_code})<br />
+            <Tag type="blue">{pkg.inventories.length}EA</Tag>
             <Tag type="green">{pkg.status}</Tag><br />
             <Button
               size="small"
               kind="tertiary"
               on:click={() => submitReprintLabel(pkg)}>라벨 재출력</Button
             >
-            {#if pkg.status === PackageStatusEnum.Shipped}
+            {#if pkg.status === PackageStatusEnum.DomesticDeliveryStarted}
               <Tag
                 type="purple"
                 style="cursor: pointer;"
                 on:click={() => {
-                  window.open(pkg.tracking_url, "_blank");
-                }}>{pkg.courier.name} {pkg.tracking_number}</Tag
+                  // window.open(pkg.tracking_url, "_blank");
+                }}>{pkg.domestic_courier?.name} {pkg.domestic_tracking_number}</Tag
               >
             {/if}
-            <div class="inventories">
+            <!-- <div class="inventories">
               {#each pkg.shipping_notice_items as i}
                 <div
                   class="inventory"
@@ -225,7 +225,7 @@
                   <Tag size="sm" kind="grey">{i.item.size}</Tag>{i.item.name}
                 </div>
               {/each}
-            </div>
+            </div> -->
           </div>
         {/each}
       </div>

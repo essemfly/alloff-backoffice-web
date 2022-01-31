@@ -1,10 +1,17 @@
 <script lang="ts">
-  import { DataTable } from "carbon-components-svelte";
+  import {
+    DataTable,
+    Toolbar,
+    ToolbarContent,
+    ToolbarSearch,
+  } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
+  import { debounce } from "lodash";
   import { DateTime } from "luxon";
-  import type { ShippingNotice } from "../../../../api";
+  import { ShippingNoticeList } from "../../../../api";
+  import { search } from "../store";
 
-  export let notices: ShippingNotice[] = [];
+  export let notices: ShippingNoticeList[] = [];
   export let isMobile = false;
 
   const mobileHeaders: DataTableHeader[] = [
@@ -18,6 +25,10 @@
     { key: "status", value: "상태" },
     { key: "count", value: "수량" },
   ];
+
+  const handleSearch = debounce((e) => {
+    search.set(e.target.value);
+  }, 300);
 </script>
 
 <DataTable
@@ -33,6 +44,11 @@
     window.open(url, "_blank");
   }}
 >
+  <Toolbar>
+    <ToolbarContent>
+      <ToolbarSearch on:input={handleSearch} />
+    </ToolbarContent>
+  </Toolbar>
   <span slot="cell" let:cell let:row>
     {#if cell.key === "ordered"}
       {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({

@@ -8,8 +8,7 @@
   // import Brands from "./pages/brands/brands.svelte";
   // import Inventories from "./pages/logistics/inventories/Inventories.svelte";
   import Recieve from "./pages/logistics/receive/Recieve.svelte";
-  // import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
-  // import ShippingNotices from "./pages/logistics/shipping-notices/ShippingNotices.svelte";
+  import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
   // import NotificationDetail from "./pages/notifications/NotificationDetail.svelte";
   // import Notifications from "./pages/notifications/Notifications.svelte";
   // import OrderDetail from "./pages/orders/OrderDetail.svelte";
@@ -18,6 +17,8 @@
   // import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
   // import Timedeals from "./pages/timedeals/Timedeals.svelte";
   import OrderItems from "./pages/order-items/OrderItems.svelte";
+  import Candidates from "./pages/logistics/shipping-notices/Candidates.svelte";
+  import ShippingNotices from "./pages/logistics/shipping-notices/ShippingNotices.svelte";
   // import ProductRoutes from "./pages/products/ProductRoutes.svelte";
 </script>
 
@@ -90,7 +91,7 @@
     </Route>
   </Route>-->
   <!-- <Route path="products/*"> -->
-    <!-- <ProductRoutes /> -->
+  <!-- <ProductRoutes /> -->
   <!-- </Route> -->
   <Route path="login">
     <Login />
@@ -105,7 +106,7 @@
       <Route path="/">
         <Inventories />
       </Route>
-    </Route>
+    </Route> -->
     <Route path="shipping-notices/*">
       <Route path="/">
         <ShippingNotices />
@@ -113,7 +114,10 @@
       <Route path=":id" let:params>
         <ShippingNoticeDetail noticeId={params.id} />
       </Route>
-    </Route> -->
+      <Route path="candidates">
+        <Candidates />
+      </Route>
+    </Route>
   </Route>
   <Route path="items/*">
     <Route path="/">
