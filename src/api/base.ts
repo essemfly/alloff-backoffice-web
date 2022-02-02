@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -19,7 +18,7 @@ import { Configuration } from "./configuration";
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 
-export const BASE_PATH = "https://office-dev.lett.io".replace(/\/+$/, "");
+export const BASE_PATH = "https://office.lett.io".replace(/\/+$/, "");
 
 /**
  *
@@ -28,7 +27,7 @@ export const BASE_PATH = "https://office-dev.lett.io".replace(/\/+$/, "");
 export const COLLECTION_FORMATS = {
     csv: ",",
     ssv: " ",
-    tsv: "	",
+    tsv: "\t",
     pipes: "|",
 };
 

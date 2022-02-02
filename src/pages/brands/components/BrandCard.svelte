@@ -117,7 +117,7 @@
     />
   </div>
   <div class="image">
-    <img src={brand.logoimgurl} alt="img" />
+    <img src={brand.logo_image_url} alt="img" />
   </div>
   <div class="info">
     <Tag>{brand.keyname}</Tag>

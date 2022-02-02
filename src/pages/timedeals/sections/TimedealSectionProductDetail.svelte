@@ -1,7 +1,7 @@
 <script lang="ts">
-  import InstructionAdder from "../components/InstructionAdder.svelte";
+  import InstructionAdder from "../../../components/InstructionAdder.svelte";
   import LoggedInFrame from "../../common/LoggedInFrame.svelte";
-  import ContentBox from "../components/ContentBox.svelte";
+  import ContentBox from "../../../components/ContentBox.svelte";
   import ProductTemplateTable from "../components/ProductTemplateTable.svelte";
   import { AutocompleteItem } from "../../../common/autocomplete/utils";
   import Autocomplete from "../../../common/autocomplete/Autocomplete.svelte";

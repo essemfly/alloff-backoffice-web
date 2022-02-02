@@ -15,8 +15,8 @@
   } from "../../../../common/autocomplete";
 
   import { Product, Brand, BrandsApi } from "../../../../api";
-  import InstructionAdder from "./InstructionAdder.svelte";
-  import ContentBox from "./ContentBox.svelte";
+  import InstructionAdder from "../../../../components/InstructionAdder.svelte";
+  import ContentBox from "../../../../components/ContentBox.svelte";
   import ImageUploadField from "../../../../components/ImageUploadField.svelte";
 
   export let form: Product;

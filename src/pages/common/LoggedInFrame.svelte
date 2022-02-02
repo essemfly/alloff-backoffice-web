@@ -98,16 +98,16 @@
         isSelected={$location.pathname === "/logistics/shipping-notices"}
       />
     </HeaderNavMenu>
-    <HeaderNavItem
+    <!-- <HeaderNavItem
       href="/analytics/dashboard"
       text="대시보드"
       isSelected={$location.pathname === "/analytics/dashboard"}
-    />
-    <HeaderNavItem
+    /> -->
+    <!-- <HeaderNavItem
       href="/brands"
       text="브랜드"
       isSelected={$location.pathname === "/brands"}
-    />
+    /> -->
     <HeaderNavItem
       href="/products"
       text="상품"
@@ -161,12 +161,12 @@
         />
       </SideNavMenu>
     </SideNavItems>
-    <SideNavLink
+    <!-- <SideNavLink
       icon={ChartLine16}
       href="/analytics/dashboard"
       text="대시보드"
       isSelected={$location.pathname === "/analytics/dashboard"}
-    />
+    /> -->
   </SideNav>
 
   {#if $admin}

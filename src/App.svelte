@@ -40,11 +40,7 @@
     </Route>
   </Route>
   
-  <Route path="brands/*">
-    <Route path="/">
-      <Brands />
-    </Route>
-  </Route>
+ 
   <Route path="timedeals/*">
     <Route path="/">
       <Timedeals />
@@ -82,6 +78,11 @@
   <Route path="login">
     <Login />
   </Route>
+  <!-- <Route path="brands/*">
+    <Route path="/">
+      <Brands />
+    </Route>
+  </Route> -->
   <Route path="logistics/*">
     <Route path="ris/*">
       <Route path="/">
