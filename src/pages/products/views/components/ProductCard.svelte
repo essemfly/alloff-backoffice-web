@@ -1,20 +1,28 @@
 <script lang="ts">
-  import { Button, Tag } from "carbon-components-svelte";
-  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { navigate } from "svelte-navigator";
-
-  // dummys
-  import { Product } from "../samples/response";
+  import {
+    Button,
+    Tag,
+    StructuredList,
+    StructuredListHead,
+    StructuredListRow,
+    StructuredListCell,
+    StructuredListBody,
+  } from "carbon-components-svelte";
+  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
+  import { Product, ProductsApi } from "../../../../api";
 
   export let product: Product;
+  const productApi = new ProductsApi();
 
   const handleCardClick = (event: MouseEvent) => {
     event.preventDefault();
-    navigate(`/products/${product.productId}`);
+    navigate(`/products/${product.alloff_product_id}`);
   };
 
   const handleDeleteClick = async () => {
-    // todo
+    // todo: remove api
+    // productApi.productsUpdate
   };
 </script>
 
@@ -32,20 +40,26 @@
   <div class="image">
     <img
       src={product.images[0]}
-      alt={[product.brandKorName, product.alloffName].join("-")}
+      alt={[product.brand_kor_name, product.alloff_name].join("-")}
     />
   </div>
   <div class="info">
-    <Tag>{product.brandKorName}</Tag>
-    <p>{product.brandKorName}</p>
-    <h6>{product.alloffName}</h6>
-    {#if product.inventory?.reduce((prev, curr) => prev + curr.quantity, 0) === 0}
+    <p>{product.brand_kor_name}</p>
+    <h6>{product.alloff_name}</h6>
+    {#if product.inventory.reduce((prev, curr) => prev + curr.quantity, 0) === 0}
       <Tag type="red">⚠️ 재고없음</Tag>
     {/if}
-    {#each product.inventory as inventory}
-      <Tag type="blue">{inventory.size} - {inventory.quantity} EA</Tag>
-    {/each}
   </div>
+  <StructuredList condensed>
+    <StructuredListBody>
+      {#each product.inventory as inventory}
+        <StructuredListRow>
+          <StructuredListCell noWrap>{inventory.size}</StructuredListCell>
+          <StructuredListCell>{inventory.quantity} EA</StructuredListCell>
+        </StructuredListRow>
+      {/each}
+    </StructuredListBody>
+  </StructuredList>
 </div>
 
 <style>
@@ -87,9 +101,14 @@
 
   .product > .info {
     padding: 10px;
+    height: 70px;
   }
 
   .product > .info > p {
     font-size: 10px;
+  }
+
+  .product :global(.bx--structured-list) {
+    margin-bottom: 0px;
   }
 </style>
