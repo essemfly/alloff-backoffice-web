@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 import {
-  ActionTypeEnum,
   OrderItemRetrieve,
+  ActionTypeEnum,
   OrderItemStatusEnum,
   OrderItemTypeEnum,
 } from "../api";
@@ -76,11 +76,11 @@ export const getStatusLabel = (status: OrderItemStatusEnum | undefined) => {
     case OrderItemStatusEnum.ProductPreparing:
       return "상품준비중";
     case OrderItemStatusEnum.ForeignProductInspecting:
-      return "해외검수중";
+      return "현지검수중";
     case OrderItemStatusEnum.DeliveryPreparing:
       return "배송준비중";
     case OrderItemStatusEnum.ForeignDeliveryStarted:
-      return "해외배송준비중";
+      return "해외배송중";
     case OrderItemStatusEnum.DeliveryStarted:
       return "배송시작";
     case OrderItemStatusEnum.DeliveryFinished:
@@ -106,32 +106,34 @@ export const getStatusLabel = (status: OrderItemStatusEnum | undefined) => {
   }
 };
 
+const parseISODate = (isoDate: string | null | undefined) => isoDate ? DateTime.fromISO(isoDate) : undefined;
+
 export const getOrderItemTimestampByStatus = (
   status: OrderItemStatusEnum,
   item: OrderItemRetrieve,
 ): DateTime | undefined => {
   switch (status) {
     case OrderItemStatusEnum.PaymentFinished:
-      return item.orderedAt ? DateTime.fromISO(item.orderedAt) : undefined;
+      return parseISODate(item.ordered_at);
     case OrderItemStatusEnum.ReturnRequested:
     case OrderItemStatusEnum.ExchangeRequested:
-      return item.cancelRequestedAt
-        ? DateTime.fromISO(item.cancelRequestedAt)
-        : undefined;
+      return parseISODate(item.cancel_requested_at);
     case OrderItemStatusEnum.CancelFinished:
-      return item.cancelFinishedAt
-        ? DateTime.fromISO(item.cancelFinishedAt)
-        : undefined;
+      return parseISODate(item.cancel_finished_at);
     case OrderItemStatusEnum.DeliveryStarted:
-      return item.deliveryStartedAt
-        ? DateTime.fromISO(item.deliveryStartedAt)
-        : undefined;
+      return parseISODate(item.delivery_started_at);
     case OrderItemStatusEnum.DeliveryFinished:
-      return item.deliveryFinishedAt
-        ? DateTime.fromISO(item.deliveryFinishedAt)
-        : undefined;
+      return parseISODate(item.delivery_finished_at);
     case OrderItemStatusEnum.ConfirmPayment:
-      return item.confirmedAt ? DateTime.fromISO(item.confirmedAt) : undefined;
+      return parseISODate(item.confirmed_at);
+    case OrderItemStatusEnum.ReturnPending:
+      return parseISODate(item.return_started_at);
+    case OrderItemStatusEnum.ExchangePending:
+      return parseISODate(item.exchange_started_at);
+    case OrderItemStatusEnum.ReturnFinished:
+      return parseISODate(item.return_finished_at);
+    case OrderItemStatusEnum.ExchangeFinished:
+      return parseISODate(item.exchange_finished_at);
     default:
       return undefined;
   }
@@ -149,5 +151,16 @@ export const getLogTypeLabel = (logType: ActionTypeEnum) => {
       return "환불처리";
     case ActionTypeEnum.StatusChange:
       return "상태변경";
+    case ActionTypeEnum.GeneratedReceivedItem:
+      return "입고지시"; 
+    case ActionTypeEnum.CanceledReceivedItem:
+      return "입고요청취소";
+    case ActionTypeEnum.ReceivedInventory:
+      return "입고처리"; 
+    case ActionTypeEnum.RevertedInventory:
+      return "재고원복입고취소";
   }
 };
+
+export const getIsForeignLabel = (isForeign: boolean) => isForeign ? "해외" : "국내";
+export const getIsForeignBadgeColor = (isForeign: boolean) => isForeign ? "magenta" : "cyan";

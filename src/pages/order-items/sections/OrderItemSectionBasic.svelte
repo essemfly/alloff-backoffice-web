@@ -8,7 +8,7 @@
   } from "../../../api";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { numberWithCommas } from "../../../helpers/number";
-  import { getTypeLabel } from "../../../helpers/order-item";
+  import { getIsForeignLabel, getTypeLabel } from "../../../helpers/order-item";
   import { admin } from "../../../store";
   import InfoSection from "../../common/InfoSection.svelte";
   export let item: OrderItemRetrieve;
@@ -54,7 +54,7 @@
       {
         header: "주문수",
         body: `${userItems.length}건`,
-        href: `/orders/?userid=${item.order.user_id}`,
+        href: `/items/?userid=${item.order.user.id}`,
       },
     ]}
   />
@@ -85,10 +85,25 @@
         <InfoSection
           title={item.product_name}
           smallTitle
+          menuItems={[
+            {
+              text: "재입고처리 (1개)",
+              onClick: async () => {
+                submitting = true;
+                await api.orderItemsForceReceiveCreate({ id: item.id });
+                submitting = false;
+                window.location.reload();
+              },
+            },
+          ]}
           rows={[
             {
               header: "상품타입",
               body: getTypeLabel(item.order_item_type),
+            },
+            {
+              header: "해외소싱여부",
+              body: getIsForeignLabel(item.is_foreign),
             },
             {
               header: "사이즈",
@@ -108,7 +123,7 @@
             },
             {
               header: "상품 URL",
-              href: item.product_url,
+              href: item.product_url ?? "",
               body: item.product_url !== "" ? "링크" : "",
             },
             {

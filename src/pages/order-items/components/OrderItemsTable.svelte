@@ -12,10 +12,12 @@
   import Copy16 from "carbon-icons-svelte/lib/Copy16";
   import debounce from "lodash/debounce";
   import { DateTime } from "luxon";
-import { OrderItemList } from "../../../api";
+  import { OrderItemList } from "../../../api";
   // import type { OrderList } from "../../../api";
   import { numberWithCommas } from "../../../helpers/number";
   import {
+getIsForeignBadgeColor,
+    getIsForeignLabel,
     getStatusBadgeColor,
     getStatusLabel,
     getTypeBadgeColor,
@@ -35,6 +37,7 @@ import { OrderItemList } from "../../../api";
   ];
   const headers: DataTableHeader[] = [
     { key: "order_item_code", value: "코드" },
+    { key: "is_foreign", value: "해외여부" },
     { key: "order_item_type", value: "타입" },
     { key: "order_item_status", value: "상태" },
     {
@@ -42,8 +45,8 @@ import { OrderItemList } from "../../../api";
       value: "가액",
     },
     { key: "product_name", value: "상품" },
-    { key: "order.user.name", value: "구매자" },
-    { key: "order.user.mobile", value: "휴대폰" },
+    { key: "order.payment.buyer_name", value: "구매자" },
+    { key: "order.payment.buyer_mobile", value: "휴대폰" },
     { key: "created_at", value: "일자" },
   ];
 
@@ -77,6 +80,10 @@ import { OrderItemList } from "../../../api";
       <Tag type={getStatusBadgeColor(cell.value)}
         >{getStatusLabel(cell.value)}</Tag
       >
+    {:else if cell.key === "is_foreign"}
+      <Tag type={getIsForeignBadgeColor(cell.value)}
+        >{getIsForeignLabel(cell.value)}</Tag
+      >
     {:else if cell.key === "order_item_code"}
       <Button
         style="font-family: monospace; padding: 0;"
@@ -91,9 +98,9 @@ import { OrderItemList } from "../../../api";
       >
     {:else if cell.key === "order_item_type"}
       <Tag type={getTypeBadgeColor(cell.value)}>{getTypeLabel(cell.value)}</Tag>
-    {:else if cell.key === "totalprice"}
+    {:else if cell.key === "total_amount"}
       {numberWithCommas(cell.value)}
-    {:else if cell.key === "created"}
+    {:else if cell.key === "created_at"}
       {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
         month: "short",
         day: "numeric",

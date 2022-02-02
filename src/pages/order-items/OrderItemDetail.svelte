@@ -28,10 +28,10 @@
     item = data;
 
     userItems = (
-      await api.orderItemsByUserList({
+      await api.orderItemsList({
         userId: item.order.user_id,
       })
-    ).data;
+    ).data.results;
 
     loading = false;
   };

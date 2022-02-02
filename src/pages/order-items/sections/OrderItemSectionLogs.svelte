@@ -1,6 +1,6 @@
 <script lang="ts">
   import { TabContent } from "carbon-components-svelte";
-  import { ActionTypeEnum, OrderItemRetrieve,  } from "../../../api";
+  import { ActionTypeEnum, OrderItemRetrieve } from "../../../api";
   import { toLocaleDateTime } from "../../../helpers/datetime";
   import { getLogTypeLabel, getStatusLabel } from "../../../helpers/order-item";
   import InfoSection from "../../common/InfoSection.svelte";
@@ -14,11 +14,11 @@
     menuItems={[]}
     fontSize={11}
     rows={item.logs.map((log) => ({
-      header: getLogTypeLabel(log.action_type),
+      header: getLogTypeLabel(log.action_type) ?? "정의되지 않은 액션",
       body: (() => {
         const base = `by ${log.admin.profile.name} (${
           log.admin.username
-        }) at ${toLocaleDateTime(log.performed_at)}`;
+        }) at ${toLocaleDateTime(log.created_at)}`;
         const refund =
           log.action_type === ActionTypeEnum.RefundUpdate && log.refund_update
             ? `[REFUND: REFUND ${log.refund_update.refund_amount} / DEDUCT delivery ${log.refund_update.refund_delivery_price}] `
@@ -33,7 +33,7 @@
           : "";
         const statusChange = log.status_change
           ? `[STATUS: ${getStatusLabel(
-              log.status_change.status_from
+              log.status_change.status_from,
             )} -> ${getStatusLabel(log.status_change.status_to)}] `
           : "";
         const trackingChange =
@@ -42,7 +42,36 @@
             log.status_change.tracking_number_to
             ? `[TRACKING: tracking ${log.status_change.tracking_number_from} -> ${log.status_change.tracking_number_to}] `
             : "";
-        return statusChange + refund + trackingChange + alimtalk + memo + base;
+        const generatedReceived =
+          log.action_type === ActionTypeEnum.GeneratedReceivedItem
+            ? `[입고지시 - ${
+                log.received_item?.is_force ? "강제재입고" : "상태변경입고"
+              }: ${log.detail}] `
+            : "";
+        const canceledReceived =
+          log.action_type === ActionTypeEnum.CanceledReceivedItem
+            ? `[입고요청취소: ${log.detail}] `
+            : "";
+        const receivedInventory =
+          log.action_type === ActionTypeEnum.ReceivedInventory
+            ? `[입고처리: ${log.detail} / 재고 코드: ${log.inventory?.inventory_code}] `
+            : "";
+        const revertedInventory =
+          log.action_type === ActionTypeEnum.RevertedInventory
+            ? `[재고원복입고취소: ${log.detail}] `
+            : "";
+        return (
+          statusChange +
+          generatedReceived +
+          canceledReceived +
+          receivedInventory +
+          revertedInventory +
+          refund +
+          trackingChange +
+          alimtalk +
+          memo +
+          base
+        );
       })(),
     }))}
   />

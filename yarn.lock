@@ -1786,17 +1786,17 @@ camelcase@^6.2.0:
   integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
 
 carbon-components-svelte@^0.44.4:
-  version "0.44.4"
-  resolved "https://registry.yarnpkg.com/carbon-components-svelte/-/carbon-components-svelte-0.44.4.tgz#5b9bec1fee918c27f5716457f2ed5d88f678a203"
-  integrity sha512-+cmZKMb1YClR4+T03H9hRrMQpatvMlvdsvq68TLqD+plUW/3QInm1dLRd69jnDNzvmD6zJBuhiNQXqnwU24HyA==
+  version "0.44.7"
+  resolved "https://registry.yarnpkg.com/carbon-components-svelte/-/carbon-components-svelte-0.44.7.tgz#520a38d3fb9b6c2b142ea6b1c1dd4c774fc6f0fd"
+  integrity sha512-/fg3kt7Vy9LZLrKGwljoYgU89hmAQRgBWS4psqK4M8a2WZ2EKOMobpFCC1TGBmOBwWU6QPK9tjvRNSyHXrZzTQ==
   dependencies:
     carbon-icons-svelte "^10.36.0"
     flatpickr "4.6.9"
 
 carbon-icons-svelte@^10.36.0:
-  version "10.38.0"
-  resolved "https://registry.yarnpkg.com/carbon-icons-svelte/-/carbon-icons-svelte-10.38.0.tgz#daf74e4a2a826ad994c950a67307b8392d80ca3a"
-  integrity sha512-uEckbbNHFtDzKz+QRx6GxvZcezXXqfDOiaE7mupkiRPkBbALrA9CPJZbI5Q2XW5mpn8lgN3IlTm2u1iJEAlVJw==
+  version "10.44.4"
+  resolved "https://registry.yarnpkg.com/carbon-icons-svelte/-/carbon-icons-svelte-10.44.4.tgz#0f0ea205e4d4c148c994e3b53104b81605d58ec6"
+  integrity sha512-KsqXj0tYFF4S9b4mDSyt3Ovo0TA6QQ6nW0XRoY7D7EahM6hGluz0CdMw3wp/lbAUItTlTfYk+aPpiCKvpbTIyA==
 
 caseless@~0.12.0:
   version "0.12.0"
