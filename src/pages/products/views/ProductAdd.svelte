@@ -1,0 +1,76 @@
+<script lang="ts">
+  import { Grid, Button } from "carbon-components-svelte";
+  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
+  import Save16 from "carbon-icons-svelte/lib/Save16";
+
+  import ProductForm from "./components/ProductForm.svelte";
+  import {
+    CreateProductRequestRequest,
+    Product,
+    ProductsApi,
+  } from "../../../api";
+
+  let isTouched = true;
+  let product: Product = {
+    alloff_product_id: "",
+    alloff_name: "",
+    product_id: "",
+    brand_kor_name: "",
+    category_name: "",
+    alloff_category_name: "",
+    is_foreign_delivery: true,
+    is_refund_possible: true,
+    is_removed: true,
+    is_soldout: true,
+    original_price: 0,
+    discounted_price: 0,
+    special_price: 0,
+    earliest_delivery_days: 0,
+    latest_delivery_days: 0,
+    refund_fee: 0,
+    total_score: 0,
+    description: [],
+    images: [],
+    description_images: [],
+    inventory: [],
+  };
+
+  const handleSubmit = async () => {
+    const productApi = new ProductsApi();
+    const res = await productApi.productsCreate({
+      createProductRequestRequest:
+        product as unknown as CreateProductRequestRequest,
+    });
+  };
+</script>
+
+<LoggedInFrame>
+  <Grid>
+    <div class="button-wrapper mb10">
+      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+        상품 등록
+      </Button>
+    </div>
+    <ProductForm form={product} />
+    <div class="button-wrapper mt10">
+      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+        상품 등록
+      </Button>
+    </div>
+  </Grid>
+</LoggedInFrame>
+
+<style>
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mb10 {
+    margin-bottom: 10px;
+  }
+
+  .mt10 {
+    margin-top: 10px;
+  }
+</style>

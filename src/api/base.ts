@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -27,7 +28,7 @@ export const BASE_PATH = "https://office-dev.lett.io".replace(/\/+$/, "");
 export const COLLECTION_FORMATS = {
     csv: ",",
     ssv: " ",
-    tsv: "\t",
+    tsv: "	",
     pipes: "|",
 };
 

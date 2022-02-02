@@ -1,0 +1,7 @@
+{
+  "modelPropertyNaming": "snake_case",
+  "enumPropertyNaming": "PascalCase",
+  "paramNaming": "camelCase",
+  "supportsES6": true,
+  "useSingleRequestParameter": true
+}

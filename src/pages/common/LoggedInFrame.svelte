@@ -67,9 +67,9 @@
 
   <HeaderNav>
     <HeaderNavItem
-      href="/orders"
+      href="/items"
       text="주문"
-      isSelected={$location.pathname === "/orders"}
+      isSelected={$location.pathname === "/items"}
     />
     <HeaderNavItem
       href="/timedeals"
@@ -107,6 +107,16 @@
       href="/brands"
       text="브랜드"
       isSelected={$location.pathname === "/brands"}
+    />
+    <HeaderNavItem
+      href="/products"
+      text="상품"
+      isSelected={$location.pathname === "/products"}
+    />
+    <HeaderNavItem
+      href="/product-groups"
+      text="컬렉션"
+      isSelected={$location.pathname === "/product-groups"}
     />
   </HeaderNav>
 
