@@ -7,34 +7,45 @@
   import Pagination from "../../../components/Pagination.svelte";
   import ProductCard from "./components/ProductCard.svelte";
 
-  import { Product, ProductsApi } from "../../../api";
+  import {
+    Product,
+    ProductsApi,
+    ProductsApiProductsListRequest as SearchQueryParam,
+  } from "../../../api";
   import {
     formatQueryString,
     parseQueryString,
   } from "../../../helpers/query-string";
 
-  interface SearchQueryParam {
-    page: number;
-    size: number;
-    query?: string;
-  }
-
   let products: Product[] = [];
-  let page = 1;
-  let size = 50;
+  let offset = 0;
+  let limit = 50;
+  let searchQuery = "";
   let totalItems = 0;
 
   const productApi = new ProductsApi();
   const location = useLocation<SearchQueryParam>();
-  const queryParams: SearchQueryParam = parseQueryString($location.search);
 
   const load = async (params: SearchQueryParam) => {
-    const res = await productApi.productsList({
-      ...params,
-      search_query: params.query,
+    let res = await productApi.productsList({
+      offset: params.offset ?? 0,
+      limit: params.limit ?? 50,
+      query: params.query ?? "",
     });
-    products = res.data;
-    totalItems = res.data.length; // todo: fix
+
+    res = res.data;
+    products = res.products;
+
+    // query strings
+    offset = res.offset;
+    limit = res.limit;
+    totalItems = res.total_counts;
+    searchQuery =
+      params.query ??
+      res.list_query.alloff_category_id ??
+      res.list_query.brand_id ??
+      res.list_query.category_id ??
+      res.list_query.search_query;
   };
 
   onMount(async () => {
@@ -47,14 +58,27 @@
     navigate("/products/add");
   };
 
+  const handlePageChange = (
+    event: CustomEvent<{ offset: number; limit: number }>,
+  ) => {
+    const { offset, limit } = event.detail;
+    const queryString = formatQueryString({
+      offset,
+      limit,
+      query: searchQuery,
+    });
+    navigate(`${$location.pathname}?${queryString}`);
+  };
+
   const handleSearch = (e: KeyboardEvent) => {
     const value = (e.target as HTMLInputElement).value.trim();
     if (e.keyCode === 13) {
       const queryString = formatQueryString({
-        page: 1,
-        size,
+        offset: 0,
+        limit,
         query: value,
       });
+
       navigate(`${$location.pathname}?${queryString}`);
     }
   };
@@ -69,8 +93,8 @@
   <div class="button-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
-  <Pagination {page} {totalItems} />
-  <Search on:keydown={handleSearch} value={queryParams?.query ?? ""} />
+  <Pagination {limit} {offset} {totalItems} on:change={handlePageChange} />
+  <Search on:keydown={handleSearch} bind:value={searchQuery} />
   <ul class="product-list">
     {#each products as product}
       <ProductCard {product} />
@@ -87,7 +111,7 @@
     flex-wrap: wrap;
     flex-direction: row;
     flex: 1 0 21%; /* explanation below */
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .button-wrapper {
