@@ -66,8 +66,12 @@
     if (!value) return;
 
     onSubmit(value);
-    selectedValue = value.value;
     hideResults();
+    if (keepValueOnSubmit) {
+      selectedValue = value.value;
+    } else {
+      selectedValue = "";
+    }
   };
 
   $: matches = findMatches(options, selectedValue);
