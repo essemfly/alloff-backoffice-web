@@ -9,37 +9,35 @@
   import { numberWithCommas } from "../../../helpers/number";
 
   export let updateRefundInfo: (
-    refundDeliveryPrice: number,
-    refundPrice: number,
-    refundAmount: number
+    refundFee: number,
+    refundAmount: number,
   ) => Promise<void>;
 
   export let open = false;
-  export let orderTotalPrice: number;
-  export let paymentAdjustmentSum: number;
+  export let totalAmount: number;
 
-  export let refundDeliveryPrice: number;
-  export let refundPrice: number;
+  export let refundFee: number;
   export let refundAmount: number;
-  let refundFee = refundDeliveryPrice + refundPrice;
-  let refundFeeRate = Math.round((1 - refundPrice / orderTotalPrice) * 100);
+
+  export let formRefundFee: number = refundFee;
+  export let formRefundAmount: number = totalAmount;
+
+  let refundFeeRate = Math.round((1 - formRefundFee / totalAmount) * 100);
 
   let valid = false;
 
   $: {
-    refundFee = refundDeliveryPrice + refundPrice;
-    refundAmount = orderTotalPrice - refundFee;
-    refundFeeRate = Math.round((1 - refundPrice / orderTotalPrice) * 100);
+    formRefundFee = totalAmount - formRefundAmount;
+    refundFeeRate = Math.round((1 - formRefundAmount / totalAmount) * 100);
   }
 
-  $: valid =
-    refundFee <= orderTotalPrice && refundAmount > paymentAdjustmentSum;
+  $: valid = formRefundAmount <= totalAmount && formRefundAmount > refundAmount;
 </script>
 
 <ComposedModal
   bind:open
   on:submit={async () => {
-    await updateRefundInfo(refundDeliveryPrice, refundPrice, refundAmount);
+    await updateRefundInfo(formRefundFee, formRefundAmount);
     open = false;
   }}
 >
@@ -47,32 +45,25 @@
   <ModalBody hasForm>
     <div class="modal-wrapper">
       <NumberInput
-        label="취소수수료 (원)"
-        bind:value={refundPrice}
+        label="환불총액 (원)"
+        bind:value={formRefundAmount}
         required
         min={0}
-        max={orderTotalPrice}
+        max={totalAmount}
       />
-      <p>취소수수료율: {refundFeeRate}%</p>
-      <NumberInput
-        label="반품배송비 (원)"
-        bind:value={refundDeliveryPrice}
-        required
-        min={0}
-        max={orderTotalPrice}
-      />
-      <h4>취소공제액: {numberWithCommas(refundFee)}원</h4>
-      <h3>환불총액: {numberWithCommas(refundAmount)}원</h3>
-      {#if refundAmount <= paymentAdjustmentSum}
+      <h5>
+        취소수수료: {numberWithCommas(formRefundFee)}원 ({refundFeeRate}%)
+      </h5>
+      {#if formRefundAmount <= refundAmount}
         <p style="color: red;">
-          새로운 환불총액은 기환불총액보다 커야합니다. (기환불총액: {numberWithCommas(
-            paymentAdjustmentSum
+          환불총액을 줄일 수는 없습니다. (기존 환불총액: {numberWithCommas(
+            refundAmount,
           )}원)
         </p>
-      {:else if refundFee > orderTotalPrice}
+      {:else if formRefundAmount > totalAmount}
         <p style="color: red;">
-          공제액은 주문가액보다 작아야합니다. (주문가액: {numberWithCommas(
-            orderTotalPrice
+          주문가액보다 더 많이 환불할 수 없습니다. (주문가액: {numberWithCommas(
+            totalAmount,
           )}원)
         </p>
       {/if}

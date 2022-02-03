@@ -10,6 +10,7 @@
   import OrderItemSectionBasic from "./sections/OrderItemSectionBasic.svelte";
   import OrderItemSectionTop from "./sections/OrderItemSectionTop.svelte";
   import OrderItemSectionLogs from "./sections/OrderItemSectionLogs.svelte";
+import OrderItemSectionPayment from "./sections/OrderItemSectionPayment.svelte";
 
   export let idOrCode: string;
 
@@ -62,7 +63,7 @@
     <Tabs bind:selected={selectedIndex}>
       <Tab label="기본정보" />
       <Tab label="관리이력" />
-      <!-- <Tab label="결제" /> -->
+      <Tab label="결제" />
       <!-- <Tab label="PG" /> -->
       <div slot="content">
         <OrderItemSectionBasic
@@ -70,8 +71,8 @@
           bind:submitting
         />
         <OrderItemSectionLogs {item} />
+        <OrderItemSectionPayment {...{ item, api, load }} bind:submitting />
         <!--
-        <OrderSectionPayment {...{ order, api, load }} bind:submitting />
         <OrderSectionPg {order} />
         -->
       </div>
