@@ -70,11 +70,20 @@
         body: `${item.order.payment.buyer_address} (${item.order.payment.buyer_post_code})`,
       },
       { header: "요청사항", body: item.order.user_memo ?? "" },
-      { header: "송장번호", body: item.tracking_number ?? "" },
+      {
+        header: "송장번호",
+        body:
+          item.tracking_number.length > 0
+            ? item.tracking_number[item.tracking_number.length - 1]
+            : "",
+      },
       {
         header: "추적 URL",
-        href: item.tracking_url ?? "",
-        body: item.tracking_url !== "" ? "링크" : "",
+        href:
+          item.tracking_url.length > 0
+            ? item.tracking_url[item.tracking_url.length - 1]
+            : "",
+        body: item.tracking_url.length > 0 ? "링크" : "",
       },
     ]}
   />

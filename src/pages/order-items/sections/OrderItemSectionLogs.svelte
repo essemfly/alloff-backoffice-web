@@ -21,7 +21,7 @@
         }) at ${toLocaleDateTime(log.created_at)}`;
         const refund =
           log.action_type === ActionTypeEnum.RefundUpdate && log.refund_update
-            ? `[REFUND: REFUND ${log.refund_update.refund_amount} / DEDUCT delivery ${log.refund_update.refund_delivery_price}] `
+            ? `[REFUND: ${log.refund_update.refund_amount}원 환불 (환불수수료: ${log.refund_update.refund_fee}원)] `
             : "";
         const memo =
           log.action_type === ActionTypeEnum.MemoAdd ||
