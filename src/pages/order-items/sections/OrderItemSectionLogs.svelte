@@ -56,9 +56,14 @@
           log.action_type === ActionTypeEnum.ReceivedInventory
             ? `[입고처리: ${log.detail} / 재고 코드: ${log.inventory?.inventory_code}] `
             : "";
-        const revertedInventory =
+            const revertedInventory =
           log.action_type === ActionTypeEnum.RevertedInventory
             ? `[재고원복입고취소: ${log.detail}] `
+            : "";        
+            
+        const paymentAdjustment =
+          log.action_type === ActionTypeEnum.PaymentAdjustment
+            ? `[결제조정: ${log.detail}] `
             : "";
         return (
           statusChange +
@@ -70,6 +75,7 @@
           trackingChange +
           alimtalk +
           memo +
+          paymentAdjustment + 
           base
         );
       })(),

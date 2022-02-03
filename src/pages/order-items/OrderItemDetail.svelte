@@ -8,9 +8,10 @@
   import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "../../api";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import OrderItemSectionBasic from "./sections/OrderItemSectionBasic.svelte";
+  import OrderItemSectionPG from "./sections/OrderItemSectionPG.svelte";
   import OrderItemSectionTop from "./sections/OrderItemSectionTop.svelte";
   import OrderItemSectionLogs from "./sections/OrderItemSectionLogs.svelte";
-import OrderItemSectionPayment from "./sections/OrderItemSectionPayment.svelte";
+  import OrderItemSectionPayment from "./sections/OrderItemSectionPayment.svelte";
 
   export let idOrCode: string;
 
@@ -62,19 +63,17 @@ import OrderItemSectionPayment from "./sections/OrderItemSectionPayment.svelte";
     <OrderItemSectionTop {...{ item, load, api, mobile }} bind:submitting />
     <Tabs bind:selected={selectedIndex}>
       <Tab label="기본정보" />
-      <Tab label="관리이력" />
       <Tab label="결제" />
-      <!-- <Tab label="PG" /> -->
+      <Tab label="PG" />
+      <Tab label="관리이력" />
       <div slot="content">
         <OrderItemSectionBasic
           {...{ item, mobile, load, api, userItems }}
           bind:submitting
         />
-        <OrderItemSectionLogs {item} />
         <OrderItemSectionPayment {...{ item, api, load }} bind:submitting />
-        <!--
-        <OrderSectionPg {order} />
-        -->
+        <OrderItemSectionPG {item} />
+        <OrderItemSectionLogs {item} />
       </div>
     </Tabs>
   {/if}
