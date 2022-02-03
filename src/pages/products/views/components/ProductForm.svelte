@@ -94,6 +94,9 @@
         bind:value={form.discounted_price}
       />
     </Column>
+    <Column>
+      <TextInput labelText="우선적용가" bind:value={form.special_price} />
+    </Column>
   </Row>
   <Row>
     <Column>
@@ -154,9 +157,6 @@
   <Row>
     <Column>
       <TextInput labelText="반품 비용" bind:value={form.refund_fee} />
-    </Column>
-    <Column>
-      <TextInput labelText="우선적용가" bind:value={form.special_price} />
     </Column>
   </Row>
   <Row>
