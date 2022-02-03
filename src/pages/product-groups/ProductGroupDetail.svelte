@@ -3,7 +3,12 @@
   import { Grid, Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { ProductGroup, ProductGroupsApi } from "../../api";
+  import {
+    EditProductGroupRequest,
+    ProductGroup,
+    ProductGroupsApi,
+    ProductGroupsApiProductGroupsUpdateRequest,
+  } from "../../api";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import ProductForm from "./components/ProductGroupForm.svelte";
 
@@ -22,9 +27,12 @@
   });
 
   const handleSubmit = async () => {
-    // await productGroupApi.productGroupsUpdate({
-    //   editProductGroupRequestRequest: productGroup,
-    // });
+    await productGroupApi.productGroupsUpdate({
+      id: productGroup.product_group_id,
+      editProductGroupRequest: {
+        ...productGroup,
+      } as unknown as EditProductGroupRequest,
+    });
   };
 </script>
 
