@@ -69,7 +69,7 @@
           on:click={async (e) => {
             e.stopPropagation();
             const res = await submitCandidates(selectedCandidates);
-            console.log(res.data);
+            window.location.href = "/logistics/shipping-notices/" + res.data.id;
           }}>출고지시서 생성</Button
         >
       </ToolbarBatchActions>
@@ -132,6 +132,7 @@
     box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     margin: 10px;
+    display: inline-block;
   }
 
   .inventories {

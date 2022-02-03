@@ -4,11 +4,13 @@
     Toolbar,
     ToolbarContent,
     ToolbarSearch,
+    Button,
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import { debounce } from "lodash";
   import { DateTime } from "luxon";
   import { ShippingNoticeList } from "../../../../api";
+  import { getShippingNolticeStatusLabel } from "../../../../helpers/shipping-notice";
   import { search } from "../store";
 
   export let notices: ShippingNoticeList[] = [];
@@ -47,6 +49,9 @@
   <Toolbar>
     <ToolbarContent>
       <ToolbarSearch on:input={handleSearch} />
+      <Button on:click={e => {
+        window.location.href = "/logistics/shipping-notices/candidates";
+      }}>출고지시서 생성</Button>
     </ToolbarContent>
   </Toolbar>
   <span slot="cell" let:cell let:row>
@@ -61,6 +66,8 @@
       })}
     {:else if cell.key === "count"}
       {row.items.length}
+    {:else if cell.key === "status"}
+      {getShippingNolticeStatusLabel(cell.value)}
     {:else}{cell.value}
     {/if}
   </span>

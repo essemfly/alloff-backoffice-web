@@ -14,23 +14,23 @@
   import { getInventoryStatusLabel } from "../../../../helpers/inventory";
   import { search } from "../store";
 
-  export let inventories: Inventory[] = [];
+  export let inventories: Inventory[];
   export let isMobile = false;
 
   const mobileHeaders: DataTableHeader[] = [
     { key: "code", value: "코드" },
     { key: "product_name", value: "상품명" },
-    { key: "product_brand", value: "브랜드" },
+    { key: "brand_keyname", value: "브랜드" },
   ];
 
   const headers: DataTableHeader[] = [
     { key: "id", value: "ID" },
     { key: "code", value: "코드" },
     { key: "product_name", value: "상품명" },
-    { key: "product_brand", value: "브랜드" },
+    { key: "brand_keyname", value: "브랜드" },
     { key: "size", value: "사이즈" },
     { key: "status", value: "상태" },
-    { key: "location", value: "위치" },
+    { key: "color", value: "컬러" },
     { key: "images", value: "이미지" },
     { key: "delete", value: "삭제" },
   ];
@@ -49,6 +49,8 @@
       alert(e.message);
     }
   };
+
+  $: console.log({inventories})
 </script>
 
 <DataTable
@@ -83,7 +85,7 @@
         hour12: true,
       })}
     {:else if cell.key === "images"}
-      <img src={row.images[0]} width="100" alt="Inventory images" />
+      <img src={row.product_img} width="100" alt="Inventory images" />
     {:else if cell.key === "delete"}
       <Button
         kind="danger"

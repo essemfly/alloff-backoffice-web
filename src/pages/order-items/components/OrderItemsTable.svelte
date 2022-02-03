@@ -47,7 +47,7 @@ getIsForeignBadgeColor,
     { key: "product_name", value: "상품" },
     { key: "order.payment.buyer_name", value: "구매자" },
     { key: "order.payment.buyer_mobile", value: "휴대폰" },
-    { key: "created_at", value: "일자" },
+    { key: "ordered_at", value: "일자" },
   ];
 
   const handleSearch = debounce((e) => {
@@ -100,8 +100,8 @@ getIsForeignBadgeColor,
       <Tag type={getTypeBadgeColor(cell.value)}>{getTypeLabel(cell.value)}</Tag>
     {:else if cell.key === "total_amount"}
       {numberWithCommas(cell.value)}
-    {:else if cell.key === "created_at"}
-      {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
+    {:else if cell.key === "ordered_at"}
+      {DateTime.fromISO(row.ordered_at ?? row.created_at).setLocale("ko").toLocaleString({
         month: "short",
         day: "numeric",
         weekday: "narrow",

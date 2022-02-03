@@ -22,7 +22,6 @@
       page,
       search,
       size,
-      location,
       statuses,
     });
 
@@ -33,9 +32,8 @@
   let page = 1;
   let pageSize = 50;
   let totalItems = 0;
-  const location: string | undefined = undefined;
   let statuses: InventoryStatusEnum[] = [InventoryStatusEnum.InStock];
-  const pageSizes = [50, 100, 200];
+  const pageSizes = [20, 50, 100];
 
   $: load(
     page,
