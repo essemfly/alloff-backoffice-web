@@ -6,7 +6,7 @@
   // import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
   import Login from "./pages/auth/Login.svelte";
   // import Brands from "./pages/brands/brands.svelte";
-  // import Inventories from "./pages/logistics/inventories/Inventories.svelte";
+  import Inventories from "./pages/logistics/inventories/Inventories.svelte";
   import Recieve from "./pages/logistics/receive/Recieve.svelte";
   import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
   // import NotificationDetail from "./pages/notifications/NotificationDetail.svelte";
@@ -89,17 +89,17 @@
         <Recieve />
       </Route>
     </Route>
-    <!-- <Route path="inventories/*">
+    <Route path="inventories/*">
       <Route path="/">
         <Inventories />
       </Route>
-    </Route> -->
+    </Route>
     <Route path="shipping-notices/*">
       <Route path="/">
         <ShippingNotices />
       </Route>
       <Route path=":id" let:params>
-        <ShippingNoticeDetail noticeId={params.id} />
+        <ShippingNoticeDetail noticeId={parseInt(params.id)} />
       </Route>
       <Route path="candidates">
         <Candidates />

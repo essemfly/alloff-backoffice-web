@@ -1,29 +1,32 @@
 <script lang="ts">
   import {
     Breakpoint,
-    InlineLoading,
-    Tag,
     Button,
-    UnorderedList,
-    ListItem,
-    Link,
     FileUploader,
+    InlineLoading,
+    Link,
+    Tag,
   } from "carbon-components-svelte";
+  import Package16 from "carbon-icons-svelte/lib/Package16";
   import {
-    OrderStatusEnum,
     Package,
+    PackagesApi,
     // PackagesApi,
     PackageStatusEnum,
+    ShippingNoticeItem,
     ShippingNoticeRetrieve,
     ShippingNoticesApi,
-    // ShippingNoticesResultUploadApi,
+    ShippingNoticesResultUploadApi,
     ShippingNoticeStatusEnum,
   } from "../../../api";
+  import {
+    getStatusBadgeColor,
+    getStatusLabel,
+  } from "../../../helpers/order-item";
+  import { getShippingNolticeStatusLabel } from "../../../helpers/shipping-notice";
   import LoggedInFrame from "../../common/LoggedInFrame.svelte";
-  import Package16 from "carbon-icons-svelte/lib/Package16";
-  import { getStatusBadgeColor, getStatusLabel } from "../../../helpers/order-item";
 
-  export let noticeId: string | undefined = undefined;
+  export let noticeId: number;
 
   let notice: ShippingNoticeRetrieve | undefined;
   let submitting = false;
@@ -31,7 +34,8 @@
   let mobile = false;
   let size: "sm" | "md" | "lg" | "xlg" | "max";
 
-  const tabIndex = 0;
+  const packageMappedItems: { [packageId: string]: ShippingNoticeItem[] } = {};
+  const packageHashMap: { [packageId: string]: Package } = {};
 
   const api = new ShippingNoticesApi();
 
@@ -39,63 +43,72 @@
     if (!noticeId) return;
     loading = true;
     const { data } = await api.shippingNoticesRetrieve({
-      id: parseInt(noticeId),
+      id: noticeId,
     });
     notice = data;
+
+    // Codegen --> _package... Why??
+    type TempNoticeItem = ShippingNoticeItem & { package: Package };
+    (notice.items as TempNoticeItem[]).forEach((item) => {
+      console.log({ item });
+      if (!item.package) return;
+      packageMappedItems[item.package.id] = [
+        ...(packageMappedItems[item.package.id] ?? []),
+        item,
+      ];
+      if (!(item.package.id in packageHashMap)) {
+        packageHashMap[item.package.id] = item.package;
+      }
+    });
     loading = false;
   };
 
   const submitPackaging = async () => {
     if (!noticeId) return;
     submitting = true;
-    // notice = (await api.shippingNoticesPackageCreate({ id: noticeId })).data;
-    submitting = false;
-  };
-
-  const submitSeal = async () => {
-    if (!noticeId) return;
-    submitting = true;
-    // notice = (await api.shippingNoticesSealCreate({ id: noticeId })).data;
-    submitting = false;
+    notice = (await api.shippingNoticesLockAndPackageCreate({ id: noticeId }))
+      .data;
+    window.location.reload();
   };
 
   const submitMakeTemplate = async () => {
     if (!noticeId) return;
     submitting = true;
-    // notice = (
-      // await api.shippingNoticesMakeUploadTemplateCreate({ id: noticeId })
-    // ).data;
-    submitting = false;
+    notice = (
+      await api.shippingNoticesMakeUploadTemplateCreate({ id: noticeId })
+    ).data;
+    window.location.reload();
   };
 
   const submitUploadResult = async (file: File) => {
     if (!noticeId) return;
     submitting = true;
-    // try {
-    //   const resultApi = new ShippingNoticesResultUploadApi();
-    //   notice = (
-    //     await resultApi.shippingNoticesResultUploadUploadCreate({
-    //       file,
-    //       noticeId,
-    //     })
-    //   ).data;
-    // } catch (e: any) {
-    //   alert(e.message);
-    // } finally {
-    //   submitting = false;
-    // }
+    try {
+      const resultApi = new ShippingNoticesResultUploadApi();
+      notice = (
+        await resultApi.shippingNoticesResultUploadUploadCreate({
+          file,
+          noticeId,
+        })
+      ).data;
+      window.location.reload();
+    } catch (e: any) {
+      alert(e.message);
+    } finally {
+      window.location.reload();
+    }
   };
 
   const submitReprintLabel = async (pkg: Package) => {
     submitting = true;
-    // const packageApi = new PackagesApi();
-    // try {
-    //   await packageApi.packagesReprintCreate({ id: pkg.id.toString() });
-    // } catch (e: any) {
-    //   alert(e.message);
-    // } finally {
-    //   submitting = false;
-    // }
+    const packageApi = new PackagesApi();
+    try {
+      await packageApi.packagesReprintLabelCreate({ id: pkg.id });
+    } catch (e: any) {
+      alert(e.message);
+    } finally {
+      submitting = false;
+    }
   };
 
   $: mobile = size === "sm";
@@ -103,6 +116,9 @@
     if (noticeId) {
       load();
     }
+  }
+  $: {
+    console.log({ packageMappedItems, packageHashMap });
   }
 </script>
 
@@ -121,7 +137,7 @@
     <Breakpoint bind:size />
     {#if notice}
       <div>
-        <Tag type="blue">{notice.status}</Tag>
+        <Tag type="blue">{getShippingNolticeStatusLabel(notice.status)}</Tag>
         <h3>{notice.code}</h3>
         {#if notice.status === ShippingNoticeStatusEnum.Created}
           <Button
@@ -130,13 +146,6 @@
             on:click={() => submitPackaging()}>패키징</Button
           >
         {:else if notice.status === ShippingNoticeStatusEnum.Locked}
-          <Button
-            size="small"
-            icon={Package16}
-            kind="danger-tertiary"
-            on:click={() => submitSeal()}>라벨링</Button
-          >
-        {:else if notice.status === ShippingNoticeStatusEnum.Sealed}
           <Button
             size="small"
             icon={Package16}
@@ -176,12 +185,12 @@
             />
           {/if}
         {/if}
-        {#each notice.packages as pkg}
+        {#each Object.values(packageHashMap) as pkg}
           <div class="package">
             <h6>{pkg.code}</h6>
             <h5>{pkg.customer_name} ({pkg.customer_mobile})</h5>
-            {pkg.address} ({pkg.postal_code})<br />
-            <Tag type="blue">{pkg.inventories.length}EA</Tag>
+            {pkg.address} ({pkg.post_code})<br />
+            <Tag type="blue">{packageMappedItems[pkg.id].length}EA</Tag>
             <Tag type="green">{pkg.status}</Tag><br />
             <Button
               size="small"
@@ -194,38 +203,34 @@
                 style="cursor: pointer;"
                 on:click={() => {
                   // window.open(pkg.tracking_url, "_blank");
-                }}>{pkg.domestic_courier?.name} {pkg.domestic_tracking_number}</Tag
+                }}
+                >{pkg.domestic_courier?.name}
+                {pkg.domestic_tracking_number}</Tag
               >
             {/if}
-            <!-- <div class="inventories">
-              {#each pkg.shipping_notice_items as i}
+            <div class="inventories">
+              {#each packageMappedItems[pkg.id] as i}
                 <div
                   class="inventory"
                   on:click={() => {
                     window.open(
-                      `/orders/${i.item.extended_order.code}`,
+                      `/items/${i.order_item.order_item_code}`,
                       "_blank",
                     );
                   }}
                 >
                   <h6>
-                    {i.item.extended_order.code}<Tag
-                      type={getStatusBadgeColor(
-                        pkg.order_statuses_by_code.find(
-                          (el) => el.code === i.item.extended_order.code,
-                        )?.status,
-                      )}
-                      >{getStatusLabel(
-                        pkg.order_statuses_by_code.find(
-                          (el) => el.code === i.item.extended_order.code,
-                        )?.status,
-                      )}</Tag
+                    {i.order_item.order_item_code}<Tag
+                      type={getStatusBadgeColor(i.order_item.order_item_status)}
+                      >{getStatusLabel(i.order_item.order_item_status)}</Tag
                     >
                   </h6>
-                  <Tag size="sm" kind="grey">{i.item.size}</Tag>{i.item.name}
+                  <Tag size="sm" type="purple">{i.inventory.size}</Tag>
+                  <Tag size="sm" type="grey">{i.inventory.code}</Tag>
+                  {i.inventory.product_name}
                 </div>
               {/each}
-            </div> -->
+            </div>
           </div>
         {/each}
       </div>
@@ -260,6 +265,8 @@
     background-color: lightgoldenrodyellow;
     padding: 10px;
     cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
   }
 
   .overlay {
