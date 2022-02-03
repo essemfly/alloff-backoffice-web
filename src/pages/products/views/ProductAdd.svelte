@@ -51,7 +51,7 @@
         상품 등록
       </Button>
     </div>
-    <ProductForm form={product} />
+    <ProductForm form={product} isAdding />
     <div class="button-wrapper mt10">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
         상품 등록

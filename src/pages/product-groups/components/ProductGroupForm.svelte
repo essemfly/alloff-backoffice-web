@@ -47,6 +47,7 @@
   let selectedProductInGroup: SelectedProductInGroup[] = [];
   let selectedProductIds: string[] = [];
   let filteredProductInGroup: ProductInGroup[] = form.products;
+  let searchQuery = "";
 
   onMount(async () => {
     const productApi = new ProductsApi();
@@ -105,6 +106,8 @@
       },
     });
     form.products = res.data.products;
+    selectedProductInGroup = [];
+    selectedProductIds = [];
   };
 
   const handleProductDetailOpen = (productId: string) => () => {
@@ -122,14 +125,22 @@
     form.products = res.data.products;
   };
 
-  const handleProductFilter = debounce((event: Event) => {
-    const { value } = event.target as HTMLInputElement;
-    filteredProductInGroup = filteredProductInGroup.filter(
+  const handleFilter = debounce((event: Event) => {
+    productFiltering((event.target as HTMLInputElement)?.value ?? "");
+  }, 300);
+
+  const productFiltering = (value: string) => {
+    filteredProductInGroup = form.products.filter(
       ({ product }) =>
         product.brand_kor_name.includes(value) ||
         product.alloff_name.includes(value),
     );
-  }, 300);
+    searchQuery = value;
+  };
+
+  $: if (form.products) {
+    productFiltering(searchQuery);
+  }
 </script>
 
 <ContentBox>
@@ -163,7 +174,11 @@
     <h3>상품 목록</h3>
     <Row>
       <Column>
-        <Search on:input={handleProductFilter} on:clear={handleProductFilter} />
+        <Search
+          value={searchQuery}
+          on:input={handleFilter}
+          on:clear={handleFilter}
+        />
         <StructuredList condensed>
           <StructuredListHead>
             <StructuredListRow head>

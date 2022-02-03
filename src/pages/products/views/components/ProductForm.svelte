@@ -20,6 +20,7 @@
   import ImageUploadField from "../../../../components/ImageUploadField.svelte";
 
   export let form: Product;
+  export let isAdding: boolean = false;
 
   let discountRate = "0";
   let inventoryTextInput = "";
@@ -56,15 +57,17 @@
 
 <ContentBox>
   <h3>상품 정보</h3>
-  <Row>
-    <Column>
-      <TextInput
-        labelText={"상품ID"}
-        bind:value={form.alloff_product_id}
-        readonly
-      />
-    </Column>
-  </Row>
+  {#if !isAdding}
+    <Row>
+      <Column>
+        <TextInput
+          labelText={"상품ID"}
+          bind:value={form.alloff_product_id}
+          readonly
+        />
+      </Column>
+    </Row>
+  {/if}
   <Row>
     <Column>
       <TextInput labelText={"상품명"} bind:value={form.alloff_name} />
@@ -81,6 +84,7 @@
         placeholder="브랜드 이름/Keyname/ID로 검색"
         labelText="브랜드 검색"
         selectedValue={form.brand_kor_name ?? ""}
+        keepValueOnSubmit
       />
     </Column>
   </Row>

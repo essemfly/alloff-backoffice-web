@@ -299,6 +299,7 @@
             placeholder="브랜드 이름/Keyname/ID로 검색"
             labelText="브랜드 검색"
             selectedValue={productBrand?.korname}
+            keepValueOnSubmit
           />
           <TextInput
             labelText={"할인된 가격 (할인율:" + discountrate + "%)"}
