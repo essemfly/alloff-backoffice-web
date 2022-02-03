@@ -107,7 +107,7 @@
     <Column>
       <ImageUploadField
         label={"상품 이미지"}
-        value={form.images ?? []}
+        bind:value={form.images}
         multiple
       />
     </Column>
@@ -116,7 +116,7 @@
     <Column>
       <InstructionAdder
         instructionTitle="상품 설명"
-        instructions={form.description ?? []}
+        bind:instructions={form.description}
       />
     </Column>
   </Row>
@@ -124,14 +124,14 @@
     <Column>
       <ImageUploadField
         label={"상품 설명 이미지"}
-        value={form.description_images ?? []}
+        bind:value={form.description_images}
         multiple
       />
     </Column>
   </Row>
   <Row>
     <Column>
-      <NumberInput label={"Total Score"} value={form.total_score} />
+      <NumberInput label={"Total Score"} bind:value={form.total_score} />
     </Column>
   </Row>
 </ContentBox>
