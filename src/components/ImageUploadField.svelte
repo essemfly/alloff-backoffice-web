@@ -30,6 +30,7 @@
 
   const handleImageDelete = (index: number) => () => {
     value.splice(index, 1);
+    value = value;
   };
 </script>
 
