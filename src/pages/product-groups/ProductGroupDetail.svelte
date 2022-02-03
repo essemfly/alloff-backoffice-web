@@ -7,7 +7,6 @@
     EditProductGroupRequest,
     ProductGroup,
     ProductGroupsApi,
-    ProductGroupsApiProductGroupsUpdateRequest,
   } from "../../api";
   import LoggedInFrame from "../common/LoggedInFrame.svelte";
   import ProductForm from "./components/ProductGroupForm.svelte";
@@ -27,11 +26,12 @@
   });
 
   const handleSubmit = async () => {
+    // remove products from product group
+    const { products, ...restProductGroup } = productGroup;
     await productGroupApi.productGroupsUpdate({
       id: productGroup.product_group_id,
-      editProductGroupRequest: {
-        ...productGroup,
-      } as unknown as EditProductGroupRequest,
+      editProductGroupRequest:
+        restProductGroup as unknown as EditProductGroupRequest,
     });
   };
 </script>
