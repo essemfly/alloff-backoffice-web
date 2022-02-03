@@ -29,8 +29,11 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
+      - name: Generate code from api
+        run: yarn codegen:dev
+
       - name: Build
-        run: yarn build:dev
+        run: yarn build
 
       - name: Deploy
         env:
