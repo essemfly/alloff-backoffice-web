@@ -15,6 +15,8 @@
     NumberInput,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
+  import Launch16 from "carbon-icons-svelte/lib/Launch16";
+
   import { Autocomplete, AutocompleteItem } from "../../../common/autocomplete";
 
   import {
@@ -117,6 +119,10 @@
     });
   };
 
+  const handleProductDetailOpen = (productId: string) => () => {
+    window.open(`/products/${productId}`, "_blank"); // todo: not use window.open
+  };
+
   const handleDeleteProductFromGroup = (productId: string) => async () => {
     console.log("handleDeleteProductFromProductGroup", productId);
     const res = await productGroupApi.productGroupsPushProductsCreate({
@@ -208,7 +214,18 @@
                   {product.priority}
                 </StructuredListCell>
                 <StructuredListCell>
-                  <div class="delete-button">
+                  <Row>
+                    <Button
+                      tooltipPosition="bottom"
+                      tooltipAlignment="end"
+                      iconDescription="상품 상세"
+                      icon={Launch16}
+                      kind="ghost"
+                      size="small"
+                      on:click={handleProductDetailOpen(
+                        product.product.alloff_product_id,
+                      )}
+                    />
                     <Button
                       tooltipPosition="bottom"
                       tooltipAlignment="end"
@@ -220,7 +237,7 @@
                         product.product.alloff_product_id,
                       )}
                     />
-                  </div>
+                  </Row>
                 </StructuredListCell>
               </StructuredListRow>
             {/each}
@@ -261,7 +278,16 @@
                 />
               </StructuredListCell>
               <StructuredListCell>
-                <div class="delete-button">
+                <Row>
+                  <Button
+                    tooltipPosition="bottom"
+                    tooltipAlignment="end"
+                    iconDescription="상품 상세"
+                    icon={Launch16}
+                    kind="ghost"
+                    size="small"
+                    on:click={handleProductDetailOpen(product.productId)}
+                  />
                   <Button
                     tooltipPosition="bottom"
                     tooltipAlignment="end"
@@ -271,7 +297,7 @@
                     size="small"
                     on:click={handleDeleteProduct(index)}
                   />
-                </div>
+                </Row>
               </StructuredListCell>
             </StructuredListRow>
           {/each}
@@ -325,7 +351,18 @@
                   {product.priority}
                 </StructuredListCell>
                 <StructuredListCell>
-                  <div class="delete-button">
+                  <Row>
+                    <Button
+                      tooltipPosition="bottom"
+                      tooltipAlignment="end"
+                      iconDescription="상품 상세"
+                      icon={Launch16}
+                      kind="ghost"
+                      size="small"
+                      on:click={handleProductDetailOpen(
+                        product.product.alloff_product_id,
+                      )}
+                    />
                     <Button
                       tooltipPosition="bottom"
                       tooltipAlignment="end"
@@ -337,7 +374,7 @@
                         product.product.alloff_product_id,
                       )}
                     />
-                  </div>
+                  </Row>
                 </StructuredListCell>
               </StructuredListRow>
             {/each}
