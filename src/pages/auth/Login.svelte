@@ -13,7 +13,7 @@
         tokenObtainPairRequestRequest: { username, password },
       });
       setTokens(data);
-      window.location.href = "/items";
+      window.location.href = "/";
     } catch {
       failed = true;
     } finally {
