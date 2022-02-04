@@ -34,6 +34,7 @@
   export let mobile: boolean;
 
   let trackingModalOpen: boolean = false;
+  let trackingModalStatus: OrderItemStatusEnum | undefined;
 
   const changeOrderItemStatus = async (
     item: OrderItemRetrieve,
@@ -68,13 +69,13 @@
   };
 
   const handleChangeOrderStatus = async (status: OrderItemStatusEnum) => {
-    console.log({ status });
     if (status === item?.order_item_status) return;
     if (
       status === OrderItemStatusEnum.DeliveryStarted ||
       status === OrderItemStatusEnum.ForeignDeliveryStarted
     ) {
       trackingModalOpen = true;
+      trackingModalStatus = status;
       return;
     }
     changeOrderItemStatus(item, status);
@@ -138,7 +139,11 @@
     >
   {/each}
 </div>
-<TrackingInputModal changeOrderItemStatus bind:open={trackingModalOpen} />
+<TrackingInputModal
+  {...{ changeOrderItemStatus, item }}
+  bind:open={trackingModalOpen}
+  bind:status={trackingModalStatus}
+/>
 
 <style>
   .title {

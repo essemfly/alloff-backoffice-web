@@ -80,9 +80,9 @@ export const getStatusLabel = (status: OrderItemStatusEnum | undefined) => {
     case OrderItemStatusEnum.DeliveryPreparing:
       return "배송준비중";
     case OrderItemStatusEnum.ForeignDeliveryStarted:
-      return "해외배송중";
+      return "항공운송중";
     case OrderItemStatusEnum.DeliveryStarted:
-      return "배송시작";
+      return "배송중";
     case OrderItemStatusEnum.DeliveryFinished:
       return "배송완료";
     case OrderItemStatusEnum.ConfirmPayment:

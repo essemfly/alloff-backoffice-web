@@ -1,16 +1,24 @@
 <script lang="ts">
   import {
-  Checkbox,ComposedModal,Link,ModalBody,
-  ModalFooter,ModalHeader,TextInput
+    Checkbox,
+    ComposedModal,
+    Link,
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
+    TextInput,
   } from "carbon-components-svelte";
-  import { OrderItemStatusEnum, } from "../../../api";
+  import { OrderItemRetrieve, OrderItemStatusEnum } from "../../../api";
 
   export let changeOrderItemStatus: (
+    item: OrderItemRetrieve,
     status: OrderItemStatusEnum,
-    deliveryTrackingNumber?: string,
-    deliveryTrackingUrl?: string
+    tracking_number?: string,
+    tracking_url?: string,
   ) => Promise<void>;
 
+  export let item: OrderItemRetrieve;
+  export let status: OrderItemStatusEnum | undefined = undefined;
   export let open = false;
 
   let deliveryTrackingNumber = "";
@@ -32,13 +40,18 @@
 
 <ComposedModal
   bind:open
+  on:close={() => {
+    status = undefined;
+  }}
   on:submit={async () => {
+    if (!status) return;
     await changeOrderItemStatus(
-      OrderItemStatusEnum.DeliveryStarted,
+      item,
+      status,
       deliveryTrackingNumber,
-      deliveryTrackingUrl
+      deliveryTrackingUrl,
     );
-    open = false;
+    window.location.reload();
   }}
 >
   <ModalHeader label="주문상태변경" title="배송 정보 입력" />
