@@ -40,12 +40,15 @@
 
   const handleChangeInventory = (index: number) => () => {
     if (form.inventory[index].quantity < 1) {
-      form.inventory.splice(index, 1); // zero inventory means remove
+      // zero inventory means remove
+      handleDeleteInventory(index);
     }
   };
 
   const handleDeleteInventory = (index: number) => () => {
-    form.inventory.splice(index, 1);
+    const newValue = form.inventory.slice();
+    newValue.splice(index, 1);
+    form.inventory = newValue;
   };
 
   onMount(async () => {
@@ -155,13 +158,13 @@
     <Column>
       <TextInput
         labelText="가장 빠른 도착예정일"
-        bind:value={form.earliest_delivery_days}
+        bind:value={form.latest_delivery_days}
       />
     </Column>
     <Column>
       <TextInput
         labelText="가장 느린 도착예정일"
-        bind:value={form.latest_delivery_days}
+        bind:value={form.earliest_delivery_days}
       />
     </Column>
   </Row>
