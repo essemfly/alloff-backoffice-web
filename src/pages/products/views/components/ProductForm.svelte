@@ -53,6 +53,13 @@
     const res = await brandsAPi.brandsList();
     brands = res.data;
   });
+
+  $: if (form.original_price || form.discounted_price) {
+    discountRate = (
+      ((form.original_price - form.discounted_price) / form.original_price) *
+      100
+    ).toFixed(0);
+  }
 </script>
 
 <ContentBox>
