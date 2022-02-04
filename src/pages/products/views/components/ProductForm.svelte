@@ -93,7 +93,7 @@
         onSubmit={handleBrandChange}
         placeholder="브랜드 이름/Keyname/ID로 검색"
         labelText="브랜드 검색"
-        selectedValue={form.brand_kor_name ?? ""}
+        bind:selectedValue={form.brand_kor_name}
         keepValueOnSubmit
       />
     </Column>

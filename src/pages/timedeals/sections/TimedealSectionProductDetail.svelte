@@ -298,7 +298,7 @@
             onSubmit={handleChooseBrand}
             placeholder="브랜드 이름/Keyname/ID로 검색"
             labelText="브랜드 검색"
-            selectedValue={productBrand?.korname}
+            bind:selectedValue={productBrand?.korname}
             keepValueOnSubmit
           />
           <TextInput
