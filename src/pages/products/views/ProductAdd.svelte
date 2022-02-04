@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { navigate } from "svelte-navigator";
+  import { toast } from "@zerodevx/svelte-toast";
   import { Grid, Button } from "carbon-components-svelte";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
+  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
   import ProductForm from "./components/ProductForm.svelte";
   import {
     CreateProductRequestRequest,
@@ -36,11 +38,17 @@
   };
 
   const handleSubmit = async () => {
-    const productApi = new ProductsApi();
-    const res = await productApi.productsCreate({
-      createProductRequestRequest:
-        product as unknown as CreateProductRequestRequest,
-    });
+    try {
+      const productApi = new ProductsApi();
+      const res = await productApi.productsCreate({
+        createProductRequestRequest:
+          product as unknown as CreateProductRequestRequest,
+      });
+      toast.push("상품 등록이 완료되었습니다.");
+      navigate(-1);
+    } catch (e) {
+      toast.push(`상품 등록에 오류가 발생했습니다.`);
+    }
   };
 </script>
 

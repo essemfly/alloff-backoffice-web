@@ -40,12 +40,15 @@
 
   const handleChangeInventory = (index: number) => () => {
     if (form.inventory[index].quantity < 1) {
-      form.inventory.splice(index, 1); // zero inventory means remove
+      // zero inventory means remove
+      handleDeleteInventory(index);
     }
   };
 
   const handleDeleteInventory = (index: number) => () => {
-    form.inventory.splice(index, 1);
+    const newValue = form.inventory.slice();
+    newValue.splice(index, 1);
+    form.inventory = newValue;
   };
 
   onMount(async () => {
@@ -53,6 +56,13 @@
     const res = await brandsAPi.brandsList();
     brands = res.data;
   });
+
+  $: if (form.original_price || form.discounted_price) {
+    discountRate = (
+      ((form.original_price - form.discounted_price) / form.original_price) *
+      100
+    ).toFixed(0);
+  }
 </script>
 
 <ContentBox>
@@ -83,7 +93,7 @@
         onSubmit={handleBrandChange}
         placeholder="브랜드 이름/Keyname/ID로 검색"
         labelText="브랜드 검색"
-        selectedValue={form.brand_kor_name ?? ""}
+        bind:selectedValue={form.brand_kor_name}
         keepValueOnSubmit
       />
     </Column>
@@ -148,13 +158,13 @@
     <Column>
       <TextInput
         labelText="가장 빠른 도착예정일"
-        bind:value={form.earliest_delivery_days}
+        bind:value={form.latest_delivery_days}
       />
     </Column>
     <Column>
       <TextInput
         labelText="가장 느린 도착예정일"
-        bind:value={form.latest_delivery_days}
+        bind:value={form.earliest_delivery_days}
       />
     </Column>
   </Row>

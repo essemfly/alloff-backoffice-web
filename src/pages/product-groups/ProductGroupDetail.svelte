@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { navigate } from "svelte-navigator";
+  import { toast } from "@zerodevx/svelte-toast";
   import { Grid, Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
@@ -26,13 +28,19 @@
   });
 
   const handleSubmit = async () => {
-    // remove products from product group
-    const { products, ...restProductGroup } = productGroup;
-    await productGroupApi.productGroupsUpdate({
-      id: productGroup.product_group_id,
-      editProductGroupRequest:
-        restProductGroup as unknown as EditProductGroupRequest,
-    });
+    try {
+      // remove products from product group
+      const { products, ...restProductGroup } = productGroup;
+      await productGroupApi.productGroupsUpdate({
+        id: productGroup.product_group_id,
+        editProductGroupRequest:
+          restProductGroup as unknown as EditProductGroupRequest,
+      });
+      toast.push("컬렉션 수정이 완료되었습니다.");
+      navigate(-1);
+    } catch (e) {
+      toast.push(`컬렉션 수정에 오류가 발생했습니다.`);
+    }
   };
 </script>
 
