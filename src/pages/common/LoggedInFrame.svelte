@@ -72,11 +72,6 @@
       isSelected={$location.pathname === "/items"}
     />
     <HeaderNavItem
-      href="/timedeals"
-      text="타임딜"
-      isSelected={$location.pathname === "/timedeals"}
-    />
-    <HeaderNavItem
       href="/notifications"
       text="푸시알람"
       isSelected={$location.pathname === "/notifications"}
@@ -127,12 +122,6 @@
         href="/orders"
         text="주문"
         isSelected={$location.pathname === "/orders"}
-      />
-      <SideNavLink
-        icon={Timer16}
-        href="/timedeals"
-        text="타임딜"
-        isSelected={$location.pathname === "/timedeals"}
       />
       <SideNavLink
         icon={NotificationNew16}
