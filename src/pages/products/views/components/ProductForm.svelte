@@ -156,14 +156,14 @@
   <h3>배송 관련 정보</h3>
   <Row>
     <Column>
-      <TextInput
-        labelText="가장 빠른 도착예정일"
+      <NumberInput
+        label="가장 빠른 도착예정일"
         bind:value={form.earliest_delivery_days}
       />
     </Column>
     <Column>
-      <TextInput
-        labelText="가장 느린 도착예정일"
+      <NumberInput
+        label="가장 느린 도착예정일"
         bind:value={form.latest_delivery_days}
       />
     </Column>
