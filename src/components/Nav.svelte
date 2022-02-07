@@ -1,4 +1,6 @@
-<script lang="ts">
+<!-- <script lang="ts">
+  import { onMount } from "svelte";
+  import { useLocation } from "svelte-navigator";
   import {
     Content,
     Header,
@@ -22,39 +24,54 @@
   import ConnectionReceive16 from "carbon-icons-svelte/lib/ConnectionReceive16";
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
   import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
-  import ChartLine16 from "carbon-icons-svelte/lib/ChartLine16";
-
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
-  import { onMount } from "svelte";
-  import { useLocation } from "svelte-navigator";
-  import { AdminUserApi } from "../../api";
-  import { removeTokens } from "../../core/auth";
-  import { admin } from "../../store";
 
+  import { AdminUserApi } from "../api";
+  import { removeTokens } from "../core/auth";
+  import { admin } from "../store";
+
+  export let title = "Backoffice";
+
+  let pageTitle: string;
   let isSideNavOpen = false;
   let isUtilOpen = false;
 
+  const isProd = false;
   const location = useLocation();
+
+  $: {
+    const defaultTitle = `Backoffice${!isProd ? " DEV" : ""}`;
+    pageTitle = title ? `${title} :: ${defaultTitle}` : defaultTitle;
+  }
 
   interface MenuItem {
     label: string;
     path?: string;
     items?: MenuItem[];
+    icon?: typeof import("carbon-icons-svelte").CarbonIcon;
   }
 
   const menu: MenuItem[] = [
-    { label: "주문", path: "/items" },
-    { label: "타임딜", path: "/timedeals" },
-    { label: "푸시알람", path: "/notifications" },
+    { label: "주문", path: "/items", icon: Receipt16 },
+    { label: "타임딜", path: "/timedeals", icon: Timer16 },
+    { label: "푸시알람", path: "/notifications", icon: NotificationNew16 },
     {
       label: "물류",
       items: [
-        { label: "입고", path: "/logistics/ris" },
-        { label: "재고", path: "/logistics/inventories" },
-        { label: "출고", path: "/logistics/shipping-notices" },
+        { label: "입고", path: "/logistics/ris", icon: ConnectionReceive16 },
+        {
+          label: "재고",
+          path: "/logistics/inventories",
+          icon: DeliveryTruck16,
+        },
+        {
+          label: "출고",
+          path: "/logistics/shipping-notices",
+          icon: ShoppingCartArrowUp16,
+        },
       ],
     },
-    // { label: "대시보드", path: "/analytics/dashboard" },
+    // { label: "대시보드", path: "/analytics/dashboard", icon: ChartLine16 },
     // { label: "브랜드", path: "/brands" },
     { label: "상품", path: "/products" },
     { label: "컬렉션", path: "/product-groups" },
@@ -76,13 +93,17 @@
   };
 </script>
 
+<svelte:head>
+  <title>{pageTitle}</title>
+</svelte:head>
+
 <Header
   company="Alloff"
   platformName="Backoffice"
   bind:isSideNavOpen
   persistentHamburgerMenu
 >
-  {#if window.document.title.toLowerCase().includes("dev")}
+  {#if !isProd}
     <p class="dev">DEV</p>
   {/if}
   <div slot="skip-to-content">
@@ -113,6 +134,28 @@
 
   <SideNav bind:isOpen={isSideNavOpen}>
     <SideNavItems>
+      {#each menu as menuItem}
+        {#if menuItem.items && menuItem.items.length > 0}
+          <SideNavMenu text={menuItem.label}>
+            {#each menuItem.items as { label, path, icon }}
+              <SideNavLink
+                {icon}
+                href={path}
+                text={label}
+                isSelected={$location.pathname === path}
+              />
+            {/each}
+          </SideNavMenu>
+        {:else}
+          <SideNavLink
+            icon={menuItem.icon}
+            href={menuItem.path}
+            text={menuItem.label}
+            isSelected={$location.pathname === menuItem.path}
+          />
+        {/if}
+      {/each}
+
       <SideNavLink
         icon={Receipt16}
         href="/orders"
@@ -152,12 +195,6 @@
         />
       </SideNavMenu>
     </SideNavItems>
-    <!-- <SideNavLink
-      icon={ChartLine16}
-      href="/analytics/dashboard"
-      text="대시보드"
-      isSelected={$location.pathname === "/analytics/dashboard"}
-    /> -->
   </SideNav>
 
   {#if $admin}
@@ -184,4 +221,4 @@
     margin-right: 30px;
     margin-left: -25px;
   }
-</style>
+</style> -->
