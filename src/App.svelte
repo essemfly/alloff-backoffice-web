@@ -9,8 +9,6 @@
   import Inventories from "./pages/logistics/inventories/Inventories.svelte";
   import Recieve from "./pages/logistics/receive/Recieve.svelte";
   import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
-  // import NotificationDetail from "./pages/notifications/NotificationDetail.svelte";
-  // import Notifications from "./pages/notifications/Notifications.svelte";
   // import OrderDetail from "./pages/orders/OrderDetail.svelte";
   // import Orders from "./pages/orders/Orders.svelte";
   // import TimedealSectionProductDetail from "./pages/timedeals/sections/TimedealSectionProductDetail.svelte";
@@ -21,6 +19,7 @@
   import ProductGroupRoutes from "./pages/product-groups/ProductGroupRoutes.svelte";
   import Candidates from "./pages/logistics/shipping-notices/Candidates.svelte";
   import ShippingNotices from "./pages/logistics/shipping-notices/ShippingNotices.svelte";
+  import NotificationRoutes from "./pages/notifications/NotificationRoutes.svelte";
 </script>
 
 <SvelteToast options={{ duration: 3000 }} />
@@ -122,5 +121,8 @@
   </Route>
   <Route path="product-groups/*">
     <ProductGroupRoutes />
+  </Route>
+  <Route path="notifications/*">
+    <NotificationRoutes />
   </Route>
 </Router>
