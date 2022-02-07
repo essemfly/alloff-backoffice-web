@@ -18,6 +18,7 @@
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
   import { Autocomplete, AutocompleteItem } from "../../../common/autocomplete";
+  import InstructionAdder from "../../../components/InstructionAdder.svelte";
 
   import {
     ProductGroup,
@@ -158,6 +159,14 @@
   <Row>
     <Column>
       <TextInput labelText={"짧은 타이틀"} bind:value={form.short_title} />
+    </Column>
+  </Row>
+  <Row>
+    <Column>
+      <InstructionAdder
+        instructionTitle="설명"
+        instructions={form.instruction ?? []}
+      />
     </Column>
   </Row>
   <Row>
