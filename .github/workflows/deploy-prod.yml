@@ -1,9 +1,9 @@
-name: Deploy to Staging(Development) Server
+name: Deploy to Production Server
 
 on:
   push:
     branches:
-      - staging # staging 브랜치에서 push 이벤트가 일어났을 때 실행
+      - production # production 브랜치에서 push 이벤트가 일어났을 때 실행
 
 jobs:
   build:
@@ -23,14 +23,14 @@ jobs:
 
       - name: Copy assets
         run: |
-          cp ./public/favicon-dev.png ./public/favicon.png
-          cp ./public/index-dev.html ./public/index.html
+          cp ./public/favicon-prod.png ./public/favicon.png
+          cp ./public/index-prod.html ./public/index.html
 
       - name: Install Dependencies
         run: yarn
 
       - name: Generate code from api
-        run: yarn codegen:dev
+        run: yarn codegen:prod
 
       - name: Build
         run: yarn build
@@ -43,7 +43,7 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            build s3://alloff-backoffice-dev
+            build s3://alloff-backoffice-prod
 
       - name: Create Invalidation to CloudFront
         env:
@@ -51,7 +51,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id E3A45RKMTAQTRH \
+            --distribution-id E36HZV6B307JJP \
             --paths \/*
 
       - name: action-slack
