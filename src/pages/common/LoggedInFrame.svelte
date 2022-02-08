@@ -90,25 +90,53 @@
   </div>
 
   <HeaderNav>
-    {#each menu as menuItem}
-      {#if menuItem.items && menuItem.items.length > 0}
-        <HeaderNavMenu text={menuItem.label}>
-          {#each menuItem.items as { label, path }}
-            <HeaderNavItem
-              href={path}
-              text={label}
-              isSelected={$location.pathname === path}
-            />
-          {/each}
-        </HeaderNavMenu>
-      {:else}
-        <HeaderNavItem
-          href={menuItem.path}
-          text={menuItem.label}
-          isSelected={$location.pathname === menuItem.path}
-        />
-      {/if}
-    {/each}
+    <HeaderNavItem
+      href="/items"
+      text="주문"
+      isSelected={$location.pathname === "/items"}
+    />
+    <HeaderNavItem
+      href="/notifications"
+      text="푸시알람"
+      isSelected={$location.pathname === "/notifications"}
+    />
+    <HeaderNavMenu text="물류">
+      <HeaderNavItem
+        href="/logistics/ris"
+        text="입고"
+        isSelected={$location.pathname === "/logistics/ris"}
+      />
+      <HeaderNavItem
+        href="/logistics/inventories"
+        text="재고"
+        isSelected={$location.pathname === "/logistics/inventories"}
+      />
+      <HeaderNavItem
+        href="/logistics/shipping-notices"
+        text="출고"
+        isSelected={$location.pathname === "/logistics/shipping-notices"}
+      />
+    </HeaderNavMenu>
+    <!-- <HeaderNavItem
+      href="/analytics/dashboard"
+      text="대시보드"
+      isSelected={$location.pathname === "/analytics/dashboard"}
+    /> -->
+    <!-- <HeaderNavItem
+      href="/brands"
+      text="브랜드"
+      isSelected={$location.pathname === "/brands"}
+    /> -->
+    <HeaderNavItem
+      href="/products"
+      text="상품"
+      isSelected={$location.pathname === "/products"}
+    />
+    <HeaderNavItem
+      href="/product-groups"
+      text="컬렉션"
+      isSelected={$location.pathname === "/product-groups"}
+    />
   </HeaderNav>
 
   <SideNav bind:isOpen={isSideNavOpen}>
@@ -118,12 +146,6 @@
         href="/orders"
         text="주문"
         isSelected={$location.pathname === "/orders"}
-      />
-      <SideNavLink
-        icon={Timer16}
-        href="/timedeals"
-        text="타임딜"
-        isSelected={$location.pathname === "/timedeals"}
       />
       <SideNavLink
         icon={NotificationNew16}

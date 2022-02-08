@@ -51,11 +51,10 @@
         hideResults();
         break;
       case "Enter":
-        if (e.keyCode === 13) {
-          const highlightedOption = matches[highlightIndex];
-          const value = highlightedOption || selectedValue;
-          handleSubmit(value);
-        }
+        const highlightedOption = matches[highlightIndex];
+        const value = highlightedOption || selectedValue;
+        console.log(highlightedOption, selectedValue);
+        handleSubmit(value);
         break;
       default:
         return;
@@ -66,8 +65,12 @@
     if (!value) return;
 
     onSubmit(value);
-    selectedValue = value.value;
     hideResults();
+    if (keepValueOnSubmit) {
+      selectedValue = value.value;
+    } else {
+      selectedValue = "";
+    }
   };
 
   $: matches = findMatches(options, selectedValue);

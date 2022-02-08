@@ -18,17 +18,18 @@
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
   import { Autocomplete, AutocompleteItem } from "../../../common/autocomplete";
+  import InstructionAdder from "../../../components/InstructionAdder.svelte";
 
   import {
     ProductGroup,
     ProductsApi,
     ProductGroupsApi,
     ProductInGroup,
+    ListProductResult,
   } from "../../../api";
   import ContentBox from "../../../components/ContentBox.svelte";
   import DateTimePicker from "../../../components/DateTimePicker.svelte";
   import ImageUploadField from "../../../components/ImageUploadField.svelte";
-  import { response } from "../../products/samples/response";
 
   const productGroupApi = new ProductGroupsApi();
 
@@ -47,24 +48,12 @@
   let selectedProductInGroup: SelectedProductInGroup[] = [];
   let selectedProductIds: string[] = [];
   let filteredProductInGroup: ProductInGroup[] = form.products;
+  let searchQuery = "";
 
   onMount(async () => {
-    // const productApi = new ProductsApi();
-    // const res = await productApi.productsList();
-    // productOptions = res.data.map(
-    //   ({
-    //     alloff_product_id,
-    //     alloff_name,
-    //     alloff_category_name,
-    //     brand_kor_name,
-    //   }) => ({
-    //     key: alloff_product_id,
-    //     value: `[${brand_kor_name}] ${alloff_name}`,
-    //     subvalue: alloff_category_name,
-    //   }),
-    // );
-    // todo: remove this dummy
-    productOptions = response.products.map(
+    const productApi = new ProductsApi();
+    const res = await productApi.productsList();
+    productOptions = (res.data as unknown as ListProductResult).products.map(
       ({
         alloff_product_id,
         alloff_name,
@@ -83,11 +72,11 @@
     }
   });
 
-  $: if (images) {
+  $: if (images.length > 0) {
     form.image_url = images[0];
   }
 
-  const handleAddProduct = async (selectedItem: AutocompleteItem) => {
+  const handleProductSelect = async (selectedItem: AutocompleteItem) => {
     const newProduct = {
       productId: selectedItem.key,
       productName: selectedItem.value,
@@ -102,7 +91,7 @@
     );
   };
 
-  const handleDeleteProduct = (index: number) => () => {
+  const handleProductDeselect = (index: number) => () => {
     selectedProductInGroup.splice(index, 1);
     selectedProductInGroup = selectedProductInGroup;
   };
@@ -117,6 +106,9 @@
         ),
       },
     });
+    form.products = res.data.products;
+    selectedProductInGroup = [];
+    selectedProductIds = [];
   };
 
   const handleProductDetailOpen = (productId: string) => () => {
@@ -124,26 +116,32 @@
   };
 
   const handleDeleteProductFromGroup = (productId: string) => async () => {
-    console.log("handleDeleteProductFromProductGroup", productId);
-    const res = await productGroupApi.productGroupsPushProductsCreate({
+    const res = await productGroupApi.productGroupsRemoveProductCreate({
       id: form.product_group_id,
-      pushProductsRequest: {
+      removeProductInProductGroupRequest: {
         product_group_id: form.product_group_id,
-        product_priority: selectedProductInGroup.map(
-          ({ productId, priority }) => ({ product_id: productId, priority }),
-        ),
+        product_id: productId,
       },
     });
+    form.products = res.data.products;
   };
 
-  const handleProductFilter = debounce((event: Event) => {
-    const { value } = event.target as HTMLInputElement;
-    filteredProductInGroup = filteredProductInGroup.filter(
+  const handleFilter = debounce((event: Event) => {
+    productFiltering((event.target as HTMLInputElement)?.value ?? "");
+  }, 300);
+
+  const productFiltering = (value: string) => {
+    filteredProductInGroup = form.products.filter(
       ({ product }) =>
         product.brand_kor_name.includes(value) ||
         product.alloff_name.includes(value),
     );
-  }, 300);
+    searchQuery = value;
+  };
+
+  $: if (form.products) {
+    productFiltering(searchQuery);
+  }
 </script>
 
 <ContentBox>
@@ -165,6 +163,14 @@
   </Row>
   <Row>
     <Column>
+      <InstructionAdder
+        instructionTitle="설명"
+        instructions={form.instruction ?? []}
+      />
+    </Column>
+  </Row>
+  <Row>
+    <Column>
       <DateTimePicker label={"시작일"} bind:value={form.start_time} />
     </Column>
     <Column>
@@ -177,7 +183,11 @@
     <h3>상품 목록</h3>
     <Row>
       <Column>
-        <Search on:input={handleProductFilter} on:clear={handleProductFilter} />
+        <Search
+          value={searchQuery}
+          on:input={handleFilter}
+          on:clear={handleFilter}
+        />
         <StructuredList condensed>
           <StructuredListHead>
             <StructuredListRow head>
@@ -255,7 +265,7 @@
       <div class="bx--label">상품 검색</div>
       <Autocomplete
         options={filteredProductOptions}
-        onSubmit={handleAddProduct}
+        onSubmit={handleProductSelect}
         placeholder="상품 이름/브랜드 이름/상품 ID로 검색"
         labelText="상품 검색"
       />
@@ -295,7 +305,7 @@
                     icon={TrashCan16}
                     kind="danger"
                     size="small"
-                    on:click={handleDeleteProduct(index)}
+                    on:click={handleProductDeselect(index)}
                   />
                 </Row>
               </StructuredListCell>
@@ -311,78 +321,6 @@
       {/if}
     </Column>
   </Row>
-  {#if !isAdding}
-    <Row>
-      <Column>
-        <Search on:input={handleProductFilter} on:clear={handleProductFilter} />
-        <StructuredList condensed>
-          <StructuredListHead>
-            <StructuredListRow head>
-              <StructuredListCell head>썸네일</StructuredListCell>
-              <StructuredListCell head>브랜드</StructuredListCell>
-              <StructuredListCell head>카테고리 이름</StructuredListCell>
-              <StructuredListCell head>제품명</StructuredListCell>
-              <StructuredListCell head noWrap>가중치</StructuredListCell>
-              <StructuredListCell head>Actions</StructuredListCell>
-            </StructuredListRow>
-          </StructuredListHead>
-          <StructuredListBody>
-            {#each filteredProductInGroup as product}
-              <StructuredListRow>
-                <StructuredListCell>
-                  <img
-                    class="cell_image"
-                    src={product.product.images[0]}
-                    alt={["product_preview", product.product.alloff_name].join(
-                      "-",
-                    )}
-                  />
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {product.product.brand_kor_name}
-                </StructuredListCell>
-                <StructuredListCell>
-                  {product.product.alloff_category_name}
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {product.product.alloff_name}
-                </StructuredListCell>
-                <StructuredListCell>
-                  {product.priority}
-                </StructuredListCell>
-                <StructuredListCell>
-                  <Row>
-                    <Button
-                      tooltipPosition="bottom"
-                      tooltipAlignment="end"
-                      iconDescription="상품 상세"
-                      icon={Launch16}
-                      kind="ghost"
-                      size="small"
-                      on:click={handleProductDetailOpen(
-                        product.product.alloff_product_id,
-                      )}
-                    />
-                    <Button
-                      tooltipPosition="bottom"
-                      tooltipAlignment="end"
-                      iconDescription="상품 삭제"
-                      icon={TrashCan16}
-                      kind="danger"
-                      size="small"
-                      on:click={handleDeleteProductFromGroup(
-                        product.product.alloff_product_id,
-                      )}
-                    />
-                  </Row>
-                </StructuredListCell>
-              </StructuredListRow>
-            {/each}
-          </StructuredListBody>
-        </StructuredList>
-      </Column>
-    </Row>
-  {/if}
 </ContentBox>
 
 <style>

@@ -17,6 +17,7 @@
   const location = useLocation();
   const params = new URLSearchParams($location.search);
   const userId = params.get("userid");
+  const alloffOrderId = params.get("allofforderid");
 
   let items: OrderItemList[] = [];
   let page = 1;
@@ -38,6 +39,9 @@
   ) => {
     if (userId) {
       const res = await api.orderItemsList({ userId });
+      items = res.data.results;
+    } else if (alloffOrderId) {
+      const res = await api.orderItemsList({ alloffOrderId });
       items = res.data.results;
     } else {
       const {
@@ -74,8 +78,11 @@
     {#if userId}
       <h6>USER ID: {userId}</h6>
       <div style="height:10px;" />
+    {:else if alloffOrderId}
+      <h6>주문서 ID: {alloffOrderId}</h6>
+      <div style="height:10px;" />
     {/if}
-    {#if !userId}
+    {#if !userId && !alloffOrderId}
       <DatePicker
         datePickerType="range"
         bind:valueFrom={createdGte}

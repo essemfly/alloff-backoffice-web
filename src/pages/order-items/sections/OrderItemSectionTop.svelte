@@ -10,7 +10,7 @@
     OrderItemStatusEnum,
   } from "../../../api";
   import {
-getIsForeignBadgeColor,
+    getIsForeignBadgeColor,
     getIsForeignLabel,
     getOrderItemTimestampByStatus,
     // getOrderTimestampByStatus,
@@ -26,6 +26,7 @@ getIsForeignBadgeColor,
     ORDER_ITEM_ALL_STATUSES,
     ORDER_ITEM_DOMESTIC_STATUSES,
   } from "../../../constants";
+  import { numberWithCommas } from "../../../helpers/number";
   export let item: OrderItemRetrieve;
   export let submitting: boolean;
   export let load: () => void;
@@ -33,13 +34,21 @@ getIsForeignBadgeColor,
   export let mobile: boolean;
 
   let trackingModalOpen: boolean = false;
+  let trackingModalStatus: OrderItemStatusEnum | undefined;
 
   const changeOrderItemStatus = async (
+    item: OrderItemRetrieve,
     status: OrderItemStatusEnum,
     tracking_number?: string,
     tracking_url?: string,
   ) => {
-    if (!confirm("주문상태를 변경합니다: " + getStatusLabel(status))) return;
+    let confirmMessage = "로 주문상태를 변경합니다 ";
+    if (status === OrderItemStatusEnum.ReturnFinished) {
+      confirmMessage += `(${numberWithCommas(
+        item.refund_item?.refund_amount ?? 0,
+      )}원이 환불된다고 알림톡이 발송됩니다!)`;
+    }
+    if (!confirm(getStatusLabel(status) + confirmMessage)) return;
     submitting = true;
     try {
       await api.orderItemsChangeStatusCreate({
@@ -61,18 +70,30 @@ getIsForeignBadgeColor,
 
   const handleChangeOrderStatus = async (status: OrderItemStatusEnum) => {
     if (status === item?.order_item_status) return;
-    if (status === OrderItemStatusEnum.DeliveryStarted) {
+    if (
+      status === OrderItemStatusEnum.DeliveryStarted ||
+      status === OrderItemStatusEnum.ForeignDeliveryStarted
+    ) {
       trackingModalOpen = true;
+      trackingModalStatus = status;
       return;
     }
-    changeOrderItemStatus(status);
+    changeOrderItemStatus(item, status);
   };
 </script>
 
 <h3 style="margin-bottom: 10px;">{item.order_item_code}</h3>
-<h6>🙋‍♀️{item.order.user.name} 👚{item.product_name}</h6>
+<h6>🙋‍♀️{item.order.payment.buyer_name} 👚{item.product_name}</h6>
+<h6>
+  주문서 ID:
+  <a href={"/items?allofforderid=" + item.order.alloff_order_id}>
+    {item.order.alloff_order_id}
+  </a>
+</h6>
 <div class="title">
-  <Tag type={getIsForeignBadgeColor(item.is_foreign)}>{getIsForeignLabel(item.is_foreign)} 소싱</Tag>
+  <Tag type={getIsForeignBadgeColor(item.is_foreign)}
+    >{getIsForeignLabel(item.is_foreign)} 소싱</Tag
+  >
   <Tag type={getTypeBadgeColor(item.order_item_type)} style="margin-left: 0px;"
     >{getTypeLabel(item.order_item_type)} 주문</Tag
   >
@@ -118,7 +139,11 @@ getIsForeignBadgeColor,
     >
   {/each}
 </div>
-<TrackingInputModal {changeOrderItemStatus} bind:open={trackingModalOpen} />
+<TrackingInputModal
+  {...{ changeOrderItemStatus, item }}
+  bind:open={trackingModalOpen}
+  bind:status={trackingModalStatus}
+/>
 
 <style>
   .title {

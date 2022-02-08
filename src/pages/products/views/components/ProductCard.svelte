@@ -1,29 +1,63 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
+  import { toast } from "@zerodevx/svelte-toast";
   import {
     Button,
     Tag,
     StructuredList,
-    StructuredListHead,
     StructuredListRow,
     StructuredListCell,
     StructuredListBody,
+    Modal,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import { Product, ProductsApi } from "../../../../api";
+
+  import {
+    Product,
+    ProductsApi,
+    EditProductRequestRequest,
+  } from "../../../../api";
 
   export let product: Product;
+
   const productApi = new ProductsApi();
+
+  let open = false;
 
   const handleCardClick = (event: MouseEvent) => {
     event.preventDefault();
     navigate(`/products/${product.alloff_product_id}`);
   };
 
-  const handleDeleteClick = async () => {
-    // todo: remove api
-    // productApi.productsUpdate
+  const handleDeleteClick = async (event: MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handleModalToggle(true);
   };
+
+  const handleDeleteSubmit = async () => {
+    // todo: integrate remove api
+    try {
+      const res = await productApi.productsUpdate({
+        id: product.alloff_product_id,
+        editProductRequestRequest: {
+          ...product,
+          is_removed: true,
+        } as unknown as EditProductRequestRequest,
+      });
+      toast.push("상품이 삭제되었습니다.");
+      handleModalToggle(false);
+      window.location.reload();
+    } catch (e) {
+      toast.push(`상품 삭제에 오류가 발생했습니다.`);
+    }
+  };
+
+  const handleModalToggle = (value: boolean) => {
+    open = value;
+  };
+
+  const handleModalClose = () => handleModalToggle(false);
 </script>
 
 <div class="product" on:click={handleCardClick}>
@@ -61,6 +95,19 @@
     </StructuredListBody>
   </StructuredList>
 </div>
+
+<Modal
+  danger
+  bind:open
+  modalHeading={"상품 삭제"}
+  primaryButtonText="삭제"
+  secondaryButtonText="삭제 취소"
+  on:click:button--secondary={handleModalClose}
+  on:close={handleModalClose}
+  on:submit={handleDeleteSubmit}
+>
+  <p>{product.alloff_name} 상품을 삭제합니다</p>
+</Modal>
 
 <style>
   .product {

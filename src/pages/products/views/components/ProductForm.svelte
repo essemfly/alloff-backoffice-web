@@ -20,6 +20,7 @@
   import ImageUploadField from "../../../../components/ImageUploadField.svelte";
 
   export let form: Product;
+  export let isAdding: boolean = false;
 
   let discountRate = "0";
   let inventoryTextInput = "";
@@ -39,12 +40,15 @@
 
   const handleChangeInventory = (index: number) => () => {
     if (form.inventory[index].quantity < 1) {
-      form.inventory.splice(index, 1); // zero inventory means remove
+      // zero inventory means remove
+      handleDeleteInventory(index);
     }
   };
 
   const handleDeleteInventory = (index: number) => () => {
-    form.inventory.splice(index, 1);
+    const newValue = form.inventory.slice();
+    newValue.splice(index, 1);
+    form.inventory = newValue;
   };
 
   onMount(async () => {
@@ -52,19 +56,28 @@
     const res = await brandsAPi.brandsList();
     brands = res.data;
   });
+
+  $: if (form.original_price || form.discounted_price) {
+    discountRate = (
+      ((form.original_price - form.discounted_price) / form.original_price) *
+      100
+    ).toFixed(0);
+  }
 </script>
 
 <ContentBox>
   <h3>상품 정보</h3>
-  <Row>
-    <Column>
-      <TextInput
-        labelText={"상품ID"}
-        bind:value={form.alloff_product_id}
-        readonly
-      />
-    </Column>
-  </Row>
+  {#if !isAdding}
+    <Row>
+      <Column>
+        <TextInput
+          labelText={"상품ID"}
+          bind:value={form.alloff_product_id}
+          readonly
+        />
+      </Column>
+    </Row>
+  {/if}
   <Row>
     <Column>
       <TextInput labelText={"상품명"} bind:value={form.alloff_name} />
@@ -80,7 +93,8 @@
         onSubmit={handleBrandChange}
         placeholder="브랜드 이름/Keyname/ID로 검색"
         labelText="브랜드 검색"
-        selectedValue={form.brand_kor_name ?? ""}
+        bind:selectedValue={form.brand_kor_name}
+        keepValueOnSubmit
       />
     </Column>
   </Row>
@@ -93,6 +107,9 @@
         labelText={"할인된 가격 (할인율:" + discountRate + "%)"}
         bind:value={form.discounted_price}
       />
+    </Column>
+    <Column>
+      <TextInput labelText="우선적용가" bind:value={form.special_price} />
     </Column>
   </Row>
   <Row>
@@ -107,7 +124,7 @@
     <Column>
       <ImageUploadField
         label={"상품 이미지"}
-        value={form.images ?? []}
+        bind:value={form.images}
         multiple
       />
     </Column>
@@ -116,7 +133,7 @@
     <Column>
       <InstructionAdder
         instructionTitle="상품 설명"
-        instructions={form.description ?? []}
+        bind:instructions={form.description}
       />
     </Column>
   </Row>
@@ -124,14 +141,14 @@
     <Column>
       <ImageUploadField
         label={"상품 설명 이미지"}
-        value={form.description_images ?? []}
+        bind:value={form.description_images}
         multiple
       />
     </Column>
   </Row>
   <Row>
     <Column>
-      <NumberInput label={"Total Score"} value={form.total_score} />
+      <NumberInput label={"Total Score"} bind:value={form.total_score} />
     </Column>
   </Row>
 </ContentBox>
@@ -139,14 +156,14 @@
   <h3>배송 관련 정보</h3>
   <Row>
     <Column>
-      <TextInput
-        labelText="가장 빠른 도착예정일"
+      <NumberInput
+        label="가장 빠른 도착예정일"
         bind:value={form.earliest_delivery_days}
       />
     </Column>
     <Column>
-      <TextInput
-        labelText="가장 느린 도착예정일"
+      <NumberInput
+        label="가장 느린 도착예정일"
         bind:value={form.latest_delivery_days}
       />
     </Column>
@@ -154,9 +171,6 @@
   <Row>
     <Column>
       <TextInput labelText="반품 비용" bind:value={form.refund_fee} />
-    </Column>
-    <Column>
-      <TextInput labelText="우선적용가" bind:value={form.special_price} />
     </Column>
   </Row>
   <Row>
