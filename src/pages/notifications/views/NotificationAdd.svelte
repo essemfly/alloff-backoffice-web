@@ -1,9 +1,10 @@
 <script lang="ts">
+  import { toast } from "@zerodevx/svelte-toast";
+  import { navigate } from "svelte-navigator";
   import { Grid, Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import {
-    Noti,
     CreateNotiRequest as Notification,
     NotificationsApi,
   } from "../../../api";
@@ -20,10 +21,16 @@
   };
 
   const handleSubmit = async () => {
-    const notificationApi = new NotificationsApi();
-    await notificationApi.notificationsCreate({
-      createNotiRequest: notification,
-    });
+    try {
+      const notificationApi = new NotificationsApi();
+      await notificationApi.notificationsCreate({
+        createNotiRequest: notification,
+      });
+      toast.push("푸시알림이 등록되었습니다.");
+      navigate(-1);
+    } catch (e) {
+      toast.push("푸시알림 등록에 오류가 발생했습니다.");
+    }
   };
 </script>
 
