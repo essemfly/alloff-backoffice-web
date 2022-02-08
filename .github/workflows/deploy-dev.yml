@@ -30,7 +30,7 @@ jobs:
         run: yarn
 
       - name: Generate code from api
-        run: yarn codegen:dev
+        run: yarn generate-apis
 
       - name: Build
         run: yarn build
