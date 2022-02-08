@@ -23,6 +23,7 @@
   export let isAdding = false;
 
   let productGroupOptions: AutocompleteItem[] = [];
+  let selectedValue = "";
 
   const productGroupsApi = new ProductGroupsApi();
 
@@ -53,6 +54,7 @@
 
   const handleProductGroupChange = (selected: AutocompleteItem) => {
     form.reference_id = selected.key;
+    selectedValue = selected.value;
   };
 </script>
 
@@ -91,7 +93,7 @@
           onSubmit={handleProductGroupChange}
           placeholder="컬렉션 이름/ID로 검색"
           labelText="컬렉션 검색"
-          selectedValue={form.reference_id ?? ""}
+          {selectedValue}
         />
       {:else}
         <TextInput labelText="관련ID" bind:value={form.reference_id} />
