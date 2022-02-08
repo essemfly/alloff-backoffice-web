@@ -15,9 +15,10 @@
     formatQueryString,
     parseQueryString,
   } from "../../../helpers/query-string";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
+
   import Pagination from "../../../components/Pagination.svelte";
   import NotificationDataTable from "./components/NotificationDataTable.svelte";
+  import Nav from "../../../components/Nav.svelte";
 
   let notifications: Array<Noti & { id: string }> = [];
   let offset = 0;
@@ -89,7 +90,7 @@
   }
 </script>
 
-<LoggedInFrame>
+<Nav title="푸시알림 목록">
   <div class="button-wrapper mb10">
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
@@ -98,7 +99,7 @@
   <div class="button-wrapper mt10">
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
-</LoggedInFrame>
+</Nav>
 
 <style>
   .button-wrapper {

@@ -101,7 +101,7 @@
       value: "제목",
     },
     { key: "message", value: "내용" },
-    { key: "sended_at", value: "발송시각" },
+    { key: "sended_at", value: "발송일시" },
     { key: "actions", value: "Actions" },
   ];
 
@@ -121,13 +121,22 @@
         {getNotificationStatusLabel(cell.value)}
       </Tag>
     {:else if cell.key == "sended_at"}
-      {formatDate(cell.value)}
+      {row.status === NotificationStatusEnum.Succeeded
+        ? formatDate(cell.value, {
+            month: "short",
+            day: "numeric",
+            weekday: "narrow",
+            hour: "numeric",
+            minute: "numeric",
+          })
+        : ""}
     {:else if cell.key == "actions"}
       <Button
         on:click={handleSendClick(row.id)}
         kind="tertiary"
         iconDescription="send"
         icon={Send16}
+        disabled={row.status !== NotificationStatusEnum.Ready}
       />
     {:else}{cell.value}
     {/if}

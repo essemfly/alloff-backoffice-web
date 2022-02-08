@@ -1,4 +1,4 @@
-<!-- <script lang="ts">
+<script lang="ts">
   import { onMount } from "svelte";
   import { useLocation } from "svelte-navigator";
   import {
@@ -30,7 +30,7 @@
   import { removeTokens } from "../core/auth";
   import { admin } from "../store";
 
-  export let title = "Backoffice";
+  export let title: string = "";
 
   let pageTitle: string;
   let isSideNavOpen = false;
@@ -54,7 +54,7 @@
   const menu: MenuItem[] = [
     { label: "주문", path: "/items", icon: Receipt16 },
     { label: "타임딜", path: "/timedeals", icon: Timer16 },
-    { label: "푸시알람", path: "/notifications", icon: NotificationNew16 },
+    { label: "푸시알림", path: "/notifications", icon: NotificationNew16 },
     {
       label: "물류",
       items: [
@@ -155,45 +155,6 @@
           />
         {/if}
       {/each}
-
-      <SideNavLink
-        icon={Receipt16}
-        href="/orders"
-        text="주문"
-        isSelected={$location.pathname === "/orders"}
-      />
-      <SideNavLink
-        icon={Timer16}
-        href="/timedeals"
-        text="타임딜"
-        isSelected={$location.pathname === "/timedeals"}
-      />
-      <SideNavLink
-        icon={NotificationNew16}
-        href="/notifications"
-        text="푸시알람"
-        isSelected={$location.pathname === "/notifications"}
-      />
-      <SideNavMenu text="물류">
-        <SideNavLink
-          icon={ConnectionReceive16}
-          href="/logistics/ris"
-          text="입고"
-          isSelected={$location.pathname === "/logistics/ris"}
-        />
-        <SideNavLink
-          icon={DeliveryTruck16}
-          href="/logistics/inventories"
-          text="재고"
-          isSelected={$location.pathname === "/logistics/inventories"}
-        />
-        <SideNavLink
-          icon={ShoppingCartArrowUp16}
-          href="/logistics/shipping-notices"
-          text="출고"
-          isSelected={$location.pathname === "/logistics/shipping-notices"}
-        />
-      </SideNavMenu>
     </SideNavItems>
   </SideNav>
 
@@ -221,4 +182,4 @@
     margin-right: 30px;
     margin-left: -25px;
   }
-</style> -->
+</style>

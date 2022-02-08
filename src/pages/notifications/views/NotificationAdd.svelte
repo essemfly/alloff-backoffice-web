@@ -8,7 +8,7 @@
     CreateNotiRequest as Notification,
     NotificationsApi,
   } from "../../../api";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
+  import Nav from "../../../components/Nav.svelte";
   import { NotificationTypeEnum } from "../models/Notification";
   import NotificationForm from "./components/NotificationForm.svelte";
 
@@ -34,7 +34,7 @@
   };
 </script>
 
-<LoggedInFrame>
+<Nav title={"푸시알림 추가"}>
   <Grid>
     <div class="button-wrapper mb10">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
@@ -48,7 +48,7 @@
       </Button>
     </div>
   </Grid>
-</LoggedInFrame>
+</Nav>
 
 <style>
   .button-wrapper {
