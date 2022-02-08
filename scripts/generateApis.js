@@ -2,6 +2,9 @@
 const replace = require("replace-in-file");
 const shell = require("shelljs");
 
+const env = process.env.NODE_ENV ?? "dev"; // prod or dev
+const apis = require(`./environments/${env}`);
+
 const commonCustomizations = [
   {
     files: ["runtime.ts"],
@@ -22,13 +25,6 @@ const commonCustomizations = [
 
 const fileHeader = `\/\/ @ts-nocheck`;
 
-const apis = [
-  {
-    name: "office",
-    specLocation: "https://office-dev.lett.io/api/schema",
-    customizations: commonCustomizations,
-  },
-];
 const apiClientsDir = "./src/api";
 
 shell.rm("-r", apiClientsDir);
@@ -51,14 +47,12 @@ apis.forEach((api) => {
     `${apiClientDir}/.openapi-generator-ignore`,
   ]);
 
-  if (api.customizations) {
-    api.customizations.forEach((x) => {
-      replace.sync({
-        ...x,
-        files: x.files.map((file) => `${apiClientDir}/${file}`),
-      });
+  commonCustomizations.forEach((x) => {
+    replace.sync({
+      ...x,
+      files: x.files.map((file) => `${apiClientDir}/${file}`),
     });
-  }
+  });
 
   shell.ls(`${apiClientDir}/*.ts`).forEach((file) => {
     shell.exec(`echo "$(echo '${fileHeader}'; cat ${file})" > ${file}`);
