@@ -22,9 +22,10 @@
     "skipLibCheck": true,
     "types": ["mocha", "snowpack-env"],
     "forceConsistentCasingInFileNames": false,
-    "resolveJsonModule": true,
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "importsNotUsedAsValues": "preserve"
   }
 }

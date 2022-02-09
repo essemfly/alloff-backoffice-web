@@ -36,7 +36,8 @@
   let isSideNavOpen = false;
   let isUtilOpen = false;
 
-  const isProd = false;
+  const version = import.meta.env.PACKAGE_VERSION;
+  const isProd = import.meta.env.MODE === "production";
   const location = useLocation();
 
   $: {
@@ -102,9 +103,13 @@
   bind:isSideNavOpen
   persistentHamburgerMenu
 >
-  {#if !isProd}
-    <p class="dev">DEV</p>
-  {/if}
+  <div class="subtitle">
+    {#if !isProd}
+      <p class="dev">DEV</p>
+    {/if}
+    <small class="version">v{version}</small>
+  </div>
+
   <div slot="skip-to-content">
     <SkipToContent />
   </div>
@@ -156,14 +161,17 @@
       {/each}
     </SideNavItems>
   </SideNav>
+  <div>
+    {import.meta.env.PACKAGE_VERSION}
+  </div>
 
   {#if $admin}
     <HeaderUtilities>
       <HeaderAction bind:isOpen={isUtilOpen} icon={UserAvatar16}>
         <HeaderPanelLinks>
-          <HeaderPanelDivider
-            >안녕하세요, {$admin.profile.name}님! 😎</HeaderPanelDivider
-          >
+          <HeaderPanelDivider>
+            안녕하세요, {$admin.profile.name}님! 😎
+          </HeaderPanelDivider>
           <HeaderPanelLink on:click={logout}>로그아웃</HeaderPanelLink>
         </HeaderPanelLinks>
       </HeaderAction>
@@ -175,10 +183,22 @@
 </Content>
 
 <style>
+  .subtitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+  }
   .dev {
     color: greenyellow;
     font-weight: bold;
-    margin-right: 30px;
+    margin-right: 10px;
     margin-left: -25px;
+  }
+
+  .version {
+    font-size: 0.85em;
+    color: white;
+    margin-right: 30px;
   }
 </style>
