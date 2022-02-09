@@ -2,21 +2,20 @@
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import "carbon-components-svelte/css/g10.css";
   import { Route, Router } from "svelte-navigator";
-  import OrderItemDetail from "./pages/order-items/OrderItemDetail.svelte";
+
   // import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
   import Login from "./pages/auth/Login.svelte";
   // import Brands from "./pages/brands/brands.svelte";
-  import Inventories from "./pages/logistics/inventories/Inventories.svelte";
-  import Recieve from "./pages/logistics/receive/Recieve.svelte";
-  import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
+
+  // default route.. todo: fix to redirect
   import OrderItems from "./pages/order-items/OrderItems.svelte";
-  import Candidates from "./pages/logistics/shipping-notices/Candidates.svelte";
-  import ShippingNotices from "./pages/logistics/shipping-notices/ShippingNotices.svelte";
 
   // Routes
+  import LogisticsRoutes from "./pages/logistics/LogisticsRoutes.svelte";
   import NotificationRoutes from "./pages/notifications/NotificationRoutes.svelte";
-  import ProductRoutes from "./pages/products/ProductRoutes.svelte";
+  import OrderItemRoutes from "./pages/order-items/OrderItemRoutes.svelte";
   import ProductGroupRoutes from "./pages/product-groups/ProductGroupRoutes.svelte";
+  import ProductRoutes from "./pages/products/ProductRoutes.svelte";
 
   // DO NOT DELETE THIS CONSOLE LOG
   console.log(
@@ -45,38 +44,10 @@
     </Route>
   </Route> -->
   <Route path="logistics/*">
-    <Route path="ris/*">
-      <Route path="/">
-        <Recieve />
-      </Route>
-    </Route>
-    <Route path="inventories/*">
-      <Route path="/">
-        <Inventories />
-      </Route>
-    </Route>
-    <Route path="shipping-notices/*">
-      <Route path="/">
-        <ShippingNotices />
-      </Route>
-      <Route path=":id" let:params>
-        <ShippingNoticeDetail noticeId={parseInt(params.id)} />
-      </Route>
-      <Route path="candidates">
-        <Candidates />
-      </Route>
-    </Route>
+    <LogisticsRoutes />
   </Route>
   <Route path="items/*">
-    <Route path="/">
-      <OrderItems />
-    </Route>
-    <Route path=":id" let:params>
-      <OrderItemDetail idOrCode={params.id} />
-    </Route>
-  </Route>
-  <Route path="/">
-    <OrderItems />
+    <OrderItemRoutes />
   </Route>
   <Route path="products/*">
     <ProductRoutes />
@@ -86,6 +57,10 @@
   </Route>
   <Route path="notifications/*">
     <NotificationRoutes />
+  </Route>
+  <!-- default route -->
+  <Route path="/">
+    <OrderItems />
   </Route>
 </Router>
 
