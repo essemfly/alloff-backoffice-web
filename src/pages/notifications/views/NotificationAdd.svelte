@@ -4,11 +4,9 @@
   import { Grid, Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import {
-    CreateNotiRequest as Notification,
-    NotificationsApi,
-  } from "../../../api";
-  import Nav from "../../../components/Nav.svelte";
+  import { CreateNotiRequest as Notification, NotificationsApi } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+
   import { NotificationTypeEnum } from "../models/Notification";
   import NotificationForm from "./components/NotificationForm.svelte";
 

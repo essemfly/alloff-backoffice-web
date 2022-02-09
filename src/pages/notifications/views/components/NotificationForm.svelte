@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import {
     Row,
     Column,
@@ -6,14 +7,11 @@
     RadioButtonGroup,
     RadioButton,
   } from "carbon-components-svelte";
-  import { onMount } from "svelte";
 
-  import { Noti, ProductGroupsApi } from "../../../../api";
-  import {
-    Autocomplete,
-    AutocompleteItem,
-  } from "../../../../common/autocomplete";
-  import ContentBox from "../../../../components/ContentBox.svelte";
+  import { Noti, ProductGroupsApi } from "@api";
+  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import ContentBox from "@app/components/ContentBox.svelte";
+
   import {
     NotificationType,
     NotificationTypeEnum,
