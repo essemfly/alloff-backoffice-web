@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { navigate } from "svelte-navigator";
   import { toast } from "@zerodevx/svelte-toast";
+  import { navigate } from "svelte-navigator";
   import {
     Button,
     Tag,
@@ -12,11 +12,7 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import {
-    Product,
-    ProductsApi,
-    EditProductRequestRequest,
-  } from "../../../../api";
+  import { Product, ProductsApi, EditProductRequestRequest } from "@api";
 
   export let product: Product;
 

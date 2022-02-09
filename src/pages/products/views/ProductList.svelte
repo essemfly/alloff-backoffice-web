@@ -3,19 +3,20 @@
   import { navigate, useLocation } from "svelte-navigator";
   import { Button, Search } from "carbon-components-svelte";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
-  import Pagination from "../../../components/Pagination.svelte";
-  import ProductCard from "./components/ProductCard.svelte";
 
   import {
     Product,
     ProductsApi,
     ProductsApiProductsListRequest as SearchQueryParam,
-  } from "../../../api";
+  } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+  import Pagination from "@app/components/Pagination.svelte";
   import {
     formatQueryString,
     parseQueryString,
-  } from "../../../helpers/query-string";
+  } from "@app/helpers/query-string";
+
+  import ProductCard from "./components/ProductCard.svelte";
 
   let products: Product[] = [];
   let offset = 0;
@@ -89,7 +90,7 @@
   }
 </script>
 
-<LoggedInFrame>
+<Nav title="상품 목록">
   <div class="button-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
@@ -103,7 +104,7 @@
   <div class="button-wrapper mt10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
-</LoggedInFrame>
+</Nav>
 
 <style>
   .product-list {
