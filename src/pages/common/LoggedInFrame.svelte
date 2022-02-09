@@ -35,6 +35,7 @@
   let isUtilOpen = false;
 
   const version = import.meta.env.PACKAGE_VERSION;
+  console.log(import.meta.env.MODE);
   const isProd = import.meta.env.MODE === "production";
   const location = useLocation();
 
