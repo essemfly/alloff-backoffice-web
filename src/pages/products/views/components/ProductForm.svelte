@@ -9,15 +9,12 @@
     Toggle,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import {
-    Autocomplete,
-    AutocompleteItem,
-  } from "../../../../common/autocomplete";
 
-  import { Product, Brand, BrandsApi } from "../../../../api";
-  import InstructionAdder from "../../../../components/InstructionAdder.svelte";
-  import ContentBox from "../../../../components/ContentBox.svelte";
-  import ImageUploadField from "../../../../components/ImageUploadField.svelte";
+  import { Product, Brand, BrandsApi } from "@api";
+  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import ContentBox from "@app/components/ContentBox.svelte";
+  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import InstructionAdder from "@app/components/InstructionAdder.svelte";
 
   export let form: Product;
   export let isAdding: boolean = false;

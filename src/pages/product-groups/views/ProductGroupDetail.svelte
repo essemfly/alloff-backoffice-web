@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
-  import { toast } from "@zerodevx/svelte-toast";
   import { Grid, Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
@@ -9,8 +9,9 @@
     EditProductGroupRequest,
     ProductGroup,
     ProductGroupsApi,
-  } from "../../api";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
+  } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+
   import ProductForm from "./components/ProductGroupForm.svelte";
 
   const productGroupApi = new ProductGroupsApi();
@@ -44,7 +45,7 @@
   };
 </script>
 
-<LoggedInFrame>
+<Nav title={productGroup?.title ?? "컬렉션 상세"}>
   {#if isLoading}
     <InlineLoading status="active" description="On Loading..." />
   {:else}
@@ -62,7 +63,7 @@
       </div>
     </Grid>
   {/if}
-</LoggedInFrame>
+</Nav>
 
 <style>
   .button-wrapper {

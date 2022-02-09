@@ -10,15 +10,15 @@
     NotificationsApi,
     NotificationsApiNotificationsListRequest as SearchQueryParam,
     ListNoti,
-  } from "../../../api";
+  } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+  import Pagination from "@app/components/Pagination.svelte";
   import {
     formatQueryString,
     parseQueryString,
-  } from "../../../helpers/query-string";
+  } from "@app/helpers/query-string";
 
-  import Pagination from "../../../components/Pagination.svelte";
   import NotificationDataTable from "./components/NotificationDataTable.svelte";
-  import Nav from "../../../components/Nav.svelte";
 
   let notifications: Array<Noti & { id: string }> = [];
   let offset = 0;

@@ -53,7 +53,6 @@
 
   const menu: MenuItem[] = [
     { label: "주문", path: "/items", icon: Receipt16 },
-    { label: "타임딜", path: "/timedeals", icon: Timer16 },
     { label: "푸시알림", path: "/notifications", icon: NotificationNew16 },
     {
       label: "물류",

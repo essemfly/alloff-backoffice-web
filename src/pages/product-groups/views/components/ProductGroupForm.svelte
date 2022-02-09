@@ -17,19 +17,18 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { Autocomplete, AutocompleteItem } from "../../../common/autocomplete";
-  import InstructionAdder from "../../../components/InstructionAdder.svelte";
-
   import {
     ProductGroup,
     ProductsApi,
     ProductGroupsApi,
     ProductInGroup,
     ListProductResult,
-  } from "../../../api";
-  import ContentBox from "../../../components/ContentBox.svelte";
-  import DateTimePicker from "../../../components/DateTimePicker.svelte";
-  import ImageUploadField from "../../../components/ImageUploadField.svelte";
+  } from "@api";
+  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import InstructionAdder from "@app/components/InstructionAdder.svelte";
+  import ContentBox from "@app/components/ContentBox.svelte";
+  import DateTimePicker from "@app/components/DateTimePicker.svelte";
+  import ImageUploadField from "@app/components/ImageUploadField.svelte";
 
   const productGroupApi = new ProductGroupsApi();
 

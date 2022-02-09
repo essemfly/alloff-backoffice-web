@@ -1,15 +1,14 @@
 <script lang="ts">
   import { DateTime } from "luxon";
-  import debounce from "lodash/debounce";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
-  import { Button, DataTable, Search } from "carbon-components-svelte";
+  import { Button, DataTable } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
-  import { ProductGroup, ProductGroupsApi } from "../../api";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  import Pagination from "../../components/Pagination.svelte";
+  import { ProductGroup, ProductGroupsApi } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+  // import Pagination from "@app/components/Pagination.svelte";
 
   let productGroups: Array<ProductGroup & { id: string }> = [];
   let page = 1;
@@ -65,7 +64,7 @@
   };
 </script>
 
-<LoggedInFrame>
+<Nav title="컬렉션 목록">
   <div class="button-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>컬렉션 추가</Button>
   </div>
@@ -90,7 +89,7 @@
   <div class="button-wrapper mt10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>컬렉션 추가</Button>
   </div>
-</LoggedInFrame>
+</Nav>
 
 <style>
   :global(.bx--data-table tr) {
