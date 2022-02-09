@@ -17,6 +17,7 @@
   import NotificationRoutes from "./pages/notifications/NotificationRoutes.svelte";
   import ProductRoutes from "./pages/products/ProductRoutes.svelte";
   import ProductGroupRoutes from "./pages/product-groups/ProductGroupRoutes.svelte";
+  import HomeTabRoutes from "./pages/hometab/HomeTabRoutes.svelte";
 
   // DO NOT DELETE THIS CONSOLE LOG
   console.log(
@@ -86,6 +87,9 @@
   </Route>
   <Route path="notifications/*">
     <NotificationRoutes />
+  </Route>
+  <Route path="hometab/*">
+    <HomeTabRoutes />
   </Route>
 </Router>
 

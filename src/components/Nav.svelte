@@ -19,12 +19,16 @@
     SkipToContent,
   } from "carbon-components-svelte";
   import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
-  import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
   import ConnectionReceive16 from "carbon-icons-svelte/lib/ConnectionReceive16";
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
   import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
+  import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
+  import LetterAa16 from "carbon-icons-svelte/lib/LetterAa16";
+  import LetterBb16 from "carbon-icons-svelte/lib/LetterBb16";
+  import LetterCc16 from "carbon-icons-svelte/lib/LetterCc16";
+  import Timer16 from "carbon-icons-svelte/lib/Timer16";
 
   import { AdminUserApi } from "../api";
   import { removeTokens } from "../core/auth";
@@ -75,6 +79,46 @@
     // { label: "브랜드", path: "/brands" },
     { label: "상품", path: "/products" },
     { label: "컬렉션", path: "/product-groups" },
+    {
+      label: "홈탭",
+      items: [
+        {
+          label: "배너 목록",
+          path: "/hometab/banners",
+          icon: CarouselHorizontal16,
+        },
+        {
+          label: "기획전 A 목록",
+          path: "/hometab/exhibitions/typeA",
+          icon: LetterAa16,
+        },
+        {
+          label: "기획전 B 목록",
+          path: "/hometab/exhibitions/typeB",
+          icon: LetterBb16,
+        },
+        {
+          label: "기획전 C 목록",
+          path: "/hometab/exhibitions/typeC",
+          icon: LetterCc16,
+        },
+        {
+          label: "타임딜 목록",
+          path: "/hometab/timedeals",
+          icon: Timer16,
+        },
+        {
+          label: "큐레이션 A 목록",
+          path: "/hometab/curations/typeA",
+          icon: LetterAa16,
+        },
+        {
+          label: "큐레이션 B 목록",
+          path: "/hometab/curations/typeB",
+          icon: LetterBb16,
+        },
+      ],
+    },
   ];
 
   onMount(async () => {
