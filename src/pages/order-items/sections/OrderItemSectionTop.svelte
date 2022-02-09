@@ -20,7 +20,7 @@
     getTypeLabel,
     // toChangeStatusEnum,
   } from "../../../helpers/order-item";
-  import SquareTag from "../../../common/SquareTag.svelte";
+  import SquareTag from "../../../components/SquareTag.svelte";
   import TrackingInputModal from "../components/TrackingInputModal.svelte";
   import {
     ORDER_ITEM_ALL_STATUSES,

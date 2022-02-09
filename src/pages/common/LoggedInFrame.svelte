@@ -42,24 +42,6 @@
     items?: MenuItem[];
   }
 
-  const menu: MenuItem[] = [
-    { label: "주문", path: "/items" },
-    { label: "타임딜", path: "/timedeals" },
-    { label: "푸시알림", path: "/notifications" },
-    {
-      label: "물류",
-      items: [
-        { label: "입고", path: "/logistics/ris" },
-        { label: "재고", path: "/logistics/inventories" },
-        { label: "출고", path: "/logistics/shipping-notices" },
-      ],
-    },
-    // { label: "대시보드", path: "/analytics/dashboard" },
-    // { label: "브랜드", path: "/brands" },
-    { label: "상품", path: "/products" },
-    { label: "컬렉션", path: "/product-groups" },
-  ];
-
   onMount(async () => {
     const adminUserApi = new AdminUserApi();
     try {
@@ -97,7 +79,7 @@
     />
     <HeaderNavItem
       href="/notifications"
-      text="푸시알람"
+      text="푸시알림"
       isSelected={$location.pathname === "/notifications"}
     />
     <HeaderNavMenu text="물류">

@@ -13,7 +13,7 @@
     getTypeLabel,
     toChangeStatusEnum,
   } from "../../../helpers/order";
-  import SquareTag from "../../../common/SquareTag.svelte";
+  import SquareTag from "../../../components/SquareTag.svelte";
   import TrackingInputModal from "../components/TrackingInputModal.svelte";
   export let order: OrderRetrieve;
   export let submitting: boolean;

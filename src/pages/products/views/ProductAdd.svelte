@@ -1,16 +1,13 @@
 <script lang="ts">
-  import { navigate } from "svelte-navigator";
   import { toast } from "@zerodevx/svelte-toast";
+  import { navigate } from "svelte-navigator";
   import { Grid, Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
+  import { CreateProductRequestRequest, Product, ProductsApi } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+
   import ProductForm from "./components/ProductForm.svelte";
-  import {
-    CreateProductRequestRequest,
-    Product,
-    ProductsApi,
-  } from "../../../api";
 
   let isTouched = true;
   let product: Product = {
@@ -52,7 +49,7 @@
   };
 </script>
 
-<LoggedInFrame>
+<Nav title="상품 추가">
   <Grid>
     <div class="button-wrapper mb10">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
@@ -66,7 +63,7 @@
       </Button>
     </div>
   </Grid>
-</LoggedInFrame>
+</Nav>
 
 <style>
   .button-wrapper {

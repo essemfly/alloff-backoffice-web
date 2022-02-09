@@ -1,16 +1,13 @@
 <script lang="ts">
+  import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
-  import { toast } from "@zerodevx/svelte-toast";
   import { Grid, Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import {
-    EditProductRequestRequest,
-    Product,
-    ProductsApi,
-  } from "../../../api";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
+  import { EditProductRequestRequest, Product, ProductsApi } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+
   import ProductForm from "./components/ProductForm.svelte";
 
   const productApi = new ProductsApi();
@@ -42,7 +39,7 @@
   };
 </script>
 
-<LoggedInFrame>
+<Nav title={`${product?.alloff_name ?? "상품 상세"}`}>
   {#if isLoading}
     <InlineLoading status="active" description="On Loading..." />
   {:else}
@@ -60,7 +57,7 @@
       </div>
     </Grid>
   {/if}
-</LoggedInFrame>
+</Nav>
 
 <style>
   .button-wrapper {

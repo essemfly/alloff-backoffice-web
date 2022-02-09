@@ -21,11 +21,6 @@ jobs:
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
 
-      - name: Copy assets
-        run: |
-          cp ./public/favicon-dev.png ./public/favicon.png
-          cp ./public/index-dev.html ./public/index.html
-
       - name: Install Dependencies
         run: yarn
 
@@ -33,7 +28,7 @@ jobs:
         run: yarn generate-apis
 
       - name: Build
-        run: yarn build
+        run: yarn build --config ./snowpack.dev.config.mjs
 
       - name: Deploy
         env:
