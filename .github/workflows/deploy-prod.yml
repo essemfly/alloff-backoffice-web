@@ -21,11 +21,6 @@ jobs:
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
 
-      - name: Copy assets
-        run: |
-          cp ./public/favicon-prod.png ./public/favicon.png
-          cp ./public/index-prod.html ./public/index.html
-
       - name: Install Dependencies
         run: yarn
 
