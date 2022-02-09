@@ -162,10 +162,7 @@
   </Row>
   <Row>
     <Column>
-      <MultilineTextInput
-        instructionTitle="설명"
-        instructions={form.instruction ?? []}
-      />
+      <MultilineTextInput label="설명" bind:value={form.instruction} />
     </Column>
   </Row>
   <Row>

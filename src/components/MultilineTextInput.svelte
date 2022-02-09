@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { debounce } from "lodash";
   import {
     UnorderedList,
     ListItem,
@@ -27,11 +28,11 @@
     value = value;
   };
 
-  const handleKeydown = (event: KeyboardEvent) => {
+  const handleKeydown = debounce((event: KeyboardEvent) => {
     if (event.key === "Enter") {
       handleAdd();
     }
-  };
+  }, 100);
 </script>
 
 <div class="multiline-textfield-box">
