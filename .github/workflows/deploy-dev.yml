@@ -28,7 +28,7 @@ jobs:
         run: yarn generate-apis
 
       - name: Build
-        run: yarn build
+        run: yarn build --config ./snowpack.dev.config.mjs
 
       - name: Deploy
         env:

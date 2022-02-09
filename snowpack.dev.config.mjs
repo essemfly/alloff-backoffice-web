@@ -9,7 +9,7 @@ export default {
   },
   mount: {
     "public-dev": { url: "/", static: true },
-    src: "/",
+    src: "/dist",
   },
   routes: [
     /* Enable an SPA Fallback in development: */

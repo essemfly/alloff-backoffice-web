@@ -1,6 +1,6 @@
 {
   "name": "backoffice-web",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "UNLICENSED",
   "scripts": {
     "format": "prettier --write --plugin-search-dir=. ./src/**/*.{js,svelte,ts}",
@@ -8,12 +8,9 @@
     "lint:fix": "eslint --fix './src/**/*.{js,ts,svelte}'",
     "prelint": "npm run format",
     "start": "snowpack dev --config ./snowpack.dev.config.mjs",
-    "start:prod": "snowpack dev --config ./snowpack.prod.config.mjs",
     "build": "snowpack build",
     "test": "web-test-runner \"src/**/*.test.ts\"",
     "postinstall": "yarn generate-apis",
-    "generate-apis:local": "NODE_ENV=local node ./scripts/generateApis.js",
-    "generate-apis:prod": "NODE_ENV=prod node ./scripts/generateApis.js",
     "generate-apis": "node ./scripts/generateApis.js"
   },
   "dependencies": {
