@@ -25,7 +25,7 @@
     ListProductResult,
   } from "@api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
-  import InstructionAdder from "@app/components/InstructionAdder.svelte";
+  import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
   import DateTimePicker from "@app/components/DateTimePicker.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
@@ -162,7 +162,7 @@
   </Row>
   <Row>
     <Column>
-      <InstructionAdder
+      <MultilineTextInput
         instructionTitle="설명"
         instructions={form.instruction ?? []}
       />
