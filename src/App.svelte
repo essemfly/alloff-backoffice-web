@@ -9,17 +9,22 @@
   import Inventories from "./pages/logistics/inventories/Inventories.svelte";
   import Recieve from "./pages/logistics/receive/Recieve.svelte";
   import ShippingNoticeDetail from "./pages/logistics/shipping-notices/ShippingNoticeDetail.svelte";
-  // import OrderDetail from "./pages/orders/OrderDetail.svelte";
-  // import Orders from "./pages/orders/Orders.svelte";
-  // import TimedealSectionProductDetail from "./pages/timedeals/sections/TimedealSectionProductDetail.svelte";
-  // import TimedealDetail from "./pages/timedeals/TimedealDetail.svelte";
-  // import Timedeals from "./pages/timedeals/Timedeals.svelte";
   import OrderItems from "./pages/order-items/OrderItems.svelte";
-  import ProductRoutes from "./pages/products/ProductRoutes.svelte";
-  import ProductGroupRoutes from "./pages/product-groups/ProductGroupRoutes.svelte";
   import Candidates from "./pages/logistics/shipping-notices/Candidates.svelte";
   import ShippingNotices from "./pages/logistics/shipping-notices/ShippingNotices.svelte";
+
+  // Routes
   import NotificationRoutes from "./pages/notifications/NotificationRoutes.svelte";
+  import ProductRoutes from "./pages/products/ProductRoutes.svelte";
+  import ProductGroupRoutes from "./pages/product-groups/ProductGroupRoutes.svelte";
+
+  // DO NOT DELETE THIS CONSOLE LOG
+  console.log(
+    `%cBackoffice Web [${import.meta.env.MODE}] v${
+      import.meta.env.PACKAGE_VERSION
+    }`,
+    "font-size: 16px; color: #a5efda; background-color: #000; padding: 2px 5px;",
+  );
 </script>
 
 <SvelteToast options={{ duration: 3000 }} />
@@ -30,50 +35,7 @@
       <Dashboard />
     </Route>
   </Route>
-  <Route path="orders/*">
-    <Route path="/">
-      <Orders />
-    </Route>
-    <Route path=":id" let:params>
-      <OrderDetail orderIdOrCode={params.id} />
-    </Route>
-  </Route>
-  
- 
-  <Route path="timedeals/*">
-    <Route path="/">
-      <Timedeals />
-    </Route>
-    <Route path=":id/*" let:params>
-      <Route path="/">
-        <TimedealDetail timedealId={params.id} />
-      </Route>
-    </Route>
-    <Route path="new">
-      <TimedealDetail />
-    </Route>
-    <Route path=":id/products/*" let:params>
-      <Route path="/">
-        <TimedealSectionProductDetail productId="" productGroupId={params.id} mobile={false} />
-      </Route>
-      <Route path=":productid" let:params>
-        <TimedealSectionProductDetail productId={params.productid} productGroupId={params.id} mobile={false} />
-      </Route>
-    </Route>
-  </Route>
-  <Route path="notifications/*">
-    <Route path="/">
-      <Notifications />
-    </Route>
-    <Route path="new">
-      <NotificationDetail />
-    </Route>
-  </Route>
-  <Route path="timedeal-products/*">
-    <Route path=":id" let:params>
-      <TimedealSectionProductDetail productId={params.id} productGroupId="" mobile={false} />
-    </Route>
-  </Route>-->
+  -->
   <Route path="login">
     <Login />
   </Route>
@@ -126,3 +88,21 @@
     <NotificationRoutes />
   </Route>
 </Router>
+
+<style>
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+  :global(html, body) {
+    font-family: "Pretendard", "SF Pro", "sans-serif";
+  }
+
+  :global(.noselect) {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+  }
+</style>

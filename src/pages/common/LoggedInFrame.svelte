@@ -34,6 +34,8 @@
   let isSideNavOpen = false;
   let isUtilOpen = false;
 
+  const version = import.meta.env.PACKAGE_VERSION;
+  const isProd = import.meta.env.MODE === "production";
   const location = useLocation();
 
   interface MenuItem {
@@ -64,9 +66,13 @@
   bind:isSideNavOpen
   persistentHamburgerMenu
 >
-  {#if window.document.title.toLowerCase().includes("dev")}
-    <p class="dev">DEV</p>
-  {/if}
+  <div class="subtitle">
+    {#if !isProd}
+      <p class="dev">DEV</p>
+    {/if}
+    <small class="version">v{version}</small>
+  </div>
+
   <div slot="skip-to-content">
     <SkipToContent />
   </div>
@@ -182,10 +188,22 @@
 </Content>
 
 <style>
+  .subtitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+  }
   .dev {
     color: greenyellow;
     font-weight: bold;
-    margin-right: 30px;
+    margin-right: 10px;
     margin-left: -25px;
+  }
+
+  .version {
+    font-size: 0.85em;
+    color: white;
+    margin-right: 30px;
   }
 </style>

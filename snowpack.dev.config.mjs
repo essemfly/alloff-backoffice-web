@@ -5,6 +5,7 @@ export default {
   ...baseConfig,
   mode: "development",
   env: {
+    ...baseConfig.env,
     ENV: "development",
   },
   mount: {
