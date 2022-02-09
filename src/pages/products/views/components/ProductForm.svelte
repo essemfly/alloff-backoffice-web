@@ -14,7 +14,7 @@
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
-  import InstructionAdder from "@app/components/InstructionAdder.svelte";
+  import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
 
   export let form: Product;
   export let isAdding: boolean = false;
@@ -128,7 +128,7 @@
   </Row>
   <Row>
     <Column>
-      <InstructionAdder
+      <MultilineTextInput
         instructionTitle="상품 설명"
         bind:instructions={form.description}
       />

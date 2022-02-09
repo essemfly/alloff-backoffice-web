@@ -7,36 +7,44 @@
     Tile,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  export let instructionTitle: string;
-  export let instructions: string[];
-  let newInstruction = "";
 
-  function addInstruction(newString: string) {
-    if (newString !== "") {
-      instructions.push(newString);
-      instructions = instructions;
-      newInstruction = "";
+  export let label: string;
+  export let value: string[] = [];
+
+  let inputValue = "";
+
+  const handleAdd = () => {
+    const newValue = inputValue;
+    if (newValue !== "") {
+      value.push(newValue);
+      value = value;
+      inputValue = "";
     }
-  }
+  };
 
-  function removeInstruction(idx: number) {
-    instructions.splice(idx, 1);
-    instructions = instructions;
-  }
+  const handleRemove = (index: number) => () => {
+    value.splice(index, 1);
+    value = value;
+  };
+
+  const handleKeydown = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleAdd();
+    }
+  };
 </script>
 
-<div class="adder-box">
+<div class="multiline-textfield-box">
   <TextInput
-    labelText={instructionTitle}
+    labelText={label}
     placeholder="작성 후 추가 버튼을 누르세요"
-    bind:value={newInstruction}
+    bind:value={inputValue}
+    on:keydown={handleKeydown}
   />
-  <Button kind="secondary" on:click={() => addInstruction(newInstruction)}>
-    추가
-  </Button>
+  <Button kind="secondary" on:click={handleAdd}>추가</Button>
 
   <UnorderedList>
-    {#each instructions as item, idx}
+    {#each value as item, idx}
       <Tile class={"list-tile"}>
         <ListItem class={"list-item"}>{item}</ListItem>
         <Button
@@ -45,7 +53,7 @@
           kind="danger"
           class="memo-delete"
           iconDescription="Delete"
-          on:click={() => removeInstruction(idx)}
+          on:click={handleRemove(idx)}
         />
       </Tile>
     {/each}
@@ -71,7 +79,7 @@
     line-height: 1.25rem;
   }
 
-  :global(.adder-box) {
+  :global(.multiline-textfield-box) {
     margin: 1rem 0.2rem;
   }
 </style>
