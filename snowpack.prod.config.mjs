@@ -5,6 +5,7 @@ export default {
   ...baseConfig,
   mode: "production",
   env: {
+    ...baseConfig.env,
     ENV: "production",
   },
 };
