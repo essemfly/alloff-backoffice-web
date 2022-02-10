@@ -13,6 +13,7 @@
     StructuredListHead,
     Search,
     NumberInput,
+    StructuredListInput,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
@@ -24,6 +25,7 @@
     ProductGroupsApi,
     ProductInGroup,
     ListProductResult,
+    Product,
   } from "@api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
@@ -32,46 +34,41 @@
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
 
   const productGroupApi = new ProductGroupsApi();
+  const productApi = new ProductsApi();
   const brandsAPi = new BrandsApi();
 
   export let form: ProductGroup;
   export let isAdding: boolean = false;
 
-  let brands = [];
-
   interface SelectedProductInGroup {
-    productId: string;
-    productName: string;
+    product: Product;
     priority: number;
   }
 
+  let expanded = false;
   let images: string[] = [];
-  let productOptions: AutocompleteItem[] = [];
-  let filteredProductOptions: AutocompleteItem[] = [];
+  let brands: AutocompleteItem[] = [];
+  let productResult: Product[] = [];
+  let filteredProductResult: Product[] = [];
+
   let selectedProductInGroup: SelectedProductInGroup[] = [];
   let selectedProductIds: string[] = [];
+
   let filteredProductInGroup: ProductInGroup[] = form.products;
-  let searchQuery = "";
+
+  let productInGroupQuery = "";
+  let productSearchQuery = "";
+  let productSearchResultQuery = "";
+  let selectedBrandId = "";
+  let selectedBrand = "";
 
   onMount(async () => {
     const brandRes = await brandsAPi.brandsList();
-    brands = brandRes.data;
-
-    const productApi = new ProductsApi();
-    const res = await productApi.productsList();
-    productOptions = (res.data as unknown as ListProductResult).products.map(
-      ({
-        alloff_product_id,
-        alloff_name,
-        alloff_category_name,
-        brand_kor_name,
-      }) => ({
-        key: alloff_product_id,
-        value: `[${brand_kor_name}] ${alloff_name}`,
-        subvalue: alloff_category_name,
-      }),
-    );
-    filteredProductOptions = productOptions;
+    brands = brandRes.data.map(({ brand_id, korname, keyname }) => ({
+      key: brand_id,
+      value: korname,
+      subvalue: keyname,
+    }));
 
     if (form.image_url) {
       images = [form.image_url];
@@ -82,24 +79,31 @@
     form.image_url = images[0];
   }
 
-  const handleProductSelect = async (selectedItem: AutocompleteItem) => {
+  const handleProductSelect = (selectedItem: Product) => (event: any) => {
     const newProduct = {
-      productId: selectedItem.key,
-      productName: selectedItem.value,
+      product: selectedItem,
       priority: 0,
     };
     selectedProductInGroup = [...selectedProductInGroup, newProduct];
     selectedProductIds = selectedProductInGroup.map(
-      ({ productId }) => productId,
+      ({ product }) => product.alloff_product_id,
     );
-    filteredProductOptions = productOptions.filter(
-      (x) => !selectedProductIds.includes(x.key),
+    filteredProductResult = productResult.filter(
+      ({ alloff_product_id }) =>
+        !selectedProductIds.includes(alloff_product_id),
     );
+    if (isAdding) {
+      form.products = selectedProductInGroup;
+    }
   };
 
   const handleProductDeselect = (index: number) => () => {
     selectedProductInGroup.splice(index, 1);
     selectedProductInGroup = selectedProductInGroup;
+  };
+
+  const handleBrandChange = (selected: AutocompleteItem) => {
+    selectedBrandId = selected.key;
   };
 
   const handleAddProductSubmit = async () => {
@@ -108,13 +112,24 @@
       pushProductsRequest: {
         product_group_id: form.product_group_id,
         product_priority: selectedProductInGroup.map(
-          ({ productId, priority }) => ({ product_id: productId, priority }),
+          ({ product, priority }) => ({
+            product_id: product.alloff_product_id,
+            priority,
+          }),
         ),
       },
     });
     form.products = res.data.products;
+
+    productResult = [];
+    filteredProductResult = [];
     selectedProductInGroup = [];
     selectedProductIds = [];
+    productInGroupQuery = "";
+    productSearchQuery = "";
+    productSearchResultQuery = "";
+    selectedBrandId = "";
+    selectedBrand = "";
   };
 
   const handleProductDetailOpen = (productId: string) => () => {
@@ -132,21 +147,48 @@
     form.products = res.data.products;
   };
 
-  const handleFilter = debounce((event: Event) => {
-    productFiltering((event.target as HTMLInputElement)?.value ?? "");
+  const handleProductInGroupFilter = debounce((event: Event) => {
+    productInGroupFiltering((event.target as HTMLInputElement)?.value ?? "");
   }, 300);
 
-  const productFiltering = (value: string) => {
+  const productInGroupFiltering = (value: string) => {
     filteredProductInGroup = form.products.filter(
       ({ product }) =>
-        product.brand_kor_name.includes(value) ||
-        product.alloff_name.includes(value),
+        product.brand_kor_name.toLocaleLowerCase().includes(value) ||
+        product.alloff_name.toLocaleLowerCase().includes(value),
     );
-    searchQuery = value;
+    productInGroupQuery = value;
+  };
+
+  const handleProductSearch = async () => {
+    const res = await productApi.productsList({
+      searchQuery: productSearchQuery ?? "",
+      brandId: selectedBrandId ?? "",
+    });
+    productResult = (res.data as unknown as ListProductResult).products;
+    filteredProductResult = productResult.filter(
+      ({ alloff_product_id }) =>
+        !selectedProductIds.includes(alloff_product_id),
+    );
+  };
+
+  const handleProductSearchResultFilter = debounce((event: Event) => {
+    productSearchResultFiltering(
+      (event.target as HTMLInputElement)?.value ?? "",
+    );
+  }, 300);
+
+  const productSearchResultFiltering = (value: string) => {
+    filteredProductResult = productResult.filter(
+      (product) =>
+        product.brand_kor_name.toLocaleLowerCase().includes(value) ||
+        product.alloff_name.toLocaleLowerCase().includes(value),
+    );
+    productSearchResultQuery = value;
   };
 
   $: if (form.products) {
-    productFiltering(searchQuery);
+    productInGroupFiltering(productInGroupQuery);
   }
 </script>
 
@@ -187,18 +229,20 @@
     <Row>
       <Column>
         <Search
-          value={searchQuery}
-          on:input={handleFilter}
-          on:clear={handleFilter}
+          placeholder="상품 목록의 상품 검색"
+          value={productInGroupQuery}
+          on:input={handleProductInGroupFilter}
+          on:clear={handleProductInGroupFilter}
         />
         <StructuredList condensed>
           <StructuredListHead>
             <StructuredListRow head>
               <StructuredListCell head>썸네일</StructuredListCell>
               <StructuredListCell head>브랜드</StructuredListCell>
-              <StructuredListCell head>카테고리 이름</StructuredListCell>
               <StructuredListCell head>제품명</StructuredListCell>
-              <StructuredListCell head noWrap>가중치</StructuredListCell>
+              <StructuredListCell head>
+                우선순위 (낮을수록 상단)
+              </StructuredListCell>
               <StructuredListCell head>Actions</StructuredListCell>
             </StructuredListRow>
           </StructuredListHead>
@@ -216,9 +260,6 @@
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.product.brand_kor_name}
-                </StructuredListCell>
-                <StructuredListCell>
-                  {product.product.alloff_category_name}
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.product.alloff_name}
@@ -263,64 +304,178 @@
 
 <ContentBox>
   <h3>상품 추가</h3>
-  <Row>
-    <Column>
-      <div class="bx--label">상품 검색</div>
+  <Row class="search-wrapper">
+    <Column sm={1}>
+      <div class="bx--label">브랜드</div>
       <Autocomplete
-        options={filteredProductOptions}
-        onSubmit={handleProductSelect}
-        placeholder="상품 이름/브랜드 이름/상품 ID로 검색"
-        labelText="상품 검색"
+        options={brands}
+        onSubmit={handleBrandChange}
+        placeholder="브랜드 이름/Keyname/ID로 검색"
+        labelText="브랜드 검색"
+        bind:selectedValue={selectedBrand}
+        keepValueOnSubmit
       />
+    </Column>
+    <Column sm={2}>
+      <div class="bx--label">상품 검색</div>
+      <Search bind:value={productSearchQuery} placeholder="상품 이름 검색" />
+    </Column>
+    <Column sm={1}>
+      <Button on:click={handleProductSearch}>상품 검색</Button>
     </Column>
   </Row>
   <Row>
     <Column>
-      <StructuredList>
-        <StructuredListBody>
-          {#each selectedProductInGroup as product, index}
-            <StructuredListRow>
-              <StructuredListCell noWrap>
-                {product.productName}
-              </StructuredListCell>
-              <StructuredListCell>
-                <NumberInput
-                  class="cell_input"
-                  bind:value={product.priority}
-                  size="sm"
-                />
-              </StructuredListCell>
-              <StructuredListCell>
-                <Row>
-                  <Button
-                    tooltipPosition="bottom"
-                    tooltipAlignment="end"
-                    iconDescription="상품 상세"
-                    icon={Launch16}
-                    kind="ghost"
-                    size="small"
-                    on:click={handleProductDetailOpen(product.productId)}
-                  />
-                  <Button
-                    tooltipPosition="bottom"
-                    tooltipAlignment="end"
-                    iconDescription="상품 삭제"
-                    icon={TrashCan16}
-                    kind="danger"
-                    size="small"
-                    on:click={handleProductDeselect(index)}
-                  />
-                </Row>
-              </StructuredListCell>
+      <h4>상품 검색 결과</h4>
+      <div class="button-wrapper">
+        <Search
+          value={productSearchResultQuery}
+          on:input={handleProductSearchResultFilter}
+          on:clear={handleProductSearchResultFilter}
+          size="sm"
+          placeholder="검색결과 내 검색"
+          expandable
+          bind:expanded
+          on:expand
+          on:collapse
+        />
+      </div>
+      <div class="product-list">
+        <StructuredList condensed selection flush>
+          <StructuredListHead>
+            <StructuredListRow head>
+              <StructuredListCell head>썸네일</StructuredListCell>
+              <StructuredListCell head>브랜드</StructuredListCell>
+              <StructuredListCell head>제품명</StructuredListCell>
+              <StructuredListCell head>Actions</StructuredListCell>
             </StructuredListRow>
-          {/each}
-        </StructuredListBody>
-      </StructuredList>
+          </StructuredListHead>
+          <StructuredListBody>
+            {#each filteredProductResult as product}
+              <StructuredListRow on:click={handleProductSelect(product)}>
+                <StructuredListInput value={product.alloff_product_id} />
+                <StructuredListCell>
+                  <img
+                    class="cell_image"
+                    src={product.images[0]}
+                    alt={["product_preview", product.alloff_name].join("-")}
+                  />
+                </StructuredListCell>
+                <StructuredListCell noWrap>
+                  {product.brand_kor_name}
+                </StructuredListCell>
+                <StructuredListCell>
+                  {product.alloff_category_name}
+                </StructuredListCell>
+                <StructuredListCell noWrap>
+                  {product.alloff_name}
+                </StructuredListCell>
+                <StructuredListCell>
+                  <Row>
+                    <Button
+                      tooltipPosition="bottom"
+                      tooltipAlignment="end"
+                      iconDescription="상품 상세"
+                      icon={Launch16}
+                      kind="ghost"
+                      size="small"
+                      on:click={handleProductDetailOpen(
+                        product.alloff_product_id,
+                      )}
+                    />
+                    <Button
+                      tooltipPosition="bottom"
+                      tooltipAlignment="end"
+                      iconDescription="상품 삭제"
+                      icon={TrashCan16}
+                      kind="danger"
+                      size="small"
+                      on:click={handleDeleteProductFromGroup(
+                        product.alloff_product_id,
+                      )}
+                    />
+                  </Row>
+                </StructuredListCell>
+              </StructuredListRow>
+            {/each}
+          </StructuredListBody>
+        </StructuredList>
+      </div>
+    </Column>
+  </Row>
+  <Row>
+    <Column>
+      <h4>선택된 상품 목록</h4>
+      <div class="product-list">
+        <StructuredList condensed>
+          <StructuredListHead>
+            <StructuredListRow head>
+              <StructuredListCell head>썸네일</StructuredListCell>
+              <StructuredListCell head>브랜드</StructuredListCell>
+              <StructuredListCell head>제품명</StructuredListCell>
+              <StructuredListCell head>
+                우선순위 (낮을수록 상단)
+              </StructuredListCell>
+              <StructuredListCell head>Actions</StructuredListCell>
+            </StructuredListRow>
+          </StructuredListHead>
+          <StructuredListBody>
+            {#each selectedProductInGroup as { product, priority }, index}
+              <StructuredListRow>
+                <StructuredListInput value={product.alloff_product_id} />
+                <StructuredListCell>
+                  <img
+                    class="cell_image"
+                    src={product.images[0]}
+                    alt={["product_preview", product.alloff_name].join("-")}
+                  />
+                </StructuredListCell>
+                <StructuredListCell noWrap>
+                  {product.brand_kor_name}
+                </StructuredListCell>
+                <StructuredListCell noWrap>
+                  {product.alloff_name}
+                </StructuredListCell>
+                <StructuredListCell>
+                  <NumberInput bind:value={priority} />
+                </StructuredListCell>
+                <StructuredListCell>
+                  <Row>
+                    <Button
+                      tooltipPosition="bottom"
+                      tooltipAlignment="end"
+                      iconDescription="상품 상세"
+                      icon={Launch16}
+                      kind="ghost"
+                      size="small"
+                      on:click={handleProductDetailOpen(
+                        product.alloff_product_id,
+                      )}
+                    />
+                    <Button
+                      tooltipPosition="bottom"
+                      tooltipAlignment="end"
+                      iconDescription="상품 삭제"
+                      icon={TrashCan16}
+                      kind="danger"
+                      size="small"
+                      on:click={handleProductDeselect(index)}
+                    />
+                  </Row>
+                </StructuredListCell>
+              </StructuredListRow>
+            {/each}
+          </StructuredListBody>
+        </StructuredList>
+      </div>
+
       {#if !isAdding}
-        <Button
-          on:click={handleAddProductSubmit}
-          disabled={selectedProductInGroup.length === 0}>컬렉션에 저장</Button
-        >
+        <div class="button-wrapper">
+          <Button
+            on:click={handleAddProductSubmit}
+            disabled={selectedProductInGroup.length === 0}>컬렉션에 저장</Button
+          >
+        </div>
       {/if}
     </Column>
   </Row>
@@ -343,5 +498,25 @@
 
   :global(.bx--number) {
     width: auto;
+  }
+
+  .button-wrapper {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  :global(.search-wrapper) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  }
+
+  :global(.product-list) {
+    max-height: 300px;
+    overflow-y: auto;
   }
 </style>
