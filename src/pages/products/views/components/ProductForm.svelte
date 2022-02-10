@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { debounce } from "lodash";
   import { onMount } from "svelte";
   import {
     Row,
@@ -47,6 +48,12 @@
     newValue.splice(index, 1);
     form.inventory = newValue;
   };
+
+  const handleKeydown = debounce((event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleAddInventory();
+    }
+  }, 100);
 
   onMount(async () => {
     const brandsAPi = new BrandsApi();
@@ -128,10 +135,7 @@
   </Row>
   <Row>
     <Column>
-      <MultilineTextInput
-        instructionTitle="상품 설명"
-        bind:instructions={form.description}
-      />
+      <MultilineTextInput label="상품 설명" bind:value={form.description} />
     </Column>
   </Row>
   <Row>
@@ -201,6 +205,7 @@
         labelText={"신규 사이즈 등록"}
         placeholder="작성 후 추가 버튼을 누르세요"
         bind:value={inventoryTextInput}
+        on:keydown={handleKeydown}
       />
       <Button kind="secondary" on:click={handleAddInventory}>추가</Button>
       {#each form.inventory as inv, index}
@@ -222,9 +227,6 @@
         </div>
       {/each}
     </Column>
-  </Row>
-  <Row>
-    <Column />
   </Row>
 </ContentBox>
 
