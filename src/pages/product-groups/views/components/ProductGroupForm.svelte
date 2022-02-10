@@ -18,6 +18,7 @@
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
   import {
+    BrandsApi,
     ProductGroup,
     ProductsApi,
     ProductGroupsApi,
@@ -31,9 +32,12 @@
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
 
   const productGroupApi = new ProductGroupsApi();
+  const brandsAPi = new BrandsApi();
 
   export let form: ProductGroup;
   export let isAdding: boolean = false;
+
+  let brands = [];
 
   interface SelectedProductInGroup {
     productId: string;
@@ -50,6 +54,9 @@
   let searchQuery = "";
 
   onMount(async () => {
+    const brandRes = await brandsAPi.brandsList();
+    brands = brandRes.data;
+
     const productApi = new ProductsApi();
     const res = await productApi.productsList();
     productOptions = (res.data as unknown as ListProductResult).products.map(
