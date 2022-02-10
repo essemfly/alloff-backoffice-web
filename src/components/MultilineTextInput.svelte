@@ -72,14 +72,10 @@
     padding: 0.8rem;
     border-radius: 0.1rem;
   }
-
   :global(.bx--label) {
-    margin-top: 1rem;
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 0.95rem;
     line-height: 1.25rem;
   }
-
   :global(.multiline-textfield-box) {
     margin: 1rem 0.2rem;
   }
