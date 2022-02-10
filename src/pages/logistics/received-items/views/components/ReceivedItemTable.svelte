@@ -1,4 +1,6 @@
 <script lang="ts">
+  import debounce from "lodash/debounce";
+  import { DateTime } from "luxon";
   import {
     Button,
     DataTable,
@@ -11,11 +13,11 @@
   import Box16 from "carbon-icons-svelte/lib/Box16";
   import Reset16 from "carbon-icons-svelte/lib/Reset16";
   import Close16 from "carbon-icons-svelte/lib/Close16";
-  import debounce from "lodash/debounce";
-  import { DateTime } from "luxon";
-  import { ReceivedItem, ReceivedItemStatusEnum } from "../../../../api";
-  import { getStatusLabel } from "../../../../helpers/received-item";
-  import { search } from "../store";
+
+  import { ReceivedItem, ReceivedItemStatusEnum } from "@api";
+  import { getStatusLabel } from "@app/helpers/received-item";
+
+  import { search } from "../../store";
 
   export let ris: ReceivedItem[] = [];
   export let isMobile = false;

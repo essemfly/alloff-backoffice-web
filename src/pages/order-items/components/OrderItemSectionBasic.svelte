@@ -1,16 +1,14 @@
 <script lang="ts">
   import { Button, TabContent, TextInput } from "carbon-components-svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
-  import {
-    OrderItemList,
-    OrderItemRetrieve,
-    OrderItemsApi,
-  } from "../../../api";
-  import { toLocaleDateTime } from "../../../helpers/datetime";
-  import { numberWithCommas } from "../../../helpers/number";
-  import { getIsForeignLabel, getTypeLabel } from "../../../helpers/order-item";
-  import { admin } from "../../../store";
-  import InfoSection from "../../common/InfoSection.svelte";
+
+  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
+  import { admin } from "@app/store";
+  import { toLocaleDateTime } from "@app/helpers/datetime";
+  import { numberWithCommas } from "@app/helpers/number";
+  import { getIsForeignLabel, getTypeLabel } from "@app/helpers/order-item";
+  import InfoSection from "./InfoSection.svelte";
+
   export let item: OrderItemRetrieve;
   export let userItems: OrderItemList[];
   export let mobile: boolean;

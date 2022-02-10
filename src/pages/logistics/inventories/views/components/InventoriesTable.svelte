@@ -1,4 +1,6 @@
 <script lang="ts">
+  import debounce from "lodash/debounce";
+  import { DateTime } from "luxon";
   import {
     Button,
     DataTable,
@@ -8,11 +10,10 @@
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import Delete16 from "carbon-icons-svelte/lib/Delete16";
-  import debounce from "lodash/debounce";
-  import { DateTime } from "luxon";
-  import { InventoriesApi, Inventory } from "../../../../api";
-  import { getInventoryStatusLabel } from "../../../../helpers/inventory";
-  import { search } from "../store";
+
+  import { InventoriesApi, Inventory } from "@api";
+  import { getInventoryStatusLabel } from "@app/helpers/inventory";
+  import { search } from "../../store";
 
   export let inventories: Inventory[];
   export let isMobile = false;
@@ -50,7 +51,7 @@
     }
   };
 
-  $: console.log({inventories})
+  $: console.log({ inventories });
 </script>
 
 <DataTable

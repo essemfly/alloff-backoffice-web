@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { DateTime } from "luxon";
   import {
     DataTable,
     Tag,
@@ -7,12 +8,13 @@
     Button,
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
-  import { DateTime } from "luxon";
-  import { ShippingCandidateProto, ShippingNoticesApi } from "../../../../api";
   import Export16 from "carbon-icons-svelte/lib/Export16";
+
+  import { ShippingCandidateProto, ShippingNoticesApi } from "@api";
 
   export let candidates: ShippingCandidateProto[];
   export let isMobile = false;
+
   let selectedRowIds: number[] = [];
   let selectedCandidates: ShippingCandidateProto[] = [];
 

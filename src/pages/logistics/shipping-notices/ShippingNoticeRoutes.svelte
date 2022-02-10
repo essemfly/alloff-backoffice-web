@@ -1,8 +1,8 @@
 <script lang="ts">
   import { Route } from "svelte-navigator";
-  import Candidates from "./Candidates.svelte";
-  import ShippingNoticeDetail from "./ShippingNoticeDetail.svelte";
-  import ShippingNotices from "./ShippingNotices.svelte";
+  import Candidates from "./views/Candidates.svelte";
+  import ShippingNoticeDetail from "./views/ShippingNoticeDetail.svelte";
+  import ShippingNotices from "./views/ShippingNotices.svelte";
 </script>
 
 <Route path="/">

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { Route } from "svelte-navigator";
-  import Recieve from "./Recieve.svelte";
+  import RecievedItemList from "./views/RecievedItemList.svelte";
 </script>
 
 <Route path="/">
-  <Recieve />
+  <RecievedItemList />
 </Route>

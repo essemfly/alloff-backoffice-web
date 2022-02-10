@@ -1,8 +1,8 @@
 <script lang="ts">
   import { Route } from "svelte-navigator";
-  import InventoryList from "./views/InventoryList.svelte";
+  import BrandList from "./views/BrandList.svelte";
 </script>
 
 <Route path="/">
-  <InventoryList />
+  <BrandList />
 </Route>

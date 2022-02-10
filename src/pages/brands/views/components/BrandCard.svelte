@@ -7,9 +7,9 @@
     FileUploaderDropContainer,
     TextInput,
   } from "carbon-components-svelte";
-
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import { Brand, BrandsApi, ImageUploadApi } from "../../../api";
+
+  import { Brand, BrandsApi, ImageUploadApi } from "@api";
 
   const brandApi = new BrandsApi();
   const imageApi = new ImageUploadApi();
@@ -19,33 +19,33 @@
 
   let tempGuide = {
     label: "",
-    imgurl: "",
+    image_url: "",
   };
 
-  let onPopular: string = brand.onpopular === true ? "true" : "false";
-  let isHide: string = brand.ishide === true ? "true" : "false";
-  let isOpen: string = brand.isopen === true ? "true" : "false";
+  let isPopular: string = brand.is_popular === true ? "true" : "false";
+  let isHide: string = brand.in_maintenance === true ? "true" : "false";
+  let isOpen: string = brand.is_open === true ? "true" : "false";
 
-  const deleteBrand = async (brand: Brand) => {
-    if (confirm("브랜드를 완전히 삭제하시겠습니까?")) {
-      brandApi
-        .brandsDestroy({
-          id: brand.id,
-        })
-        .then((res) => {
-          console.log("RES", res);
-        });
-    }
-  };
+  // const deleteBrand = async (brand: Brand) => {
+  //   if (confirm("브랜드를 완전히 삭제하시겠습니까?")) {
+  //     brandApi
+  //       .brandsDestroy({
+  //         id: brand.id,
+  //       })
+  //       .then((res) => {
+  //         console.log("RES", res);
+  //       });
+  //   }
+  // };
 
   const deleteSizeGuide = async (idx: number) => {
-    brand.sizeguide?.splice(idx, 1);
-    brand.sizeguide = brand.sizeguide;
+    brand.size_guide?.splice(idx, 1);
+    brand.size_guide = brand.size_guide;
     brandApi
       .brandsPartialUpdate({
-        id: brand.id,
+        id: brand.brand_id,
         patchedBrandRequest: {
-          sizeguide: brand.sizeguide,
+          size_guide: brand.size_guide,
         },
       })
       .then((res) => {
@@ -61,27 +61,27 @@
   };
 
   const addSizeGuide = async () => {
-    if (tempGuide.label === "" || tempGuide.imgurl === "") {
+    if (tempGuide.label === "" || tempGuide.image_url === "") {
       alert("가이드의 라벨이나, 이미지를 추가해주세요.");
       return;
     }
 
-    if (brand.sizeguide) {
-      brand.sizeguide = [...brand.sizeguide, tempGuide];
+    if (brand.size_guide) {
+      brand.size_guide = [...brand.size_guide, tempGuide];
     } else {
-      brand.sizeguide = [tempGuide];
+      brand.size_guide = [tempGuide];
     }
 
     tempGuide = {
       label: "",
-      imgurl: "",
+      image_url: "",
     };
 
     brandApi
       .brandsPartialUpdate({
-        id: brand.id,
+        id: brand.brand_id,
         patchedBrandRequest: {
-          sizeguide: brand.sizeguide,
+          size_guide: brand.size_guide,
         },
       })
       .then((res) => {
@@ -92,11 +92,11 @@
   const updateStatus = async () => {
     brandApi
       .brandsPartialUpdate({
-        id: brand.id,
+        id: brand.brand_id,
         patchedBrandRequest: {
-          onpopular: onPopular === "true" ? true : false,
-          isopen: isOpen === "true" ? true : false,
-          ishide: isHide === "true" ? true : false,
+          is_popular: isPopular === "true" ? true : false,
+          is_open: isOpen === "true" ? true : false,
+          in_maintenance: isHide === "true" ? true : false,
         },
       })
       .then((res) => {
@@ -106,7 +106,7 @@
 </script>
 
 <div class="brand" class:mobile>
-  <div class="delete-button">
+  <!-- <div class="delete-button">
     <Button
       tooltipPosition="bottom"
       tooltipAlignment="end"
@@ -115,7 +115,7 @@
       kind="danger"
       on:click={() => deleteBrand(brand)}
     />
-  </div>
+  </div> -->
   <div class="image">
     <img src={brand.logo_image_url} alt="img" />
   </div>
@@ -123,11 +123,10 @@
     <Tag>{brand.keyname}</Tag>
     <p>{brand.korname}</p>
     <p>{brand.description}</p>
-    <p>최대 할인율: {brand.maxdiscountrate}%</p>
     <hr />
     <RadioButtonGroup
       legendText="인기있는 브랜드"
-      bind:selected={onPopular}
+      bind:selected={isPopular}
       on:change={updateStatus}
     >
       <RadioButton labelText="True" value="true" />
@@ -151,8 +150,8 @@
     </RadioButtonGroup>
     <hr />
     <div class="bx--label">사이즈 가이드</div>
-    {#if brand.sizeguide && brand.sizeguide.length > 0}
-      {#each brand.sizeguide as guide, idx}
+    {#if brand.size_guide && brand.size_guide.length > 0}
+      {#each brand.size_guide as guide, idx}
         <div>
           <div class="delete-guide-button">
             <p>{guide.label}</p>
@@ -165,7 +164,7 @@
               on:click={() => deleteSizeGuide(idx)}
             />
           </div>
-          <img class="guide_image" src={guide.imgurl} alt="guide_image" />
+          <img class="guide_image" src={guide.image_url} alt="guide" />
         </div>
       {/each}
       <div />
@@ -176,10 +175,10 @@
         placeholder="가이드 영역 이름"
         bind:value={tempGuide.label}
       />
-      {#if tempGuide.imgurl !== ""}
+      {#if tempGuide.image_url !== ""}
         <img
           class="image-preview-modal"
-          src={tempGuide.imgurl}
+          src={tempGuide.image_url}
           alt="new-brand-logo"
         />
       {/if}
@@ -188,12 +187,12 @@
         accept={["image/*"]}
         on:add={(e) => {
           const file = e.detail[0];
-          tempGuide.imgurl = "";
+          tempGuide.image_url = "";
           imageApi
-            .imageUploadUploadCreate({ file, path: "sizeguides" })
+            .imageUploadUploadCreate({ file, path: "size_guides" })
             .then((res) => {
               const { random_key, url } = res.data;
-              tempGuide.imgurl = url;
+              tempGuide.image_url = url;
             });
         }}
       />
@@ -225,11 +224,11 @@
     width: 100%;
   }
 
-  .brand > .delete-button {
+  /* .brand > .delete-button {
     position: absolute;
     top: 10px;
     right: 10px;
-  }
+  } */
 
   .brand > .image {
     height: 200px;

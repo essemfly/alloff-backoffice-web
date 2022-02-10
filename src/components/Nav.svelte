@@ -72,7 +72,7 @@
       ],
     },
     // { label: "대시보드", path: "/analytics/dashboard", icon: ChartLine16 },
-    // { label: "브랜드", path: "/brands" },
+    { label: "브랜드", path: "/brands" },
     { label: "상품", path: "/products" },
     { label: "컬렉션", path: "/product-groups" },
   ];

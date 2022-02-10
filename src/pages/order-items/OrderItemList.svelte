@@ -1,19 +1,22 @@
 <script lang="ts">
+  import { DateTime } from "luxon";
+  import { useLocation } from "svelte-navigator";
   import {
     Checkbox,
     DatePicker,
     DatePickerInput,
     Pagination,
   } from "carbon-components-svelte";
-  import { DateTime } from "luxon";
-  import { useLocation } from "svelte-navigator";
-  import { OrderItemList, OrderItemsApi, OrderItemStatusEnum } from "../../api";
-  import { ORDER_ITEM_ALL_STATUSES } from "../../constants";
-  import MediaQuery from "../../helpers/MediaQuery.svelte";
-  import { getStatusLabel } from "../../helpers/order-item";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  import OrderItemsTable from "./components/OrderItemsTable.svelte";
+
+  import { OrderItemList, OrderItemsApi, OrderItemStatusEnum } from "@api";
+  import { ORDER_ITEM_ALL_STATUSES } from "@app/constants";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
+  import { getStatusLabel } from "@app/helpers/order-item";
+  import Nav from "@app/components/Nav.svelte";
+
   import { search } from "./store";
+  import OrderItemsTable from "./components/OrderItemsTable.svelte";
+
   const location = useLocation();
   const params = new URLSearchParams($location.search);
   const userId = params.get("userid");
@@ -73,7 +76,7 @@
   );
 </script>
 
-<LoggedInFrame>
+<Nav>
   <MediaQuery query="(max-width: 480px)" let:matches>
     {#if userId}
       <h6>USER ID: {userId}</h6>
@@ -115,4 +118,4 @@
     {/if}
     <OrderItemsTable isMobile={matches} {items} canSearch={!userId} />
   </MediaQuery>
-</LoggedInFrame>
+</Nav>

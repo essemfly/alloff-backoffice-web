@@ -5,12 +5,12 @@
 
   // import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
   import Login from "./pages/auth/Login.svelte";
-  // import Brands from "./pages/brands/brands.svelte";
 
   // default route.. todo: fix to redirect
-  import OrderItems from "./pages/order-items/OrderItems.svelte";
+  import OrderItems from "./pages/order-items/OrderItemList.svelte";
 
   // Routes
+  import BrandRoutes from "./pages/brands/BrandRoutes.svelte";
   import LogisticsRoutes from "./pages/logistics/LogisticsRoutes.svelte";
   import NotificationRoutes from "./pages/notifications/NotificationRoutes.svelte";
   import OrderItemRoutes from "./pages/order-items/OrderItemRoutes.svelte";
@@ -38,11 +38,9 @@
   <Route path="login">
     <Login />
   </Route>
-  <!-- <Route path="brands/*">
-    <Route path="/">
-      <Brands />
-    </Route>
-  </Route> -->
+  <Route path="brands/*">
+    <BrandRoutes />
+  </Route>
   <Route path="logistics/*">
     <LogisticsRoutes />
   </Route>

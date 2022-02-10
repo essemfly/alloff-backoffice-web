@@ -1,9 +1,11 @@
 <script lang="ts">
   import { TabContent } from "carbon-components-svelte";
-  import { ActionTypeEnum, OrderItemRetrieve } from "../../../api";
-  import { toLocaleDateTime } from "../../../helpers/datetime";
-  import { getLogTypeLabel, getStatusLabel } from "../../../helpers/order-item";
-  import InfoSection from "../../common/InfoSection.svelte";
+
+  import { ActionTypeEnum, OrderItemRetrieve } from "@api";
+
+  import { toLocaleDateTime } from "@app/helpers/datetime";
+  import { getLogTypeLabel, getStatusLabel } from "@app/helpers/order-item";
+  import InfoSection from "./InfoSection.svelte";
 
   export let item: OrderItemRetrieve;
 </script>
@@ -56,11 +58,11 @@
           log.action_type === ActionTypeEnum.ReceivedInventory
             ? `[입고처리: ${log.detail} / 재고 코드: ${log.inventory?.inventory_code}] `
             : "";
-            const revertedInventory =
+        const revertedInventory =
           log.action_type === ActionTypeEnum.RevertedInventory
             ? `[재고원복입고취소: ${log.detail}] `
-            : "";        
-            
+            : "";
+
         const paymentAdjustment =
           log.action_type === ActionTypeEnum.PaymentAdjustment
             ? `[결제조정: ${log.detail}] `
@@ -75,7 +77,7 @@
           trackingChange +
           alimtalk +
           memo +
-          paymentAdjustment + 
+          paymentAdjustment +
           base
         );
       })(),

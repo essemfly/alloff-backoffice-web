@@ -1,10 +1,12 @@
 <script lang="ts">
   import { Pagination } from "carbon-components-svelte";
-  import { ShippingNoticeList, ShippingNoticesApi } from "../../../api";
-  import MediaQuery from "../../../helpers/MediaQuery.svelte";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
+
+  import { ShippingNoticeList, ShippingNoticesApi } from "@api";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
+  import Nav from "@app/components/Nav.svelte";
+
   import ShippingNoticeTable from "./components/ShippingNoticeTable.svelte";
-  import { search } from "./store";
+  import { search } from "../store";
 
   const api = new ShippingNoticesApi();
   let notices: ShippingNoticeList[] = [];
@@ -30,9 +32,9 @@
   $: load(page, pageSize, $search);
 </script>
 
-<LoggedInFrame>
+<Nav>
   <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
   <MediaQuery query="(max-width: 480px)" let:matches>
     <ShippingNoticeTable isMobile={matches} {notices} />
   </MediaQuery>
-</LoggedInFrame>
+</Nav>

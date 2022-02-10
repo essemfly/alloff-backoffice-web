@@ -8,6 +8,7 @@
     Tag,
   } from "carbon-components-svelte";
   import Package16 from "carbon-icons-svelte/lib/Package16";
+
   import {
     Package,
     PackagesApi,
@@ -18,13 +19,10 @@
     ShippingNoticesApi,
     ShippingNoticesResultUploadApi,
     ShippingNoticeStatusEnum,
-  } from "../../../api";
-  import {
-    getStatusBadgeColor,
-    getStatusLabel,
-  } from "../../../helpers/order-item";
-  import { getShippingNolticeStatusLabel } from "../../../helpers/shipping-notice";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
+  } from "@api";
+  import { getStatusBadgeColor, getStatusLabel } from "@app/helpers/order-item";
+  import { getShippingNolticeStatusLabel } from "@app/helpers/shipping-notice";
+  import Nav from "@app/components/Nav.svelte";
 
   export let noticeId: number;
 
@@ -122,7 +120,7 @@
   }
 </script>
 
-<LoggedInFrame>
+<Nav>
   {#if loading || submitting}
     <div class="overlay">
       <div>
@@ -226,7 +224,7 @@
                     >
                   </h6>
                   <Tag size="sm" type="purple">{i.inventory.size}</Tag>
-                  <Tag size="sm" type="grey">{i.inventory.code}</Tag>
+                  <Tag size="sm" type="gray">{i.inventory.code}</Tag>
                   {i.inventory.product_name}
                 </div>
               {/each}
@@ -238,7 +236,7 @@
       <div>No shipping notice found.</div>
     {/if}
   {/if}
-</LoggedInFrame>
+</Nav>
 
 <style>
   .notice-items {

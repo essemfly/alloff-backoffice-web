@@ -11,42 +11,43 @@
     Column,
     InlineLoading,
   } from "carbon-components-svelte";
-
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { BrandsApi, ImageUploadApi, BrandRequest } from "../../../api";
+  import { BrandsApi, ImageUploadApi, BrandRequest } from "@api";
 
   export let isModalOpen = false;
   export let onCloseModal: () => void;
 
   let newBrandInput: BrandRequest = {
+    brand_id: "",
     keyname: "",
     korname: "",
     engname: "",
-    logoimgurl: "",
+    logo_image_url: "",
     description: "",
-    sizeguide: [],
-    onpopular: false,
-    isopen: false,
-    ishide: false,
+    size_guide: [],
+    is_popular: false,
+    is_open: false,
+    in_maintenance: false,
   };
 
   let imageUploading = false;
-  let onPopular: string = newBrandInput.onpopular === true ? "true" : "false";
-  let isHide: string = newBrandInput.ishide === true ? "true" : "false";
-  let isOpen: string = newBrandInput.isopen === true ? "true" : "false";
+  let onPopular: string = newBrandInput.is_popular === true ? "true" : "false";
+  let isOpen: string = newBrandInput.is_open === true ? "true" : "false";
+  let inMaintenance: string =
+    newBrandInput.in_maintenance === true ? "true" : "false";
   let tempGuide = {
     label: "",
-    imgurl: "",
+    image_url: "",
   };
 
   const brandApi = new BrandsApi();
   const imageApi = new ImageUploadApi();
 
   const addBrand = async () => {
-    newBrandInput.ishide = isHide === "true" ? true : false;
-    newBrandInput.isopen = isOpen === "true" ? true : false;
-    newBrandInput.onpopular = onPopular === "true" ? true : false;
+    newBrandInput.in_maintenance = inMaintenance === "true" ? true : false;
+    newBrandInput.is_open = isOpen === "true" ? true : false;
+    newBrandInput.is_popular = onPopular === "true" ? true : false;
 
     if (
       newBrandInput.keyname === "" ||
@@ -57,7 +58,7 @@
       return;
     }
 
-    if (newBrandInput.logoimgurl === "") {
+    if (newBrandInput.logo_image_url === "") {
       alert("로고사진을 입력해주세요");
       return;
     }
@@ -67,8 +68,10 @@
       return;
     }
 
+    const { brand_id, ...rest } = newBrandInput;
+
     brandApi
-      .brandsCreate({ brandRequest: newBrandInput })
+      .brandsCreate({ brandRequest: rest })
       .then((res) => {
         if (res.status == 201) {
           onCloseModal();
@@ -84,24 +87,24 @@
   };
 
   const addSizeGuide = async () => {
-    if (tempGuide.label === "" || tempGuide.imgurl === "") {
+    if (tempGuide.label === "" || tempGuide.image_url === "") {
       alert("가이드의 라벨이나, 이미지를 추가해주세요.");
       return;
     }
-    if (newBrandInput.sizeguide) {
-      newBrandInput.sizeguide = [...newBrandInput.sizeguide, tempGuide];
+    if (newBrandInput.size_guide) {
+      newBrandInput.size_guide = [...newBrandInput.size_guide, tempGuide];
     } else {
-      newBrandInput.sizeguide = [tempGuide];
+      newBrandInput.size_guide = [tempGuide];
     }
 
     tempGuide = {
       label: "",
-      imgurl: "",
+      image_url: "",
     };
   };
 
   const deleteSizeGuide = async (idx: number) => {
-    newBrandInput.sizeguide?.splice(idx, 1);
+    newBrandInput.size_guide?.splice(idx, 1);
     newBrandInput = newBrandInput;
   };
 </script>
@@ -146,16 +149,16 @@
           <RadioButton labelText="Open" value="true" />
           <RadioButton labelText="Closed" value="false" />
         </RadioButtonGroup>
-        <RadioButtonGroup legendText="숨김처리" bind:selected={isHide}>
+        <RadioButtonGroup legendText="숨김처리" bind:selected={inMaintenance}>
           <RadioButton labelText="Yes" value="true" />
           <RadioButton labelText="No" value="false" />
         </RadioButtonGroup>
         <div style="display: grid;">
           <div class="bx--label">로고 이미지</div>
-          {#if newBrandInput.logoimgurl != ""}
+          {#if newBrandInput.logo_image_url != ""}
             <img
               class="image-preview-modal"
-              src={newBrandInput.logoimgurl}
+              src={newBrandInput.logo_image_url}
               alt="new-brand-logo"
             />
           {/if}
@@ -170,13 +173,13 @@
             accept={["image/*"]}
             on:add={(e) => {
               const file = e.detail[0];
-              newBrandInput.logoimgurl = "";
+              newBrandInput.logo_image_url = "";
               imageUploading = true;
               imageApi
                 .imageUploadUploadCreate({ file, path: "brands" })
                 .then((res) => {
                   const { random_key, url } = res.data;
-                  newBrandInput.logoimgurl = url;
+                  newBrandInput.logo_image_url = url;
                   imageUploading = false;
                 });
             }}
@@ -191,11 +194,11 @@
           placeholder="가이드 영역 이름"
           bind:value={tempGuide.label}
         />
-        {#if tempGuide.imgurl != ""}
+        {#if tempGuide.image_url != ""}
           <div style="display: grid;">
             <img
               class="image-preview-modal"
-              src={tempGuide.imgurl}
+              src={tempGuide.image_url}
               alt="new-brand-logo"
             />
           </div>
@@ -205,13 +208,13 @@
           accept={["image/*"]}
           on:add={(e) => {
             const file = e.detail[0];
-            tempGuide.imgurl = "";
+            tempGuide.image_url = "";
 
             imageApi
-              .imageUploadUploadCreate({ file, path: "sizeguides" })
+              .imageUploadUploadCreate({ file, path: "size_guides" })
               .then((res) => {
                 const { random_key, url } = res.data;
-                tempGuide.imgurl = url;
+                tempGuide.image_url = url;
               });
           }}
         />
@@ -219,10 +222,10 @@
       </Column>
 
       <Column>
-        {#if newBrandInput.sizeguide && newBrandInput.sizeguide.length > 0}
+        {#if newBrandInput.size_guide && newBrandInput.size_guide.length > 0}
           <div class="bx--label">가이드 이미지</div>
           <div>
-            {#each newBrandInput.sizeguide as guide, idx}
+            {#each newBrandInput.size_guide as guide, idx}
               <div class="delete-guide-button">
                 <p>{guide.label}</p>
                 <Button
@@ -236,7 +239,7 @@
               </div>
               <img
                 class="image-preview-modal"
-                src={guide.imgurl}
+                src={guide.image_url}
                 alt="guide_image"
               />
             {/each}

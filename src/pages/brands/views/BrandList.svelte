@@ -1,15 +1,11 @@
 <script lang="ts">
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  import {
-    Button,
-    Modal,
-    TextInput,
-    FileUploaderDropContainer,
-  } from "carbon-components-svelte";
-
-  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
-  import { Brand, BrandsApi } from "../../api";
   import { onMount } from "svelte";
+  import { Button } from "carbon-components-svelte";
+  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
+
+  import { Brand, BrandsApi } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+
   import BrandCard from "./components/BrandCard.svelte";
   import BrandModal from "./components/BrandModal.svelte";
 
@@ -27,12 +23,16 @@
   });
 </script>
 
-<LoggedInFrame>
+<Nav>
   <div style="height: 10px" />
   <div class="button-wrapper">
-    <Button on:click={() => (createBrandModalOpen = true)} icon={DocumentAdd16}
-      >브랜드 추가</Button
+    <Button
+      on:click={() => (createBrandModalOpen = true)}
+      icon={DocumentAdd16}
+      disabled
     >
+      브랜드 추가
+    </Button>
   </div>
   <BrandModal isModalOpen={createBrandModalOpen} onCloseModal={closeModal} />
   <div class="brands">
@@ -40,7 +40,7 @@
       <BrandCard {brand} mobile={false} />
     {/each}
   </div>
-</LoggedInFrame>
+</Nav>
 
 <style>
   .brands {

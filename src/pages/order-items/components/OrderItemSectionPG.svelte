@@ -1,8 +1,9 @@
 <script lang="ts">
   import { TabContent } from "carbon-components-svelte";
-  import { OrderItemRetrieve } from "../../../api";
-  import { numberWithCommas } from "../../../helpers/number";
-  import InfoSection from "../../common/InfoSection.svelte";
+
+  import { OrderItemRetrieve } from "@api";
+  import { numberWithCommas } from "@app/helpers/number";
+  import InfoSection from "./InfoSection.svelte";
 
   export let item: OrderItemRetrieve;
 </script>

@@ -1,10 +1,12 @@
 <script lang="ts">
   import { Pagination } from "carbon-components-svelte";
-  import { OrderItemsApi, ReceivedItem, ReceivedItemsApi } from "../../../api";
-  import MediaQuery from "../../../helpers/MediaQuery.svelte";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
-  import RiTable from "./components/RITable.svelte";
-  import { search } from "./store";
+
+  import { OrderItemsApi, ReceivedItem, ReceivedItemsApi } from "@api";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
+  import Nav from "@app/components/Nav.svelte";
+
+  import ReceivedItemTable from "./components/ReceivedItemTable.svelte";
+  import { search } from "../store";
 
   const api = new ReceivedItemsApi();
   let ris: ReceivedItem[] = [];
@@ -18,17 +20,17 @@
     ris = results ?? [];
   };
 
-  const receive = async (id: number) => 
+  const receive = async (id: number) =>
     await api.receivedItemsReceiveInventoryCreate({
       id,
     });
 
-  const cancel = async (id: number) => 
+  const cancel = async (id: number) =>
     await api.receivedItemsCancelReceivingCreate({
       id,
     });
 
-  const revert = async (id: number) => 
+  const revert = async (id: number) =>
     await api.receivedItemsRevertInventoryCreate({
       id,
     });
@@ -48,14 +50,14 @@
   $: load(page, pageSize, $search.trim() === "" ? undefined : $search);
 </script>
 
-<LoggedInFrame>
+<Nav>
   <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
   <MediaQuery query="(max-width: 480px)" let:matches>
-    <RiTable
+    <ReceivedItemTable
       isMobile={matches}
       {ris}
       reload={() => load(page, pageSize, $search)}
-      {...{receive, revert, forceReceive, cancel}}
+      {...{ receive, revert, forceReceive, cancel }}
     />
   </MediaQuery>
-</LoggedInFrame>
+</Nav>

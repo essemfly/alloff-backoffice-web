@@ -2,9 +2,11 @@
   import { Button, TabContent } from "carbon-components-svelte";
   import Wallet16 from "carbon-icons-svelte/lib/Wallet16";
   import Run16 from "carbon-icons-svelte/lib/Run16";
-  import { MethodEnum, OrderItemRetrieve, OrderItemsApi } from "../../../api";
-  import { numberWithCommas } from "../../../helpers/number";
-  import InfoSection from "../../common/InfoSection.svelte";
+
+  import { MethodEnum, OrderItemRetrieve, OrderItemsApi } from "@api";
+  import { numberWithCommas } from "@app/helpers/number";
+  import InfoSection from "./InfoSection.svelte";
+
   import RefundModal from "../components/RefundModal.svelte";
   import AdjustPaymentModal from "../components/AdjustPaymentModal.svelte";
 

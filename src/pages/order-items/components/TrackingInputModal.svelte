@@ -8,7 +8,8 @@
     ModalHeader,
     TextInput,
   } from "carbon-components-svelte";
-  import { OrderItemRetrieve, OrderItemStatusEnum } from "../../../api";
+
+  import { OrderItemRetrieve, OrderItemStatusEnum } from "@api";
 
   export let changeOrderItemStatus: (
     item: OrderItemRetrieve,

@@ -1,11 +1,13 @@
 <script lang="ts">
   import { Checkbox, Pagination } from "carbon-components-svelte";
-  import { InventoriesApi, Inventory, InventoryStatusEnum } from "../../../api";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
-  import MediaQuery from "../../../helpers/MediaQuery.svelte";
+
+  import { InventoriesApi, Inventory, InventoryStatusEnum } from "@api";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
+  import { getInventoryStatusLabel } from "@app/helpers/inventory";
+  import Nav from "@app/components/Nav.svelte";
+
   import InventoriesTable from "./components/InventoriesTable.svelte";
-  import { search } from "./store";
-  import { getInventoryStatusLabel } from "../../../helpers/inventory";
+  import { search } from "../store";
 
   const api = new InventoriesApi();
   let inventories: Inventory[] = [];
@@ -43,7 +45,7 @@
   );
 </script>
 
-<LoggedInFrame>
+<Nav>
   <div style="display: flex; align-items: center; flex-direction: row;">
     {#each [InventoryStatusEnum.ProcessingNeeded, InventoryStatusEnum.InStock, InventoryStatusEnum.ShippingPending, InventoryStatusEnum.Shipped] as status}
       <Checkbox
@@ -63,4 +65,4 @@
   <MediaQuery query="(max-width: 480px)" let:matches>
     <InventoriesTable isMobile={matches} {inventories} />
   </MediaQuery>
-</LoggedInFrame>
+</Nav>

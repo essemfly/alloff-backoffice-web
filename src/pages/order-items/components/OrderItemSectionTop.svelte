@@ -4,11 +4,8 @@
     OverflowMenuItem,
     Tag,
   } from "carbon-components-svelte";
-  import {
-    OrderItemRetrieve,
-    OrderItemsApi,
-    OrderItemStatusEnum,
-  } from "../../../api";
+
+  import { OrderItemRetrieve, OrderItemsApi, OrderItemStatusEnum } from "@api";
   import {
     getIsForeignBadgeColor,
     getIsForeignLabel,
@@ -19,14 +16,16 @@
     getTypeBadgeColor,
     getTypeLabel,
     // toChangeStatusEnum,
-  } from "../../../helpers/order-item";
-  import SquareTag from "../../../components/SquareTag.svelte";
-  import TrackingInputModal from "../components/TrackingInputModal.svelte";
+  } from "@app/helpers/order-item";
   import {
     ORDER_ITEM_ALL_STATUSES,
     ORDER_ITEM_DOMESTIC_STATUSES,
-  } from "../../../constants";
-  import { numberWithCommas } from "../../../helpers/number";
+  } from "@app/constants";
+  import { numberWithCommas } from "@app/helpers/number";
+  import SquareTag from "@app/components/SquareTag.svelte";
+
+  import TrackingInputModal from "../components/TrackingInputModal.svelte";
+
   export let item: OrderItemRetrieve;
   export let submitting: boolean;
   export let load: () => void;
