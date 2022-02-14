@@ -1,6 +1,5 @@
 <script lang="ts">
   import { debounce } from "lodash";
-  import { onMount } from "svelte";
   import {
     Row,
     Column,
@@ -11,21 +10,23 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { Product, Brand, BrandsApi } from "@api";
-  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import { Product } from "@api";
+  import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
+  import BrandSelect from "@app/components/BrandSelect.svelte";
 
-  export let form: Product;
+  export let form: Product & { brand_key_name: string };
   export let isAdding: boolean = false;
 
   let discountRate = "0";
   let inventoryTextInput = "";
-  let brands: Brand[] = [];
 
-  const handleBrandChange = (selected: AutocompleteItem) => {
-    form.brand_key_name = selected.subvalue;
+  const handleBrandChange = (
+    event: CustomEvent<{ value?: AutocompleteItem }>,
+  ) => {
+    form.brand_key_name = event.detail.value?.subvalue ?? "";
   };
 
   const handleAddInventory = () => {
@@ -55,12 +56,6 @@
     }
   }, 100);
 
-  onMount(async () => {
-    const brandsAPi = new BrandsApi();
-    const res = await brandsAPi.brandsList();
-    brands = res.data;
-  });
-
   $: if (form.original_price || form.discounted_price) {
     discountRate = (
       ((form.original_price - form.discounted_price) / form.original_price) *
@@ -88,17 +83,9 @@
     </Column>
     <Column>
       <div class="bx--label">브랜드</div>
-      <Autocomplete
-        options={brands.map(({ brand_id, korname, keyname }) => ({
-          key: brand_id,
-          value: korname,
-          subvalue: keyname,
-        }))}
-        onSubmit={handleBrandChange}
-        placeholder="브랜드 이름/Keyname/ID로 검색"
-        labelText="브랜드 검색"
-        bind:selectedValue={form.brand_kor_name}
-        keepValueOnSubmit
+      <BrandSelect
+        on:change={handleBrandChange}
+        selectedValue={form.brand_kor_name}
       />
     </Column>
   </Row>

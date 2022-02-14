@@ -19,7 +19,6 @@
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
   import {
-    BrandsApi,
     ProductGroup,
     ProductsApi,
     ProductGroupsApi,
@@ -27,15 +26,15 @@
     ListProductResult,
     Product,
   } from "@api";
-  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import { AutocompleteItem } from "@app/components/autocomplete";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
   import DateTimePicker from "@app/components/DateTimePicker.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import BrandSelect from "@app/components/BrandSelect.svelte";
 
   const productGroupApi = new ProductGroupsApi();
   const productApi = new ProductsApi();
-  const brandsAPi = new BrandsApi();
 
   export let form: ProductGroup;
   export let isAdding: boolean = false;
@@ -47,7 +46,6 @@
 
   let expanded = false;
   let images: string[] = [];
-  let brands: AutocompleteItem[] = [];
   let productResult: Product[] = [];
   let filteredProductResult: Product[] = [];
 
@@ -60,16 +58,8 @@
   let productSearchQuery = "";
   let productSearchResultQuery = "";
   let selectedBrandId = "";
-  let selectedBrand = "";
 
   onMount(async () => {
-    const brandRes = await brandsAPi.brandsList();
-    brands = brandRes.data.map(({ brand_id, korname, keyname }) => ({
-      key: brand_id,
-      value: korname,
-      subvalue: keyname,
-    }));
-
     if (form.image_url) {
       images = [form.image_url];
     }
@@ -102,8 +92,10 @@
     selectedProductInGroup = selectedProductInGroup;
   };
 
-  const handleBrandChange = (selected: AutocompleteItem) => {
-    selectedBrandId = selected.key;
+  const handleBrandChange = (
+    event: CustomEvent<{ value?: AutocompleteItem }>,
+  ) => {
+    selectedBrandId = event.detail.value?.key ?? "";
   };
 
   const handleAddProductSubmit = async () => {
@@ -129,7 +121,6 @@
     productSearchQuery = "";
     productSearchResultQuery = "";
     selectedBrandId = "";
-    selectedBrand = "";
   };
 
   const handleProductDetailOpen = (productId: string) => () => {
@@ -307,14 +298,7 @@
   <Row class="search-wrapper">
     <Column sm={1}>
       <div class="bx--label">브랜드</div>
-      <Autocomplete
-        options={brands}
-        onSubmit={handleBrandChange}
-        placeholder="브랜드 이름/Keyname/ID로 검색"
-        labelText="브랜드 검색"
-        bind:selectedValue={selectedBrand}
-        keepValueOnSubmit
-      />
+      <BrandSelect on:change={handleBrandChange} />
     </Column>
     <Column sm={2}>
       <div class="bx--label">상품 검색</div>
