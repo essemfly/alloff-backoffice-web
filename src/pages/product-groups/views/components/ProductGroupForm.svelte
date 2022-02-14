@@ -383,17 +383,6 @@
                         product.alloff_product_id,
                       )}
                     />
-                    <Button
-                      tooltipPosition="bottom"
-                      tooltipAlignment="end"
-                      iconDescription="상품 삭제"
-                      icon={TrashCan16}
-                      kind="danger"
-                      size="small"
-                      on:click={handleDeleteProductFromGroup(
-                        product.alloff_product_id,
-                      )}
-                    />
                   </Row>
                 </StructuredListCell>
               </StructuredListRow>
@@ -436,7 +425,7 @@
                 <StructuredListCell noWrap>
                   {product.alloff_name}
                 </StructuredListCell>
-                <StructuredListCell>
+                <StructuredListCell class="product-list-number">
                   <NumberInput bind:value={priority} />
                 </StructuredListCell>
                 <StructuredListCell>
@@ -486,18 +475,14 @@
     vertical-align: top;
   }
 
+  :global(.product-list-number) :global(.bx--number) {
+    max-width: 180px;
+  }
+
   .cell_image {
     width: 80px;
     height: 80px;
     object-fit: cover;
-  }
-
-  :global(.bx--structured-list-td) :global(.bx--form-item) {
-    width: 120px;
-  }
-
-  :global(.bx--number) {
-    width: auto;
   }
 
   .button-wrapper {
@@ -507,7 +492,7 @@
     justify-content: flex-end;
   }
 
-  :global(.search-wrapper) {
+  :global(.search-wrapper.bx--row) {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -515,7 +500,7 @@
     margin-bottom: 10px;
   }
 
-  :global(.product-list) {
+  .product-list {
     max-height: 300px;
     overflow-y: auto;
   }
