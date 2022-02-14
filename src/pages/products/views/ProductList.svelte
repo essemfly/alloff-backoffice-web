@@ -1,10 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { navigate, useLocation } from "svelte-navigator";
-  import { Button, Search } from "carbon-components-svelte";
+  import { Button, Column, Row, Search } from "carbon-components-svelte";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
   import {
+    ListProductResult,
     Product,
     ProductsApi,
     ProductsApiProductsListRequest as SearchQueryParam,
@@ -17,36 +18,35 @@
   } from "@app/helpers/query-string";
 
   import ProductCard from "./components/ProductCard.svelte";
+  import BrandSelect from "@app/components/BrandSelect.svelte";
+  import { AutocompleteItem } from "@app/components/autocomplete";
 
   let products: Product[] = [];
-  let offset = 0;
-  let limit = 50;
-  let searchQuery = "";
+  let searchFilter: SearchQueryParam = {
+    offset: 0,
+    limit: 50,
+    searchQuery: "",
+    brandId: "",
+  };
   let totalItems = 0;
 
   const productApi = new ProductsApi();
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {
-    let res = await productApi.productsList({
-      offset: params.offset ?? 0,
-      limit: params.limit ?? 50,
-      query: params.query ?? "",
-    });
+    let res = await productApi.productsList(params);
 
-    res = res.data;
+    res = res.data as unknown as ListProductResult;
     products = res.products;
 
     // query strings
-    offset = res.offset;
-    limit = res.limit;
+    searchFilter = {
+      offset: res.offset,
+      limit: res.limit,
+      searchQuery: res.list_query.search_query,
+      brandId: res.list_query.brand_id,
+    };
     totalItems = res.total_counts;
-    searchQuery =
-      params.query ??
-      res.list_query.alloff_category_id ??
-      res.list_query.brand_id ??
-      res.list_query.category_id ??
-      res.list_query.search_query;
   };
 
   onMount(async () => {
@@ -63,25 +63,38 @@
     event: CustomEvent<{ offset: number; limit: number }>,
   ) => {
     const { offset, limit } = event.detail;
-    const queryString = formatQueryString({
+    searchFilter = {
+      ...searchFilter,
       offset,
       limit,
-      query: searchQuery,
-    });
-    navigate(`${$location.pathname}?${queryString}`);
+    };
+    handleSearch();
   };
 
-  const handleSearch = (e: KeyboardEvent) => {
-    const value = (e.target as HTMLInputElement).value.trim();
-    if (e.keyCode === 13) {
-      const queryString = formatQueryString({
-        offset: 0,
-        limit,
-        query: value,
-      });
+  const handleBrandChange = (
+    event: CustomEvent<{ value?: AutocompleteItem }>,
+  ) => {
+    const brandId = event.detail.value?.key ?? "";
+    searchFilter = {
+      ...searchFilter,
+      brandId,
+    };
+  };
 
-      navigate(`${$location.pathname}?${queryString}`);
+  const handleSearchKeydown = (e: KeyboardEvent) => {
+    const value = (e.target as HTMLInputElement).value.trim();
+    if (e.key === "Enter") {
+      searchFilter = {
+        ...searchFilter,
+        searchQuery: value,
+      };
+      handleSearch();
     }
+  };
+
+  const handleSearch = () => {
+    const queryString = formatQueryString({ ...searchFilter });
+    navigate(`${$location.pathname}?${queryString}`);
   };
 
   $: if ($location) {
@@ -94,8 +107,28 @@
   <div class="button-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
-  <Pagination {limit} {offset} {totalItems} on:change={handlePageChange} />
-  <Search on:keydown={handleSearch} bind:value={searchQuery} />
+  <form class="mb10">
+    <Row class="search-wrapper">
+      <Column sm={1}>
+        <BrandSelect on:change={handleBrandChange} />
+      </Column>
+      <Column sm={3}>
+        <Search
+          on:keydown={handleSearchKeydown}
+          bind:value={searchFilter.searchQuery}
+        />
+      </Column>
+    </Row>
+    <div class="button-wrapper">
+      <Button on:click={handleSearch}>검색</Button>
+    </div>
+  </form>
+  <Pagination
+    limit={searchFilter.limit}
+    offset={searchFilter.offset}
+    {totalItems}
+    on:change={handlePageChange}
+  />
   <ul class="product-list">
     {#each products as product}
       <ProductCard {product} />

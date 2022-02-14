@@ -1,8 +1,9 @@
 <script lang="ts">
   import { Button, PasswordInput, TextInput } from "carbon-components-svelte";
   import Login16 from "carbon-icons-svelte/lib/Login16";
-  import { TokenApi } from "../../api";
-  import { setTokens } from "../../core/auth";
+
+  import { TokenApi } from "@api";
+  import { setTokens } from "@app/core/auth";
 
   const login = async () => {
     if (!valid) return;
