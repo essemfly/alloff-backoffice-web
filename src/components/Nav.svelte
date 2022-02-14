@@ -35,7 +35,7 @@
   let isUtilOpen = false;
 
   const version = import.meta.env.VITE_PACKAGE_VERSION;
-  const isProd = import.meta.env.MODE === "production";
+  const isProd = import.meta.env.PROD;
   const location = useLocation();
 
   $: {
@@ -97,7 +97,7 @@
 
 <Header
   company="Alloff"
-  platformName="Backoffice"
+  platformName={$admin?.profile.is_admin ? "Backoffice" : "SCM"}
   bind:isSideNavOpen
   persistentHamburgerMenu
 >
@@ -168,9 +168,24 @@
       <HeaderAction bind:isOpen={isUtilOpen} icon={UserAvatar16}>
         <HeaderPanelLinks>
           <HeaderPanelDivider>
-            안녕하세요, {$admin.profile.name}님! 😎
+            {#if $admin.profile.is_admin}
+              <p class="super">⚠️ SUPERUSER 권한 적용중</p>
+            {/if}
+            Company
+            <p class="company name">
+              {$admin.profile.company.name}
+            </p>
+            안녕하세요,<span class="name">{$admin.profile.name}</span>님! 😎
           </HeaderPanelDivider>
           <HeaderPanelLink on:click={logout}>로그아웃</HeaderPanelLink>
+          {#if !$admin.profile.is_admin}
+            <HeaderPanelDivider>
+              관리중인 브랜드
+            </HeaderPanelDivider>
+            {#each $admin.profile.company.company_brands as b}
+              <HeaderPanelLink style="cursor: default;">{b.name}</HeaderPanelLink>
+            {/each}
+          {/if}
         </HeaderPanelLinks>
       </HeaderAction>
     </HeaderUtilities>
@@ -198,5 +213,19 @@
     font-size: 0.85em;
     color: white;
     margin-right: 30px;
+  }
+
+  .company {
+    margin-bottom: 10px;
+  }
+
+  .name {
+    font-weight: bold;
+    color: white;
+  }
+
+  .super {
+    font-weight: bold;
+    color: greenyellow;
   }
 </style>
