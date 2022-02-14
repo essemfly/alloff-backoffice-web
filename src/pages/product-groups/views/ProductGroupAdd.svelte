@@ -24,8 +24,20 @@
   const handleSubmit = async () => {
     try {
       const productGroupApi = new ProductGroupsApi();
-      await productGroupApi.productGroupsCreate({
-        createProductGroupSeriazlierRequest: productGroup,
+      const { products, ...requestBody } = productGroup;
+      const res = await productGroupApi.productGroupsCreate({
+        createProductGroupSeriazlierRequest: requestBody,
+      });
+      const newProductGroup = res.data;
+      await productGroupApi.productGroupsPushProductsCreate({
+        id: newProductGroup.product_group_id,
+        pushProductsRequest: {
+          product_group_id: newProductGroup.product_group_id,
+          product_priority: products.map(({ product, priority }) => ({
+            product_id: product.alloff_product_id,
+            priority,
+          })),
+        },
       });
       toast.push("컬렉션 등록이 완료되었습니다.");
       navigate(-1);

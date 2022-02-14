@@ -5,13 +5,14 @@
     Tab,
     Tabs,
   } from "carbon-components-svelte";
-  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "../../api";
-  import LoggedInFrame from "../common/LoggedInFrame.svelte";
-  import OrderItemSectionBasic from "./sections/OrderItemSectionBasic.svelte";
-  import OrderItemSectionPG from "./sections/OrderItemSectionPG.svelte";
-  import OrderItemSectionTop from "./sections/OrderItemSectionTop.svelte";
-  import OrderItemSectionLogs from "./sections/OrderItemSectionLogs.svelte";
-  import OrderItemSectionPayment from "./sections/OrderItemSectionPayment.svelte";
+  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+
+  import OrderItemSectionBasic from "./components/OrderItemSectionBasic.svelte";
+  import OrderItemSectionPG from "./components/OrderItemSectionPG.svelte";
+  import OrderItemSectionTop from "./components/OrderItemSectionTop.svelte";
+  import OrderItemSectionLogs from "./components/OrderItemSectionLogs.svelte";
+  import OrderItemSectionPayment from "./components/OrderItemSectionPayment.svelte";
 
   export let idOrCode: string;
 
@@ -49,7 +50,7 @@
   let selectedIndex = 0;
 </script>
 
-<LoggedInFrame>
+<Nav>
   {#if loading || submitting || !item}
     <div class="overlay">
       <div>
@@ -77,7 +78,7 @@
       </div>
     </Tabs>
   {/if}
-</LoggedInFrame>
+</Nav>
 
 <style>
   .overlay {
