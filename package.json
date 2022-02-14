@@ -7,7 +7,7 @@
     "lint": "eslint './src/**/*.{js,ts,svelte}'",
     "lint:fix": "eslint --fix './src/**/*.{js,ts,svelte}'",
     "prelint": "npm run format",
-    "start": "snowpack dev --config ./snowpack.prod.config.mjs",
+    "start": "snowpack dev --config ./snowpack.dev.config.mjs",
     "build": "snowpack build",
     "test": "web-test-runner \"src/**/*.test.ts\"",
     "postinstall": "yarn generate-apis",

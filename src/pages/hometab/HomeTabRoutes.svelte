@@ -1,13 +1,19 @@
 <script lang="ts">
   import { Route } from "svelte-navigator";
+  import BannerAdd from "./views/BannerAdd.svelte";
   import BannerList from "./views/BannerList.svelte";
   import CurationList from "./views/CurationList.svelte";
   import ExhibitionList from "./views/ExhibitionList.svelte";
   import TimedealList from "./views/TimedealList.svelte";
 </script>
 
-<Route path="/banners">
-  <BannerList />
+<Route path="banners/*">
+  <Route path="/">
+    <BannerList />
+  </Route>
+  <Route path="add">
+    <BannerAdd />
+  </Route>
 </Route>
 <Route path="/curations/:type" let:params>
   <CurationList type={params.type.replace("type", "")} />
