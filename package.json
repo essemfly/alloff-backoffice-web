@@ -7,9 +7,9 @@
     "lint": "eslint './src/**/*.{js,ts,svelte}'",
     "lint:fix": "eslint --fix './src/**/*.{js,ts,svelte}'",
     "prelint": "npm run format",
-    "dev": "vite",
-    "start": "snowpack dev --config ./snowpack.dev.config.mjs",
-    "build": "snowpack build",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "web-test-runner \"src/**/*.test.ts\"",
     "postinstall": "yarn generate-apis",
     "generate-apis": "node ./scripts/generateApis.js"
