@@ -6,7 +6,8 @@
     ModalHeader,
     NumberInput,
   } from "carbon-components-svelte";
-  import { numberWithCommas } from "../../../helpers/number";
+
+  import { numberWithCommas } from "@app/helpers/number";
 
   export let updateRefundInfo: (
     refundFee: number,

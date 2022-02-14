@@ -1,22 +1,23 @@
 <script lang="ts">
   import {
-  ComposedModal,
-  ContentSwitcher,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Switch,
-  TextInput
+    ComposedModal,
+    ContentSwitcher,
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
+    Switch,
+    TextInput,
   } from "carbon-components-svelte";
   import PiggyBank16 from "carbon-icons-svelte/lib/PiggyBank16";
   import Purchase16 from "carbon-icons-svelte/lib/Purchase16";
-  import { MethodEnum } from "../../../api";
-  import { numberWithCommas } from "../../../helpers/number";
+
+  import { MethodEnum } from "@api";
+  import { numberWithCommas } from "@app/helpers/number";
 
   export let adjustPayment: (
     reason: string,
     method: MethodEnum,
-    bank_account_info?: string
+    bank_account_info?: string,
   ) => Promise<void>;
 
   export let open = false;
@@ -41,7 +42,7 @@
     await adjustPayment(
       reason,
       method,
-      bank_account_info.trim() === "" ? undefined : bank_account_info
+      bank_account_info.trim() === "" ? undefined : bank_account_info,
     );
     open = false;
   }}
