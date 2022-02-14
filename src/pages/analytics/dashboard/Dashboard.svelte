@@ -1,10 +1,12 @@
 <script>
-  import { InlineLoading } from "carbon-components-svelte";
-  import * as d3 from "d3";
   import { DateTime } from "luxon";
   import { onMount } from "svelte";
-  import { OrdersApi } from "../../../api";
-  import LoggedInFrame from "../../common/LoggedInFrame.svelte";
+  import * as d3 from "d3";
+  import { InlineLoading } from "carbon-components-svelte";
+
+  import { OrdersApi } from "@api";
+
+  import Nav from "@app/components/Nav.svelte";
   import DashboardTable from "./components/DashboardTable.svelte";
 
   const api = new OrdersApi();
@@ -181,7 +183,7 @@
   };
 </script>
 
-<LoggedInFrame>
+<Nav>
   {#if loading}
     <InlineLoading description="Fetching data..." />
   {/if}
@@ -196,4 +198,4 @@
       .sort((a, b) => (a.date > b.date ? -1 : b.date > a.date ? 1 : 0))
       .map((d) => ({ id: d.date, ...d }))}
   />
-</LoggedInFrame>
+</Nav>

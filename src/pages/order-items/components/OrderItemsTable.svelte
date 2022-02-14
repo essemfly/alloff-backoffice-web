@@ -1,4 +1,6 @@
 <script lang="ts">
+  import debounce from "lodash/debounce";
+  import { DateTime } from "luxon";
   import { toast } from "@zerodevx/svelte-toast";
   import {
     Button,
@@ -10,19 +12,18 @@
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import Copy16 from "carbon-icons-svelte/lib/Copy16";
-  import debounce from "lodash/debounce";
-  import { DateTime } from "luxon";
-  import { OrderItemList } from "../../../api";
-  // import type { OrderList } from "../../../api";
-  import { numberWithCommas } from "../../../helpers/number";
+
+  import { OrderItemList } from "@api";
+  import { numberWithCommas } from "@app/helpers/number";
   import {
-getIsForeignBadgeColor,
+    getIsForeignBadgeColor,
     getIsForeignLabel,
     getStatusBadgeColor,
     getStatusLabel,
     getTypeBadgeColor,
     getTypeLabel,
-  } from "../../../helpers/order-item";
+  } from "@app/helpers/order-item";
+
   import { search } from "../store";
 
   export let items: OrderItemList[] = [];
@@ -101,11 +102,13 @@ getIsForeignBadgeColor,
     {:else if cell.key === "total_amount"}
       {numberWithCommas(cell.value)}
     {:else if cell.key === "ordered_at"}
-      {DateTime.fromISO(row.ordered_at ?? row.created_at).setLocale("ko").toLocaleString({
-        month: "short",
-        day: "numeric",
-        weekday: "narrow",
-      })}
+      {DateTime.fromISO(row.ordered_at ?? row.created_at)
+        .setLocale("ko")
+        .toLocaleString({
+          month: "short",
+          day: "numeric",
+          weekday: "narrow",
+        })}
     {:else}{cell.value}
     {/if}
   </span>

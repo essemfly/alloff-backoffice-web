@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { DateTime } from "luxon";
   import { DataTable } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
-  import { DateTime } from "luxon";
+
   type DataItem = { count: number; amount: number };
   export let data: { id: Date; nominal: DataItem; noncancel: DataItem }[] = [];
 

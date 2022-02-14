@@ -3,7 +3,7 @@
 
   import { AutocompleteItem, boldSearchTerm, findMatches } from "./utils";
 
-  export let onSubmit = (_: AutocompleteItem) => {};
+  export let onSubmit = (_?: AutocompleteItem) => {};
   export let options: AutocompleteItem[];
   export let keepValueOnSubmit = false;
   export let selectedValue = "";
@@ -53,12 +53,16 @@
       case "Enter":
         const highlightedOption = matches[highlightIndex];
         const value = highlightedOption || selectedValue;
-        console.log(highlightedOption, selectedValue);
         handleSubmit(value);
         break;
       default:
         return;
     }
+  };
+
+  const handleClear = () => {
+    onSubmit(undefined);
+    selectedValue = "";
   };
 
   const handleSubmit = (value: AutocompleteItem) => {
@@ -87,6 +91,7 @@
       on:keydown={handleKeyDown}
       on:input={showResults}
       on:focus={showResults}
+      on:clear={handleClear}
       {labelText}
       {placeholder}
     />
