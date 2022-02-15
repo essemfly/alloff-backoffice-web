@@ -12,6 +12,7 @@
   import OrderItems from "./pages/order-items/OrderItemList.svelte";
   import OrderItemRoutes from "./pages/order-items/OrderItemRoutes.svelte";
   import ProductGroupRoutes from "./pages/product-groups/ProductGroupRoutes.svelte";
+  import HomeTabRoutes from "./pages/hometab/HomeTabRoutes.svelte";
   import ProductRoutes from "./pages/products/ProductRoutes.svelte";
 
   // DO NOT DELETE THIS CONSOLE LOG
@@ -52,6 +53,9 @@
   </Route>
   <Route path="notifications/*">
     <NotificationRoutes />
+  </Route>
+  <Route path="hometab/*">
+    <HomeTabRoutes />
   </Route>
   <!-- default route -->
   <Route path="/">

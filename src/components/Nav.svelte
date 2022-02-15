@@ -1,31 +1,37 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { useLocation } from "svelte-navigator";
   import {
-  Content,
-  Header,
-  HeaderAction,
-  HeaderNav,
-  HeaderNavItem,
-  HeaderNavMenu,
-  HeaderPanelDivider,
-  HeaderPanelLink,
-  HeaderPanelLinks,
-  HeaderUtilities,
-  SideNav,
-  SideNavItems,
-  SideNavLink,
-  SideNavMenu,
-  SkipToContent
+    Content,
+    Header,
+    HeaderAction,
+    HeaderNav,
+    HeaderNavItem,
+    HeaderNavMenu,
+    HeaderPanelDivider,
+    HeaderPanelLink,
+    HeaderPanelLinks,
+    HeaderUtilities,
+    SideNav,
+    SideNavItems,
+    SideNavLink,
+    SideNavMenu,
+    SkipToContent,
   } from "carbon-components-svelte";
+  import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
+  import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
   import ConnectionReceive16 from "carbon-icons-svelte/lib/ConnectionReceive16";
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
+  import ListBoxes16 from "carbon-icons-svelte/lib/ListBoxes16";
   import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
   import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
   import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
+  import Template16 from "carbon-icons-svelte/lib/Template16";
+  import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
-  import { onMount } from "svelte";
-  import { useLocation } from "svelte-navigator";
-  import { AdminUserApi } from "../api";
-  import { removeTokens } from "../core/auth";
+
+  import { AdminUserApi } from "@api";
+  import { removeTokens } from "@app/core/auth";
   import { admin } from "../store";
 
   export let title: string = "";
@@ -72,7 +78,36 @@
     // { label: "대시보드", path: "/analytics/dashboard", icon: ChartLine16 },
     { label: "브랜드", path: "/brands" },
     { label: "상품", path: "/products" },
-    { label: "컬렉션", path: "/product-groups" },
+    {
+      label: "홈탭",
+      items: [
+        {
+          label: "홈탭 관리",
+          path: "/hometab",
+          icon: ListBoxes16,
+        },
+        {
+          label: "배너 목록",
+          path: "/hometab/banners",
+          icon: CarouselHorizontal16,
+        },
+        {
+          label: "타임딜 목록",
+          path: "/hometab/timedeals",
+          icon: Timer16,
+        },
+        {
+          label: "기획전 목록",
+          path: "/hometab/exhibitions",
+          icon: Catalog16,
+        },
+        {
+          label: "기획전 섹션 목록",
+          path: "/hometab/exhibitions/sections",
+          icon: Template16,
+        },
+      ],
+    },
   ];
 
   onMount(async () => {
