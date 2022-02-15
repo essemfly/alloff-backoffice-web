@@ -20,12 +20,14 @@
     /* Additional Options */
     "strict": true,
     "skipLibCheck": true,
-    "types": ["mocha", "snowpack-env"],
     "forceConsistentCasingInFileNames": false,
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "importsNotUsedAsValues": "preserve"
-  }
+    "importsNotUsedAsValues": "preserve",
+    "allowJs": true,
+    "checkJs": true
+  },
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

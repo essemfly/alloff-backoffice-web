@@ -1,31 +1,29 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { useLocation } from "svelte-navigator";
   import {
-    Content,
-    Header,
-    HeaderAction,
-    HeaderNav,
-    HeaderNavItem,
-    HeaderNavMenu,
-    HeaderPanelDivider,
-    HeaderPanelLink,
-    HeaderPanelLinks,
-    HeaderUtilities,
-    SideNav,
-    SideNavItems,
-    SideNavLink,
-    SideNavMenu,
-    SkipToContent,
+  Content,
+  Header,
+  HeaderAction,
+  HeaderNav,
+  HeaderNavItem,
+  HeaderNavMenu,
+  HeaderPanelDivider,
+  HeaderPanelLink,
+  HeaderPanelLinks,
+  HeaderUtilities,
+  SideNav,
+  SideNavItems,
+  SideNavLink,
+  SideNavMenu,
+  SkipToContent
   } from "carbon-components-svelte";
-  import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
-  import Timer16 from "carbon-icons-svelte/lib/Timer16";
-  import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
   import ConnectionReceive16 from "carbon-icons-svelte/lib/ConnectionReceive16";
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
+  import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
+  import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
   import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
-
+  import { onMount } from "svelte";
+  import { useLocation } from "svelte-navigator";
   import { AdminUserApi } from "../api";
   import { removeTokens } from "../core/auth";
   import { admin } from "../store";
@@ -36,7 +34,7 @@
   let isSideNavOpen = false;
   let isUtilOpen = false;
 
-  const version = import.meta.env.PACKAGE_VERSION;
+  const version = import.meta.env.VITE_PACKAGE_VERSION;
   const isProd = import.meta.env.MODE === "production";
   const location = useLocation();
 
@@ -162,7 +160,7 @@
     </SideNavItems>
   </SideNav>
   <div>
-    {import.meta.env.PACKAGE_VERSION}
+    {import.meta.env.VITE_PACKAGE_VERSION}
   </div>
 
   {#if $admin}
