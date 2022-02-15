@@ -8,6 +8,7 @@ export const formatDate = (
     weekday: "narrow",
   },
 ) => {
+  if (!originDate) return "";
   const formatted = DateTime.fromSQL(originDate.replace(" UTC", ""))
     .setLocale("ko")
     .toLocaleString(options);
