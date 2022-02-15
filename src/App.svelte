@@ -1,18 +1,15 @@
 <script lang="ts">
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import "carbon-components-svelte/css/g10.css";
-  import { Route, Router } from "svelte-navigator";
-
+  import { Route,Router } from "svelte-navigator";
   // import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
   import Login from "./pages/auth/Login.svelte";
-
-  // default route.. todo: fix to redirect
-  import OrderItems from "./pages/order-items/OrderItemList.svelte";
-
   // Routes
   import BrandRoutes from "./pages/brands/BrandRoutes.svelte";
   import LogisticsRoutes from "./pages/logistics/LogisticsRoutes.svelte";
   import NotificationRoutes from "./pages/notifications/NotificationRoutes.svelte";
+  // default route.. todo: fix to redirect
+  import OrderItems from "./pages/order-items/OrderItemList.svelte";
   import OrderItemRoutes from "./pages/order-items/OrderItemRoutes.svelte";
   import ProductGroupRoutes from "./pages/product-groups/ProductGroupRoutes.svelte";
   import HomeTabRoutes from "./pages/hometab/HomeTabRoutes.svelte";
@@ -21,7 +18,7 @@
   // DO NOT DELETE THIS CONSOLE LOG
   console.log(
     `%cBackoffice Web [${import.meta.env.MODE}] v${
-      import.meta.env.PACKAGE_VERSION
+      import.meta.env.VITE_PACKAGE_VERSION
     }`,
     "font-size: 16px; color: #a5efda; background-color: #000; padding: 2px 5px;",
   );

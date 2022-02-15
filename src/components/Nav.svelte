@@ -18,17 +18,17 @@
     SideNavMenu,
     SkipToContent,
   } from "carbon-components-svelte";
-  import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
-  import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
+  import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
+  import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
   import ConnectionReceive16 from "carbon-icons-svelte/lib/ConnectionReceive16";
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
-  import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
-  import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
-  import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
-  import Template16 from "carbon-icons-svelte/lib/Template16";
-  import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
-  import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import ListBoxes16 from "carbon-icons-svelte/lib/ListBoxes16";
+  import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
+  import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
+  import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
+  import Template16 from "carbon-icons-svelte/lib/Template16";
+  import Timer16 from "carbon-icons-svelte/lib/Timer16";
+  import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
 
   import { AdminUserApi } from "@api";
   import { removeTokens } from "@app/core/auth";
@@ -40,7 +40,7 @@
   let isSideNavOpen = false;
   let isUtilOpen = false;
 
-  const version = import.meta.env.PACKAGE_VERSION;
+  const version = import.meta.env.VITE_PACKAGE_VERSION;
   const isProd = import.meta.env.MODE === "production";
   const location = useLocation();
 
@@ -195,7 +195,7 @@
     </SideNavItems>
   </SideNav>
   <div>
-    {import.meta.env.PACKAGE_VERSION}
+    {import.meta.env.VITE_PACKAGE_VERSION}
   </div>
 
   {#if $admin}
