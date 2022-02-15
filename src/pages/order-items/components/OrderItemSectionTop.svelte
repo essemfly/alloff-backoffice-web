@@ -1,29 +1,26 @@
 <script lang="ts">
+  import { OrderItemRetrieve,OrderItemsApi,OrderItemStatusEnum } from "@api";
+  import SquareTag from "@app/components/SquareTag.svelte";
   import {
-    OverflowMenu,
-    OverflowMenuItem,
-    Tag,
-  } from "carbon-components-svelte";
-
-  import { OrderItemRetrieve, OrderItemsApi, OrderItemStatusEnum } from "@api";
-  import {
-    getIsForeignBadgeColor,
-    getIsForeignLabel,
-    getOrderItemTimestampByStatus,
-    // getOrderTimestampByStatus,
-    getStatusBadgeColor,
-    getStatusLabel,
-    getTypeBadgeColor,
-    getTypeLabel,
-    // toChangeStatusEnum,
-  } from "@app/helpers/order-item";
-  import {
-    ORDER_ITEM_ALL_STATUSES,
-    ORDER_ITEM_DOMESTIC_STATUSES,
+  ORDER_ITEM_ALL_STATUSES,
+  ORDER_ITEM_DOMESTIC_STATUSES
   } from "@app/constants";
   import { numberWithCommas } from "@app/helpers/number";
-  import SquareTag from "@app/components/SquareTag.svelte";
-
+  import {
+  getIsForeignBadgeColor,
+  getIsForeignLabel,
+  getOrderItemTimestampByStatus,
+  // getOrderTimestampByStatus,
+  getStatusBadgeColor,
+  getStatusLabel,
+  getTypeBadgeColor,
+  getTypeLabel
+  } from "@app/helpers/order-item";
+  import {
+  OverflowMenu,
+  OverflowMenuItem,
+  Tag
+  } from "carbon-components-svelte";
   import TrackingInputModal from "../components/TrackingInputModal.svelte";
 
   export let item: OrderItemRetrieve;
@@ -79,6 +76,15 @@
     }
     changeOrderItemStatus(item, status);
   };
+
+  const getSourcingExcelRow = (item: OrderItemRetrieve) =>
+    `${(item.order.ordered_at ?? item.ordered_at) ?? item.created_at}\t${item.brand_korname}\t${item.product_name}\t${
+      item.color ?? "N/A"
+    }\t${item.size}\t${item.order.payment.buyer_name}\t'${
+      item.order.payment.buyer_mobile
+    }\t${item.order.payment.buyer_address}\t'${
+      item.order.payment.buyer_post_code
+    }`;
 </script>
 
 <h3 style="margin-bottom: 10px;">{item.order_item_code}</h3>
@@ -98,6 +104,10 @@
   >
   <Tag type="cool-gray">DB #{item.id}</Tag>
   <OverflowMenu>
+    <OverflowMenuItem
+      on:click={() => navigator.clipboard.writeText(getSourcingExcelRow(item))}
+      text="해외소싱 엑셀 복사"
+    />
     <OverflowMenuItem
       on:click={() => navigator.clipboard.writeText(item.order_item_code)}
       text="코드 복사"
