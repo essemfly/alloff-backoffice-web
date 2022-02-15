@@ -75,10 +75,10 @@
   }
 </script>
 
-<Nav title="홈탭 목록">
-  <h1>홈탭 목록</h1>
+<Nav title="홈탭 관리">
+  <h1>홈탭 관리</h1>
   <div class="button-wrapper mb10">
-    <Button on:click={handleAddClick}>홈탭 추가</Button>
+    <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
   </div>
   <Pagination
     limit={searchFilter.limit}
@@ -88,6 +88,6 @@
   />
   <DataTable data={hometabs} columns={hometabColumns} />
   <div class="button-wrapper mt10">
-    <Button on:click={handleAddClick}>홈탭 추가</Button>
+    <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
   </div>
 </Nav>

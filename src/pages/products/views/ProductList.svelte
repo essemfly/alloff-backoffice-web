@@ -36,17 +36,16 @@
   const load = async (params: SearchQueryParam) => {
     let res = await productApi.productsList(params);
 
-    res = res.data as unknown as ListProductResult;
-    products = res.products;
+    products = res.data.products;
 
     // query strings
     searchFilter = {
-      offset: res.offset,
-      limit: res.limit,
-      searchQuery: res.list_query.search_query,
-      brandId: res.list_query.brand_id,
+      offset: res.data.offset,
+      limit: res.data.limit,
+      searchQuery: res.data.list_query.search_query,
+      brandId: res.data.list_query.brand_id,
     };
-    totalItems = res.total_counts;
+    totalItems = res.data.total_counts;
   };
 
   onMount(async () => {

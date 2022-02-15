@@ -1,21 +1,30 @@
 <script lang="ts">
-  import { DateTime } from "luxon";
-  import { onMount } from "svelte";
-  import { navigate } from "svelte-navigator";
+  import { navigate, useLocation } from "svelte-navigator";
   import { Button, DataTable } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
-  import { ProductGroup, ProductGroupsApi } from "@api";
+  import {
+    ProductGroup,
+    ProductGroupsApi,
+    ProductGroupsApiProductGroupsListRequest as SearchQueryParam,
+  } from "@api";
   import Nav from "@app/components/Nav.svelte";
+  import { parseQueryString } from "@app/helpers/query-string";
+  import { formatDate } from "@app/helpers/date";
   // import Pagination from "@app/components/Pagination.svelte";
 
   let productGroups: Array<ProductGroup & { id: string }> = [];
-  let page = 1;
-  let pageSize = 50;
+  let searchFilter: SearchQueryParam = {
+    offset: 0,
+    limit: 50,
+    searchQuery: undefined,
+    groupType: undefined,
+  };
   let totalItems = 0;
 
   const productGroupApi = new ProductGroupsApi();
+  const location = useLocation<SearchQueryParam>();
 
   const headers: DataTableHeader[] = [
     { key: "image_url", value: "썸네일" },
@@ -25,27 +34,13 @@
     { key: "finish_time", value: "종료일시" },
   ];
 
-  const load = async (page: number, size: number, search?: string) => {
-    const res = await productGroupApi.productGroupsList({
-      page,
-      search,
-      size,
-      location,
-    });
+  const load = async (params: SearchQueryParam) => {
+    const res = await productGroupApi.productGroupsList(params);
+    // productGroups = res.data.pgs.map((x) => ({ ...x, id: x.product_group_id }));
+    // totalItems = res.data.total_counts;
+
     productGroups = res.data.map((x) => ({ ...x, id: x.product_group_id }));
-
-    totalItems = res.data.length; // todo: fix
-  };
-
-  onMount(async () => {
-    await load(1, pageSize);
-  });
-
-  const formatDate = (originDate: string) => {
-    const formatted = DateTime.fromSQL(originDate.replace(" UTC", ""))
-      .setLocale("ko")
-      .toLocaleString({ month: "short", day: "numeric", weekday: "narrow" });
-    return formatted;
+    totalItems = res.data.length;
   };
 
   // const handleSearch = debounce((e) => {
@@ -62,6 +57,11 @@
     event.preventDefault();
     navigate(`/product-groups/${event.detail.product_group_id}`);
   };
+
+  $: if ($location) {
+    const params = parseQueryString<SearchQueryParam>($location.search);
+    load(params);
+  }
 </script>
 
 <Nav title="컬렉션 목록">

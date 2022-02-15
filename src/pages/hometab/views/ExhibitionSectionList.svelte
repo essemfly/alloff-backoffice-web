@@ -62,25 +62,23 @@
   }
 </script>
 
-<Nav title="타임딜 목록">
+<Nav title="기획전 섹션 목록">
   <div class="button-wrapper mb10">
-    <Button icon={DocumentAdd16} on:click={handleAddClick}>타임딜 추가</Button>
+    <Button icon={DocumentAdd16} on:click={handleAddClick}
+      >기획전 섹션 추가</Button
+    >
   </div>
   <DataTable data={productGroups} columns={timedealColumns} />
   <div class="button-wrapper mt10">
-    <Button icon={DocumentAdd16} on:click={handleAddClick}>타임딜 추가</Button>
+    <Button icon={DocumentAdd16} on:click={handleAddClick}
+      >기획전 섹션 추가</Button
+    >
   </div>
 </Nav>
 
 <style>
   :global(.bx--data-table tr) {
     cursor: pointer;
-  }
-
-  .cell_thumb {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
   }
 
   .button-wrapper {
