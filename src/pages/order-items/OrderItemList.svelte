@@ -1,21 +1,19 @@
 <script lang="ts">
-  import { DateTime } from "luxon";
-  import { useLocation } from "svelte-navigator";
-  import {
-    Checkbox,
-    DatePicker,
-    DatePickerInput,
-    Pagination,
-  } from "carbon-components-svelte";
-
-  import { OrderItemList, OrderItemsApi, OrderItemStatusEnum } from "@api";
+  import { OrderItemList,OrderItemsApi,OrderItemStatusEnum } from "@api";
+  import Nav from "@app/components/Nav.svelte";
   import { ORDER_ITEM_ALL_STATUSES } from "@app/constants";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import { getStatusLabel } from "@app/helpers/order-item";
-  import Nav from "@app/components/Nav.svelte";
-
-  import { search } from "./store";
+  import {
+  Checkbox,
+  DatePicker,
+  DatePickerInput,
+  Pagination
+  } from "carbon-components-svelte";
+  import { DateTime } from "luxon";
+  import { useLocation } from "svelte-navigator";
   import OrderItemsTable from "./components/OrderItemsTable.svelte";
+  import { search } from "./store";
 
   const location = useLocation();
   const params = new URLSearchParams($location.search);
@@ -26,8 +24,8 @@
   let page = 1;
   let pageSize = 20;
   let totalItems = 0;
-  let createdGte = DateTime.now().minus({ days: 7 }).toISO().split("T")[0];
-  let createdLte = DateTime.now().toISO().split("T")[0];
+  let dateFrom = DateTime.now().minus({ days: 7 }).toISO().split("T")[0];
+  let dateTo = DateTime.now().toISO().split("T")[0];
 
   let statuses = [...ORDER_ITEM_ALL_STATUSES];
   const pageSizes = [20, 50, 100];
@@ -36,8 +34,8 @@
     p: number,
     size: number,
     statuses: OrderItemStatusEnum[],
-    createdGte: string,
-    createdLte: string,
+    dateFrom: string,
+    dateTo: string,
     search?: string,
   ) => {
     if (userId) {
@@ -54,11 +52,11 @@
         search,
         size,
         statuses,
-        // createdGte: DateTime.fromISO(createdGte).toISO(),
-        // createdLte: DateTime.fromISO(createdLte)
-        //   .plus({ days: 1 })
-        //   .minus({ milliseconds: 1 })
-        //   .toISO(),
+        dateFrom: DateTime.fromISO(dateFrom).toISO(),
+        dateTo: DateTime.fromISO(dateTo)
+          .plus({ days: 1 })
+          .minus({ milliseconds: 1 })
+          .toISO(),
       });
 
       totalItems = count ?? 0;
@@ -70,8 +68,8 @@
     page,
     pageSize,
     statuses,
-    createdGte,
-    createdLte,
+    dateFrom,
+    dateTo,
     $search.trim() === "" ? undefined : $search,
   );
 </script>
@@ -88,8 +86,8 @@
     {#if !userId && !alloffOrderId}
       <DatePicker
         datePickerType="range"
-        bind:valueFrom={createdGte}
-        bind:valueTo={createdLte}
+        bind:valueFrom={dateFrom}
+        bind:valueTo={dateTo}
         dateFormat="Y-m-d"
       >
         <DatePickerInput labelText="시작일" placeholder="yyyy-mm-dd" />
