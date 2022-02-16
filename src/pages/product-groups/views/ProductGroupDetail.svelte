@@ -7,12 +7,13 @@
 
   import {
     EditProductGroupRequest,
+    GroupTypeEnum,
     ProductGroup,
     ProductGroupsApi,
   } from "@api";
   import Nav from "@app/components/Nav.svelte";
 
-  import ProductForm from "./components/ProductGroupForm.svelte";
+  import ProductGroupForm from "./components/ProductGroupForm.svelte";
 
   const productGroupApi = new ProductGroupsApi();
 
@@ -21,61 +22,61 @@
   let productGroup: ProductGroup;
   let isLoading = true;
   let isTouched = true;
+  let productGroupTypeLabel = "컬렉션";
 
   onMount(async () => {
     const res = await productGroupApi.productGroupsRetrieve({ id: productId });
     productGroup = res.data;
     isLoading = false;
+    productGroupTypeLabel = getGroupTypeLabel(
+      productGroup.group_type as unknown as number,
+    );
+    console.log(productGroupTypeLabel);
   });
 
   const handleSubmit = async () => {
     try {
       // remove products from product group
-      const { products, ...restProductGroup } = productGroup;
+      const { products, group_type, ...restProductGroup } = productGroup;
       await productGroupApi.productGroupsUpdate({
         id: productGroup.product_group_id,
         editProductGroupRequest:
           restProductGroup as unknown as EditProductGroupRequest,
       });
-      toast.push("컬렉션 수정이 완료되었습니다.");
+      toast.push(`${productGroupTypeLabel} 수정이 완료되었습니다.`);
       navigate(-1);
     } catch (e) {
-      toast.push(`컬렉션 수정에 오류가 발생했습니다.`);
+      toast.push(`${productGroupTypeLabel} 수정에 오류가 발생했습니다.`);
     }
   };
+
+  function getGroupTypeLabel(typeIndex: number) {
+    const type = Object.keys(GroupTypeEnum)[typeIndex];
+    switch (type) {
+      case "Timedeal":
+        return "타임딜";
+      case "Exhibition":
+        return "기획전 섹션";
+      default:
+        return "컬렉션";
+    }
+  }
 </script>
 
-<Nav title={productGroup?.title ?? "컬렉션 상세"}>
+<Nav title={productGroup?.title ?? `${productGroupTypeLabel} 상세`}>
   {#if isLoading}
     <InlineLoading status="active" description="On Loading..." />
   {:else}
-    <Grid>
-      <div class="button-wrapper mb10">
-        <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-          {"수정"}
-        </Button>
-      </div>
-      <ProductForm form={productGroup} />
-      <div class="button-wrapper mt10">
-        <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-          {"수정"}
-        </Button>
-      </div>
-    </Grid>
+    <div class="button-right-wrapper mb10">
+      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+        {"수정"}
+      </Button>
+    </div>
+    <ProductGroupForm label={productGroupTypeLabel} form={productGroup} />
+    <div class="button-right-wrapper mt10">
+      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+        {"수정"}
+      </Button>
+    </div>
   {/if}
 </Nav>
-
-<style>
-  .button-wrapper {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
-  }
-</style>

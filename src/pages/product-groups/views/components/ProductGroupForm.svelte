@@ -37,7 +37,8 @@
   const productApi = new ProductsApi();
 
   export let form: ProductGroup;
-  export const isAdding: boolean = false;
+  export let label: string = "컬렉션";
+  export let isAdding: boolean = false;
 
   interface SelectedProductInGroup {
     product: Product;
@@ -184,10 +185,10 @@
 </script>
 
 <ContentBox>
-  <h3>컬렉션 정보</h3>
+  <h3>{label} 정보</h3>
   <Row>
     <Column>
-      <ImageUploadField label={"대표 이미지"} bind:value={images} />
+      <ImageUploadField label={"대표 이미지"} bind:value={form.image_url} />
     </Column>
   </Row>
   <Row>
@@ -467,13 +468,6 @@
     width: 80px;
     height: 80px;
     object-fit: cover;
-  }
-
-  .button-wrapper {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
   }
 
   :global(.search-wrapper.bx--row) {
