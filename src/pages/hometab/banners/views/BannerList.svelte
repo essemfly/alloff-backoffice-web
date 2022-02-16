@@ -3,9 +3,9 @@
   import { Button } from "carbon-components-svelte";
 
   import {
-    HomeTab,
-    HometabsApi,
-    HometabsApiHometabsListRequest as SearchQueryParam,
+    TopBanner,
+    TopBannersApi,
+    TopBannersApiTopBannersListRequest as SearchQueryParam,
   } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
@@ -16,26 +16,26 @@
     parseQueryString,
   } from "@app/helpers/query-string";
 
-  import { hometabColumns } from "./components/hometabColumns";
+  import { bannerColumns } from "./components/bannerColumns";
 
-  let hometabs: DataTableData<HomeTab>[] = [];
+  let banners: DataTableData<TopBanner>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
   let isLoading = false;
   let totalItems = 0;
 
-  const hometabApi = new HometabsApi();
+  const bannerApi = new TopBannersApi();
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {
     if (isLoading) return;
     isLoading = true;
     try {
-      const res = await hometabApi.hometabsList({
+      const res = await bannerApi.topBannersList({
         ...params,
       });
-      hometabs = res.data.items.map((x) => ({
+      banners = res.data.banners.map((x) => ({
         ...x,
-        id: x.item_id,
+        id: x.banner_id,
       }));
       searchFilter = {
         offset: res.data.offset,
@@ -75,10 +75,10 @@
   }
 </script>
 
-<Nav title="홈탭 목록">
-  <h1>홈탭 목록</h1>
+<Nav title="배너 목록">
+  <h1>배너 목록</h1>
   <div class="button-wrapper mb10">
-    <Button on:click={handleAddClick}>홈탭 추가</Button>
+    <Button on:click={handleAddClick}>배너 추가</Button>
   </div>
   <Pagination
     limit={searchFilter.limit}
@@ -86,8 +86,28 @@
     {totalItems}
     on:change={handlePageChange}
   />
-  <DataTable data={hometabs} columns={hometabColumns} />
+  <DataTable data={banners} columns={bannerColumns} />
   <div class="button-wrapper mt10">
-    <Button on:click={handleAddClick}>홈탭 추가</Button>
+    <Button on:click={handleAddClick}>배너 추가</Button>
   </div>
 </Nav>
+
+<style>
+  :global(.bx--data-table tr) {
+    cursor: pointer;
+  }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .mb10 {
+    margin-bottom: 10px;
+  }
+
+  .mt10 {
+    margin-top: 10px;
+  }
+</style>

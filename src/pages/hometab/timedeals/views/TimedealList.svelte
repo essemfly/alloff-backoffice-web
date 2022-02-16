@@ -13,6 +13,7 @@
   import DataTable from "@app/components/DataTable/DataTable.svelte";
   import { DataTableData } from "@app/components/DataTable/helpers";
   import { parseQueryString } from "@app/helpers/query-string";
+
   import { timedealColumns } from "./components/timedealColumns";
 
   let productGroups: DataTableData<ProductGroup>[] = [];
@@ -62,17 +63,13 @@
   }
 </script>
 
-<Nav title="기획전 섹션 목록">
+<Nav title="타임딜 목록">
   <div class="button-wrapper mb10">
-    <Button icon={DocumentAdd16} on:click={handleAddClick}
-      >기획전 섹션 추가</Button
-    >
+    <Button icon={DocumentAdd16} on:click={handleAddClick}>타임딜 추가</Button>
   </div>
   <DataTable data={productGroups} columns={timedealColumns} />
   <div class="button-wrapper mt10">
-    <Button icon={DocumentAdd16} on:click={handleAddClick}
-      >기획전 섹션 추가</Button
-    >
+    <Button icon={DocumentAdd16} on:click={handleAddClick}>타임딜 추가</Button>
   </div>
 </Nav>
 

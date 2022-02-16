@@ -23,20 +23,4 @@ export const timedealColumns: DataTableColumn<ProductGroup>[] = [
     name: "종료일시",
     get: (data) => formatDate(data.finish_time),
   },
-  {
-    key: "reference",
-    name: "관련",
-    type: "link",
-    get: (data) => {
-      const { params, path } = data.reference;
-      switch (data.item_type) {
-        case ItemTypeEnum.Exhibition:
-          return `/exhibitions/${params}`;
-        case ItemTypeEnum.Exhibitions: // 기획전 모음
-          return "";
-        default:
-          return `/${path}/${params}`;
-      }
-    },
-  },
 ];

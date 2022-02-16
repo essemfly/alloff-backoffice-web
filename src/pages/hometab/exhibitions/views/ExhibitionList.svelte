@@ -13,9 +13,10 @@
     parseQueryString,
   } from "@app/helpers/query-string";
   import Pagination from "@app/components/Pagination.svelte";
-  import { exhibitionColumns } from "./components/exhibitionColumns";
   import { DataTableData } from "@app/components/DataTable/helpers";
   import DataTable from "@app/components/DataTable/DataTable.svelte";
+
+  import { exhibitionColumns } from "./components/exhibitionColumns";
 
   let exhibitions: DataTableData<Exhibition>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
@@ -90,3 +91,23 @@
     <Button on:click={handleAddClick}>기획전 추가</Button>
   </div>
 </Nav>
+
+<style>
+  :global(.bx--data-table tr) {
+    cursor: pointer;
+  }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .mb10 {
+    margin-bottom: 10px;
+  }
+
+  .mt10 {
+    margin-top: 10px;
+  }
+</style>
