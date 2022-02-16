@@ -103,7 +103,7 @@
 </script>
 
 <Nav title="상품 목록">
-  <div class="button-wrapper mb10">
+  <div class="button-right-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
   <form class="mb10">
@@ -133,7 +133,7 @@
       <ProductCard {product} />
     {/each}
   </ul>
-  <div class="button-wrapper mt10">
+  <div class="button-right-wrapper mt10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>상품 추가</Button>
   </div>
 </Nav>
@@ -145,19 +145,5 @@
     flex-direction: row;
     flex: 1 0 21%; /* explanation below */
     justify-content: flex-start;
-  }
-
-  .button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
   }
 </style>

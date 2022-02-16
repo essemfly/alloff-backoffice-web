@@ -44,13 +44,13 @@
     <InlineLoading status="active" description="On Loading..." />
   {:else}
     <Grid>
-      <div class="button-wrapper mb10">
+      <div class="button-right-wrapper mb10">
         <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
           {"수정"}
         </Button>
       </div>
       <ProductForm form={product} />
-      <div class="button-wrapper mt10">
+      <div class="button-right-wrapper mt10">
         <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
           {"수정"}
         </Button>
@@ -58,18 +58,3 @@
     </Grid>
   {/if}
 </Nav>
-
-<style>
-  .button-wrapper {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
-  }
-</style>

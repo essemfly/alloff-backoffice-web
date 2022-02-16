@@ -64,31 +64,11 @@
 </script>
 
 <Nav title="타임딜 목록">
-  <div class="button-wrapper mb10">
+  <div class="button-right-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>타임딜 추가</Button>
   </div>
   <DataTable data={productGroups} columns={timedealColumns} />
-  <div class="button-wrapper mt10">
+  <div class="button-right-wrapper mt10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>타임딜 추가</Button>
   </div>
 </Nav>
-
-<style>
-  :global(.bx--data-table tr) {
-    cursor: pointer;
-  }
-
-  .button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
-  }
-</style>

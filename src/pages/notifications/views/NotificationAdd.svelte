@@ -34,31 +34,16 @@
 
 <Nav title={"푸시알림 추가"}>
   <Grid>
-    <div class="button-wrapper mb10">
+    <div class="button-right-wrapper mb10">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
         푸시알림 등록
       </Button>
     </div>
     <NotificationForm bind:form={notification} isAdding />
-    <div class="button-wrapper mt10">
+    <div class="button-right-wrapper mt10">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
         푸시알림 등록
       </Button>
     </div>
   </Grid>
 </Nav>
-
-<style>
-  .button-wrapper {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
-  }
-</style>

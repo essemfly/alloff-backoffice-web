@@ -13,3 +13,17 @@ html, body {
   user-select: none; /* Non-prefixed version, currently
                                 supported by Chrome, Edge, Opera and Firefox */
 }
+
+.button-right-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}

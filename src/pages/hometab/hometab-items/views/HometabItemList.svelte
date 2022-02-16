@@ -75,9 +75,9 @@
   }
 </script>
 
-<Nav title="홈탭 관리">
-  <h1>홈탭 관리</h1>
-  <div class="button-wrapper mb10">
+<Nav title="홈탭 아이템 관리">
+  <h1>홈탭 아이템 관리</h1>
+  <div class="button-right-wrapper mb10">
     <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
   </div>
   <Pagination
@@ -87,7 +87,7 @@
     on:change={handlePageChange}
   />
   <DataTable data={hometabs} columns={hometabColumns} />
-  <div class="button-wrapper mt10">
+  <div class="button-right-wrapper mt10">
     <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
   </div>
 </Nav>

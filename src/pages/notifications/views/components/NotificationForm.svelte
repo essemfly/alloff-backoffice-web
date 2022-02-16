@@ -18,7 +18,7 @@
   } from "../../models/Notification";
 
   export let form: Noti;
-  export const isAdding = false;
+  export let isAdding = false;
 
   let productGroupOptions: AutocompleteItem[] = [];
   let selectedValue = "";
@@ -99,6 +99,3 @@
     </Column>
   </Row>
 </ContentBox>
-
-<style>
-</style>

@@ -63,6 +63,3 @@
     <OrderItems />
   </Route>
 </Router>
-
-<style>
-</style>

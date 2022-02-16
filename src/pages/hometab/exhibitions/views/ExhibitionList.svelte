@@ -77,7 +77,7 @@
 
 <Nav title="기획전 목록">
   <h1>기획전 목록</h1>
-  <div class="button-wrapper mb10">
+  <div class="button-right-wrapper mb10">
     <Button on:click={handleAddClick}>기획전 추가</Button>
   </div>
   <Pagination
@@ -87,7 +87,7 @@
     on:change={handlePageChange}
   />
   <DataTable data={exhibitions} columns={exhibitionColumns} />
-  <div class="button-wrapper mt10">
+  <div class="button-right-wrapper mt10">
     <Button on:click={handleAddClick}>기획전 추가</Button>
   </div>
 </Nav>
@@ -95,19 +95,5 @@
 <style>
   :global(.bx--data-table tr) {
     cursor: pointer;
-  }
-
-  .button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
   }
 </style>
