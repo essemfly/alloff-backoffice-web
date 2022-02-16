@@ -82,7 +82,7 @@
       label: "홈탭",
       items: [
         {
-          label: "홈탭 관리",
+          label: "홈탭 아이템 관리",
           path: "/hometab",
           icon: ListBoxes16,
         },
