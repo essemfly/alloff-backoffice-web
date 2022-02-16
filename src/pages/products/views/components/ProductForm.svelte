@@ -18,7 +18,7 @@
   import BrandSelect from "@app/components/BrandSelect.svelte";
 
   export let form: Product & { brand_key_name: string };
-  export let isAdding: boolean = false;
+  export const isAdding: boolean = false;
 
   let discountRate = "0";
   let inventoryTextInput = "";

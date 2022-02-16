@@ -37,7 +37,7 @@
   const productApi = new ProductsApi();
 
   export let form: ProductGroup;
-  export let isAdding: boolean = false;
+  export const isAdding: boolean = false;
 
   interface SelectedProductInGroup {
     product: Product;

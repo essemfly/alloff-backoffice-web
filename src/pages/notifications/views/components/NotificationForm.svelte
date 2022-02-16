@@ -18,7 +18,7 @@
   } from "../../models/Notification";
 
   export let form: Noti;
-  export let isAdding = false;
+  export const isAdding = false;
 
   let productGroupOptions: AutocompleteItem[] = [];
   let selectedValue = "";
