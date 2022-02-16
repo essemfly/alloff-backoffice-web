@@ -37,11 +37,11 @@
         ...params,
         groupType: GroupTypeEnum.Exhibition,
       });
-      // productGroups = res.data.pgs.map((x) => ({ ...x, id: x.product_group_id }));
-      // totalItems = res.data.total_counts;
-
-      productGroups = res.data.map((x) => ({ ...x, id: x.product_group_id }));
-      totalItems = res.data.length;
+      productGroups = res.data.pgs.map((x) => ({
+        ...x,
+        id: x.product_group_id,
+      }));
+      totalItems = res.data.total_counts;
     } finally {
       isLoading = false;
     }
