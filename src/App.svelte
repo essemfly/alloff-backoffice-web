@@ -1,7 +1,8 @@
 <script lang="ts">
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import "carbon-components-svelte/css/g10.css";
-  import { Route,Router } from "svelte-navigator";
+  import "./index.css";
+  import { Route, Router } from "svelte-navigator";
   // import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
   import Login from "./pages/auth/Login.svelte";
   // Routes
@@ -64,19 +65,4 @@
 </Router>
 
 <style>
-  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
-
-  :global(html, body) {
-    font-family: "Pretendard", "SF Pro", "sans-serif";
-  }
-
-  :global(.noselect) {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
-  }
 </style>
