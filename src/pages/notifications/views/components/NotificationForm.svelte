@@ -58,6 +58,13 @@
 
 <ContentBox>
   <h3>푸시알림 정보</h3>
+  {#if !isAdding}
+    <Row>
+      <Column>
+        <TextInput labelText="타이틀" bind:value={form.notification_id} />
+      </Column>
+    </Row>
+  {/if}
   <Row>
     <Column>
       <TextInput labelText="타이틀" bind:value={form.title} />
