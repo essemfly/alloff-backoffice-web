@@ -35,7 +35,13 @@
   }
 </script>
 
-<DataTable {headers} {rows}>
+<DataTable
+  {headers}
+  {rows}
+  on:click:row={(event) => {
+    dispatch("click:row", event.detail);
+  }}
+>
   <span
     slot="cell"
     let:cell
