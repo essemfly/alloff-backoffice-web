@@ -6,6 +6,6 @@
 </script>
 
 <BannerRoutes />
-<HomeTabItemRoutes />
 <TimedealRoutes />
 <ExhibitionRoutes />
+<HomeTabItemRoutes />
