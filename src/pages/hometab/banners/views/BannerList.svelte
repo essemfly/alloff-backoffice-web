@@ -66,7 +66,12 @@
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
-    navigate("/banners/add");
+    navigate("/hometab/banners/add");
+  };
+
+  const handleRowClick = (event: CustomEvent<DataTableData<TopBanner>>) => {
+    event.preventDefault();
+    navigate(`/hometab/banners/${event.detail.id}`);
   };
 
   $: if ($location) {
@@ -77,7 +82,7 @@
 
 <Nav title="배너 목록">
   <h1>배너 목록</h1>
-  <div class="button-wrapper mb10">
+  <div class="button-right-wrapper mb10">
     <Button on:click={handleAddClick}>배너 추가</Button>
   </div>
   <Pagination
@@ -86,28 +91,12 @@
     {totalItems}
     on:change={handlePageChange}
   />
-  <DataTable data={banners} columns={bannerColumns} />
-  <div class="button-wrapper mt10">
+  <DataTable
+    data={banners}
+    columns={bannerColumns}
+    on:click:row={handleRowClick}
+  />
+  <div class="button-right-wrapper mt10">
     <Button on:click={handleAddClick}>배너 추가</Button>
   </div>
 </Nav>
-
-<style>
-  :global(.bx--data-table tr) {
-    cursor: pointer;
-  }
-
-  .button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
-  }
-</style>

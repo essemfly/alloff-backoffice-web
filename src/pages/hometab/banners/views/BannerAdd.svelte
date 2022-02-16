@@ -1,48 +1,46 @@
 <script lang="ts">
-  import { Button, Form, FormGroup, TextInput } from "carbon-components-svelte";
+  import { toast } from "@zerodevx/svelte-toast";
+  import { navigate } from "svelte-navigator";
+  import { Button } from "carbon-components-svelte";
 
+  import { CreateTopBannerRequest, TopBanner, TopBannersApi } from "@app/api";
   import Nav from "@app/components/Nav.svelte";
-  import ContentBox from "@app/components/ContentBox.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
 
-  const handleSubmit = () => {
-    // todo
+  import BannerForm from "./components/BannerForm.svelte";
+
+  let banner: TopBanner = {
+    banner_id: "",
+    title: "",
+    subtitle: "",
+    banner_image: "",
+    exhibition_id: "",
+    is_live: false,
+    weight: 0,
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const bannerApi = new TopBannersApi();
+      const { banner_id, ...requestBody } = banner;
+      const res = await bannerApi.topBannersCreate({
+        createTopBannerRequest:
+          requestBody as unknown as CreateTopBannerRequest,
+      });
+      toast.push("배너 등록이 완료되었습니다.");
+      navigate(-1);
+    } catch (e) {
+      toast.push(`배너 등록에 오류가 발생했습니다.`);
+    }
   };
 </script>
 
 <Nav title="배너 추가">
   <h1>배너 추가</h1>
-  <Form on:submit={handleSubmit}>
-    <div class="button-wrapper mb10">
-      <Button on:click={handleSubmit}>배너 등록</Button>
-    </div>
-
-    <ContentBox>
-      <FormGroup>
-        <ImageUploadField label="배너 이미지" value="" />
-      </FormGroup>
-      <FormGroup>
-        <TextInput labelText="제목" required />
-      </FormGroup>
-      <FormGroup>
-        <TextInput labelText="부제목" required />
-      </FormGroup>
-    </ContentBox>
-  </Form>
+  <div class="button-right-wrapper mb10">
+    <Button on:click={handleSubmit}>배너 등록</Button>
+  </div>
+  <BannerForm form={banner} isAdding />
+  <div class="button-right-wrapper mb10">
+    <Button on:click={handleSubmit}>배너 등록</Button>
+  </div>
 </Nav>
-
-<style>
-  .button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
-  }
-</style>
