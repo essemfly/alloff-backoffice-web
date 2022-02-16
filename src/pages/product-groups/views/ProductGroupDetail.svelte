@@ -14,6 +14,7 @@
   import Nav from "@app/components/Nav.svelte";
 
   import ProductGroupForm from "./components/ProductGroupForm.svelte";
+  import { getGroupTypeLabelByIndex } from "../commands/helpers";
 
   const productGroupApi = new ProductGroupsApi();
 
@@ -28,10 +29,9 @@
     const res = await productGroupApi.productGroupsRetrieve({ id: productId });
     productGroup = res.data;
     isLoading = false;
-    productGroupTypeLabel = getGroupTypeLabel(
+    productGroupTypeLabel = getGroupTypeLabelByIndex(
       productGroup.group_type as unknown as number,
     );
-    console.log(productGroupTypeLabel);
   });
 
   const handleSubmit = async () => {
@@ -49,18 +49,6 @@
       toast.push(`${productGroupTypeLabel} 수정에 오류가 발생했습니다.`);
     }
   };
-
-  function getGroupTypeLabel(typeIndex: number) {
-    const type = Object.keys(GroupTypeEnum)[typeIndex];
-    switch (type) {
-      case "Timedeal":
-        return "타임딜";
-      case "Exhibition":
-        return "기획전 섹션";
-      default:
-        return "컬렉션";
-    }
-  }
 </script>
 
 <Nav title={productGroup?.title ?? `${productGroupTypeLabel} 상세`}>

@@ -49,12 +49,12 @@
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
-    navigate("/product-groups/add");
+    navigate("/hometab/timedeals/add");
   };
 
   const handleRowClick = (event: CustomEvent) => {
     event.preventDefault();
-    navigate(`/product-groups/${event.detail.product_group_id}`);
+    navigate(`/product-groups/${event.detail.id}`);
   };
 
   $: if ($location) {
@@ -67,7 +67,11 @@
   <div class="button-right-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>타임딜 추가</Button>
   </div>
-  <DataTable data={productGroups} columns={timedealColumns} />
+  <DataTable
+    data={productGroups}
+    columns={timedealColumns}
+    on:click:row={handleRowClick}
+  />
   <div class="button-right-wrapper mt10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>타임딜 추가</Button>
   </div>

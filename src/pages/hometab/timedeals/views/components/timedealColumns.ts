@@ -1,11 +1,11 @@
-import { ProductGroup, ItemTypeEnum } from "@api";
+import { ProductGroup } from "@api";
 import { DataTableColumn } from "@app/components/DataTable/helpers";
 import { formatDate } from "@app/helpers/date";
 
 export const timedealColumns: DataTableColumn<ProductGroup>[] = [
   {
     key: "image_url",
-    name: "배경 이미지",
+    name: "이미지",
     type: "image",
   },
   {
