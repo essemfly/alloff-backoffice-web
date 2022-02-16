@@ -166,12 +166,14 @@
           on:keydown={(e) =>
             e.key === "Enter" ? (() => sendNewMemo())() : undefined}
         />
-        <Button
-          size="field"
-          icon={Send16}
-          iconDescription="전송"
-          on:click={() => sendNewMemo()}
-        />
+        <div>
+          <Button
+            size="field"
+            icon={Send16}
+            iconDescription="전송"
+            on:click={() => sendNewMemo()}
+          />
+        </div>
       </div>
       <div class="memo-items">
         {#each item.memos as memo}
@@ -232,6 +234,7 @@
     margin-top: 10px;
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
 
   .memo-item {

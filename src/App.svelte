@@ -12,6 +12,7 @@
   import OrderItems from "./pages/order-items/OrderItemList.svelte";
   import OrderItemRoutes from "./pages/order-items/OrderItemRoutes.svelte";
   import ProductGroupRoutes from "./pages/product-groups/ProductGroupRoutes.svelte";
+  import ProductInquiryRoutes from "./pages/product-inquiries/ProductInquiryRoutes.svelte";
   import ProductRoutes from "./pages/products/ProductRoutes.svelte";
 
   // DO NOT DELETE THIS CONSOLE LOG
@@ -40,6 +41,9 @@
   </Route>
   <Route path="logistics/*">
     <LogisticsRoutes />
+  </Route>
+  <Route path="inquiries/*">
+    <ProductInquiryRoutes />
   </Route>
   <Route path="items/*">
     <OrderItemRoutes />

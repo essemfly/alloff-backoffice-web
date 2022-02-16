@@ -19,6 +19,7 @@
   import ConnectionReceive16 from "carbon-icons-svelte/lib/ConnectionReceive16";
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
   import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
+  import PhoneIp16 from "carbon-icons-svelte/lib/PhoneIp16";
   import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
   import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
@@ -50,30 +51,49 @@
     icon?: typeof import("carbon-icons-svelte").CarbonIcon;
   }
 
-  const menu: MenuItem[] = [
+  const commonMenu: MenuItem[] = [
     { label: "주문", path: "/items", icon: Receipt16 },
-    { label: "푸시알림", path: "/notifications", icon: NotificationNew16 },
-    {
-      label: "물류",
-      items: [
-        { label: "입고", path: "/logistics/ris", icon: ConnectionReceive16 },
-        {
-          label: "재고",
-          path: "/logistics/inventories",
-          icon: DeliveryTruck16,
-        },
-        {
-          label: "출고",
-          path: "/logistics/shipping-notices",
-          icon: ShoppingCartArrowUp16,
-        },
-      ],
-    },
-    // { label: "대시보드", path: "/analytics/dashboard", icon: ChartLine16 },
-    { label: "브랜드", path: "/brands" },
     { label: "상품", path: "/products" },
-    { label: "컬렉션", path: "/product-groups" },
   ];
+
+  let menu = [...commonMenu];
+
+  $: {
+    menu = [
+      ...commonMenu,
+      ...($admin?.profile.is_admin
+        ? [
+            {
+              label: "푸시알림",
+              path: "/notifications",
+              icon: NotificationNew16,
+            },
+            {
+              label: "물류",
+              items: [
+                {
+                  label: "입고",
+                  path: "/logistics/ris",
+                  icon: ConnectionReceive16,
+                },
+                {
+                  label: "재고",
+                  path: "/logistics/inventories",
+                  icon: DeliveryTruck16,
+                },
+                {
+                  label: "출고",
+                  path: "/logistics/shipping-notices",
+                  icon: ShoppingCartArrowUp16,
+                },
+              ],
+            },
+            { label: "브랜드", path: "/brands" },
+            { label: "컬렉션", path: "/product-groups" },
+          ]
+        : [{ label: "상품문의", path: "/inquiries", icon: PhoneIp16 }]),
+    ];
+  }
 
   onMount(async () => {
     const adminUserApi = new AdminUserApi();
@@ -179,11 +199,11 @@
           </HeaderPanelDivider>
           <HeaderPanelLink on:click={logout}>로그아웃</HeaderPanelLink>
           {#if !$admin.profile.is_admin}
-            <HeaderPanelDivider>
-              관리중인 브랜드
-            </HeaderPanelDivider>
+            <HeaderPanelDivider>관리중인 브랜드</HeaderPanelDivider>
             {#each $admin.profile.company.company_brands as b}
-              <HeaderPanelLink style="cursor: default;">{b.name}</HeaderPanelLink>
+              <HeaderPanelLink style="cursor: default;"
+                >{b.name}</HeaderPanelLink
+              >
             {/each}
           {/if}
         </HeaderPanelLinks>
