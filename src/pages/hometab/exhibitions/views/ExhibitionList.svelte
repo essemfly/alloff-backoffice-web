@@ -66,7 +66,12 @@
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
-    navigate("/products/add");
+    navigate("/hometab/exhibitions/add");
+  };
+
+  const handleRowClick = (event: CustomEvent<DataTableData<Exhibition>>) => {
+    event.preventDefault();
+    navigate(`/hometab/exhibitions/${event.detail.id}`);
   };
 
   $: if ($location) {
@@ -86,7 +91,11 @@
     {totalItems}
     on:change={handlePageChange}
   />
-  <DataTable data={exhibitions} columns={exhibitionColumns} />
+  <DataTable
+    data={exhibitions}
+    columns={exhibitionColumns}
+    on:click:row={handleRowClick}
+  />
   <div class="button-right-wrapper mt10">
     <Button on:click={handleAddClick}>기획전 추가</Button>
   </div>

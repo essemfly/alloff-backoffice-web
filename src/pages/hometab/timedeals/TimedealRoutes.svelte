@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { GroupTypeEnum } from "@app/api";
-
-  import ProductGroupAdd from "@app/pages/product-groups/views/ProductGroupAdd.svelte";
-
   import { Route } from "svelte-navigator";
+  import { GroupTypeEnum } from "@api";
+  import ProductGroupAdd from "@app/pages/product-groups/views/ProductGroupAdd.svelte";
   import TimedealList from "./views/TimedealList.svelte";
 </script>
 
