@@ -66,7 +66,12 @@
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
-    navigate("/banners/add");
+    navigate("/hometab/add");
+  };
+
+  const handleRowClick = (event: CustomEvent<DataTableData<HomeTab>>) => {
+    event.preventDefault();
+    navigate(`/hometab/${event.detail.id}`);
   };
 
   $: if ($location) {
@@ -86,7 +91,11 @@
     {totalItems}
     on:change={handlePageChange}
   />
-  <DataTable data={hometabs} columns={hometabColumns} />
+  <DataTable
+    data={hometabs}
+    columns={hometabColumns}
+    on:click:row={handleRowClick}
+  />
   <div class="button-right-wrapper mt10">
     <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
   </div>

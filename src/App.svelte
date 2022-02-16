@@ -1,8 +1,9 @@
 <script lang="ts">
   import { SvelteToast } from "@zerodevx/svelte-toast";
+  import { Route, Router } from "svelte-navigator";
   import "carbon-components-svelte/css/g10.css";
   import "./index.css";
-  import { Route, Router } from "svelte-navigator";
+
   // import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
   import Login from "./pages/auth/Login.svelte";
   // Routes
