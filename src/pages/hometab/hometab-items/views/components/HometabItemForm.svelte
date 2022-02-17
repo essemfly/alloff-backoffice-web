@@ -25,7 +25,7 @@
   import { getHometabItemTypeByIndex } from "../../commands/helpers";
   import BrandSelect from "@app/components/BrandSelect.svelte";
   import { AutocompleteItem } from "@app/components/autocomplete";
-  import BrandSection from "./BrandSection.svelte";
+  import BrandSection from "./HometabBrandSection.svelte";
 
   export let form: CreateHomeTabRequest & HomeTab;
   export let isAdding: boolean = false;
@@ -152,10 +152,3 @@
     </Row>
   </ContentBox>
 {/if}
-
-<style>
-  img.logo_image {
-    width: 60px;
-    height: 60px;
-  }
-</style>
