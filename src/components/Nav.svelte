@@ -2,21 +2,21 @@
   import { AdminUserApi } from "@api";
   import { removeTokens } from "@app/core/auth";
   import {
-  Content,
-  Header,
-  HeaderAction,
-  HeaderNav,
-  HeaderNavItem,
-  HeaderNavMenu,
-  HeaderPanelDivider,
-  HeaderPanelLink,
-  HeaderPanelLinks,
-  HeaderUtilities,
-  SideNav,
-  SideNavItems,
-  SideNavLink,
-  SideNavMenu,
-  SkipToContent
+    Content,
+    Header,
+    HeaderAction,
+    HeaderNav,
+    HeaderNavItem,
+    HeaderNavMenu,
+    HeaderPanelDivider,
+    HeaderPanelLink,
+    HeaderPanelLinks,
+    HeaderUtilities,
+    SideNav,
+    SideNavItems,
+    SideNavLink,
+    SideNavMenu,
+    SkipToContent,
   } from "carbon-components-svelte";
   import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
   import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
@@ -124,7 +124,6 @@
               ],
             },
             { label: "브랜드", path: "/brands" },
-            { label: "컬렉션", path: "/product-groups" },
           ]
         : [{ label: "상품문의", path: "/inquiries", icon: PhoneIp16 }]),
     ];
