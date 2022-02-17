@@ -1,10 +1,8 @@
 <script lang="ts">
-  import { TabContent } from "carbon-components-svelte";
-
-  import { ActionTypeEnum, OrderItemRetrieve } from "@api";
-
+  import { ActionTypeEnum,OrderItemRetrieve } from "@api";
   import { toLocaleDateTime } from "@app/helpers/datetime";
-  import { getLogTypeLabel, getStatusLabel } from "@app/helpers/order-item";
+  import { getLogTypeLabel,getStatusLabel } from "@app/helpers/order-item";
+  import { TabContent } from "carbon-components-svelte";
   import InfoSection from "./InfoSection.svelte";
 
   export let item: OrderItemRetrieve;
@@ -19,7 +17,7 @@
       header: getLogTypeLabel(log.action_type) ?? "정의되지 않은 액션",
       body: (() => {
         const base = `by ${log.admin.profile.name} (${
-          log.admin.username
+          log.admin.profile.company.name
         }) at ${toLocaleDateTime(log.created_at)}`;
         const refund =
           log.action_type === ActionTypeEnum.RefundUpdate && log.refund_update

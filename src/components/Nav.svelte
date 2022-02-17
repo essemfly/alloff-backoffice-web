@@ -1,22 +1,22 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { useLocation } from "svelte-navigator";
+  import { AdminUserApi } from "@api";
+  import { removeTokens } from "@app/core/auth";
   import {
-    Content,
-    Header,
-    HeaderAction,
-    HeaderNav,
-    HeaderNavItem,
-    HeaderNavMenu,
-    HeaderPanelDivider,
-    HeaderPanelLink,
-    HeaderPanelLinks,
-    HeaderUtilities,
-    SideNav,
-    SideNavItems,
-    SideNavLink,
-    SideNavMenu,
-    SkipToContent,
+  Content,
+  Header,
+  HeaderAction,
+  HeaderNav,
+  HeaderNavItem,
+  HeaderNavMenu,
+  HeaderPanelDivider,
+  HeaderPanelLink,
+  HeaderPanelLinks,
+  HeaderUtilities,
+  SideNav,
+  SideNavItems,
+  SideNavLink,
+  SideNavMenu,
+  SkipToContent
   } from "carbon-components-svelte";
   import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
   import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
@@ -24,14 +24,14 @@
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
   import ListBoxes16 from "carbon-icons-svelte/lib/ListBoxes16";
   import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
+  import PhoneIp16 from "carbon-icons-svelte/lib/PhoneIp16";
   import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
   import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
   import Template16 from "carbon-icons-svelte/lib/Template16";
   import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
-
-  import { AdminUserApi } from "@api";
-  import { removeTokens } from "@app/core/auth";
+  import { onMount } from "svelte";
+  import { useLocation } from "svelte-navigator";
   import { admin } from "../store";
 
   export let title: string = "";
@@ -41,7 +41,7 @@
   let isUtilOpen = false;
 
   const version = import.meta.env.VITE_PACKAGE_VERSION;
-  const isProd = import.meta.env.MODE === "production";
+  const isProd = import.meta.env.PROD;
   const location = useLocation();
 
   $: {
@@ -56,59 +56,79 @@
     icon?: typeof import("carbon-icons-svelte").CarbonIcon;
   }
 
-  const menu: MenuItem[] = [
+  const commonMenu: MenuItem[] = [
     { label: "주문", path: "/items", icon: Receipt16 },
-    { label: "푸시알림", path: "/notifications", icon: NotificationNew16 },
-    {
-      label: "물류",
-      items: [
-        { label: "입고", path: "/logistics/ris", icon: ConnectionReceive16 },
-        {
-          label: "재고",
-          path: "/logistics/inventories",
-          icon: DeliveryTruck16,
-        },
-        {
-          label: "출고",
-          path: "/logistics/shipping-notices",
-          icon: ShoppingCartArrowUp16,
-        },
-      ],
-    },
-    // { label: "대시보드", path: "/analytics/dashboard", icon: ChartLine16 },
-    { label: "브랜드", path: "/brands" },
     { label: "상품", path: "/products" },
-    {
-      label: "홈탭",
-      items: [
-        {
-          label: "홈탭 아이템 관리",
-          path: "/hometab",
-          icon: ListBoxes16,
-        },
-        {
-          label: "배너 목록",
-          path: "/hometab/banners",
-          icon: CarouselHorizontal16,
-        },
-        {
-          label: "타임딜 목록",
-          path: "/hometab/timedeals",
-          icon: Timer16,
-        },
-        {
-          label: "기획전 목록",
-          path: "/hometab/exhibitions",
-          icon: Catalog16,
-        },
-        {
-          label: "기획전 섹션 목록",
-          path: "/hometab/exhibitions/sections",
-          icon: Template16,
-        },
-      ],
-    },
   ];
+
+  let menu = [...commonMenu];
+
+  $: {
+    menu = [
+      ...commonMenu,
+      ...($admin?.profile.is_admin
+        ? [
+            {
+              label: "홈탭",
+              items: [
+                {
+                  label: "홈탭 아이템 관리",
+                  path: "/hometab",
+                  icon: ListBoxes16,
+                },
+                {
+                  label: "배너 목록",
+                  path: "/hometab/banners",
+                  icon: CarouselHorizontal16,
+                },
+                {
+                  label: "타임딜 목록",
+                  path: "/hometab/timedeals",
+                  icon: Timer16,
+                },
+                {
+                  label: "기획전 목록",
+                  path: "/hometab/exhibitions",
+                  icon: Catalog16,
+                },
+                {
+                  label: "기획전 섹션 목록",
+                  path: "/hometab/exhibitions/sections",
+                  icon: Template16,
+                },
+              ],
+            },
+            {
+              label: "푸시알림",
+              path: "/notifications",
+              icon: NotificationNew16,
+            },
+            {
+              label: "물류",
+              items: [
+                {
+                  label: "입고",
+                  path: "/logistics/ris",
+                  icon: ConnectionReceive16,
+                },
+                {
+                  label: "재고",
+                  path: "/logistics/inventories",
+                  icon: DeliveryTruck16,
+                },
+                {
+                  label: "출고",
+                  path: "/logistics/shipping-notices",
+                  icon: ShoppingCartArrowUp16,
+                },
+              ],
+            },
+            { label: "브랜드", path: "/brands" },
+            { label: "컬렉션", path: "/product-groups" },
+          ]
+        : [{ label: "상품문의", path: "/inquiries", icon: PhoneIp16 }]),
+    ];
+  }
 
   onMount(async () => {
     const adminUserApi = new AdminUserApi();
@@ -132,7 +152,7 @@
 
 <Header
   company="Alloff"
-  platformName="Backoffice"
+  platformName={$admin?.profile.is_admin ? "Backoffice" : "SCM"}
   bind:isSideNavOpen
   persistentHamburgerMenu
 >
@@ -203,9 +223,24 @@
       <HeaderAction bind:isOpen={isUtilOpen} icon={UserAvatar16}>
         <HeaderPanelLinks>
           <HeaderPanelDivider>
-            안녕하세요, {$admin.profile.name}님! 😎
+            {#if $admin.profile.is_admin}
+              <p class="super">⚠️ SUPERUSER 권한 적용중</p>
+            {/if}
+            Company
+            <p class="company name">
+              {$admin.profile.company.name}
+            </p>
+            안녕하세요,<span class="name">{$admin.profile.name}</span>님! 😎
           </HeaderPanelDivider>
           <HeaderPanelLink on:click={logout}>로그아웃</HeaderPanelLink>
+          {#if !$admin.profile.is_admin}
+            <HeaderPanelDivider>관리중인 브랜드</HeaderPanelDivider>
+            {#each $admin.profile.company.company_brands as b}
+              <HeaderPanelLink style="cursor: default;"
+                >{b.name}</HeaderPanelLink
+              >
+            {/each}
+          {/if}
         </HeaderPanelLinks>
       </HeaderAction>
     </HeaderUtilities>
@@ -233,5 +268,19 @@
     font-size: 0.85em;
     color: white;
     margin-right: 30px;
+  }
+
+  .company {
+    margin-bottom: 10px;
+  }
+
+  .name {
+    font-weight: bold;
+    color: white;
+  }
+
+  .super {
+    font-weight: bold;
+    color: greenyellow;
   }
 </style>

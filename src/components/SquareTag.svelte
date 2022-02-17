@@ -14,7 +14,7 @@
     | "warm-gray"
     | undefined;
 
-  export let onClick: () => void;
+  export let onClick: () => void | undefined;
   export let fullWidth: boolean | undefined;
 
   const style = "margin: 0px; border-radius: 0; padding: 10px;";

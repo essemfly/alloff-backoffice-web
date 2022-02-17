@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { Button, TabContent, TextInput } from "carbon-components-svelte";
-  import Send16 from "carbon-icons-svelte/lib/Send16";
-
-  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
-  import { admin } from "@app/store";
+  import { OrderItemList,OrderItemRetrieve,OrderItemsApi } from "@api";
   import { toLocaleDateTime } from "@app/helpers/datetime";
   import { numberWithCommas } from "@app/helpers/number";
-  import { getIsForeignLabel, getTypeLabel } from "@app/helpers/order-item";
+  import { getIsForeignLabel,getTypeLabel } from "@app/helpers/order-item";
+  import { admin } from "@app/store";
+  import { Button,TabContent,TextInput } from "carbon-components-svelte";
+  import Send16 from "carbon-icons-svelte/lib/Send16";
   import InfoSection from "./InfoSection.svelte";
 
   export let item: OrderItemRetrieve;
@@ -47,15 +46,20 @@
   <InfoSection
     title="고객정보"
     rows={[
-      { header: "휴대폰", body: item.order.user.mobile },
-      { header: "유저 ID", body: item.order.user_id },
-      {
-        header: "주문수",
-        body: `${userItems.length}건`,
-        href: `/items/?userid=${item.order.user.id}`,
-      },
+      ...[{ header: "휴대폰", body: item.order.user.mobile }],
+      ...($admin?.profile.is_admin
+        ? [
+            { header: "유저 ID", body: item.order.user_id },
+            {
+              header: "주문수",
+              body: `${userItems.length}건`,
+              href: `/items/?userid=${item.order.user.id}`,
+            },
+          ]
+        : []),
     ]}
   />
+
   <InfoSection
     title="배송정보"
     rows={[
@@ -92,17 +96,19 @@
         <InfoSection
           title={item.product_name}
           smallTitle
-          menuItems={[
-            {
-              text: "재입고처리 (1개)",
-              onClick: async () => {
-                submitting = true;
-                await api.orderItemsForceReceiveCreate({ id: item.id });
-                submitting = false;
-                window.location.reload();
-              },
-            },
-          ]}
+          menuItems={$admin?.profile.is_admin
+            ? [
+                {
+                  text: "재입고처리 (1개)",
+                  onClick: async () => {
+                    submitting = true;
+                    await api.orderItemsForceReceiveCreate({ id: item.id });
+                    submitting = false;
+                    window.location.reload();
+                  },
+                },
+              ]
+            : []}
           rows={[
             {
               header: "상품타입",
@@ -150,39 +156,43 @@
       </div>
     </div>
   </div>
-  <div class="memo">
-    <h4>관리자 메모</h4>
-    <div class="memo-form">
-      <TextInput
-        placeholder="새 메모 입력"
-        bind:value={newMemo}
-        on:keydown={(e) =>
-          e.key === "Enter" ? (() => sendNewMemo())() : undefined}
-      />
-      <Button
-        size="field"
-        icon={Send16}
-        iconDescription="전송"
-        on:click={() => sendNewMemo()}
-      />
-    </div>
-    <div class="memo-items">
-      {#each item.memos as memo}
-        <div class="memo-item" class:mobile>
-          <caption>[{toLocaleDateTime(memo.created_at)}]&nbsp;</caption>
-          {memo.body}&nbsp;
-          <div class="memo-user noselect">
-            <h6>{memo.admin.profile.name} ({memo.admin.username})</h6>
-            {#if $admin && memo.admin.id === $admin.id}
-              <div class="memo-delete" on:click={() => deleteMemo(memo.id)}>
-                ❌
-              </div>
-            {/if}
-          </div>
+  {#if $admin?.profile.is_admin}
+    <div class="memo">
+      <h4>관리자 메모</h4>
+      <div class="memo-form">
+        <TextInput
+          placeholder="새 메모 입력"
+          bind:value={newMemo}
+          on:keydown={(e) =>
+            e.key === "Enter" ? (() => sendNewMemo())() : undefined}
+        />
+        <div>
+          <Button
+            size="field"
+            icon={Send16}
+            iconDescription="전송"
+            on:click={() => sendNewMemo()}
+          />
         </div>
-      {/each}
+      </div>
+      <div class="memo-items">
+        {#each item.memos as memo}
+          <div class="memo-item" class:mobile>
+            <caption>[{toLocaleDateTime(memo.created_at)}]&nbsp;</caption>
+            {memo.body}&nbsp;
+            <div class="memo-user noselect">
+              <h6>{memo.admin.profile.name} ({memo.admin.username})</h6>
+              {#if $admin && memo.admin.id === $admin.id}
+                <div class="memo-delete" on:click={() => deleteMemo(memo.id)}>
+                  ❌
+                </div>
+              {/if}
+            </div>
+          </div>
+        {/each}
+      </div>
     </div>
-  </div>
+  {/if}
 </TabContent>
 
 <style>
@@ -224,6 +234,7 @@
     margin-top: 10px;
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
 
   .memo-item {

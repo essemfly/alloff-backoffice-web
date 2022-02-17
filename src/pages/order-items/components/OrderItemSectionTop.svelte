@@ -17,10 +17,13 @@
   getTypeLabel
   } from "@app/helpers/order-item";
   import {
+  Button,
   OverflowMenu,
   OverflowMenuItem,
   Tag
   } from "carbon-components-svelte";
+  import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
+  import { admin } from "../../../store";
   import TrackingInputModal from "../components/TrackingInputModal.svelte";
 
   export let item: OrderItemRetrieve;
@@ -35,6 +38,7 @@
   const changeOrderItemStatus = async (
     item: OrderItemRetrieve,
     status: OrderItemStatusEnum,
+    courier_id?: number,
     tracking_number?: string,
     tracking_url?: string,
   ) => {
@@ -51,6 +55,7 @@
         id: item.id,
         changeStatusRequest: {
           status,
+          courier_id,
           tracking_number,
           tracking_url,
         },
@@ -77,57 +82,86 @@
     changeOrderItemStatus(item, status);
   };
 
+  const handleCompanyUserSetTrackingInfo = async (
+    item: OrderItemRetrieve,
+    courier_id: number,
+    tracking_number: string,
+    tracking_url?: string,
+  ) => {
+    try {
+      await api.orderItemsSetTrackingInfoCreate({
+        id: item.id,
+        apiTrackingInfoRequest: {
+          courier_id,
+          tracking_number,
+          tracking_url,
+        },
+      });
+    } catch (e) {
+      alert("운송장 등록 오류! " + e);
+    } finally {
+      trackingModalOpen = false;
+      load();
+    }
+  };
+
   const getSourcingExcelRow = (item: OrderItemRetrieve) =>
-    `${(item.order.ordered_at ?? item.ordered_at) ?? item.created_at}\t${item.brand_korname}\t${item.product_name}\t${
-      item.color ?? "N/A"
-    }\t${item.size}\t${item.order.payment.buyer_name}\t'${
-      item.order.payment.buyer_mobile
-    }\t${item.order.payment.buyer_address}\t'${
-      item.order.payment.buyer_post_code
-    }`;
+    `${item.order.ordered_at ?? item.ordered_at ?? item.created_at}\t${
+      item.brand_korname
+    }\t${item.product_name}\t${item.color ?? "N/A"}\t${item.size}\t${
+      item.order.payment.buyer_name
+    }\t'${item.order.payment.buyer_mobile}\t${
+      item.order.payment.buyer_address
+    }\t'${item.order.payment.buyer_post_code}`;
 </script>
 
 <h3 style="margin-bottom: 10px;">{item.order_item_code}</h3>
 <h6>🙋‍♀️{item.order.payment.buyer_name} 👚{item.product_name}</h6>
-<h6>
-  주문서 ID:
-  <a href={"/items?allofforderid=" + item.order.alloff_order_id}>
-    {item.order.alloff_order_id}
-  </a>
-</h6>
-<div class="title">
-  <Tag type={getIsForeignBadgeColor(item.is_foreign)}
-    >{getIsForeignLabel(item.is_foreign)} 소싱</Tag
-  >
-  <Tag type={getTypeBadgeColor(item.order_item_type)} style="margin-left: 0px;"
-    >{getTypeLabel(item.order_item_type)} 주문</Tag
-  >
-  <Tag type="cool-gray">DB #{item.id}</Tag>
-  <OverflowMenu>
-    <OverflowMenuItem
-      on:click={() => navigator.clipboard.writeText(getSourcingExcelRow(item))}
-      text="해외소싱 엑셀 복사"
-    />
-    <OverflowMenuItem
-      on:click={() => navigator.clipboard.writeText(item.order_item_code)}
-      text="코드 복사"
-    />
-    <OverflowMenuItem
-      on:click={() => navigator.clipboard.writeText(item.id.toString())}
-      text="주문 ID 복사"
-    />
-    <OverflowMenuItem
-      on:click={() => navigator.clipboard.writeText(window.location.href)}
-      text="URL 복사"
-    />
-  </OverflowMenu>
-</div>
+{#if $admin?.profile.is_admin}
+  <h6>
+    주문서 ID:
+    <a href={"/items?allofforderid=" + item.order.alloff_order_id}>
+      {item.order.alloff_order_id}
+    </a>
+  </h6>
+  <div class="title">
+    <Tag type={getIsForeignBadgeColor(item.is_foreign)}
+      >{getIsForeignLabel(item.is_foreign)} 소싱</Tag
+    >
+    <Tag
+      type={getTypeBadgeColor(item.order_item_type)}
+      style="margin-left: 0px;">{getTypeLabel(item.order_item_type)} 주문</Tag
+    >
+    <Tag type="cool-gray">DB #{item.id}</Tag>
+    <OverflowMenu>
+      <OverflowMenuItem
+        on:click={() =>
+          navigator.clipboard.writeText(getSourcingExcelRow(item))}
+        text="해외소싱 엑셀 복사"
+      />
+      <OverflowMenuItem
+        on:click={() => navigator.clipboard.writeText(item.order_item_code)}
+        text="코드 복사"
+      />
+      <OverflowMenuItem
+        on:click={() => navigator.clipboard.writeText(item.id.toString())}
+        text="주문 ID 복사"
+      />
+      <OverflowMenuItem
+        on:click={() => navigator.clipboard.writeText(window.location.href)}
+        text="URL 복사"
+      />
+    </OverflowMenu>
+  </div>
+{/if}
 
 <div class:mobile-tags={mobile} class:tags={!mobile}>
   {#each item.is_foreign ? ORDER_ITEM_ALL_STATUSES : ORDER_ITEM_DOMESTIC_STATUSES as status}
     <SquareTag
       fullWidth={!mobile}
-      onClick={() => handleChangeOrderStatus(status)}
+      onClick={$admin?.profile.is_admin
+        ? () => handleChangeOrderStatus(status)
+        : undefined}
       type={status === item.order_item_status
         ? getStatusBadgeColor(status)
         : undefined}
@@ -144,15 +178,22 @@
             minute: "numeric",
             hour12: false,
           }) ?? ""}
-      </div></SquareTag
-    >
+      </div>
+    </SquareTag>
   {/each}
 </div>
 <TrackingInputModal
-  {...{ changeOrderItemStatus, item }}
+  {...{ changeOrderItemStatus, handleCompanyUserSetTrackingInfo, item }}
   bind:open={trackingModalOpen}
   bind:status={trackingModalStatus}
 />
+{#if !$admin?.profile.is_admin}
+  <Button
+    size="small"
+    icon={DeliveryTruck16}
+    on:click={() => (trackingModalOpen = true)}>배송정보 입력</Button
+  >
+{/if}
 
 <style>
   .title {
