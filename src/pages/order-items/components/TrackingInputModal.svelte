@@ -124,7 +124,9 @@
           <br />
         {/if}
         <Link
-          href={deliveryTrackingUrl}
+          href={useManualTrackingUrl
+            ? deliveryTrackingUrl
+            : selectedCourier?.tracking_url_base + deliveryTrackingNumber}
           target="_blank"
           rel="noreferrer"
           disabled={!valid}
