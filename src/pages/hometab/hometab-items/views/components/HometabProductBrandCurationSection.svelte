@@ -2,62 +2,55 @@
   import { createEventDispatcher, onMount } from "svelte";
   import { FormGroup, Checkbox } from "carbon-components-svelte";
 
-  import { ItemTypeEnum, OptionsEnum, AlloffCategoriesApi } from "@api";
-  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import { ItemTypeEnum, OptionsEnum, Brand } from "@api";
+  import { AutocompleteItem } from "@app/components/autocomplete";
+  import BrandSelect from "@app/components/BrandSelect.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
 
   import { HometabItemType, HometabSortingOption } from "../../constants";
   import { getSortingOptionByIndex } from "../../commands/helpers";
 
   interface HometabExhibitionsSectionValue {
-    categoryId: string;
     options: OptionsEnum[];
+    brand: Brand;
   }
 
   export let value: HometabExhibitionsSectionValue;
   export let isAdding: boolean = false;
 
   let options: OptionsEnum[] = [];
-  let categories: AutocompleteItem[] = [];
-  let categoryId: string;
+  let selectedBrandKeyname: string;
 
   const dispatch = createEventDispatcher();
-  const categoryApi = new AlloffCategoriesApi();
 
   const sortingOptions = Object.keys(OptionsEnum).map((key) => ({
     key,
     label: HometabSortingOption[key as keyof typeof HometabSortingOption],
-    value: OptionsEnum[key as keyof typeof OptionsEnum],
+    value: OptionsEnum[key],
   }));
 
   onMount(async () => {
     options = value.options
       ? value.options.map((x) => getSortingOptionByIndex(x))
       : [];
-    categoryId = value.categoryId ?? "";
-
-    const res = await categoryApi.alloffCategoriesList();
-    categories = res.data.categories.map(({ category_id, name, keyname }) => ({
-      key: category_id,
-      value: name,
-      subvalue: keyname,
-    }));
   });
 
-  const handleCategoryChange = (selected?: AutocompleteItem) => {
-    categoryId = selected?.key ?? "";
+  const handleBrandChange = (
+    event: CustomEvent<{ value?: AutocompleteItem }>,
+  ) => {
+    selectedBrandKeyname = event.detail.value?.key ?? "";
   };
 
-  $: if (options || categoryId) {
+  $: if (selectedBrandKeyname || options) {
     dispatch("change", {
-      item_type: ItemTypeEnum.ProductsA,
+      item_type: ItemTypeEnum.ProductsB,
       options,
-      alloffcategory_id: categoryId,
+      brand_keynames: [selectedBrandKeyname],
     });
   }
 </script>
 
-<ContentBox title={`${HometabItemType.ProductsA} 정보`}>
+<ContentBox title={`${HometabItemType.ProductsB} 정보`}>
   <FormGroup legendText="옵션">
     {#each sortingOptions as option}
       <Checkbox
@@ -67,14 +60,8 @@
       />
     {/each}
   </FormGroup>
-  <FormGroup legendText="카테고리">
-    <Autocomplete
-      options={categories}
-      onSubmit={handleCategoryChange}
-      placeholder="카테고리 이름/Keyname/ID로 검색"
-      labelText="브랜드 검색"
-      selectedValue={categoryId}
-      disabled={!isAdding}
-    />
+
+  <FormGroup legendText="브랜드">
+    <BrandSelect on:change={handleBrandChange} disabled={!isAdding} />
   </FormGroup>
 </ContentBox>

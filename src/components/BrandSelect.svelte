@@ -7,6 +7,7 @@
   export let selectedValue: string = "";
   export let excludes: string[] = [];
   export let keepValueOnSubmit: boolean = true;
+  export let disabled: boolean = false;
 
   let selectedItem: AutocompleteItem | undefined;
   let brands: AutocompleteItem[] = [];
@@ -47,4 +48,5 @@
   labelText="브랜드 검색"
   bind:selectedValue
   {keepValueOnSubmit}
+  {disabled}
 />

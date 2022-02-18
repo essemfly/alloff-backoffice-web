@@ -11,9 +11,9 @@
   } from "@api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
+  import ImageUploadField from "@app/components/ImageUploadField.svelte";
 
   import { HometabItemType } from "../../constants";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
 
   interface HometabBrandExhibitionSectionValue {
     backImageUrl?: string;

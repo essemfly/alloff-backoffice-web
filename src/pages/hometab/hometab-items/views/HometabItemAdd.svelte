@@ -1,8 +1,9 @@
 <script lang="ts">
   import { toast } from "@zerodevx/svelte-toast";
+  import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { CreateHomeTabRequest, ItemTypeEnum, HometabsApi } from "@app/api";
+  import { CreateHomeTabRequest, ItemTypeEnum, HometabsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
 
   import HometabItemForm from "./components/HometabItemForm.svelte";
@@ -24,7 +25,7 @@
 
   const handleSubmit = async () => {
     try {
-      const res = hometabApi.hometabsCreate({
+      const res = await hometabApi.hometabsCreate({
         createHomeTabRequest: hometabItem,
       });
       toast.push("기획전 등록이 완료되었습니다.");
