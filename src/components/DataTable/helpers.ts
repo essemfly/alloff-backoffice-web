@@ -4,7 +4,12 @@ import type {
 } from "carbon-components-svelte/types/DataTable/DataTable";
 
 export type DataTableData<T> = T & { id: string };
-export type DataTableColumnType = "image" | "link" | "string" | "number";
+export type DataTableColumnType =
+  | "image"
+  | "link"
+  | "toggle"
+  | "string"
+  | "number";
 
 export type DataTableColumn<T> = {
   key: keyof T;

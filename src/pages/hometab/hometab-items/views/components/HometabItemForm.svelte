@@ -22,6 +22,8 @@
   import { getHometabItemTypeByIndex } from "../../commands/helpers";
   import HometabBrandSection from "./HometabBrandSection.svelte";
   import HometabBrandExhibitionSection from "./HometabBrandExhibitionSection.svelte";
+  import HometabExhibitionCollectionSection from "./HometabExhibitionCollectionSection.svelte";
+  import HometabExhibitionSection from "./HometabExhibitionSection.svelte";
 
   export let form: CreateHomeTabRequest & HomeTab;
   export let isAdding: boolean = false;
@@ -42,7 +44,7 @@
     const { back_image_url, ...contents } = event.detail;
     form = {
       ...form,
-      back_image_url,
+      back_image_url: back_image_url ?? "",
       contents: {
         ...form.contents,
         ...contents,
@@ -109,24 +111,19 @@
 {/if}
 
 {#if itemType === ItemTypeEnum.Exhibitions}
-  <ContentBox title={HometabItemType.Exhibitions}>
-    <Row>
-      <Column>
-        <TextInput labelText={"ID"} bind:value={form.item_id} readonly />
-      </Column>
-    </Row>
-  </ContentBox>
+  <HometabExhibitionCollectionSection
+    value={{ exhibitions: form.exhibitions }}
+    on:change={handleChange}
+    {isAdding}
+  />
 {/if}
 
 {#if itemType === ItemTypeEnum.Exhibition}
-  <ContentBox title={HometabItemType.Exhibition}>
-    <h3>기획전 C</h3>
-    <Row>
-      <Column>
-        <TextInput labelText={"ID"} bind:value={form.item_id} readonly />
-      </Column>
-    </Row>
-  </ContentBox>
+  <HometabExhibitionSection
+    value={{ exhibition: form.exhibitions ? form.exhibition[0] : undefined }}
+    on:change={handleChange}
+    {isAdding}
+  />
 {/if}
 
 {#if itemType === ItemTypeEnum.ProductsA}

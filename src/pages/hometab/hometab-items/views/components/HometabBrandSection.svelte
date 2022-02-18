@@ -11,7 +11,6 @@
     Button,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  // import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
   import { Brand, BrandsApi, ItemTypeEnum } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
@@ -75,6 +74,19 @@
 </script>
 
 <ContentBox title={`${HometabItemType.Brands} 정보`}>
+  {#if isAdding}
+    <h4>브랜드 추가</h4>
+    <Row>
+      <Column>
+        <BrandSelect
+          on:change={handleBrandChange}
+          bind:excludes={selectedBrandKeynames}
+          keepValueOnSubmit={false}
+        />
+      </Column>
+    </Row>
+  {/if}
+
   <Row>
     <Column>
       <StructuredList condensed>
@@ -109,15 +121,6 @@
                   kind="danger"
                   on:click={handleBrandDeleteClick(index)}
                 />
-                <!-- <Button
-                tooltipPosition="bottom"
-                tooltipAlignment="end"
-                iconDescription="상세"
-                icon={Launch16}
-                kind="ghost"
-                size="small"
-                on:click={handleDetailOpen(brand.keyname)}
-              /> -->
               </StructuredListCell>
             </StructuredListRow>
           {/each}
@@ -125,18 +128,6 @@
       </StructuredList>
     </Column>
   </Row>
-  {#if isAdding}
-    <h4>브랜드 추가</h4>
-    <Row>
-      <Column>
-        <BrandSelect
-          on:change={handleBrandChange}
-          bind:excludes={selectedBrandKeynames}
-          keepValueOnSubmit={false}
-        />
-      </Column>
-    </Row>
-  {/if}
 </ContentBox>
 
 <style>

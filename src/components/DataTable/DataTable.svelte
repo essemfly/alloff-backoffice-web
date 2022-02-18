@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, DataTable } from "carbon-components-svelte";
+  import { Button, DataTable, Toggle } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
   import { createEventDispatcher } from "svelte";
 
@@ -24,6 +24,9 @@
     .map(({ key }) => key);
   const linkColumns = columns
     .filter(({ type }) => type === "link")
+    .map(({ key }) => key);
+  const toggleColumns = columns
+    .filter(({ type }) => type === "toggle")
     .map(({ key }) => key);
 
   const handleOpen = (path: string) => () => {
@@ -67,6 +70,8 @@
         size="small"
         on:click={handleOpen(cell.value)}
       />
+    {:else if toggleColumns.includes(cell.key) && cell.value !== undefined}
+      <Toggle size="sm" toggled={cell.value} />
     {:else}
       {cell.value}
     {/if}
