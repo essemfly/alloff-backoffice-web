@@ -1,12 +1,10 @@
 <script lang="ts">
-  import { toast } from "@zerodevx/svelte-toast";
-  import { navigate } from "svelte-navigator";
-  import { Grid, Button } from "carbon-components-svelte";
-  import Save16 from "carbon-icons-svelte/lib/Save16";
-
-  import { CreateProductRequestRequest, Product, ProductsApi } from "@api";
+  import { CreateProductRequestApiRequest,Product,ProductsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
-
+  import { toast } from "@zerodevx/svelte-toast";
+  import { Button,Grid } from "carbon-components-svelte";
+  import Save16 from "carbon-icons-svelte/lib/Save16";
+  import { navigate } from "svelte-navigator";
   import ProductForm from "./components/ProductForm.svelte";
 
   let isTouched = true;
@@ -32,14 +30,15 @@
     images: [],
     description_images: [],
     inventory: [],
+    module_name: "",
   };
 
   const handleSubmit = async () => {
     try {
       const productApi = new ProductsApi();
       const res = await productApi.productsCreate({
-        createProductRequestRequest:
-          product as unknown as CreateProductRequestRequest,
+        createProductRequestApiRequest:
+          product as unknown as CreateProductRequestApiRequest,
       });
       toast.push("상품 등록이 완료되었습니다.");
       navigate(-1);
