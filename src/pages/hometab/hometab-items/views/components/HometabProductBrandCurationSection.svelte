@@ -26,7 +26,7 @@
   const sortingOptions = Object.keys(OptionsEnum).map((key) => ({
     key,
     label: HometabSortingOption[key as keyof typeof HometabSortingOption],
-    value: OptionsEnum[key],
+    value: OptionsEnum[key as keyof typeof OptionsEnum],
   }));
 
   onMount(async () => {
@@ -43,14 +43,14 @@
 
   $: if (selectedBrandKeyname || options) {
     dispatch("change", {
-      item_type: ItemTypeEnum.ProductsB,
+      item_type: ItemTypeEnum.ProductsBrands,
       options,
       brand_keynames: [selectedBrandKeyname],
     });
   }
 </script>
 
-<ContentBox title={`${HometabItemType.ProductsB} 정보`}>
+<ContentBox title={`${HometabItemType.ProductsBrands} 정보`}>
   <FormGroup legendText="옵션">
     {#each sortingOptions as option}
       <Checkbox

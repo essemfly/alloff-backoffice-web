@@ -21,12 +21,12 @@ export function getHometabItemTypeLabelByIndex(typeIndex: number) {
     case ItemTypeEnum.Exhibition:
     case "Exhibition":
       return HometabItemType.Exhibition;
-    case ItemTypeEnum.ProductsA:
-    case "ProductsA":
-      return HometabItemType.ProductsA;
-    case ItemTypeEnum.ProductsB:
-    case "ProductsB":
-      return HometabItemType.ProductsB;
+    case ItemTypeEnum.ProductsCategories:
+    case "ProductsCategories":
+      return HometabItemType.ProductsCategories;
+    case ItemTypeEnum.ProductsBrands:
+    case "ProductsBrands":
+      return HometabItemType.ProductsBrands;
     default:
       return "알 수 없음";
   }
@@ -42,10 +42,10 @@ export function getHometabItemTypeLabel(type: ItemTypeEnum) {
       return HometabItemType.Exhibitions;
     case ItemTypeEnum.Exhibition:
       return HometabItemType.Exhibition;
-    case ItemTypeEnum.ProductsA:
-      return HometabItemType.ProductsA;
-    case ItemTypeEnum.ProductsB:
-      return HometabItemType.ProductsB;
+    case ItemTypeEnum.ProductsCategories:
+      return HometabItemType.ProductsCategories;
+    case ItemTypeEnum.ProductsBrands:
+      return HometabItemType.ProductsBrands;
     default:
       return "알 수 없음";
   }

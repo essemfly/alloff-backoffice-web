@@ -38,7 +38,7 @@
     const { back_image_url, ...contents } = event.detail;
     form = {
       ...form,
-      back_image_url: back_image_url ?? undefined,
+      back_image_url: back_image_url ?? "",
       contents: {
         ...form.contents,
         ...contents,
@@ -90,6 +90,7 @@
     value={{
       brand: form.brands ? form.brands[0] : undefined,
       exhibition: form.exhibitions ? form.exhibitions[0] : undefined,
+      backImageUrl: form.back_image_url,
     }}
     on:change={handleChange}
     {isAdding}
@@ -123,7 +124,7 @@
   />
 {/if}
 
-{#if itemType === ItemTypeEnum.ProductsA}
+{#if itemType === ItemTypeEnum.ProductsCategories}
   <HometabProductCategoryCurationSection
     value={{
       categoryId: form.reference?.params ?? "",
@@ -134,7 +135,7 @@
   />
 {/if}
 
-{#if itemType === ItemTypeEnum.ProductsB}
+{#if itemType === ItemTypeEnum.ProductsBrands}
   <HometabProductBrandCurationSection
     value={{
       brand: form.brands ? form.brands[0] : undefined,

@@ -50,14 +50,14 @@
 
   $: if (options || categoryId) {
     dispatch("change", {
-      item_type: ItemTypeEnum.ProductsA,
+      item_type: ItemTypeEnum.ProductsCategories,
       options,
       alloffcategory_id: categoryId,
     });
   }
 </script>
 
-<ContentBox title={`${HometabItemType.ProductsA} 정보`}>
+<ContentBox title={`${HometabItemType.ProductsCategories} 정보`}>
   <FormGroup legendText="옵션">
     {#each sortingOptions as option}
       <Checkbox

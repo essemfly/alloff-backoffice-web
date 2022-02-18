@@ -74,7 +74,7 @@
     )!;
   };
 
-  $: if (selectedBrand || selectedExhibition) {
+  $: if (backImageUrl || selectedBrand || selectedExhibition) {
     dispatch("change", {
       item_type: ItemTypeEnum.BrandExhibition,
       brand_keynames: [selectedBrand?.keyname],

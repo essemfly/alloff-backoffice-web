@@ -98,6 +98,22 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
+          {#each value.brands as brand}
+            <StructuredListRow>
+              <StructuredListCell>
+                <img
+                  class="logo_image"
+                  src={brand.logo_image_url}
+                  alt={[brand.korname, "logo"].join("-")}
+                />
+              </StructuredListCell>
+              <StructuredListCell>
+                {brand.korname}
+                {brand.keyname}
+              </StructuredListCell>
+              <StructuredListCell />
+            </StructuredListRow>
+          {/each}
           {#each selectedBrands as brand, index}
             <StructuredListRow>
               <StructuredListCell>
