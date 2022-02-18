@@ -1,12 +1,18 @@
 <script lang="ts">
   export let title: string = "";
+  export let subtitle: string = "";
 </script>
 
 {#if title}
   <h3 class="box-title">{title}</h3>
 {/if}
 <div class="box">
-  <slot />
+  {#if subtitle}
+    <h4 class="box-subtitle">{subtitle}</h4>
+  {/if}
+  <div class="inner-box">
+    <slot />
+  </div>
 </div>
 
 <style>
@@ -29,8 +35,28 @@
     border: 1px solid #303030;
     background-color: white;
     border-radius: 2px;
-    padding: 20px;
+
     margin: 0 0 1em 0;
     box-sizing: border-box;
+  }
+
+  .inner-box {
+    padding: 20px;
+  }
+
+  .box > h4.box-subtitle {
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #303030;
+  }
+
+  :global(.box .inner-box > h4) {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  :global(.box .inner-box > h4:first-child) {
+    margin-top: 0;
   }
 </style>

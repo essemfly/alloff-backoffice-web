@@ -6,26 +6,22 @@
     FormGroup,
     RadioButtonGroup,
     RadioButton,
-    StructuredList,
-    StructuredListHead,
-    StructuredListRow,
-    StructuredListCell,
-    StructuredListBody,
-    Button,
   } from "carbon-components-svelte";
-  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { CreateHomeTabRequest, HomeTab, ItemTypeEnum } from "@api";
+  import {
+    CreateHomeTabRequest,
+    HomeTab,
+    ItemRequesterRequest,
+    ItemTypeEnum,
+  } from "@api";
   import ContentBox from "@app/components/ContentBox.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
   import DateTimePicker from "@app/components/DateTimePicker.svelte";
 
   import { HometabItemType } from "../../constants";
   import { getHometabItemTypeByIndex } from "../../commands/helpers";
-  import BrandSelect from "@app/components/BrandSelect.svelte";
-  import { AutocompleteItem } from "@app/components/autocomplete";
-  import BrandSection from "./HometabBrandSection.svelte";
+  import HometabBrandSection from "./HometabBrandSection.svelte";
+  import HometabBrandExhibitionSection from "./HometabBrandExhibitionSection.svelte";
 
   export let form: CreateHomeTabRequest & HomeTab;
   export let isAdding: boolean = false;
@@ -42,24 +38,17 @@
       value: ItemTypeEnum[key as keyof typeof ItemTypeEnum],
     }));
 
-  const handleBrandChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    console.log(event.detail.value);
-    // form.brands.push(value);
-  };
-
-  const handleBrandDeleteClick =
-    (index: number) => async (event: MouseEvent) => {
-      event.preventDefault();
-      const newValue = form.brands.slice();
-      newValue.splice(index, 1);
-      form.brands = newValue;
+  const handleChange = (event: CustomEvent<Partial<CreateHomeTabRequest>>) => {
+    const { back_image_url, ...contents } = event.detail;
+    form = {
+      ...form,
+      back_image_url,
+      contents: {
+        ...form.contents,
+        ...contents,
+      },
     };
-
-  // const handleDetailOpen = (brandKeyname: string) => () => {
-  //   window.open(`/brands/${brandKeyname}`, "_blank"); // todo: not use window.open
-  // };
+  };
 </script>
 
 <ContentBox title="기본 정보">
@@ -70,14 +59,6 @@
       </Column>
     </Row>
   {/if}
-  <Row>
-    <Column>
-      <ImageUploadField
-        label={"배경 이미지"}
-        bind:value={form.back_image_url}
-      />
-    </Column>
-  </Row>
   <Row>
     <Column>
       <TextInput labelText={"타이틀"} bind:value={form.title} />
@@ -108,18 +89,23 @@
   {/if}
 </ContentBox>
 
-{#if itemType === ItemTypeEnum.Brands}
-  <BrandSection bind:form />
+{#if itemType === ItemTypeEnum.BrandExhibition}
+  <HometabBrandExhibitionSection
+    value={{
+      brand: form.brands ? form.brands[0] : undefined,
+      exhibition: form.exhibitions ? form.exhibitions[0] : undefined,
+    }}
+    on:change={handleChange}
+    {isAdding}
+  />
 {/if}
 
-{#if itemType === ItemTypeEnum.BrandExhibition}
-  <ContentBox title={HometabItemType.BrandExhibition}>
-    <Row>
-      <Column>
-        <TextInput labelText={"ID"} bind:value={form.item_id} readonly />
-      </Column>
-    </Row>
-  </ContentBox>
+{#if itemType === ItemTypeEnum.Brands}
+  <HometabBrandSection
+    value={{ brands: form.brands }}
+    on:change={handleChange}
+    {isAdding}
+  />
 {/if}
 
 {#if itemType === ItemTypeEnum.Exhibitions}

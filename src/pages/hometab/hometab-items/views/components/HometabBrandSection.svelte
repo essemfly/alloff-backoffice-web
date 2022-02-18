@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createEventDispatcher, onMount } from "svelte";
   import {
     Row,
     Column,
@@ -12,51 +13,68 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   // import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { CreateHomeTabRequest, HomeTab, ItemTypeEnum } from "@api";
+  import { Brand, BrandsApi, ItemTypeEnum } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import BrandSelect from "@app/components/BrandSelect.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
 
   import { HometabItemType } from "../../constants";
-  import { onMount } from "svelte";
 
-  export let form: CreateHomeTabRequest & HomeTab;
+  interface HometabBrandSectionValue {
+    brands: Brand[];
+  }
 
-  export let brandKeynames: string[] = [];
+  export let value: HometabBrandSectionValue;
+  export let isAdding: boolean = false;
 
-  onMount(() => {
-    brandKeynames = form.brands.map((x) => x.keyname);
+  let brands: Brand[] = [];
+  let selectedBrands: Brand[] = [];
+  let selectedBrandKeynames: string[] = [];
+
+  const brandsAPi = new BrandsApi();
+  const dispatch = createEventDispatcher();
+
+  onMount(async () => {
+    selectedBrandKeynames = value.brands?.map(({ keyname }) => keyname);
+    const res = await brandsAPi.brandsList();
+    brands = res.data.filter(
+      ({ keyname }) => !selectedBrandKeynames.includes(keyname),
+    );
+    selectedBrands = res.data.filter(({ keyname }) =>
+      selectedBrandKeynames.includes(keyname),
+    );
   });
 
   const handleBrandChange = (
     event: CustomEvent<{ value?: AutocompleteItem }>,
   ) => {
     const selected = event.detail.value;
-    if (selected) {
-      brandKeynames.push(selected.subvalue!);
+    const selectedBrand = brands.find(
+      ({ keyname }) => keyname === selected?.subvalue,
+    );
+    if (selectedBrand) {
+      selectedBrands = [...selectedBrands, selectedBrand];
     }
   };
 
   const handleBrandDeleteClick =
     (index: number) => async (event: MouseEvent) => {
       event.preventDefault();
-      const newValue = form.brands.slice();
+      const newValue = selectedBrands.slice();
       newValue.splice(index, 1);
-      form.brands = newValue;
+      selectedBrands = newValue;
     };
 
-  $: if (brandKeynames) {
-    form.brand_keynames = brandKeynames;
+  $: if (selectedBrands) {
+    selectedBrandKeynames = selectedBrands.map(({ keyname }) => keyname);
+    dispatch("change", {
+      item_type: ItemTypeEnum.Brands,
+      brand_keynames: selectedBrandKeynames,
+    });
   }
 </script>
 
-<ContentBox title={HometabItemType.Brands}>
-  <Row>
-    <Column>
-      <div class="bx--label">브랜드 선택</div>
-      <BrandSelect on:change={handleBrandChange} />
-    </Column>
-  </Row>
+<ContentBox title={`${HometabItemType.Brands} 정보`}>
   <Row>
     <Column>
       <StructuredList condensed>
@@ -68,7 +86,7 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {#each form.brands as brand, index}
+          {#each selectedBrands as brand, index}
             <StructuredListRow>
               <StructuredListCell>
                 <img
@@ -107,6 +125,18 @@
       </StructuredList>
     </Column>
   </Row>
+  {#if isAdding}
+    <h4>브랜드 추가</h4>
+    <Row>
+      <Column>
+        <BrandSelect
+          on:change={handleBrandChange}
+          bind:excludes={selectedBrandKeynames}
+          keepValueOnSubmit={false}
+        />
+      </Column>
+    </Row>
+  {/if}
 </ContentBox>
 
 <style>

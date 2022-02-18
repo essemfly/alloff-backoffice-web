@@ -11,6 +11,7 @@
   export let highlightTextColor = "#fff";
   export let placeholder: string | undefined = undefined;
   export let labelText: string | undefined = undefined;
+  export let disabled: boolean = false;
 
   let inputRef: HTMLInputElement | null | undefined;
   let showAutocompleteResults = false;
@@ -97,6 +98,7 @@
       on:clear={handleClear}
       {labelText}
       {placeholder}
+      {disabled}
     />
   </div>
 
