@@ -13,6 +13,7 @@
   export let label: string;
   export let value: string | string[];
   export let multiple = false;
+  export let disabled: boolean = false;
 
   let images: string[] = [];
   let isImageUploading = false;
@@ -78,6 +79,7 @@
           icon={TrashCan16}
           kind="danger"
           on:click={handleImageDelete(idx)}
+          {disabled}
         />
       </div>
     </div>
@@ -91,6 +93,7 @@
   {multiple}
   accept={["image/*"]}
   on:add={handleImageAdd}
+  {disabled}
 />
 
 <style>
