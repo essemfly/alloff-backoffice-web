@@ -47,7 +47,7 @@ jobs:
         run: |
           aws cloudfront create-invalidation \
             --distribution-id E3A45RKMTAQTRH \
-            --paths "/*""
+            --paths \"/*\""
 
       - name: action-slack
         uses: 8398a7/action-slack@v3
