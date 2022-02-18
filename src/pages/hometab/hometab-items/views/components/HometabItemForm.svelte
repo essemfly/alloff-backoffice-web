@@ -24,6 +24,7 @@
   import HometabBrandExhibitionSection from "./HometabBrandExhibitionSection.svelte";
   import HometabExhibitionCollectionSection from "./HometabExhibitionCollectionSection.svelte";
   import HometabExhibitionSection from "./HometabExhibitionSection.svelte";
+  import HometabProductCategoryCurationSection from "./HometabProductCategoryCurationSection.svelte";
 
   export let form: CreateHomeTabRequest & HomeTab;
   export let isAdding: boolean = false;
@@ -127,11 +128,17 @@
 {/if}
 
 {#if itemType === ItemTypeEnum.ProductsA}
-  <ContentBox title={HometabItemType.Products}>
-    <Row>
-      <Column>
-        <TextInput labelText={"ID"} bind:value={form.item_id} readonly />
-      </Column>
-    </Row>
-  </ContentBox>
+  <HometabProductCategoryCurationSection
+    value={{ products: form.products ? form.products : [], options: [] }}
+    on:change={handleChange}
+    {isAdding}
+  />
+{/if}
+
+{#if itemType === ItemTypeEnum.ProductsB}
+  <HometabProductCategoryCurationSection
+    value={{ products: form.products ? form.products : [], options: [] }}
+    on:change={handleChange}
+    {isAdding}
+  />
 {/if}

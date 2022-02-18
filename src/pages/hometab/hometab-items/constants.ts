@@ -5,8 +5,8 @@ export enum HometabItemType {
   Exhibition = "기획전 C",
   Products = "큐레이션",
   // todo: remove this temp
-  ProductsA = "큐레이션 A",
-  ProductsB = "큐레이션 B",
+  ProductsA = "카테고리 큐레이션",
+  ProductsB = "브랜드 큐레이션",
 }
 
 export interface HometabBasic {

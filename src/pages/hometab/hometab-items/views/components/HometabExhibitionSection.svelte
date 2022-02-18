@@ -8,9 +8,11 @@
 
   import { HometabItemType } from "../../constants";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
 
   interface HometabExhibitionSectionValue {
     backImageUrl?: string;
+    tags: string[];
     exhibition: Exhibition | undefined;
   }
 
@@ -18,6 +20,7 @@
   export let isAdding: boolean = false;
 
   let backImageUrl: string;
+  let tags: string[] = [];
 
   let exhibitions: Exhibition[] = [];
   let filteredExhibitions: AutocompleteItem[] = [];
@@ -28,6 +31,7 @@
 
   onMount(async () => {
     backImageUrl = value.backImageUrl ?? "";
+    tags = value.tags ?? [];
     selectedExhibition = value.exhibition ?? undefined;
 
     const res = await exhibitionApi.exhibitionsList();
@@ -50,7 +54,7 @@
   $: if (selectedExhibition) {
     dispatch("change", {
       item_type: ItemTypeEnum.Exhibition,
-      exhibition_ids: selectedExhibition.exhibition_id,
+      exhibition_ids: [selectedExhibition.exhibition_id],
       back_image_url: backImageUrl,
     });
   }
@@ -66,6 +70,12 @@
       />
     </Column>
   </Row>
+  <Row>
+    <Column>
+      <MultilineTextInput label="태그" bind:value={tags} />
+    </Column>
+  </Row>
+
   <h4>기획전 선택</h4>
   <Row>
     <Column>
@@ -75,6 +85,7 @@
         placeholder="기획전 이름/ID로 검색"
         labelText="기획전 검색"
         disabled={!isAdding}
+        keepValueOnSubmit
       />
     </Column>
   </Row>
