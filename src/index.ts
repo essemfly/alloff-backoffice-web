@@ -1,8 +1,8 @@
+import "@app/global.css";
 import axios, { AxiosError } from "axios";
 import { TokenApi } from "./api";
 import App from "./App.svelte";
 import { getTokens, setTokens } from "./core/auth";
-
 const toLogin = () => {
   window.location.href = "/login";
 };
@@ -51,12 +51,3 @@ const app = new App({
 });
 
 export default app;
-
-// Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
-// Learn more: https://www.snowpack.dev/concepts/hot-module-replacement
-if (import.meta.hot) {
-  import.meta.hot.accept();
-  import.meta.hot.dispose(() => {
-    app.$destroy();
-  });
-}

@@ -25,7 +25,7 @@ jobs:
         run: yarn
 
       - name: Generate code from api
-        run: NODE_ENV=prod yarn generate-apis
+        run: NODE_ENV=production yarn generate-apis
 
       - name: Build
         run: yarn build
@@ -38,7 +38,7 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            build s3://alloff-backoffice-prod
+            dist s3://alloff-backoffice-prod
 
       - name: Create Invalidation to CloudFront
         env:

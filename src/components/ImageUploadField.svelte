@@ -1,42 +1,74 @@
 <script lang="ts">
+  import { toast } from "@zerodevx/svelte-toast";
+  import { onMount } from "svelte";
   import {
     Button,
     FileUploaderDropContainer,
     InlineLoading,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import { ImageUploadApi } from "../api";
+
+  import { ImageUploadApi } from "@api";
 
   export let label: string;
-  export let value: string[];
+  export let value: string | string[];
   export let multiple = false;
+  export let disabled: boolean = false;
 
+  let images: string[] = [];
   let isImageUploading = false;
 
   const imageApi = new ImageUploadApi();
 
-  const handleImageAdd = async (event: CustomEvent<FileList>) => {
-    const files = event.detail;
-    isImageUploading = true;
-    for (let i = 0; i < files.length; i++) {
-      // Needs refactoring --- keep the file sequence but upload asynchronously
-      await imageApi.imageUploadUploadCreate({ file: files[i] }).then((res) => {
-        const { url } = res.data;
-        value = [...value, url];
-      });
+  onMount(() => {
+    if (value) {
+      if (multiple) {
+        images = (value as string[]) ?? [];
+      } else {
+        images = [value as string] ?? [];
+      }
     }
-    isImageUploading = false;
+  });
+
+  const handleImageAdd = async (event: CustomEvent<FileList>) => {
+    try {
+      isImageUploading = true;
+      const promises = Array.from(event.detail).map((file: File) =>
+        imageApi.imageUploadUploadCreate({ file }),
+      );
+      const res = await Promise.all(promises);
+      res.forEach(({ data: { url } }) => {
+        if (multiple) {
+          updateValue([...value, url]);
+        } else {
+          updateValue([url]);
+        }
+      });
+    } catch (e) {
+      toast.push("이미지 등록 중 오류가 발생했습니다.");
+    } finally {
+      isImageUploading = false;
+    }
   };
 
   const handleImageDelete = (index: number) => () => {
-    value.splice(index, 1);
-    value = value;
+    images.splice(index, 1);
+    updateValue(images);
+  };
+
+  const updateValue = (updatedValue: string[]) => {
+    images = updatedValue;
+    if (multiple) {
+      value = images;
+    } else {
+      value = images[0];
+    }
   };
 </script>
 
 <div class="bx--label">{label}</div>
 <div class="image-container">
-  {#each value as image, idx}
+  {#each images as image, idx}
     <div class="image-wrapper">
       <img class="image" src={image} alt={[label, idx].join("_")} />
       <div class="delete-button">
@@ -47,6 +79,7 @@
           icon={TrashCan16}
           kind="danger"
           on:click={handleImageDelete(idx)}
+          {disabled}
         />
       </div>
     </div>
@@ -60,6 +93,7 @@
   {multiple}
   accept={["image/*"]}
   on:add={handleImageAdd}
+  {disabled}
 />
 
 <style>

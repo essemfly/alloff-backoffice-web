@@ -4,12 +4,17 @@
   import { Grid, Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { ProductGroup, ProductGroupsApi } from "@api";
+  import { ProductGroup, ProductGroupsApi, GroupTypeEnum } from "@api";
   import Nav from "@app/components/Nav.svelte";
 
   import ProductForm from "./components/ProductGroupForm.svelte";
+  import { getGroupTypeLabel } from "../commands/helpers";
+
+  export let productGroupType: GroupTypeEnum;
 
   let isTouched = true;
+  let productGroupTypeLabel = getGroupTypeLabel(productGroupType);
+
   let productGroup: ProductGroup = {
     title: "",
     short_title: "",
@@ -19,6 +24,7 @@
     product_group_id: "",
     products: [],
     instruction: [],
+    group_type: productGroupType,
   };
 
   const handleSubmit = async () => {
@@ -39,41 +45,30 @@
           })),
         },
       });
-      toast.push("컬렉션 등록이 완료되었습니다.");
+      toast.push(`${productGroupTypeLabel} 등록이 완료되었습니다.`);
       navigate(-1);
     } catch (e) {
-      toast.push(`컬렉션 등록에 오류가 발생했습니다.`);
+      toast.push(`${productGroupTypeLabel} 등록에 오류가 발생했습니다.`);
     }
   };
 </script>
 
-<Nav title="컬렉션 추가">
+<Nav title="{productGroupTypeLabel} 추가">
   <Grid>
-    <div class="button-wrapper mb10">
+    <div class="button-right-wrapper mb10">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-        컬렉션 등록
+        {productGroupTypeLabel} 등록
       </Button>
     </div>
-    <ProductForm bind:form={productGroup} isAdding />
-    <div class="button-wrapper mt10">
+    <ProductForm
+      label={productGroupTypeLabel}
+      bind:form={productGroup}
+      isAdding
+    />
+    <div class="button-right-wrapper mt10">
       <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-        컬렉션 등록
+        {productGroupTypeLabel} 등록
       </Button>
     </div>
   </Grid>
 </Nav>
-
-<style>
-  .button-wrapper {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
-  }
-</style>

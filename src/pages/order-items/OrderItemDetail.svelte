@@ -1,18 +1,18 @@
 <script lang="ts">
-  import {
-    Breakpoint,
-    InlineLoading,
-    Tab,
-    Tabs,
-  } from "carbon-components-svelte";
-  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
+  import { OrderItemList,OrderItemRetrieve,OrderItemsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
-
+  import {
+  Breakpoint,
+  InlineLoading,
+  Tab,
+  Tabs
+  } from "carbon-components-svelte";
+  import { admin } from "../../store";
   import OrderItemSectionBasic from "./components/OrderItemSectionBasic.svelte";
-  import OrderItemSectionPG from "./components/OrderItemSectionPG.svelte";
-  import OrderItemSectionTop from "./components/OrderItemSectionTop.svelte";
   import OrderItemSectionLogs from "./components/OrderItemSectionLogs.svelte";
   import OrderItemSectionPayment from "./components/OrderItemSectionPayment.svelte";
+  import OrderItemSectionPG from "./components/OrderItemSectionPG.svelte";
+  import OrderItemSectionTop from "./components/OrderItemSectionTop.svelte";
 
   export let idOrCode: string;
 
@@ -64,17 +64,21 @@
     <OrderItemSectionTop {...{ item, load, api, mobile }} bind:submitting />
     <Tabs bind:selected={selectedIndex}>
       <Tab label="기본정보" />
-      <Tab label="결제" />
-      <Tab label="PG" />
-      <Tab label="관리이력" />
+      {#if $admin?.profile.is_admin}
+        <Tab label="결제" />
+        <Tab label="PG" />
+        <Tab label="관리이력" />
+      {/if}
       <div slot="content">
         <OrderItemSectionBasic
           {...{ item, mobile, load, api, userItems }}
           bind:submitting
         />
-        <OrderItemSectionPayment {...{ item, api, load }} bind:submitting />
-        <OrderItemSectionPG {item} />
-        <OrderItemSectionLogs {item} />
+        {#if $admin?.profile.is_admin}
+          <OrderItemSectionPayment {...{ item, api, load }} bind:submitting />
+          <OrderItemSectionPG {item} />
+          <OrderItemSectionLogs {item} />
+        {/if}
       </div>
     </Tabs>
   {/if}

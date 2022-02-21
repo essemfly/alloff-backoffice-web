@@ -1,13 +1,11 @@
 <script lang="ts">
+  import { EditProductRequestApiRequest,Product,ProductsApi } from "@api";
+  import Nav from "@app/components/Nav.svelte";
   import { toast } from "@zerodevx/svelte-toast";
+  import { Button,Grid,InlineLoading } from "carbon-components-svelte";
+  import Save16 from "carbon-icons-svelte/lib/Save16";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
-  import { Grid, Button, InlineLoading } from "carbon-components-svelte";
-  import Save16 from "carbon-icons-svelte/lib/Save16";
-
-  import { EditProductRequestRequest, Product, ProductsApi } from "@api";
-  import Nav from "@app/components/Nav.svelte";
-
   import ProductForm from "./components/ProductForm.svelte";
 
   const productApi = new ProductsApi();
@@ -28,8 +26,8 @@
     try {
       const res = await productApi.productsUpdate({
         id: product.alloff_product_id,
-        editProductRequestRequest:
-          product as unknown as EditProductRequestRequest,
+        editProductRequestApiRequest:
+          product as unknown as EditProductRequestApiRequest,
       });
       toast.push("상품 수정이 완료되었습니다.");
       navigate(-1);
@@ -44,13 +42,13 @@
     <InlineLoading status="active" description="On Loading..." />
   {:else}
     <Grid>
-      <div class="button-wrapper mb10">
+      <div class="button-right-wrapper mb10">
         <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
           {"수정"}
         </Button>
       </div>
       <ProductForm form={product} />
-      <div class="button-wrapper mt10">
+      <div class="button-right-wrapper mt10">
         <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
           {"수정"}
         </Button>
@@ -58,18 +56,3 @@
     </Grid>
   {/if}
 </Nav>
-
-<style>
-  .button-wrapper {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
-  }
-</style>

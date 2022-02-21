@@ -28,7 +28,7 @@ jobs:
         run: yarn generate-apis
 
       - name: Build
-        run: yarn build --config ./snowpack.dev.config.mjs
+        run: yarn build --mode development
 
       - name: Deploy
         env:
@@ -38,7 +38,7 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            build s3://alloff-backoffice-dev
+            dist s3://alloff-backoffice-dev
 
       - name: Create Invalidation to CloudFront
         env:
@@ -47,7 +47,7 @@ jobs:
         run: |
           aws cloudfront create-invalidation \
             --distribution-id E3A45RKMTAQTRH \
-            --paths /*
+            --paths "/*"
 
       - name: action-slack
         uses: 8398a7/action-slack@v3

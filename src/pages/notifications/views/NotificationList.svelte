@@ -91,28 +91,12 @@
 </script>
 
 <Nav title="푸시알림 목록">
-  <div class="button-wrapper mb10">
+  <div class="button-right-wrapper mb10">
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
   <Pagination {limit} {offset} {totalItems} on:change={handlePageChange} />
   <NotificationDataTable {notifications} on:send={handleSendClick} />
-  <div class="button-wrapper mt10">
+  <div class="button-right-wrapper mt10">
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
 </Nav>
-
-<style>
-  .button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .mb10 {
-    margin-bottom: 10px;
-  }
-
-  .mt10 {
-    margin-top: 10px;
-  }
-</style>

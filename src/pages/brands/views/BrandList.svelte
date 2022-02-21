@@ -48,9 +48,4 @@
     flex-wrap: wrap;
     flex-direction: row;
   }
-  .button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
 </style>

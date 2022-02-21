@@ -11,10 +11,12 @@
   export let highlightTextColor = "#fff";
   export let placeholder: string | undefined = undefined;
   export let labelText: string | undefined = undefined;
+  export let disabled: boolean = false;
 
   let inputRef: HTMLInputElement | null | undefined;
   let showAutocompleteResults = false;
   let highlightIndex = 0;
+  let selected: AutocompleteItem | undefined;
 
   const showResults = () => {
     highlightIndex = 0;
@@ -52,8 +54,9 @@
         break;
       case "Enter":
         const highlightedOption = matches[highlightIndex];
-        const value = highlightedOption || selectedValue;
-        handleSubmit(value);
+        // const value = highlightedOption || selectedValue;
+        // selectedValue = highlightedOption.value;
+        handleSubmit(highlightedOption);
         break;
       default:
         return;
@@ -71,7 +74,8 @@
     onSubmit(value);
     hideResults();
     if (keepValueOnSubmit) {
-      selectedValue = value.value;
+      selected = value;
+      selectedValue = value.value ?? "";
     } else {
       selectedValue = "";
     }
@@ -94,6 +98,7 @@
       on:clear={handleClear}
       {labelText}
       {placeholder}
+      {disabled}
     />
   </div>
 
