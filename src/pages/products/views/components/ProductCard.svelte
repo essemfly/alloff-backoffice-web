@@ -36,7 +36,7 @@
     try {
       const res = await productApi.productsUpdate({
         id: product.alloff_product_id,
-        editProductRequestRequest: {
+        editProductRequestApiRequest: {
           ...product,
           is_removed: true,
         } as unknown as EditProductRequestRequest,
