@@ -64,8 +64,6 @@
       selectedBrands = newValue;
     };
 
-  console.log(brands);
-
   $: if (selectedBrands) {
     selectedBrandKeynames = selectedBrands.map(({ keyname }) => keyname);
     dispatch("change", {

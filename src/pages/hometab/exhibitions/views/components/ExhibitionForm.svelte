@@ -10,8 +10,17 @@
     StructuredListRow,
     StructuredListCell,
     StructuredListHead,
+    Tabs,
+    Tab,
+    TabContent,
+    ButtonSet,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
+  import Launch16 from "carbon-icons-svelte/lib/Launch16";
+  import ChevronUp16 from "carbon-icons-svelte/lib/ChevronUp16";
+  import ChevronDown16 from "carbon-icons-svelte/lib/ChevronDown16";
+  import UpToTop16 from "carbon-icons-svelte/lib/UpToTop16";
+  import DownToBottom16 from "carbon-icons-svelte/lib/DownToBottom16";
 
   import {
     Exhibition,
@@ -23,6 +32,8 @@
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
   import DateTimePicker from "@app/components/DateTimePicker.svelte";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import ExhibitionSectionForm from "./ExhibitionSectionForm.svelte";
+  import { toast } from "@zerodevx/svelte-toast";
 
   export let form: Exhibition & { pg_ids: string[] };
   export let isAdding: boolean = false;
@@ -30,6 +41,18 @@
   let exhibitionSections: ProductGroup[] = [];
   let filteredExhibitionSections: AutocompleteItem[] = [];
   let selectedExhibitionSections: ProductGroup[] = [];
+
+  let tempProductGroup: ProductGroup = {
+    title: "",
+    short_title: "",
+    image_url: "",
+    start_time: form.start_time,
+    finish_time: form.finish_time,
+    product_group_id: "",
+    products: [],
+    instruction: [],
+    group_type: GroupTypeEnum.Exhibition,
+  };
 
   const productGroupApi = new ProductGroupsApi();
 
@@ -72,10 +95,77 @@
       ({ product_group_id }) => product_group_id,
     );
   }
+
+  const handleProductGroupSubmit = async () => {
+    try {
+      const productGroupApi = new ProductGroupsApi();
+      const { products, ...requestBody } = tempProductGroup;
+      const res = await productGroupApi.productGroupsCreate({
+        createProductGroupSeriazlierRequest: {
+          ...requestBody,
+          start_time: form.start_time,
+          finish_time: form.finish_time,
+        },
+      });
+      const newProductGroup = res.data;
+      await productGroupApi.productGroupsPushProductsCreate({
+        id: newProductGroup.product_group_id,
+        pushProductsRequest: {
+          product_group_id: newProductGroup.product_group_id,
+          product_priority: products.map(({ product, priority }) => ({
+            product_id: product.alloff_product_id,
+            priority,
+          })),
+        },
+      });
+      selectedExhibitionSections = [
+        ...selectedExhibitionSections,
+        newProductGroup,
+      ];
+      handleExhibitionSectionAdd({
+        key: newProductGroup.product_group_id,
+        value: newProductGroup.title,
+      });
+      tempProductGroup = {
+        title: "",
+        short_title: "",
+        image_url: "",
+        start_time: form.start_time,
+        finish_time: form.finish_time,
+        product_group_id: "",
+        products: [],
+        instruction: [],
+        group_type: GroupTypeEnum.Exhibition,
+      };
+    } catch (e) {
+      toast.push(`기획전 섹션 등록에 오류가 발생했습니다.`);
+    }
+  };
+
+  const handleDetailOpen = (productGroupId: string) => () => {
+    window.open(`/product-groups/${productGroupId}`, "_blank"); // todo: not use window.open
+  };
+
+  const handleSort = (index: number, to: number) => () => {
+    const [current] = selectedExhibitionSections.splice(index, 1);
+    switch (to) {
+      case 0:
+        // to first
+        selectedExhibitionSections = [current, ...selectedExhibitionSections];
+        break;
+      case 100:
+        // to last
+        selectedExhibitionSections = [...selectedExhibitionSections, current];
+        break;
+      default:
+        const toIndex = index + to;
+        selectedExhibitionSections.splice(toIndex, 0, current);
+        selectedExhibitionSections = selectedExhibitionSections;
+    }
+  };
 </script>
 
-<ContentBox>
-  <h3>기획전 정보</h3>
+<ContentBox title="기획전 정보">
   {#if !isAdding}
     <Row padding>
       <Column>
@@ -119,37 +209,22 @@
   </Row>
 </ContentBox>
 
-<ContentBox title="기획전 섹션">
-  <h4>기획전 섹션</h4>
-  <Row>
-    <Column>
-      <Autocomplete
-        options={filteredExhibitionSections}
-        onSubmit={handleExhibitionSectionAdd}
-        placeholder="기획전 이름/ID로 검색"
-        labelText="기획전 검색"
-      />
-    </Column>
-  </Row>
-
+<ContentBox title="기획전 섹션 목록">
   <StructuredList>
     <StructuredListHead>
       <StructuredListRow>
-        <StructuredListCell head>Thumbnail</StructuredListCell>
         <StructuredListCell head>Title</StructuredListCell>
         <StructuredListCell head>Actions</StructuredListCell>
       </StructuredListRow>
     </StructuredListHead>
     <StructuredListBody>
+      {#if selectedExhibitionSections.length === 0}
+        <StructuredListRow>
+          <StructuredListCell>No section submitted</StructuredListCell>
+        </StructuredListRow>
+      {/if}
       {#each selectedExhibitionSections as section, index}
         <StructuredListRow>
-          <StructuredListCell>
-            <img
-              class="cell_image"
-              src={section.image_url}
-              alt={[section.title, "thumbnai"].join("-")}
-            />
-          </StructuredListCell>
           <StructuredListCell>
             {section.title}
           </StructuredListCell>
@@ -157,10 +232,56 @@
             <Button
               tooltipPosition="bottom"
               tooltipAlignment="end"
+              iconDescription="첫번째로"
+              icon={UpToTop16}
+              kind="ghost"
+              size="small"
+              on:click={handleSort(index, 0)}
+            />
+            <Button
+              tooltipPosition="bottom"
+              tooltipAlignment="end"
+              iconDescription="위로"
+              icon={ChevronUp16}
+              kind="ghost"
+              size="small"
+              on:click={handleSort(index, -1)}
+            />
+            <Button
+              tooltipPosition="bottom"
+              tooltipAlignment="end"
+              iconDescription="아래로"
+              icon={ChevronDown16}
+              kind="ghost"
+              size="small"
+              on:click={handleSort(index, +1)}
+            />
+            <Button
+              tooltipPosition="bottom"
+              tooltipAlignment="end"
+              iconDescription="마지막으로"
+              icon={DownToBottom16}
+              kind="ghost"
+              size="small"
+              on:click={handleSort(index, +100)}
+            />
+            <Button
+              tooltipPosition="bottom"
+              tooltipAlignment="end"
               iconDescription="삭제"
               icon={TrashCan16}
               kind="danger"
+              size="small"
               on:click={handleExhibitionSectionRemove(index)}
+            />
+            <Button
+              tooltipPosition="bottom"
+              tooltipAlignment="end"
+              iconDescription="상세"
+              icon={Launch16}
+              kind="ghost"
+              size="small"
+              on:click={handleDetailOpen(section.product_group_id)}
             />
           </StructuredListCell>
         </StructuredListRow>
@@ -169,10 +290,30 @@
   </StructuredList>
 </ContentBox>
 
-<style>
-  .cell_image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-  }
-</style>
+<ContentBox title="기획전 섹션">
+  <h4>기획전 섹션</h4>
+  <Tabs>
+    <Tab label="새로운 기획전 섹션" />
+    <Tab label="등록된 기획전 섹션" />
+    <svelte:fragment slot="content">
+      <TabContent>
+        <ExhibitionSectionForm bind:form={tempProductGroup} />
+        <div class="button-right-wrapper">
+          <Button on:click={handleProductGroupSubmit}>기획전 섹션 추가</Button>
+        </div>
+      </TabContent>
+      <TabContent>
+        <Row>
+          <Column>
+            <Autocomplete
+              options={filteredExhibitionSections}
+              onSubmit={handleExhibitionSectionAdd}
+              placeholder="기획전 섹션 이름/ID로 검색"
+              labelText="기획전 섹션 검색"
+            />
+          </Column>
+        </Row>
+      </TabContent>
+    </svelte:fragment>
+  </Tabs>
+</ContentBox>
