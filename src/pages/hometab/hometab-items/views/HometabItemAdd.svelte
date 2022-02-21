@@ -28,10 +28,10 @@
       const res = await hometabApi.hometabsCreate({
         createHomeTabRequest: hometabItem,
       });
-      toast.push("기획전 등록이 완료되었습니다.");
+      toast.push("홈탭 아이템 등록이 완료되었습니다.");
       navigate(-1);
     } catch (e) {
-      toast.push(`기획전 등록에 오류가 발생했습니다.`);
+      toast.push(`홈탭 아이템 등록에 오류가 발생했습니다.`);
     }
   };
 </script>
