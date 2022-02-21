@@ -334,6 +334,8 @@
               <StructuredListCell head>썸네일</StructuredListCell>
               <StructuredListCell head>브랜드</StructuredListCell>
               <StructuredListCell head>제품명</StructuredListCell>
+              <StructuredListCell head>재고</StructuredListCell>
+              <StructuredListCell head>가격</StructuredListCell>
               <StructuredListCell head>Actions</StructuredListCell>
             </StructuredListRow>
           </StructuredListHead>
@@ -347,15 +349,30 @@
                     src={product.images[0]}
                     alt={["product_preview", product.alloff_name].join("-")}
                   />
+                  <img
+                  class="cell_image"
+                  src={product.images[1]}
+                  alt={["product_preview", product.alloff_name].join("-")}
+                />
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.brand_kor_name}
                 </StructuredListCell>
-                <StructuredListCell>
-                  {product.alloff_category_name}
-                </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.alloff_name}
+                </StructuredListCell>
+                <StructuredListCell noWrap>
+                  {#each product.inventory as inv}
+                  <Row>
+                    {inv.size} : {inv.quantity}개
+                  </Row>
+                  {/each}
+                </StructuredListCell>
+                <StructuredListCell noWrap>
+                  {product.original_price} -> {product.discounted_price} ({(
+                    ((product.original_price - product.discounted_price) / product.original_price) *
+                    100
+                  ).toFixed(0)}%)
                 </StructuredListCell>
                 <StructuredListCell>
                   <Row>
@@ -389,6 +406,8 @@
               <StructuredListCell head>썸네일</StructuredListCell>
               <StructuredListCell head>브랜드</StructuredListCell>
               <StructuredListCell head>제품명</StructuredListCell>
+              <StructuredListCell head>재고</StructuredListCell>
+              <StructuredListCell head>가격</StructuredListCell>
               <StructuredListCell head>
                 우선순위 (낮을수록 상단)
               </StructuredListCell>
@@ -405,12 +424,30 @@
                     src={product.images[0]}
                     alt={["product_preview", product.alloff_name].join("-")}
                   />
+                  <img
+                  class="cell_image"
+                  src={product.images[1]}
+                  alt={["product_preview", product.alloff_name].join("-")}
+                />
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.brand_kor_name}
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.alloff_name}
+                </StructuredListCell>
+                <StructuredListCell noWrap>
+                  {#each product.inventory as inv}
+                  <Row>
+                    {inv.size} : {inv.quantity}개
+                  </Row>
+                  {/each}
+                </StructuredListCell>
+                <StructuredListCell noWrap>
+                  {product.original_price} -> {product.discounted_price} ({(
+                    ((product.original_price - product.discounted_price) / product.original_price) *
+                    100
+                  ).toFixed(0)}%)
                 </StructuredListCell>
                 <StructuredListCell class="product-list-number">
                   <NumberInput bind:value={priority} />
@@ -467,8 +504,8 @@
   }
 
   .cell_image {
-    width: 80px;
-    height: 80px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
   }
 
@@ -481,7 +518,8 @@
   }
 
   .product-list {
-    max-height: 300px;
+    max-height: 800px;
     overflow-y: auto;
+    margin-bottom: 50px;
   }
 </style>
