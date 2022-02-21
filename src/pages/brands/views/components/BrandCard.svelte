@@ -94,6 +94,7 @@
       .brandsPartialUpdate({
         id: brand.brand_id,
         patchedBrandRequest: {
+          keyname: brand.keyname,
           is_popular: isPopular === "true" ? true : false,
           is_open: isOpen === "true" ? true : false,
           in_maintenance: isHide === "true" ? true : false,
