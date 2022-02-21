@@ -443,12 +443,14 @@
         </StructuredList>
       </div>
 
-      <div class="button-wrapper">
-        <Button
-          on:click={handleAddProductSubmit}
-          disabled={selectedProductInGroup.length === 0}>컬렉션에 저장</Button
-        >
-      </div>
+      {#if !isAdding}
+        <div class="button-wrapper">
+          <Button
+            on:click={handleAddProductSubmit}
+            disabled={selectedProductInGroup.length === 0}>컬렉션에 저장</Button
+          >
+        </div>
+      {/if}
     </Column>
   </Row>
 </ContentBox>
