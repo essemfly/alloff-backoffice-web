@@ -155,7 +155,7 @@
   const handleProductSearch = async () => {
     const res = await productApi.productsList({
       offset: 0,
-      limit: 10000,
+      limit: 3000,
       searchQuery: productSearchQuery ?? "",
       brandId: selectedBrandId ?? "",
     });
