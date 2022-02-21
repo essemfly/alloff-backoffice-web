@@ -98,22 +98,24 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {#each value.brands as brand}
-            <StructuredListRow>
-              <StructuredListCell>
-                <img
-                  class="logo_image"
-                  src={brand.logo_image_url}
-                  alt={[brand.korname, "logo"].join("-")}
-                />
-              </StructuredListCell>
-              <StructuredListCell>
-                {brand.korname}
-                {brand.keyname}
-              </StructuredListCell>
-              <StructuredListCell />
-            </StructuredListRow>
-          {/each}
+          {#if value.brands?.length > 0}
+            {#each value.brands as brand}
+              <StructuredListRow>
+                <StructuredListCell>
+                  <img
+                    class="logo_image"
+                    src={brand.logo_image_url}
+                    alt={[brand.korname, "logo"].join("-")}
+                  />
+                </StructuredListCell>
+                <StructuredListCell>
+                  {brand.korname}
+                  {brand.keyname}
+                </StructuredListCell>
+                <StructuredListCell />
+              </StructuredListRow>
+            {/each}
+          {/if}
           {#each selectedBrands as brand, index}
             <StructuredListRow>
               <StructuredListCell>

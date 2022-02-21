@@ -6,6 +6,7 @@
     HomeTab,
     HometabsApi,
     HometabsApiHometabsListRequest as SearchQueryParam,
+    PatchedHomeTabRequest,
   } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
@@ -17,6 +18,8 @@
   } from "@app/helpers/query-string";
 
   import { hometabColumns } from "./components/hometabColumns";
+  import { debounce } from "lodash";
+  import { a } from "@app/helpers/notification";
 
   let hometabs: DataTableData<HomeTab>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
@@ -74,6 +77,31 @@
     navigate(`/hometab/${event.detail.id}`);
   };
 
+  const handleWeightChange = debounce(async (event: CustomEvent<number[]>) => {
+    const [weight, index] = event.detail;
+
+    let hometabItem = hometabs[index];
+    hometabItem.weight = weight;
+
+    const { start_time, finish_time, ...requestBody } = hometabItem;
+
+    await hometabApi.hometabsUpdate({
+      id: hometabItem.item_id,
+      editHomeTabRequest: {
+        ...requestBody,
+        hometab_id: hometabItem.item_id,
+        weight,
+      },
+    });
+
+    hometabs.sort((a, b) => {
+      var x = b.weight;
+      var y = a.weight;
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    hometabs = hometabs;
+  }, 500);
+
   $: if ($location) {
     const params = parseQueryString<SearchQueryParam>($location.search);
     load(params);
@@ -95,6 +123,7 @@
     data={hometabs}
     columns={hometabColumns}
     on:click:row={handleRowClick}
+    on:change:weight={handleWeightChange}
   />
   <div class="button-right-wrapper mt10">
     <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
