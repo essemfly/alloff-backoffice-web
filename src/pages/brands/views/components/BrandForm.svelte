@@ -110,6 +110,28 @@
   </Row>
 </ContentBox>
 <ContentBox title="사이즈 가이드">
+  <h4>가이드 영역 추가</h4>
+  <Row padding>
+    <Column>
+      <TextInput
+        labelText="가이드 영역 이름"
+        placeholder="가이드 영역 이름"
+        bind:value={tempGuide.label}
+      />
+    </Column>
+    <Column>
+      <ImageUploadField
+        label={"사이즈 가이드 이미지"}
+        bind:value={tempGuide.image_url}
+      />
+    </Column>
+  </Row>
+  <div class="button-right-wrapper">
+    <Button size="small" kind="secondary" on:click={handleSizeGuideAdd}>
+      사이즈 가이드 추가
+    </Button>
+  </div>
+  <hr />
   <Row>
     <Column>
       <StructuredList condensed>
@@ -153,28 +175,6 @@
       </StructuredList>
     </Column>
   </Row>
-  <hr />
-  <h4>가이드 영역 추가</h4>
-  <Row padding>
-    <Column>
-      <TextInput
-        labelText="가이드 영역 이름"
-        placeholder="가이드 영역 이름"
-        bind:value={tempGuide.label}
-      />
-    </Column>
-    <Column>
-      <ImageUploadField
-        label={"사이즈 가이드 이미지"}
-        bind:value={tempGuide.image_url}
-      />
-    </Column>
-  </Row>
-  <div class="button-right-wrapper">
-    <Button size="small" kind="secondary" on:click={handleSizeGuideAdd}>
-      사이즈 가이드 추가
-    </Button>
-  </div>
 </ContentBox>
 
 <style>
