@@ -1,7 +1,16 @@
 <script lang="ts">
-  import { Button, DataTable, Toggle } from "carbon-components-svelte";
-  import Launch16 from "carbon-icons-svelte/lib/Launch16";
   import { createEventDispatcher } from "svelte";
+  import {
+    Button,
+    DataTable,
+    NumberInput,
+    Toggle,
+  } from "carbon-components-svelte";
+  import Launch16 from "carbon-icons-svelte/lib/Launch16";
+  import ChevronUp16 from "carbon-icons-svelte/lib/ChevronUp16";
+  import ChevronDown16 from "carbon-icons-svelte/lib/ChevronDown16";
+  import UpToTop16 from "carbon-icons-svelte/lib/UpToTop16";
+  import DownToBottom16 from "carbon-icons-svelte/lib/DownToBottom16";
 
   import {
     DataTableColumn,
@@ -29,8 +38,16 @@
     .filter(({ type }) => type === "toggle")
     .map(({ key }) => key);
 
-  const handleOpen = (path: string) => () => {
+  const handleOpen = (path: string) => (event: MouseEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
     window.open(path, "_blank"); // todo: not use window.open
+  };
+
+  const handleWeightChange = (rowId: string) => (event: CustomEvent) => {
+    const value = event.detail;
+    const rowIndex = data.findIndex(({ id }) => id === rowId);
+    dispatch("change:weight", [value, rowIndex]);
   };
 
   $: if (data) {
@@ -41,6 +58,7 @@
 <DataTable
   {headers}
   {rows}
+  sortable
   on:click:row={(event) => {
     dispatch("click:row", event.detail);
   }}
@@ -49,9 +67,14 @@
     slot="cell"
     let:cell
     let:row
-    on:click={() => {
-      dispatch("click", { row, cell });
-      dispatch("click:cell", cell);
+    on:click={(event) => {
+      if (cell.key === "weight") {
+        event.stopPropagation();
+        event.preventDefault();
+      } else {
+        dispatch("click", { row, cell });
+        dispatch("click:cell", cell);
+      }
     }}
   >
     {#if imageColumns.includes(cell.key) && cell.value}
@@ -60,7 +83,7 @@
         alt={[row.id, "thumbnail"].join("-")}
         class="cell_thumb"
       />
-    {:else if linkColumns.includes(cell.key) && cell.value}
+    {:else if linkColumns.includes(cell.key) && cell.value !== ""}
       <Button
         tooltipPosition="bottom"
         tooltipAlignment="end"
@@ -72,6 +95,12 @@
       />
     {:else if toggleColumns.includes(cell.key) && cell.value !== undefined}
       <Toggle size="sm" toggled={cell.value} />
+    {:else if cell.key === "weight"}
+      <NumberInput
+        size="sm"
+        value={cell.value}
+        on:change={handleWeightChange(row.id)}
+      />
     {:else}
       {cell.value}
     {/if}

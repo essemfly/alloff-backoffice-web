@@ -1,8 +1,19 @@
-import { HomeTab, ItemTypeEnum } from "@api";
+import { HomeTab } from "@api";
 import { DataTableColumn } from "@app/components/DataTable/helpers";
 import { formatDate } from "@app/helpers/date";
+import { getHometabItemTypeLabelByIndex } from "../../commands/helpers";
 
 export const hometabColumns: DataTableColumn<HomeTab>[] = [
+  {
+    key: "item_type",
+    name: "종류",
+    get: (data) => {
+      return getHometabItemTypeLabelByIndex(
+        data.item_type as unknown as number,
+      );
+    },
+  },
+
   {
     key: "back_image_url",
     name: "배경 이미지",
@@ -23,19 +34,26 @@ export const hometabColumns: DataTableColumn<HomeTab>[] = [
     get: (data) => formatDate(data.finish_time),
   },
   {
-    key: "reference",
-    name: "관련",
-    type: "link",
-    get: (data) => {
-      const { params, path } = data.reference;
-      switch (data.item_type) {
-        case ItemTypeEnum.Exhibition:
-          return `/exhibitions/${params}`;
-        case ItemTypeEnum.Exhibitions: // 기획전 모음
-          return "";
-        default:
-          return `/${path}/${params}`;
-      }
-    },
+    key: "weight",
+    name: "정렬",
+    type: "weight",
+    get: (data) => data.weight,
   },
+  // {
+  //   key: "reference",
+  //   name: "관련",
+  //   type: "link",
+  //   get: (data) => {
+  //     const { params, path } = data.reference;
+  //     switch (data.item_type) {
+  //       case ItemTypeEnum.Exhibition:
+  //         return `/product-groups/${params}`;
+  //       case ItemTypeEnum.Exhibitions: // 기획전 모음
+  //       case ItemTypeEnum.Brands:
+  //         return "";
+  //       default:
+  //         return `/${path}/${params}`;
+  //     }
+  //   },
+  // },
 ];

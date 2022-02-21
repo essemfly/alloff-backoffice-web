@@ -9,6 +9,7 @@ export type DataTableColumnType =
   | "link"
   | "toggle"
   | "string"
+  | "weight"
   | "number";
 
 export type DataTableColumn<T> = {
