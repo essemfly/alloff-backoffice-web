@@ -10,6 +10,7 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
   import { Brand, BrandsApi, ImageUploadApi } from "@api";
+  import ImageUploadField from "@app/components/ImageUploadField.svelte";
 
   const brandApi = new BrandsApi();
   const imageApi = new ImageUploadApi();
@@ -104,6 +105,19 @@
         console.log("res", res);
       });
   };
+
+  const handleBackgroundImageUpdate = async (event: CustomEvent<string>) => {
+    const value = event.detail;
+    const res = await brandApi.brandsPartialUpdate({
+      id: brand.brand_id,
+      patchedBrandRequest: {
+        keyname: brand.keyname,
+        back_image_url: value,
+      },
+    });
+
+    console.log(event.detail);
+  };
 </script>
 
 <div class="brand" class:mobile>
@@ -149,6 +163,12 @@
       <RadioButton labelText="Yes" value="true" />
       <RadioButton labelText="No" value="false" />
     </RadioButtonGroup>
+    <hr />
+    <ImageUploadField
+      label={"배경 이미지"}
+      bind:value={brand.back_image_url}
+      on:change={handleBackgroundImageUpdate}
+    />
     <hr />
     <div class="bx--label">사이즈 가이드</div>
     {#if brand.size_guide && brand.size_guide.length > 0}

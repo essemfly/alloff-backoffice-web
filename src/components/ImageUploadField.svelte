@@ -1,6 +1,6 @@
 <script lang="ts">
   import { toast } from "@zerodevx/svelte-toast";
-  import { onMount } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import {
     Button,
     FileUploaderDropContainer,
@@ -19,6 +19,7 @@
   let isImageUploading = false;
 
   const imageApi = new ImageUploadApi();
+  const dispatch = createEventDispatcher();
 
   onMount(() => {
     if (value) {
@@ -63,6 +64,7 @@
     } else {
       value = images[0];
     }
+    dispatch("change", value);
   };
 </script>
 
@@ -122,6 +124,10 @@
     -moz-box-shadow: 5px 5px 13px -5px rgba(0, 0, 0, 0.2);
   }
 
+  .image-wrapper:last-child {
+    margin-right: 0;
+  }
+
   .image-wrapper > .delete-button {
     position: absolute;
     top: 10px;
@@ -132,6 +138,7 @@
     width: auto;
     width: 300px;
     height: 300px;
+    max-width: 100%;
     object-fit: contain;
   }
 </style>
