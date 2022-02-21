@@ -49,7 +49,7 @@
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
-    navigate("/product-groups/add");
+    navigate("/hometab/exhibitions/sections/add");
   };
 
   const handleRowClick = (event: CustomEvent<DataTableData<ProductGroup>>) => {
