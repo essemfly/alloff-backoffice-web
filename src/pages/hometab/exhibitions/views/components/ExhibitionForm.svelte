@@ -60,6 +60,8 @@
     selectedExhibitionSections = form.pgs ?? [];
 
     const res = await productGroupApi.productGroupsList({
+      offset: 0,
+      limit: 200,
       groupType: GroupTypeEnum.Exhibition,
     });
     exhibitionSections = res.data.pgs;
