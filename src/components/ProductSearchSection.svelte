@@ -12,6 +12,7 @@
     StructuredListHead,
     Search,
     StructuredListInput,
+    InlineLoading,
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
@@ -19,6 +20,7 @@
   import { AutocompleteItem } from "@app/components/autocomplete";
   import BrandSelect from "@app/components/BrandSelect.svelte";
   import CategorySelect from "@app/components/CategorySelect.svelte";
+  import { toast } from "@zerodevx/svelte-toast";
 
   const productApi = new ProductsApi();
 
@@ -40,6 +42,7 @@
     totalCount: 0,
   };
 
+  let isLoading = false;
   let isListFilterExpanded = false;
 
   let products: Product[] = [];
@@ -108,27 +111,37 @@
   const handleProductSearch = () => handleSearch(0);
 
   const handleSearch = async (offset: number) => {
-    const res = await productApi.productsList({
-      offset,
-      limit: params.limit,
-      searchQuery: searchQuery ?? "",
-      brandId: selectedBrandId ?? "",
-      alloffCategoryId: selectedCategoryId ?? "",
-    });
+    if (isLoading) {
+      return;
+    }
+    try {
+      isLoading = true;
+      const res = await productApi.productsList({
+        offset,
+        limit: params.limit,
+        searchQuery: searchQuery ?? "",
+        brandId: selectedBrandId ?? "",
+        alloffCategoryId: selectedCategoryId ?? "",
+      });
 
-    params = {
-      offset: res.data.offset,
-      limit: res.data.limit,
-      searchQuery: res.data.list_query.search_query ?? "",
-      brandId: res.data.list_query.brand_id ?? "",
-      alloffCategoryId: res.data.list_query.alloff_category_id ?? "",
-      totalCount: res.data.total_counts,
-    };
+      params = {
+        offset: res.data.offset,
+        limit: res.data.limit,
+        searchQuery: res.data.list_query.search_query ?? "",
+        brandId: res.data.list_query.brand_id ?? "",
+        alloffCategoryId: res.data.list_query.alloff_category_id ?? "",
+        totalCount: res.data.total_counts,
+      };
 
-    if (offset > 0) {
-      products = [...products, ...res.data.products];
-    } else {
-      products = res.data.products;
+      if (offset > 0) {
+        products = [...products, ...res.data.products];
+      } else {
+        products = res.data.products;
+      }
+    } catch (e) {
+      toast.push("상품 검색에 오류가 발생했습니다.");
+    } finally {
+      isLoading = false;
     }
   };
 
@@ -200,6 +213,13 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
+          {#if params.totalCount === 0 || filteredProduct.length === 0}
+            <StructuredListRow>
+              <StructuredListCell>
+                검색조건에 맞는 상품을 찾지 못했습니다
+              </StructuredListCell>
+            </StructuredListRow>
+          {/if}
           {#each filteredProduct as product}
             <StructuredListRow on:click={handleProductSelect(product)}>
               <StructuredListInput value={product.alloff_product_id} />
@@ -254,6 +274,9 @@
               </StructuredListCell>
             </StructuredListRow>
           {/each}
+          {#if isLoading}
+            <InlineLoading status="active" description="검색중..." />
+          {/if}
         </StructuredListBody>
       </StructuredList>
     </div>

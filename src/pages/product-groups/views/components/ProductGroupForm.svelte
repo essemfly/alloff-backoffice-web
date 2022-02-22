@@ -26,16 +26,13 @@
     Product,
     GroupTypeEnum,
   } from "@api";
-  import { AutocompleteItem } from "@app/components/autocomplete";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
   import DateTimePicker from "@app/components/DateTimePicker.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
-  import BrandSelect from "@app/components/BrandSelect.svelte";
-  import CategorySelect from "@app/components/CategorySelect.svelte";
+  import ProductSearchSection from "@app/components/ProductSearchSection.svelte";
 
   const productGroupApi = new ProductGroupsApi();
-  const productApi = new ProductsApi();
 
   export let form: ProductGroup;
   export let label: string = "컬렉션";
@@ -46,26 +43,10 @@
     priority: number;
   }
 
-  let pageOffset = 0;
-  let pageLimit = 10;
-
-  let expanded = false;
   let images: string[] = [];
-  let productResult: Product[] = [];
-  let filteredProductResult: Product[] = [];
-
   let selectedProductInGroup: SelectedProductInGroup[] = [];
-  let selectedProductIds: string[] = [];
-
-  let filteredProductInGroup: ProductInGroup[] = form.products;
-
   let productInGroupQuery = "";
-  let productSearchQuery = "";
-  let productSearchResultQuery = "";
-  let selectedBrandId = "";
-  let selectedCategoryId = "";
-
-  let scrollableList: HTMLDivElement;
+  let filteredProductInGroup: ProductInGroup[] = form.products;
 
   onMount(async () => {
     if (form.image_url) {
@@ -73,37 +54,12 @@
     }
   });
 
-  const handleScroll = debounce(() => {
-    const { scrollTop, scrollHeight, clientHeight } = scrollableList;
-    if ((scrollTop + clientHeight) / scrollHeight > 0.7) {
-      pageOffset = pageOffset + pageLimit;
-      handleSearch(pageOffset).then((products) => {
-        productResult = [...productResult, ...products];
-        filteredProductResult = productResult.filter(
-          ({ alloff_product_id }) =>
-            !selectedProductIds.includes(alloff_product_id),
-        );
-      });
-    }
-  }, 300);
-
-  $: if (images.length > 0) {
-    form.image_url = images[0];
-  }
-
-  const handleProductSelect = (selectedItem: Product) => (event: any) => {
+  const handleProductSelect = (event: CustomEvent<Product>) => {
     const newProduct = {
-      product: selectedItem,
+      product: event.detail,
       priority: 0,
     };
     selectedProductInGroup = [...selectedProductInGroup, newProduct];
-    selectedProductIds = selectedProductInGroup.map(
-      ({ product }) => product.alloff_product_id,
-    );
-    filteredProductResult = productResult.filter(
-      ({ alloff_product_id }) =>
-        !selectedProductIds.includes(alloff_product_id),
-    );
     if (isAdding) {
       form.products = selectedProductInGroup;
     }
@@ -112,16 +68,6 @@
   const handleProductDeselect = (index: number) => () => {
     selectedProductInGroup.splice(index, 1);
     selectedProductInGroup = selectedProductInGroup;
-  };
-
-  const handleBrandChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    selectedBrandId = event.detail.value?.key ?? "";
-  };
-
-  const handleCategoryChange = (event: CustomEvent<AutocompleteItem>) => {
-    selectedCategoryId = event.detail?.key ?? "";
   };
 
   const handleAddProductSubmit = async () => {
@@ -139,14 +85,8 @@
     });
     form.products = res.data.products;
 
-    productResult = [];
-    filteredProductResult = [];
     selectedProductInGroup = [];
-    selectedProductIds = [];
     productInGroupQuery = "";
-    productSearchQuery = "";
-    productSearchResultQuery = "";
-    selectedBrandId = "";
   };
 
   const handleProductDetailOpen = (productId: string) => () => {
@@ -177,40 +117,9 @@
     productInGroupQuery = value;
   };
 
-  const handleProductSearch = async () => {
-    const products = await handleSearch(0);
-    productResult = products;
-    filteredProductResult = productResult.filter(
-      ({ alloff_product_id }) =>
-        !selectedProductIds.includes(alloff_product_id),
-    );
-  };
-
-  const handleSearch = async (offset: number) => {
-    const res = await productApi.productsList({
-      offset: offset ?? 0,
-      limit: pageLimit,
-      searchQuery: productSearchQuery ?? "",
-      brandId: selectedBrandId ?? "",
-      alloffCategoryId: selectedCategoryId,
-    });
-    return res.data.products;
-  };
-
-  const handleProductSearchResultFilter = debounce((event: Event) => {
-    productSearchResultFiltering(
-      (event.target as HTMLInputElement)?.value ?? "",
-    );
-  }, 300);
-
-  const productSearchResultFiltering = (value: string) => {
-    filteredProductResult = productResult.filter(
-      (product) =>
-        product.brand_kor_name.toLocaleLowerCase().includes(value) ||
-        product.alloff_name.toLocaleLowerCase().includes(value),
-    );
-    productSearchResultQuery = value;
-  };
+  $: if (images.length > 0) {
+    form.image_url = images[0];
+  }
 
   $: if (form.products) {
     productInGroupFiltering(productInGroupQuery);
@@ -331,117 +240,8 @@
 {/if}
 
 <ContentBox subtitle="상품 추가">
-  <Row padding>
-    <Column sm={2}>
-      <div class="bx--label">브랜드</div>
-      <BrandSelect on:change={handleBrandChange} />
-    </Column>
-    <Column sm={2}>
-      <div class="bx--label">카테고리</div>
-      <CategorySelect on:change={handleCategoryChange} />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <div class="bx--label">상품 검색</div>
-      <Search bind:value={productSearchQuery} placeholder="상품 이름 검색" />
-    </Column>
-  </Row>
-  <div class="button-right-wrapper">
-    <Button on:click={handleProductSearch}>상품 검색</Button>
-  </div>
-  <Row padding>
-    <Column>
-      <h4>상품 검색 결과</h4>
-      <div class="button-right-wrapper">
-        <Search
-          value={productSearchResultQuery}
-          on:input={handleProductSearchResultFilter}
-          on:clear={handleProductSearchResultFilter}
-          size="sm"
-          placeholder="검색결과 내 검색"
-          expandable
-          bind:expanded
-          on:expand
-          on:collapse
-        />
-      </div>
-      <div
-        class="product-list"
-        bind:this={scrollableList}
-        on:scroll={handleScroll}
-      >
-        <StructuredList condensed selection flush>
-          <StructuredListHead>
-            <StructuredListRow head>
-              <StructuredListCell head>썸네일</StructuredListCell>
-              <StructuredListCell head>브랜드</StructuredListCell>
-              <StructuredListCell head>제품명</StructuredListCell>
-              <StructuredListCell head>재고</StructuredListCell>
-              <StructuredListCell head>가격</StructuredListCell>
-              <StructuredListCell head>Actions</StructuredListCell>
-            </StructuredListRow>
-          </StructuredListHead>
-          <StructuredListBody>
-            {#each filteredProductResult as product}
-              <StructuredListRow on:click={handleProductSelect(product)}>
-                <StructuredListInput value={product.alloff_product_id} />
-                <StructuredListCell>
-                  <img
-                    class="cell_image"
-                    src={product.images[0]}
-                    alt={["product_preview", product.alloff_name].join("-")}
-                  />
-                  {#if product.images.length > 1}
-                    <img
-                      class="cell_image"
-                      src={product.images[1]}
-                      alt={["product_preview", product.alloff_name].join("-")}
-                    />
-                  {/if}
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {product.brand_kor_name}
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {product.alloff_name}
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {#each product.inventory as inv}
-                    <Row padding>
-                      {inv.size} : {inv.quantity}개
-                    </Row>
-                  {/each}
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {product.original_price} -> {product.discounted_price} ({(
-                    ((product.original_price - product.discounted_price) /
-                      product.original_price) *
-                    100
-                  ).toFixed(0)}%)
-                </StructuredListCell>
-                <StructuredListCell>
-                  <Row padding>
-                    <Button
-                      tooltipPosition="bottom"
-                      tooltipAlignment="end"
-                      iconDescription="상품 상세"
-                      icon={Launch16}
-                      kind="ghost"
-                      size="small"
-                      on:click={handleProductDetailOpen(
-                        product.alloff_product_id,
-                      )}
-                    />
-                  </Row>
-                </StructuredListCell>
-              </StructuredListRow>
-            {/each}
-          </StructuredListBody>
-        </StructuredList>
-      </div>
-    </Column>
-  </Row>
+  <ProductSearchSection on:select={handleProductSelect} />
+
   <Row padding>
     <Column>
       <h4>선택된 상품 목록</h4>
