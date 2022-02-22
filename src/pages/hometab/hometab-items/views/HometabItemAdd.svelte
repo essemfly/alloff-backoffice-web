@@ -15,7 +15,7 @@
     start_time: "",
     finish_time: "",
     contents: {
-      item_type: ItemTypeEnum.BrandExhibition,
+      item_type: ItemTypeEnum.ExhibitionA,
       options: [],
     },
     weight: 0,

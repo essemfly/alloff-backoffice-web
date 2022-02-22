@@ -85,10 +85,9 @@
   {/if}
 </ContentBox>
 
-{#if itemType === ItemTypeEnum.BrandExhibition}
+{#if itemType === ItemTypeEnum.ExhibitionA}
   <HometabBrandExhibitionSection
     value={{
-      brand: form.brands ? form.brands[0] : undefined,
       exhibition: form.exhibitions ? form.exhibitions[0] : undefined,
       backImageUrl: form.back_image_url,
     }}
