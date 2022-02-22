@@ -1438,6 +1438,11 @@ chrome-launcher@^0.14.0:
     is-wsl "^2.2.0"
     lighthouse-logger "^1.0.0"
 
+cl-editor@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/cl-editor/-/cl-editor-2.3.0.tgz#010403ed49e64caf4c0f36614663a391cefe1440"
+  integrity sha512-TxTzuL3529Cmnxy4Q9djcKkZUZJLxuFvFomh6pfbAv72nTB4FCZUE7JhEF5PXeAWRstU+u6BD9ZTif9w0hGQfw==
+
 cli-cursor@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-3.1.0.tgz#264305a7ae490d1d03bf0c9ba7c925d1753af307"
