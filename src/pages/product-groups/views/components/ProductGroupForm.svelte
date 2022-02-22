@@ -23,8 +23,8 @@
     ProductsApi,
     ProductGroupsApi,
     ProductInGroup,
-    ListProductResult,
     Product,
+    GroupTypeEnum,
   } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
@@ -32,6 +32,7 @@
   import DateTimePicker from "@app/components/DateTimePicker.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
   import BrandSelect from "@app/components/BrandSelect.svelte";
+  import CategorySelect from "@app/components/CategorySelect.svelte";
 
   const productGroupApi = new ProductGroupsApi();
   const productApi = new ProductsApi();
@@ -44,6 +45,9 @@
     product: Product;
     priority: number;
   }
+
+  let pageOffset = 0;
+  let pageLimit = 10;
 
   let expanded = false;
   let images: string[] = [];
@@ -59,12 +63,29 @@
   let productSearchQuery = "";
   let productSearchResultQuery = "";
   let selectedBrandId = "";
+  let selectedCategoryId = "";
+
+  let scrollableList: HTMLDivElement;
 
   onMount(async () => {
     if (form.image_url) {
       images = [form.image_url];
     }
   });
+
+  const handleScroll = debounce(() => {
+    const { scrollTop, scrollHeight, clientHeight } = scrollableList;
+    if ((scrollTop + clientHeight) / scrollHeight > 0.7) {
+      pageOffset = pageOffset + pageLimit;
+      handleSearch(pageOffset).then((products) => {
+        productResult = [...productResult, ...products];
+        filteredProductResult = productResult.filter(
+          ({ alloff_product_id }) =>
+            !selectedProductIds.includes(alloff_product_id),
+        );
+      });
+    }
+  }, 300);
 
   $: if (images.length > 0) {
     form.image_url = images[0];
@@ -97,6 +118,10 @@
     event: CustomEvent<{ value?: AutocompleteItem }>,
   ) => {
     selectedBrandId = event.detail.value?.key ?? "";
+  };
+
+  const handleCategoryChange = (event: CustomEvent<AutocompleteItem>) => {
+    selectedCategoryId = event.detail?.key ?? "";
   };
 
   const handleAddProductSubmit = async () => {
@@ -153,17 +178,23 @@
   };
 
   const handleProductSearch = async () => {
-    const res = await productApi.productsList({
-      offset: 0,
-      limit: 3000,
-      searchQuery: productSearchQuery ?? "",
-      brandId: selectedBrandId ?? "",
-    });
-    productResult = (res.data as unknown as ListProductResult).products;
+    const products = await handleSearch(0);
+    productResult = products;
     filteredProductResult = productResult.filter(
       ({ alloff_product_id }) =>
         !selectedProductIds.includes(alloff_product_id),
     );
+  };
+
+  const handleSearch = async (offset: number) => {
+    const res = await productApi.productsList({
+      offset: offset ?? 0,
+      limit: pageLimit,
+      searchQuery: productSearchQuery ?? "",
+      brandId: selectedBrandId ?? "",
+      alloffCategoryId: selectedCategoryId,
+    });
+    return res.data.products;
   };
 
   const handleProductSearchResultFilter = debounce((event: Event) => {
@@ -186,41 +217,44 @@
   }
 </script>
 
-<ContentBox>
-  <h3>{label} 정보</h3>
-  <Row>
-    <Column>
-      <ImageUploadField label={"대표 이미지"} bind:value={form.image_url} />
-    </Column>
-  </Row>
-  <Row>
+<ContentBox title={`${label} 정보`}>
+  {#if form.group_type === GroupTypeEnum.Timedeal}
+    <Row padding>
+      <Column>
+        <ImageUploadField label={"대표 이미지"} bind:value={form.image_url} />
+      </Column>
+    </Row>
+  {/if}
+  <Row padding>
     <Column>
       <TextInput labelText={"타이틀"} bind:value={form.title} />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <TextInput labelText={"짧은 타이틀"} bind:value={form.short_title} />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <MultilineTextInput label="설명" bind:value={form.instruction} />
     </Column>
   </Row>
-  <Row>
-    <Column>
-      <DateTimePicker label={"시작일"} bind:value={form.start_time} />
-    </Column>
-    <Column>
-      <DateTimePicker label={"종료일"} bind:value={form.finish_time} />
-    </Column>
-  </Row>
+  {#if form.group_type === GroupTypeEnum.Timedeal}
+    <Row padding>
+      <Column>
+        <DateTimePicker label={"시작일"} bind:value={form.start_time} />
+      </Column>
+      <Column>
+        <DateTimePicker label={"종료일"} bind:value={form.finish_time} />
+      </Column>
+    </Row>
+  {/if}
 </ContentBox>
 {#if !isAdding}
   <ContentBox>
     <h3>상품 목록</h3>
-    <Row>
+    <Row padding>
       <Column>
         <Search
           placeholder="상품 목록의 상품 검색"
@@ -262,7 +296,7 @@
                   {product.priority}
                 </StructuredListCell>
                 <StructuredListCell>
-                  <Row>
+                  <Row padding>
                     <Button
                       tooltipPosition="bottom"
                       tooltipAlignment="end"
@@ -296,25 +330,30 @@
   </ContentBox>
 {/if}
 
-<ContentBox>
-  <h3>상품 추가</h3>
-  <Row class="search-wrapper">
-    <Column sm={1}>
+<ContentBox subtitle="상품 추가">
+  <Row padding>
+    <Column sm={2}>
       <div class="bx--label">브랜드</div>
       <BrandSelect on:change={handleBrandChange} />
     </Column>
     <Column sm={2}>
+      <div class="bx--label">카테고리</div>
+      <CategorySelect on:change={handleCategoryChange} />
+    </Column>
+  </Row>
+  <Row padding>
+    <Column>
       <div class="bx--label">상품 검색</div>
       <Search bind:value={productSearchQuery} placeholder="상품 이름 검색" />
     </Column>
-    <Column sm={1}>
-      <Button on:click={handleProductSearch}>상품 검색</Button>
-    </Column>
   </Row>
-  <Row>
+  <div class="button-right-wrapper">
+    <Button on:click={handleProductSearch}>상품 검색</Button>
+  </div>
+  <Row padding>
     <Column>
       <h4>상품 검색 결과</h4>
-      <div class="button-wrapper">
+      <div class="button-right-wrapper">
         <Search
           value={productSearchResultQuery}
           on:input={handleProductSearchResultFilter}
@@ -327,7 +366,11 @@
           on:collapse
         />
       </div>
-      <div class="product-list">
+      <div
+        class="product-list"
+        bind:this={scrollableList}
+        on:scroll={handleScroll}
+      >
         <StructuredList condensed selection flush>
           <StructuredListHead>
             <StructuredListRow head>
@@ -349,11 +392,13 @@
                     src={product.images[0]}
                     alt={["product_preview", product.alloff_name].join("-")}
                   />
-                  <img
-                  class="cell_image"
-                  src={product.images[1]}
-                  alt={["product_preview", product.alloff_name].join("-")}
-                />
+                  {#if product.images.length > 1}
+                    <img
+                      class="cell_image"
+                      src={product.images[1]}
+                      alt={["product_preview", product.alloff_name].join("-")}
+                    />
+                  {/if}
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.brand_kor_name}
@@ -363,19 +408,20 @@
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {#each product.inventory as inv}
-                  <Row>
-                    {inv.size} : {inv.quantity}개
-                  </Row>
+                    <Row padding>
+                      {inv.size} : {inv.quantity}개
+                    </Row>
                   {/each}
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.original_price} -> {product.discounted_price} ({(
-                    ((product.original_price - product.discounted_price) / product.original_price) *
+                    ((product.original_price - product.discounted_price) /
+                      product.original_price) *
                     100
                   ).toFixed(0)}%)
                 </StructuredListCell>
                 <StructuredListCell>
-                  <Row>
+                  <Row padding>
                     <Button
                       tooltipPosition="bottom"
                       tooltipAlignment="end"
@@ -396,7 +442,7 @@
       </div>
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <h4>선택된 상품 목록</h4>
       <div class="product-list">
@@ -424,11 +470,13 @@
                     src={product.images[0]}
                     alt={["product_preview", product.alloff_name].join("-")}
                   />
-                  <img
-                  class="cell_image"
-                  src={product.images[1]}
-                  alt={["product_preview", product.alloff_name].join("-")}
-                />
+                  {#if product.images.length > 1}
+                    <img
+                      class="cell_image"
+                      src={product.images[1]}
+                      alt={["product_preview", product.alloff_name].join("-")}
+                    />
+                  {/if}
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.brand_kor_name}
@@ -438,14 +486,15 @@
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {#each product.inventory as inv}
-                  <Row>
-                    {inv.size} : {inv.quantity}개
-                  </Row>
+                    <Row padding>
+                      {inv.size} : {inv.quantity}개
+                    </Row>
                   {/each}
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.original_price} -> {product.discounted_price} ({(
-                    ((product.original_price - product.discounted_price) / product.original_price) *
+                    ((product.original_price - product.discounted_price) /
+                      product.original_price) *
                     100
                   ).toFixed(0)}%)
                 </StructuredListCell>
@@ -453,7 +502,7 @@
                   <NumberInput bind:value={priority} />
                 </StructuredListCell>
                 <StructuredListCell>
-                  <Row>
+                  <Row padding>
                     <Button
                       tooltipPosition="bottom"
                       tooltipAlignment="end"
