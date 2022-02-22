@@ -36,6 +36,8 @@
       : [];
     categoryId = value.categoryId ?? "";
 
+    console.log(options);
+
     const res = await categoryApi.alloffCategoriesList();
     categories = res.data.categories.map(({ category_id, name, keyname }) => ({
       key: category_id,
@@ -48,6 +50,17 @@
     categoryId = selected?.key ?? "";
   };
 
+  const handleOptionCheck =
+    (option: keyof OptionsEnum, index: number) => (event: CustomEvent) => {
+      const value = event.detail;
+      if (value) {
+        options = [...options, option];
+      } else {
+        options.splice(index, 1);
+        options = options;
+      }
+    };
+
   $: if (options || categoryId) {
     dispatch("change", {
       item_type: ItemTypeEnum.ProductsCategories,
@@ -59,11 +72,12 @@
 
 <ContentBox title={`${HometabItemType.ProductsCategories} 정보`}>
   <FormGroup legendText="옵션">
-    {#each sortingOptions as option}
+    {#each sortingOptions as option, index}
       <Checkbox
         labelText={option.label}
         checked={options.includes(option.value)}
         disabled={!isAdding}
+        on:check={handleOptionCheck(option.value, index)}
       />
     {/each}
   </FormGroup>
