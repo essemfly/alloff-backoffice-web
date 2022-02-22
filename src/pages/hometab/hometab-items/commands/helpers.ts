@@ -12,9 +12,9 @@ export function getHometabItemTypeLabelByIndex(typeIndex: number) {
     case ItemTypeEnum.Brands:
     case "Brands":
       return HometabItemType.Brands;
-    case ItemTypeEnum.BrandExhibition:
-    case "BrandExhibition":
-      return HometabItemType.BrandExhibition;
+    case ItemTypeEnum.ExhibitionA:
+    case "ExhibitionA":
+      return HometabItemType.ExhibitionA;
     case ItemTypeEnum.Exhibitions:
     case "Exhibitions":
       return HometabItemType.Exhibitions;
@@ -36,8 +36,8 @@ export function getHometabItemTypeLabel(type: ItemTypeEnum) {
   switch (type) {
     case ItemTypeEnum.Brands:
       return HometabItemType.Brands;
-    case ItemTypeEnum.BrandExhibition:
-      return HometabItemType.BrandExhibition;
+    case ItemTypeEnum.ExhibitionA:
+      return HometabItemType.ExhibitionA;
     case ItemTypeEnum.Exhibitions:
       return HometabItemType.Exhibitions;
     case ItemTypeEnum.Exhibition:

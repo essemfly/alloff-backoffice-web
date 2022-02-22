@@ -15,13 +15,12 @@
 
   import { HometabItemType } from "../../constants";
 
-  interface HometabBrandExhibitionSectionValue {
+  interface HometabExhibitionASectionValue {
     backImageUrl?: string;
-    brand: Brand | undefined;
     exhibition: Exhibition | undefined;
   }
 
-  export let value: HometabBrandExhibitionSectionValue;
+  export let value: HometabExhibitionASectionValue;
   export let isAdding: boolean = false;
 
   let backImageUrl: string;
@@ -40,16 +39,7 @@
 
   onMount(async () => {
     backImageUrl = value.backImageUrl ?? "";
-    selectedBrand = value.brand;
     selectedExhibition = value.exhibition;
-
-    const resBrand = await brandsAPi.brandsList();
-    brands = resBrand.data;
-    filteredBrands = brands.map(({ brand_id, keyname, korname }) => ({
-      key: brand_id,
-      value: korname,
-      subvalue: keyname,
-    }));
 
     const resExhibition = await exhibitionApi.exhibitionsList();
     exhibitions = resExhibition.data.exhibitions;
@@ -62,12 +52,6 @@
     );
   });
 
-  const handleBrandChange = (selected?: AutocompleteItem) => {
-    selectedBrand = brands.find(
-      ({ keyname }) => keyname === selected?.subvalue,
-    )!;
-  };
-
   const handleExhibitionChange = (selected?: AutocompleteItem) => {
     selectedExhibition = exhibitions.find(
       ({ exhibition_id }) => exhibition_id === selected?.key,
@@ -76,33 +60,19 @@
 
   $: if (backImageUrl || selectedBrand || selectedExhibition) {
     dispatch("change", {
-      item_type: ItemTypeEnum.BrandExhibition,
-      brand_keynames: [selectedBrand?.keyname],
+      item_type: ItemTypeEnum.ExhibitionA,
       exhibition_ids: [selectedExhibition?.exhibition_id],
       back_image_url: backImageUrl,
     });
   }
 </script>
 
-<ContentBox title={`${HometabItemType.BrandExhibition} 정보`}>
+<ContentBox title={`${HometabItemType.ExhibitionA} 정보`}>
   <Row>
     <Column>
       <ImageUploadField
         label={"배경 이미지"}
         bind:value={backImageUrl}
-        disabled={!isAdding}
-      />
-    </Column>
-  </Row>
-  <h4>브랜드</h4>
-  <Row>
-    <Column>
-      <Autocomplete
-        options={filteredBrands}
-        onSubmit={handleBrandChange}
-        placeholder="브랜드 이름/Keyname/ID로 검색"
-        labelText="브랜드 검색"
-        selectedValue={selectedBrand?.keyname ?? ""}
         disabled={!isAdding}
       />
     </Column>

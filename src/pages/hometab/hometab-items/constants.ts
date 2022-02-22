@@ -1,5 +1,5 @@
 export enum HometabItemType {
-  BrandExhibition = "브랜드 기획전",
+  ExhibitionA = "기획전 A",
   Brands = "브랜드 세일",
   Exhibitions = "기획전 모음",
   Exhibition = "기획전 C",
@@ -29,9 +29,9 @@ export interface HometabBasic {
   // back_image_url: string;
 }
 
-export interface HometabBrandExhibition {
-  brand_keyname: string;
+export interface HometabExhibitionA {
   exhibition_id: string;
+  product_ids: string[];
 }
 
 export interface HometabBrands {
@@ -44,4 +44,5 @@ export interface HometabExhibitions {
 
 export interface HometabExhibition {
   exhibition_id: string;
+  product_ids: string[];
 }
