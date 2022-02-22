@@ -41,6 +41,17 @@
     selectedBrandKeyname = event.detail.value?.key ?? "";
   };
 
+  const handleOptionCheck =
+    (option: keyof OptionsEnum, index: number) => (event: CustomEvent) => {
+      const value = event.detail;
+      if (value) {
+        options = [...options, option];
+      } else {
+        options.splice(index, 1);
+        options = options;
+      }
+    };
+
   $: if (selectedBrandKeyname || options) {
     dispatch("change", {
       item_type: ItemTypeEnum.ProductsBrands,
@@ -52,11 +63,12 @@
 
 <ContentBox title={`${HometabItemType.ProductsBrands} 정보`}>
   <FormGroup legendText="옵션">
-    {#each sortingOptions as option}
+    {#each sortingOptions as option, index}
       <Checkbox
         labelText={option.label}
         checked={options.includes(option.value)}
         disabled={!isAdding}
+        on:check={handleOptionCheck(option.value, index)}
       />
     {/each}
   </FormGroup>

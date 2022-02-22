@@ -1,6 +1,6 @@
 {
   "name": "backoffice-web",
-  "version": "0.2.5-b",
+  "version": "0.2.6-a",
   "license": "UNLICENSED",
   "scripts": {
     "format": "prettier --write --plugin-search-dir=. ./src/**/*.{js,svelte,ts}",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
     "@openapitools/openapi-generator-cli": "^2.4.6",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "@testing-library/svelte": "^3.0.3",
     "@tsconfig/svelte": "^1.0.10",
     "@types/axios": "^0.14.0",
@@ -40,6 +41,7 @@
     "babel-eslint": "^10.1.0",
     "carbon-components-svelte": "^0.44.4",
     "chai": "^4.3.4",
+    "cl-editor": "^2.3.0",
     "eslint": "^7.0.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.15.0",
@@ -57,13 +59,12 @@
     "replace-in-file": "^6.3.2",
     "shelljs": "^0.8.5",
     "shortid": "^2.2.16",
+    "svelte-check": "^2.2.7",
     "svelte-navigator": "^3.1.5",
     "svelte-preprocess": "^4.7.2",
+    "tslib": "^2.3.1",
     "typescript": "^4.3.4",
     "url": "^0.11.0",
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
-    "svelte-check": "^2.2.7",
-    "tslib": "^2.3.1",
     "vite": "^2.8.0"
   },
   "eslint.validate": [

@@ -1,27 +1,28 @@
 <script lang="ts">
-  import { debounce } from "lodash";
-  import {
-    Row,
-    Column,
-    Button,
-    TextInput,
-    NumberInput,
-    Toggle,
-  } from "carbon-components-svelte";
-  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-
   import { Product } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
+  import BrandSelect from "@app/components/BrandSelect.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
-  import BrandSelect from "@app/components/BrandSelect.svelte";
+  import {
+  Button,Checkbox,Column,
+  NumberInput,
+  Row,
+  TextInput,
+  Toggle
+  } from "carbon-components-svelte";
+  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
+  import Editor from "cl-editor/src/Editor.svelte";
+  import { debounce } from "lodash";
 
   export let form: Product & { brand_key_name: string };
   export let isAdding: boolean = false;
 
   let discountRate = "0";
   let inventoryTextInput = "";
+  let useHtml = false;
+  let html = form.raw_html ?? "";
 
   const handleBrandChange = (
     event: CustomEvent<{ value?: AutocompleteItem }>,
@@ -61,6 +62,10 @@
       ((form.original_price - form.discounted_price) / form.original_price) *
       100
     ).toFixed(0);
+  }
+
+  $: {
+    form.raw_html = useHtml ? html : null;
   }
 </script>
 
@@ -215,6 +220,22 @@
       {/each}
     </Column>
   </Row>
+</ContentBox>
+<ContentBox>
+  <h3>HTML 상품 정보</h3>
+  <Checkbox labelText={"HTML 상품 정보 사용"} bind:checked={useHtml} />
+  <p>{"<>"}버튼을 누르면 HTML 태그를 직접 복사/붙여넣기 할 수 있습니다.</p>
+  <p>
+    <span style="color: red; font-weight: bold;">
+      HTML 상품 정보를 사용하면, 상품설명 이미지와 상품설명이 모두
+      덮어씌워집니다!
+    </span>
+  </p>
+  {#if useHtml}
+    <div style="margin-top: 20px;">
+      <Editor bind:html on:change={(evt) => (html = evt.detail)} />
+    </div>
+  {/if}
 </ContentBox>
 
 <style>
