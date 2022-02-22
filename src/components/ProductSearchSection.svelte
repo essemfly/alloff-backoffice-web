@@ -221,7 +221,10 @@
             </StructuredListRow>
           {/if}
           {#each filteredProduct as product}
-            <StructuredListRow on:click={handleProductSelect(product)}>
+            <StructuredListRow
+              on:click={handleProductSelect(product)}
+              disabled={disabledIds.includes(product.alloff_product_id)}
+            >
               <StructuredListInput value={product.alloff_product_id} />
               <StructuredListCell>
                 <img
