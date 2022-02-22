@@ -23,18 +23,16 @@
     ProductsApi,
     ProductGroupsApi,
     ProductInGroup,
-    ListProductResult,
     Product,
+    GroupTypeEnum,
   } from "@api";
-  import { AutocompleteItem } from "@app/components/autocomplete";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
   import DateTimePicker from "@app/components/DateTimePicker.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
-  import BrandSelect from "@app/components/BrandSelect.svelte";
+  import ProductSearchSection from "@app/components/ProductSearchSection.svelte";
 
   const productGroupApi = new ProductGroupsApi();
-  const productApi = new ProductsApi();
 
   export let form: ProductGroup;
   export let label: string = "컬렉션";
@@ -45,20 +43,10 @@
     priority: number;
   }
 
-  let expanded = false;
   let images: string[] = [];
-  let productResult: Product[] = [];
-  let filteredProductResult: Product[] = [];
-
   let selectedProductInGroup: SelectedProductInGroup[] = [];
-  let selectedProductIds: string[] = [];
-
-  let filteredProductInGroup: ProductInGroup[] = form.products;
-
   let productInGroupQuery = "";
-  let productSearchQuery = "";
-  let productSearchResultQuery = "";
-  let selectedBrandId = "";
+  let filteredProductInGroup: ProductInGroup[] = form.products;
 
   onMount(async () => {
     if (form.image_url) {
@@ -66,23 +54,12 @@
     }
   });
 
-  $: if (images.length > 0) {
-    form.image_url = images[0];
-  }
-
-  const handleProductSelect = (selectedItem: Product) => (event: any) => {
+  const handleProductSelect = (event: CustomEvent<Product>) => {
     const newProduct = {
-      product: selectedItem,
+      product: event.detail,
       priority: 0,
     };
     selectedProductInGroup = [...selectedProductInGroup, newProduct];
-    selectedProductIds = selectedProductInGroup.map(
-      ({ product }) => product.alloff_product_id,
-    );
-    filteredProductResult = productResult.filter(
-      ({ alloff_product_id }) =>
-        !selectedProductIds.includes(alloff_product_id),
-    );
     if (isAdding) {
       form.products = selectedProductInGroup;
     }
@@ -91,12 +68,6 @@
   const handleProductDeselect = (index: number) => () => {
     selectedProductInGroup.splice(index, 1);
     selectedProductInGroup = selectedProductInGroup;
-  };
-
-  const handleBrandChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    selectedBrandId = event.detail.value?.key ?? "";
   };
 
   const handleAddProductSubmit = async () => {
@@ -114,14 +85,8 @@
     });
     form.products = res.data.products;
 
-    productResult = [];
-    filteredProductResult = [];
     selectedProductInGroup = [];
-    selectedProductIds = [];
     productInGroupQuery = "";
-    productSearchQuery = "";
-    productSearchResultQuery = "";
-    selectedBrandId = "";
   };
 
   const handleProductDetailOpen = (productId: string) => () => {
@@ -152,75 +117,53 @@
     productInGroupQuery = value;
   };
 
-  const handleProductSearch = async () => {
-    const res = await productApi.productsList({
-      offset: 0,
-      limit: 3000,
-      searchQuery: productSearchQuery ?? "",
-      brandId: selectedBrandId ?? "",
-    });
-    productResult = (res.data as unknown as ListProductResult).products;
-    filteredProductResult = productResult.filter(
-      ({ alloff_product_id }) =>
-        !selectedProductIds.includes(alloff_product_id),
-    );
-  };
-
-  const handleProductSearchResultFilter = debounce((event: Event) => {
-    productSearchResultFiltering(
-      (event.target as HTMLInputElement)?.value ?? "",
-    );
-  }, 300);
-
-  const productSearchResultFiltering = (value: string) => {
-    filteredProductResult = productResult.filter(
-      (product) =>
-        product.brand_kor_name.toLocaleLowerCase().includes(value) ||
-        product.alloff_name.toLocaleLowerCase().includes(value),
-    );
-    productSearchResultQuery = value;
-  };
+  $: if (images.length > 0) {
+    form.image_url = images[0];
+  }
 
   $: if (form.products) {
     productInGroupFiltering(productInGroupQuery);
   }
 </script>
 
-<ContentBox>
-  <h3>{label} 정보</h3>
-  <Row>
-    <Column>
-      <ImageUploadField label={"대표 이미지"} bind:value={form.image_url} />
-    </Column>
-  </Row>
-  <Row>
+<ContentBox title={`${label} 정보`}>
+  {#if form.group_type === GroupTypeEnum.Timedeal}
+    <Row padding>
+      <Column>
+        <ImageUploadField label={"대표 이미지"} bind:value={form.image_url} />
+      </Column>
+    </Row>
+  {/if}
+  <Row padding>
     <Column>
       <TextInput labelText={"타이틀"} bind:value={form.title} />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <TextInput labelText={"짧은 타이틀"} bind:value={form.short_title} />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <MultilineTextInput label="설명" bind:value={form.instruction} />
     </Column>
   </Row>
-  <Row>
-    <Column>
-      <DateTimePicker label={"시작일"} bind:value={form.start_time} />
-    </Column>
-    <Column>
-      <DateTimePicker label={"종료일"} bind:value={form.finish_time} />
-    </Column>
-  </Row>
+  {#if form.group_type === GroupTypeEnum.Timedeal}
+    <Row padding>
+      <Column>
+        <DateTimePicker label={"시작일"} bind:value={form.start_time} />
+      </Column>
+      <Column>
+        <DateTimePicker label={"종료일"} bind:value={form.finish_time} />
+      </Column>
+    </Row>
+  {/if}
 </ContentBox>
 {#if !isAdding}
   <ContentBox>
     <h3>상품 목록</h3>
-    <Row>
+    <Row padding>
       <Column>
         <Search
           placeholder="상품 목록의 상품 검색"
@@ -262,7 +205,7 @@
                   {product.priority}
                 </StructuredListCell>
                 <StructuredListCell>
-                  <Row>
+                  <Row padding>
                     <Button
                       tooltipPosition="bottom"
                       tooltipAlignment="end"
@@ -296,107 +239,10 @@
   </ContentBox>
 {/if}
 
-<ContentBox>
-  <h3>상품 추가</h3>
-  <Row class="search-wrapper">
-    <Column sm={1}>
-      <div class="bx--label">브랜드</div>
-      <BrandSelect on:change={handleBrandChange} />
-    </Column>
-    <Column sm={2}>
-      <div class="bx--label">상품 검색</div>
-      <Search bind:value={productSearchQuery} placeholder="상품 이름 검색" />
-    </Column>
-    <Column sm={1}>
-      <Button on:click={handleProductSearch}>상품 검색</Button>
-    </Column>
-  </Row>
-  <Row>
-    <Column>
-      <h4>상품 검색 결과</h4>
-      <div class="button-wrapper">
-        <Search
-          value={productSearchResultQuery}
-          on:input={handleProductSearchResultFilter}
-          on:clear={handleProductSearchResultFilter}
-          size="sm"
-          placeholder="검색결과 내 검색"
-          expandable
-          bind:expanded
-          on:expand
-          on:collapse
-        />
-      </div>
-      <div class="product-list">
-        <StructuredList condensed selection flush>
-          <StructuredListHead>
-            <StructuredListRow head>
-              <StructuredListCell head>썸네일</StructuredListCell>
-              <StructuredListCell head>브랜드</StructuredListCell>
-              <StructuredListCell head>제품명</StructuredListCell>
-              <StructuredListCell head>재고</StructuredListCell>
-              <StructuredListCell head>가격</StructuredListCell>
-              <StructuredListCell head>Actions</StructuredListCell>
-            </StructuredListRow>
-          </StructuredListHead>
-          <StructuredListBody>
-            {#each filteredProductResult as product}
-              <StructuredListRow on:click={handleProductSelect(product)}>
-                <StructuredListInput value={product.alloff_product_id} />
-                <StructuredListCell>
-                  <img
-                    class="cell_image"
-                    src={product.images[0]}
-                    alt={["product_preview", product.alloff_name].join("-")}
-                  />
-                  <img
-                  class="cell_image"
-                  src={product.images[1]}
-                  alt={["product_preview", product.alloff_name].join("-")}
-                />
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {product.brand_kor_name}
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {product.alloff_name}
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {#each product.inventory as inv}
-                  <Row>
-                    {inv.size} : {inv.quantity}개
-                  </Row>
-                  {/each}
-                </StructuredListCell>
-                <StructuredListCell noWrap>
-                  {product.original_price} -> {product.discounted_price} ({(
-                    ((product.original_price - product.discounted_price) / product.original_price) *
-                    100
-                  ).toFixed(0)}%)
-                </StructuredListCell>
-                <StructuredListCell>
-                  <Row>
-                    <Button
-                      tooltipPosition="bottom"
-                      tooltipAlignment="end"
-                      iconDescription="상품 상세"
-                      icon={Launch16}
-                      kind="ghost"
-                      size="small"
-                      on:click={handleProductDetailOpen(
-                        product.alloff_product_id,
-                      )}
-                    />
-                  </Row>
-                </StructuredListCell>
-              </StructuredListRow>
-            {/each}
-          </StructuredListBody>
-        </StructuredList>
-      </div>
-    </Column>
-  </Row>
-  <Row>
+<ContentBox subtitle="상품 추가">
+  <ProductSearchSection on:select={handleProductSelect} />
+
+  <Row padding>
     <Column>
       <h4>선택된 상품 목록</h4>
       <div class="product-list">
@@ -424,11 +270,13 @@
                     src={product.images[0]}
                     alt={["product_preview", product.alloff_name].join("-")}
                   />
-                  <img
-                  class="cell_image"
-                  src={product.images[1]}
-                  alt={["product_preview", product.alloff_name].join("-")}
-                />
+                  {#if product.images.length > 1}
+                    <img
+                      class="cell_image"
+                      src={product.images[1]}
+                      alt={["product_preview", product.alloff_name].join("-")}
+                    />
+                  {/if}
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.brand_kor_name}
@@ -438,14 +286,15 @@
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {#each product.inventory as inv}
-                  <Row>
-                    {inv.size} : {inv.quantity}개
-                  </Row>
+                    <Row padding>
+                      {inv.size} : {inv.quantity}개
+                    </Row>
                   {/each}
                 </StructuredListCell>
                 <StructuredListCell noWrap>
                   {product.original_price} -> {product.discounted_price} ({(
-                    ((product.original_price - product.discounted_price) / product.original_price) *
+                    ((product.original_price - product.discounted_price) /
+                      product.original_price) *
                     100
                   ).toFixed(0)}%)
                 </StructuredListCell>
@@ -453,7 +302,7 @@
                   <NumberInput bind:value={priority} />
                 </StructuredListCell>
                 <StructuredListCell>
-                  <Row>
+                  <Row padding>
                     <Button
                       tooltipPosition="bottom"
                       tooltipAlignment="end"
