@@ -17,6 +17,7 @@
   } from "@app/helpers/query-string";
 
   import { bannerColumns } from "./components/bannerColumns";
+  import { debounce } from "lodash";
 
   let banners: DataTableData<TopBanner>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
@@ -74,6 +75,25 @@
     navigate(`/hometab/banners/${event.detail.id}`);
   };
 
+  const handleIsLiveChange = debounce(
+    async (event: CustomEvent<[boolean, number]>) => {
+      const [is_live, index] = event.detail;
+
+      let bannerItem = banners[index];
+      bannerItem.is_live = is_live;
+      banners = banners;
+
+      const res = await bannerApi.topBannersPartialUpdate({
+        id: bannerItem.banner_id,
+        patchedTopBannerRequest: {
+          banner_id: bannerItem.banner_id,
+          is_live,
+        },
+      });
+    },
+    500,
+  );
+
   $: if ($location) {
     const params = parseQueryString<SearchQueryParam>($location.search);
     load(params);
@@ -95,6 +115,7 @@
     data={banners}
     columns={bannerColumns}
     on:click:row={handleRowClick}
+    on:change:toggle={handleIsLiveChange}
   />
   <div class="button-right-wrapper mt10">
     <Button on:click={handleAddClick}>배너 추가</Button>
