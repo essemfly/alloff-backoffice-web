@@ -12,19 +12,23 @@
   import Nav from "@app/components/Nav.svelte";
   import DataTable from "@app/components/DataTable/DataTable.svelte";
   import { DataTableData } from "@app/components/DataTable/helpers";
-  import { parseQueryString } from "@app/helpers/query-string";
+  import {
+    formatQueryString,
+    parseQueryString,
+  } from "@app/helpers/query-string";
 
   import { exhibitionColumns } from "./components/exhibitionSectionColumns";
+  import Pagination from "@app/components/Pagination.svelte";
 
   let productGroups: DataTableData<ProductGroup>[] = [];
-  let searchFilter: SearchQueryParam = {
+  let searchFilter: SearchQueryParam & { totalItems: number } = {
     offset: 0,
     limit: 50,
     searchQuery: undefined,
     groupType: GroupTypeEnum.Timedeal,
+    totalItems: 0,
   };
   let isLoading = false;
-  let totalItems = 0;
 
   const productGroupApi = new ProductGroupsApi();
   const location = useLocation<SearchQueryParam>();
@@ -41,10 +45,30 @@
         ...x,
         id: x.product_group_id,
       }));
-      totalItems = res.data.total_counts;
+      searchFilter = {
+        ...params,
+        totalItems: res.data.total_counts,
+      };
     } finally {
       isLoading = false;
     }
+  };
+
+  const handlePageChange = (
+    event: CustomEvent<{ offset: number; limit: number }>,
+  ) => {
+    const { offset, limit } = event.detail;
+    searchFilter = {
+      ...searchFilter,
+      offset,
+      limit,
+    };
+    handleSearch();
+  };
+
+  const handleSearch = () => {
+    const queryString = formatQueryString({ ...searchFilter });
+    navigate(`${$location.pathname}?${queryString}`);
   };
 
   const handleAddClick = (event: MouseEvent) => {
@@ -69,6 +93,12 @@
       기획전 섹션 추가
     </Button>
   </div>
+  <Pagination
+    limit={searchFilter.limit}
+    offset={searchFilter.offset}
+    totalItems={searchFilter.totalItems}
+    on:change={handlePageChange}
+  />
   <DataTable
     data={productGroups}
     columns={exhibitionColumns}

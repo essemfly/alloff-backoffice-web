@@ -36,8 +36,6 @@
       : [];
     categoryId = value.categoryId ?? "";
 
-    console.log(options);
-
     const res = await categoryApi.alloffCategoriesList();
     categories = res.data.categories.map(({ category_id, name, keyname }) => ({
       key: category_id,
@@ -50,16 +48,15 @@
     categoryId = selected?.key ?? "";
   };
 
-  const handleOptionCheck =
-    (option: keyof OptionsEnum, index: number) => (event: CustomEvent) => {
-      const value = event.detail;
-      if (value) {
-        options = [...options, option];
-      } else {
-        options.splice(index, 1);
-        options = options;
-      }
-    };
+  const handleOptionCheck = (option: OptionsEnum) => () => {
+    const index = options.indexOf(option);
+    if (index > -1) {
+      options.splice(index, 1);
+    } else {
+      options.push(option);
+    }
+    options = options;
+  };
 
   $: if (options || categoryId) {
     dispatch("change", {
@@ -77,7 +74,7 @@
         labelText={option.label}
         checked={options.includes(option.value)}
         disabled={!isAdding}
-        on:check={handleOptionCheck(option.value, index)}
+        on:check={handleOptionCheck(option.value)}
       />
     {/each}
   </FormGroup>

@@ -32,8 +32,10 @@
   onMount(async () => {
     const res = await productGroupApi.productGroupsRetrieve({ id: productId });
     const { group_type } = res.data;
-    console.log(getGroupTypeByIndex(group_type), group_type);
-    productGroup = { ...res.data, group_type: getGroupTypeByIndex(group_type) };
+    productGroup = {
+      ...res.data,
+      group_type: getGroupTypeByIndex(group_type as unknown as number),
+    };
     isLoading = false;
     productGroupTypeLabel = getGroupTypeLabelByIndex(
       productGroup.group_type as unknown as number,
