@@ -30,8 +30,6 @@
   const exhibitionApi = new ExhibitionsApi();
 
   onMount(async () => {
-    console.log(value);
-
     backImageUrl = value.backImageUrl ?? "";
     tags = value.tags ?? [];
     selectedExhibition = value.exhibition ?? undefined;
