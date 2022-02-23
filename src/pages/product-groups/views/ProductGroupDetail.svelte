@@ -15,7 +15,10 @@
   import Nav from "@app/components/Nav.svelte";
 
   import ProductGroupForm from "./components/ProductGroupForm.svelte";
-  import { getGroupTypeLabelByIndex } from "../commands/helpers";
+  import {
+    getGroupTypeByIndex,
+    getGroupTypeLabelByIndex,
+  } from "../commands/helpers";
 
   const productGroupApi = new ProductGroupsApi();
 
@@ -28,7 +31,9 @@
 
   onMount(async () => {
     const res = await productGroupApi.productGroupsRetrieve({ id: productId });
-    productGroup = res.data;
+    const { group_type } = res.data;
+    console.log(getGroupTypeByIndex(group_type), group_type);
+    productGroup = { ...res.data, group_type: getGroupTypeByIndex(group_type) };
     isLoading = false;
     productGroupTypeLabel = getGroupTypeLabelByIndex(
       productGroup.group_type as unknown as number,
