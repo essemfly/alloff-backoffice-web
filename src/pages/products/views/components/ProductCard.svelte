@@ -1,18 +1,11 @@
 <script lang="ts">
+  import { EditProductRequestApiRequest,Product,ProductsApi } from "@api";
   import { toast } from "@zerodevx/svelte-toast";
-  import { navigate } from "svelte-navigator";
   import {
-    Button,
-    Tag,
-    StructuredList,
-    StructuredListRow,
-    StructuredListCell,
-    StructuredListBody,
-    Modal,
+  Button,Modal,StructuredList,StructuredListBody,StructuredListCell,StructuredListRow,Tag
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-
-  import { Product, ProductsApi, EditProductRequestRequest } from "@api";
+  import { navigate } from "svelte-navigator";
 
   export let product: Product;
 
@@ -39,7 +32,7 @@
         editProductRequestApiRequest: {
           ...product,
           is_removed: true,
-        } as unknown as EditProductRequestRequest,
+        } as unknown as EditProductRequestApiRequest,
       });
       toast.push("상품이 삭제되었습니다.");
       handleModalToggle(false);
