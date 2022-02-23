@@ -30,6 +30,8 @@
   const exhibitionApi = new ExhibitionsApi();
 
   onMount(async () => {
+    console.log(value);
+
     backImageUrl = value.backImageUrl ?? "";
     tags = value.tags ?? [];
     selectedExhibition = value.exhibition ?? undefined;
@@ -51,11 +53,14 @@
     )!;
   };
 
-  $: if (selectedExhibition) {
+  $: if (backImageUrl || selectedExhibition || tags) {
     dispatch("change", {
       item_type: ItemTypeEnum.Exhibition,
-      exhibition_ids: [selectedExhibition.exhibition_id],
+      exhibition_ids: selectedExhibition
+        ? [selectedExhibition.exhibition_id]
+        : [],
       back_image_url: backImageUrl,
+      tags,
     });
   }
 </script>

@@ -35,10 +35,11 @@
   }));
 
   const handleChange = (event: CustomEvent<Partial<CreateHomeTabRequest>>) => {
-    const { back_image_url, ...contents } = event.detail;
+    const { back_image_url, tags, ...contents } = event.detail;
     form = {
       ...form,
       back_image_url: back_image_url ?? "",
+      tags: tags ?? [],
       contents: {
         ...form.contents,
         ...contents,
