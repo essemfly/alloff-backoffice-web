@@ -16,7 +16,6 @@
   }
 
   export let value: HometabExhibitionsSectionValue;
-  export let isAdding: boolean = false;
 
   let options: OptionsEnum[] = [];
   let selectedBrandKeyname: string;
@@ -66,13 +65,11 @@
       <Checkbox
         labelText={option.label}
         checked={options.includes(option.value)}
-        disabled={!isAdding}
         on:check={handleOptionCheck(option.value)}
       />
     {/each}
   </FormGroup>
-
   <FormGroup legendText="브랜드">
-    <BrandSelect on:change={handleBrandChange} disabled={!isAdding} />
+    <BrandSelect on:change={handleBrandChange} />
   </FormGroup>
 </ContentBox>

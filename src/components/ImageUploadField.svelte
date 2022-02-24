@@ -31,6 +31,14 @@
     }
   });
 
+  $: if (value) {
+    if (multiple) {
+      images = (value as string[]) ?? [];
+    } else {
+      images = [value as string] ?? [];
+    }
+  }
+
   const handleImageAdd = async (event: CustomEvent<FileList>) => {
     try {
       isImageUploading = true;
