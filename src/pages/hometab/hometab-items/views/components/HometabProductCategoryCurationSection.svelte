@@ -2,7 +2,12 @@
   import { createEventDispatcher, onMount } from "svelte";
   import { FormGroup, Checkbox } from "carbon-components-svelte";
 
-  import { ItemTypeEnum, OptionsEnum, AlloffCategoriesApi } from "@api";
+  import {
+    ItemTypeEnum,
+    OptionsEnum,
+    AlloffCategoriesApi,
+    AlloffCategory,
+  } from "@api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
 
@@ -15,11 +20,11 @@
   }
 
   export let value: HometabExhibitionsSectionValue;
-  export let isAdding: boolean = false;
 
   let options: OptionsEnum[] = [];
   let categories: AutocompleteItem[] = [];
   let categoryId: string;
+  let selectedCategoryName: string = "";
 
   const dispatch = createEventDispatcher();
   const categoryApi = new AlloffCategoriesApi();
@@ -46,6 +51,7 @@
 
   const handleCategoryChange = (selected?: AutocompleteItem) => {
     categoryId = selected?.key ?? "";
+    selectedCategoryName = selected?.value;
   };
 
   const handleOptionCheck = (option: OptionsEnum) => () => {
@@ -69,23 +75,22 @@
 
 <ContentBox title={`${HometabItemType.ProductsCategories} 정보`}>
   <FormGroup legendText="옵션">
-    {#each sortingOptions as option, index}
+    {#each sortingOptions as option}
       <Checkbox
         labelText={option.label}
         checked={options.includes(option.value)}
-        disabled={!isAdding}
         on:check={handleOptionCheck(option.value)}
       />
     {/each}
   </FormGroup>
   <FormGroup legendText="카테고리">
+    <div>선택된 카테고리: {selectedCategoryName}</div>
     <Autocomplete
       options={categories}
       onSubmit={handleCategoryChange}
       placeholder="카테고리 이름/Keyname/ID로 검색"
-      labelText="브랜드 검색"
+      labelText="카테고리 검색"
       selectedValue={categoryId}
-      disabled={!isAdding}
     />
   </FormGroup>
 </ContentBox>
