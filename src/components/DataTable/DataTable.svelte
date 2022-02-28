@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import {
     Button,
     DataTable,
@@ -38,6 +38,13 @@
   const toggleColumns = columns
     .filter(({ type }) => type === "toggle")
     .map(({ key }) => key);
+  const toggleOptions: Record<keyof T, any> = {}; // todo: refactor this better
+
+  onMount(() => {
+    columns
+      .filter(({ type }) => type === "toggle")
+      .forEach(({ key, toggleOption }) => (toggleOptions[key] = toggleOption));
+  });
 
   const handleOpen = (path: string) => (event: MouseEvent) => {
     event.stopPropagation();
@@ -53,9 +60,9 @@
     dispatch("change:weight", [value, rowIndex]);
   };
 
-  const handleToggle = (row: T, value: boolean) => {
+  const handleToggle = (key: keyof T, value: boolean, row: T) => {
     const rowIndex = data.findIndex(({ id }) => id === row.id);
-    dispatch("change:toggle", [value, rowIndex]);
+    dispatch("change:toggle", [value, rowIndex, key]);
   };
 
   $: if (data) {
@@ -79,7 +86,7 @@
       if (toggleColumns.includes(cell.key)) {
         event.stopPropagation();
         event.preventDefault();
-        handleToggle(row, !cell.value);
+        handleToggle(cell.key, !cell.value, row);
       }
       if (cell.key === "weight") {
         event.stopPropagation();
@@ -107,7 +114,12 @@
         on:click={handleOpen(cell.value)}
       />
     {:else if toggleColumns.includes(cell.key) && cell.value !== undefined}
-      <Toggle size="sm" toggled={cell.value} />
+      <Toggle
+        size="sm"
+        toggled={cell.value}
+        labelA={toggleOptions[cell.key]?.deactiveLabel}
+        labelB={toggleOptions[cell.key]?.activeLabel}
+      />
     {:else if cell.key === "weight"}
       <NumberInput
         size="sm"
