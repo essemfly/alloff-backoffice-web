@@ -33,10 +33,12 @@
   import { onMount } from "svelte";
   import { useLocation } from "svelte-navigator";
   import { admin } from "../store";
+  import MetaTags from "./MetaTags/MetaTags.svelte";
+  import { MetaTagsProps } from "./MetaTags/types";
 
   export let title: string = "";
+  export let metaTags: MetaTagsProps = {};
 
-  let pageTitle: string;
   let isSideNavOpen = false;
   let isUtilOpen = false;
 
@@ -44,10 +46,7 @@
   const isProd = import.meta.env.PROD;
   const location = useLocation();
 
-  $: {
-    const defaultTitle = `Backoffice${!isProd ? " DEV" : ""}`;
-    pageTitle = title ? `${title} :: ${defaultTitle}` : defaultTitle;
-  }
+  const defaultTitle = `Backoffice${!isProd ? " DEV" : ""}`;
 
   interface MenuItem {
     label: string;
@@ -145,9 +144,7 @@
   };
 </script>
 
-<svelte:head>
-  <title>{pageTitle}</title>
-</svelte:head>
+<MetaTags {title} {defaultTitle} {...metaTags} />
 
 <Header
   company="Alloff"

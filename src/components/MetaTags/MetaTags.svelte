@@ -9,7 +9,10 @@
 
   let pageTitle: string;
 
-  $: pageTitle = title && defaultTitle ? `${title} :: ${defaultTitle}` : title;
+  $: pageTitle =
+    title && defaultTitle
+      ? `${title} :: ${defaultTitle}`
+      : defaultTitle ?? title;
 </script>
 
 <svelte:head>
