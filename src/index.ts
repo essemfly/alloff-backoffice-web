@@ -1,6 +1,6 @@
+import { TokenApi } from "@api";
 import "@app/global.css";
 import axios, { AxiosError } from "axios";
-import { TokenApi } from "./api";
 import App from "./App.svelte";
 import { getTokens, setTokens } from "./core/auth";
 const toLogin = () => {
