@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { DateTime } from "luxon";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
-  import { Grid, Button, InlineLoading } from "carbon-components-svelte";
+  import { Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import {
@@ -14,7 +15,10 @@
   import Nav from "@app/components/Nav.svelte";
 
   import ProductGroupForm from "./components/ProductGroupForm.svelte";
-  import { getGroupTypeLabelByIndex } from "../commands/helpers";
+  import {
+    getGroupTypeByIndex,
+    getGroupTypeLabelByIndex,
+  } from "../commands/helpers";
 
   const productGroupApi = new ProductGroupsApi();
 
@@ -27,7 +31,11 @@
 
   onMount(async () => {
     const res = await productGroupApi.productGroupsRetrieve({ id: productId });
-    productGroup = res.data;
+    const { group_type } = res.data;
+    productGroup = {
+      ...res.data,
+      group_type: getGroupTypeByIndex(group_type as unknown as number),
+    };
     isLoading = false;
     productGroupTypeLabel = getGroupTypeLabelByIndex(
       productGroup.group_type as unknown as number,
@@ -37,11 +45,16 @@
   const handleSubmit = async () => {
     try {
       // remove products from product group
-      const { products, group_type, ...restProductGroup } = productGroup;
+      const { products, group_type, ...requestBody } = productGroup;
       await productGroupApi.productGroupsUpdate({
         id: productGroup.product_group_id,
-        editProductGroupRequest:
-          restProductGroup as unknown as EditProductGroupRequest,
+        editProductGroupRequest: {
+          ...requestBody,
+          ...(group_type !== GroupTypeEnum.Timedeal && {
+            start_time: DateTime.now().toISO(),
+            finish_time: DateTime.now().toISO(),
+          }),
+        } as unknown as EditProductGroupRequest,
       });
       toast.push(`${productGroupTypeLabel} 수정이 완료되었습니다.`);
       navigate(-1);

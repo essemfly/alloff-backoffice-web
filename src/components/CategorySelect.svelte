@@ -2,7 +2,6 @@
   import { AlloffCategoriesApi,AlloffCategory } from "@api";
   import { Autocomplete,AutocompleteItem } from "@app/components/autocomplete";
   import { createEventDispatcher,onMount } from "svelte";
-  export let excludes: string[] = [];
   export let keepValueOnSubmit: boolean = true;
   export let disabled: boolean = false;
 

@@ -24,7 +24,6 @@
   }
 
   export let value: HometabExhibitionsSectionValue;
-  export let isAdding: boolean = false;
 
   let exhibitions: Exhibition[] = [];
   let filteredExhibitions: AutocompleteItem[] = [];
@@ -84,7 +83,6 @@
         onSubmit={handleExhibitionChange}
         placeholder="기획전 이름/ID로 검색"
         labelText="기획전 검색"
-        disabled={!isAdding}
       />
     </Column>
   </Row>
@@ -140,3 +138,10 @@
     </Column>
   </Row>
 </ContentBox>
+
+<style>
+  .logo_image {
+    width: 200px;
+    max-width: 100%;
+  }
+</style>

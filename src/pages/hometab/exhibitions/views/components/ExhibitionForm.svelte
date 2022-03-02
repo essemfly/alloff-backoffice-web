@@ -14,6 +14,7 @@
     Tabs,
     Tab,
     TabContent,
+    TextArea,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
@@ -60,6 +61,8 @@
     selectedExhibitionSections = form.pgs ?? [];
 
     const res = await productGroupApi.productGroupsList({
+      offset: 0,
+      limit: 200,
       groupType: GroupTypeEnum.Exhibition,
     });
     exhibitionSections = res.data.pgs;
@@ -196,7 +199,7 @@
   </Row>
   <Row padding>
     <Column>
-      <TextInput labelText={"상세"} bind:value={form.description} />
+      <TextArea labelText={"상세"} bind:value={form.description} />
     </Column>
   </Row>
   <Row padding>

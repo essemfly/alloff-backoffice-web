@@ -5,6 +5,7 @@
     TextInput,
     NumberInput,
     Toggle,
+    TextArea,
   } from "carbon-components-svelte";
 
   import { TopBanner, ExhibitionsApi } from "@api";
@@ -53,7 +54,7 @@
   </Row>
   <Row>
     <Column>
-      <TextInput labelText={"타이틀"} bind:value={form.title} />
+      <TextArea labelText={"타이틀"} bind:value={form.title} />
     </Column>
   </Row>
   <Row>

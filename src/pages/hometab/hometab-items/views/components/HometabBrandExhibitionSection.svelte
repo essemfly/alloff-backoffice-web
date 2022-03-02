@@ -2,13 +2,7 @@
   import { createEventDispatcher, onMount } from "svelte";
   import { Row, Column } from "carbon-components-svelte";
 
-  import {
-    Brand,
-    BrandsApi,
-    Exhibition,
-    ExhibitionsApi,
-    ItemTypeEnum,
-  } from "@api";
+  import { Brand, Exhibition, ExhibitionsApi, ItemTypeEnum } from "@api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
@@ -21,20 +15,13 @@
   }
 
   export let value: HometabExhibitionASectionValue;
-  export let isAdding: boolean = false;
 
   let backImageUrl: string;
-
-  let brands: Brand[] = [];
-  let filteredBrands: AutocompleteItem[] = [];
-  let selectedBrand: Brand | undefined;
-
   let exhibitions: Exhibition[] = [];
   let filteredExhibitions: AutocompleteItem[] = [];
   let selectedExhibition: Exhibition | undefined;
 
   const dispatch = createEventDispatcher();
-  const brandsAPi = new BrandsApi();
   const exhibitionApi = new ExhibitionsApi();
 
   onMount(async () => {
@@ -58,7 +45,7 @@
     )!;
   };
 
-  $: if (backImageUrl || selectedBrand || selectedExhibition) {
+  $: if (backImageUrl || selectedExhibition) {
     dispatch("change", {
       item_type: ItemTypeEnum.ExhibitionA,
       exhibition_ids: [selectedExhibition?.exhibition_id],
@@ -70,23 +57,19 @@
 <ContentBox title={`${HometabItemType.ExhibitionA} 정보`}>
   <Row>
     <Column>
-      <ImageUploadField
-        label={"배경 이미지"}
-        bind:value={backImageUrl}
-        disabled={!isAdding}
-      />
+      <ImageUploadField label={"배경 이미지"} bind:value={backImageUrl} />
     </Column>
   </Row>
   <h4>기획전</h4>
   <Row>
     <Column>
+      <div>선택된 기획전: {selectedExhibition?.title ?? "None"}</div>
       <Autocomplete
         options={filteredExhibitions}
         onSubmit={handleExhibitionChange}
         placeholder="기획전 이름/ID로 검색"
         labelText="기획전 검색"
         selectedValue={selectedExhibition?.exhibition_id ?? ""}
-        disabled={!isAdding}
       />
     </Column>
   </Row>

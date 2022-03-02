@@ -34,6 +34,12 @@ export const hometabColumns: DataTableColumn<HomeTab>[] = [
     get: (data) => formatDate(data.finish_time),
   },
   {
+    key: "is_live",
+    name: "활성화 여부",
+    type: "toggle",
+    get: (data) => data.is_live,
+  },
+  {
     key: "weight",
     name: "정렬",
     type: "weight",

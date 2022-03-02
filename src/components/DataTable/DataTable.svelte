@@ -18,6 +18,7 @@
     getHeaders,
     getRows,
   } from "./helpers";
+  import { values } from "lodash";
 
   type T = any;
 
@@ -45,9 +46,16 @@
   };
 
   const handleWeightChange = (rowId: string) => (event: CustomEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
     const value = event.detail;
     const rowIndex = data.findIndex(({ id }) => id === rowId);
     dispatch("change:weight", [value, rowIndex]);
+  };
+
+  const handleToggle = (row: T, value: boolean) => {
+    const rowIndex = data.findIndex(({ id }) => id === row.id);
+    dispatch("change:toggle", [value, rowIndex]);
   };
 
   $: if (data) {
@@ -68,6 +76,11 @@
     let:cell
     let:row
     on:click={(event) => {
+      if (toggleColumns.includes(cell.key)) {
+        event.stopPropagation();
+        event.preventDefault();
+        handleToggle(row, !cell.value);
+      }
       if (cell.key === "weight") {
         event.stopPropagation();
         event.preventDefault();

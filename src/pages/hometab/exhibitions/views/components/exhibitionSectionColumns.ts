@@ -4,9 +4,8 @@ import { formatDate } from "@app/helpers/date";
 
 export const exhibitionColumns: DataTableColumn<ProductGroup>[] = [
   {
-    key: "image_url",
-    name: "썸네일",
-    type: "image",
+    key: "short_title",
+    name: "짧은 타이틀",
   },
   {
     key: "title",

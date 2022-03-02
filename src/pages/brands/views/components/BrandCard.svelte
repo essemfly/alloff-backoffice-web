@@ -46,6 +46,7 @@
       .brandsPartialUpdate({
         id: brand.brand_id,
         patchedBrandRequest: {
+          keyname: brand.keyname,
           size_guide: brand.size_guide,
         },
       })
@@ -82,6 +83,7 @@
       .brandsPartialUpdate({
         id: brand.brand_id,
         patchedBrandRequest: {
+          keyname: brand.keyname,
           size_guide: brand.size_guide,
         },
       })
@@ -272,5 +274,9 @@
 
   :global(.guide_image) {
     width: 90%;
+  }
+
+  .image-preview-modal {
+    max-width: 100%;
   }
 </style>

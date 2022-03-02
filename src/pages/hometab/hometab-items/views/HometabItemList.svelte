@@ -6,7 +6,6 @@
     HomeTab,
     HometabsApi,
     HometabsApiHometabsListRequest as SearchQueryParam,
-    PatchedHomeTabRequest,
   } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
@@ -19,7 +18,6 @@
 
   import { hometabColumns } from "./components/hometabColumns";
   import { debounce } from "lodash";
-  import { a } from "@app/helpers/notification";
 
   let hometabs: DataTableData<HomeTab>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
@@ -102,6 +100,28 @@
     hometabs = hometabs;
   }, 500);
 
+  const handleIsLiveChange = debounce(
+    async (event: CustomEvent<[boolean, number]>) => {
+      const [is_live, index] = event.detail;
+
+      let hometabItem = hometabs[index];
+      hometabItem.is_live = is_live;
+      hometabs = hometabs;
+
+      const { start_time, finish_time, ...requestBody } = hometabItem;
+
+      await hometabApi.hometabsUpdate({
+        id: hometabItem.item_id,
+        editHomeTabRequest: {
+          ...requestBody,
+          hometab_id: hometabItem.item_id,
+          is_live,
+        },
+      });
+    },
+    500,
+  );
+
   $: if ($location) {
     const params = parseQueryString<SearchQueryParam>($location.search);
     load(params);
@@ -124,6 +144,7 @@
     columns={hometabColumns}
     on:click:row={handleRowClick}
     on:change:weight={handleWeightChange}
+    on:change:toggle={handleIsLiveChange}
   />
   <div class="button-right-wrapper mt10">
     <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
