@@ -10,6 +10,7 @@
   let isTouched = true;
   let product: Product = {
     alloff_product_id: "",
+    alloff_category_id: "",
     alloff_name: "",
     product_id: "",
     brand_kor_name: "",

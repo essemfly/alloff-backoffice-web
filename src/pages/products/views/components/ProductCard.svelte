@@ -122,7 +122,8 @@
     />
   </div>
   <div class="info">
-    <p>{product.brand_kor_name}</p>
+    <p style="font-weight: bold;">{product.brand_kor_name}</p>
+    <p>{product.alloff_category_name}</p>
     <h6>{product.alloff_name}</h6>
     {#if product.inventory.reduce((prev, curr) => prev + curr.quantity, 0) === 0}
       <Tag type="red">⚠️ 재고없음</Tag>
