@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { AdminUserApi } from "@api";
-  import { removeTokens } from "@app/core/auth";
+  import { onMount } from "svelte";
+  import { useLocation } from "svelte-navigator";
   import {
     Content,
     Header,
@@ -20,34 +20,38 @@
   } from "carbon-components-svelte";
   import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
   import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
+  import Classification16 from "carbon-icons-svelte/lib/Classification16";
   import ConnectionReceive16 from "carbon-icons-svelte/lib/ConnectionReceive16";
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
+  import Home16 from "carbon-icons-svelte/lib/Home16";
   import ListBoxes16 from "carbon-icons-svelte/lib/ListBoxes16";
   import NotificationNew16 from "carbon-icons-svelte/lib/NotificationNew16";
   import PhoneIp16 from "carbon-icons-svelte/lib/PhoneIp16";
+  import Product16 from "carbon-icons-svelte/lib/Product16";
   import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
   import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
   import Template16 from "carbon-icons-svelte/lib/Template16";
   import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
-  import { onMount } from "svelte";
-  import { useLocation } from "svelte-navigator";
+
+  import { AdminUserApi } from "@api";
+  import { removeTokens } from "@app/core/auth";
+
   import { admin } from "../store";
+  import MetaTags from "./MetaTags/MetaTags.svelte";
+  import { MetaTagsProps } from "./MetaTags/types";
 
   export let title: string = "";
+  export let metaTags: MetaTagsProps = {};
 
-  let pageTitle: string;
   let isSideNavOpen = false;
   let isUtilOpen = false;
 
   const version = import.meta.env.VITE_PACKAGE_VERSION;
-  const isProd = import.meta.env.PROD;
+  const isProd = import.meta.env.mode === "production";
   const location = useLocation();
 
-  $: {
-    const defaultTitle = `Backoffice${!isProd ? " DEV" : ""}`;
-    pageTitle = title ? `${title} :: ${defaultTitle}` : defaultTitle;
-  }
+  const defaultTitle = `Alloff Backoffice${!isProd ? " DEV" : ""}`;
 
   interface MenuItem {
     label: string;
@@ -58,7 +62,7 @@
 
   const commonMenu: MenuItem[] = [
     { label: "주문", path: "/items", icon: Receipt16 },
-    { label: "상품", path: "/products" },
+    { label: "상품", path: "/products", icon: Product16 },
   ];
 
   let menu = [...commonMenu];
@@ -70,6 +74,7 @@
         ? [
             {
               label: "홈탭",
+              icon: Home16,
               items: [
                 {
                   label: "홈탭 아이템 관리",
@@ -105,6 +110,7 @@
             },
             {
               label: "물류",
+              icon: DeliveryTruck16,
               items: [
                 {
                   label: "입고",
@@ -123,7 +129,7 @@
                 },
               ],
             },
-            { label: "브랜드", path: "/brands" },
+            { label: "브랜드", path: "/brands", icon: Classification16 },
           ]
         : [{ label: "상품문의", path: "/inquiries", icon: PhoneIp16 }]),
     ];
@@ -145,9 +151,7 @@
   };
 </script>
 
-<svelte:head>
-  <title>{pageTitle}</title>
-</svelte:head>
+<MetaTags {title} {defaultTitle} {...metaTags} />
 
 <Header
   company="Alloff"
@@ -192,7 +196,7 @@
     <SideNavItems>
       {#each menu as menuItem}
         {#if menuItem.items && menuItem.items.length > 0}
-          <SideNavMenu text={menuItem.label}>
+          <SideNavMenu text={menuItem.label} icon={menuItem.icon}>
             {#each menuItem.items as { label, path, icon }}
               <SideNavLink
                 {icon}

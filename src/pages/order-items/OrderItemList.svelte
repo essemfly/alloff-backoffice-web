@@ -1,10 +1,17 @@
 <script lang="ts">
-  import { OrderItemList,OrderItemsApi,OrderItemStatusEnum } from "@api";
+  import { OrderItemList, OrderItemsApi, OrderItemStatusEnum } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import { ORDER_ITEM_ALL_STATUSES } from "@app/constants";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import { getStatusLabel } from "@app/helpers/order-item";
-  import { Button,Checkbox,Pagination } from "carbon-components-svelte";
+  import {
+    Checkbox,
+    DatePicker,
+    DatePickerInput,
+    Pagination,
+    Button
+  } from "carbon-components-svelte";
+  import { DateTime } from "luxon";
   import TableShortcut16 from "carbon-icons-svelte/lib/TableShortcut16";
   import { useLocation } from "svelte-navigator";
   import ExcelExportModal from "./components/ExcelExportModal.svelte";
@@ -60,7 +67,7 @@
   );
 </script>
 
-<Nav>
+<Nav title="주문 목록">
   <MediaQuery query="(max-width: 480px)" let:matches>
     {#if userId}
       <h6>USER ID: {userId}</h6>
