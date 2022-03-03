@@ -15,8 +15,12 @@ export type DataTableColumnType =
 export type DataTableColumn<T> = {
   key: keyof T;
   name: string;
-  get?: (data: T) => string | number;
+  get?: (data: T) => string | number | boolean;
   type?: DataTableColumnType;
+  toggleOption?: {
+    activeLabel?: string;
+    deactiveLabel?: string;
+  };
 };
 
 export { DataTableRow };
