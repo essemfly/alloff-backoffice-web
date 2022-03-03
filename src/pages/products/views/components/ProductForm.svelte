@@ -6,7 +6,9 @@
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
   import {
-  Button,Checkbox,Column,
+  Button,
+  Checkbox,
+  Column,
   NumberInput,
   Row,
   TextInput,
@@ -15,8 +17,11 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Editor from "cl-editor/src/Editor.svelte";
   import { debounce } from "lodash";
+  import CategorySelect from "../../../../components/CategorySelect.svelte";
 
-  export let form: Product & { brand_key_name: string };
+  export let form: Product & {
+    brand_key_name: string;
+  };
   export let isAdding: boolean = false;
 
   let discountRate = "0";
@@ -28,6 +33,12 @@
     event: CustomEvent<{ value?: AutocompleteItem }>,
   ) => {
     form.brand_key_name = event.detail.value?.subvalue ?? "";
+  };
+
+  const handleCategoryChange = (
+    event: CustomEvent<{ value?: AutocompleteItem }>,
+  ) => {
+    form.alloff_category_id = event.detail.value?.key ?? "";
   };
 
   const handleAddInventory = () => {
@@ -72,7 +83,7 @@
 <ContentBox>
   <h3>상품 정보</h3>
   {#if !isAdding}
-    <Row>
+    <Row padding>
       <Column>
         <TextInput
           labelText={"상품ID"}
@@ -82,7 +93,7 @@
       </Column>
     </Row>
   {/if}
-  <Row>
+  <Row padding>
     <Column>
       <TextInput labelText={"상품명"} bind:value={form.alloff_name} />
     </Column>
@@ -94,7 +105,7 @@
       />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <TextInput labelText={"기존 가격"} bind:value={form.original_price} />
     </Column>
@@ -108,15 +119,20 @@
       <TextInput labelText="우선적용가" bind:value={form.special_price} />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
-      <TextInput labelText="카테고리" bind:value={form.category_name} />
+      <CategorySelect
+        initialCategoryName={form.alloff_category_name === ""
+          ? undefined
+          : form.alloff_category_name}
+        on:change={handleCategoryChange}
+      />
     </Column>
     <Column>
       <TextInput labelText="제품번호" bind:value={form.product_id} />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <ImageUploadField
         label={"상품 이미지"}
@@ -125,12 +141,12 @@
       />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <MultilineTextInput label="상품 설명" bind:value={form.description} />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <ImageUploadField
         label={"상품 설명 이미지"}
@@ -139,7 +155,7 @@
       />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <NumberInput label={"Total Score"} bind:value={form.total_score} />
     </Column>
@@ -147,7 +163,7 @@
 </ContentBox>
 <ContentBox>
   <h3>배송 관련 정보</h3>
-  <Row>
+  <Row padding>
     <Column>
       <NumberInput
         label="가장 빠른 도착예정일"
@@ -161,12 +177,12 @@
       />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <TextInput labelText="반품 비용" bind:value={form.refund_fee} />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <Toggle
         labelText="반품가능 여부"
@@ -183,7 +199,7 @@
 </ContentBox>
 <ContentBox>
   <h3>재고 정보</h3>
-  <Row>
+  <Row padding>
     <Column>
       <Toggle labelText="판매불가 여부" bind:toggled={form.is_removed} />
     </Column>
@@ -191,7 +207,7 @@
       <Toggle labelText="품절 여부" bind:toggled={form.is_soldout} />
     </Column>
   </Row>
-  <Row>
+  <Row padding>
     <Column>
       <TextInput
         labelText={"신규 사이즈 등록"}
