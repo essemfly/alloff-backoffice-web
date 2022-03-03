@@ -7,10 +7,6 @@
     Toggle,
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
-  import ChevronUp16 from "carbon-icons-svelte/lib/ChevronUp16";
-  import ChevronDown16 from "carbon-icons-svelte/lib/ChevronDown16";
-  import UpToTop16 from "carbon-icons-svelte/lib/UpToTop16";
-  import DownToBottom16 from "carbon-icons-svelte/lib/DownToBottom16";
 
   import {
     DataTableColumn,
@@ -18,7 +14,6 @@
     getHeaders,
     getRows,
   } from "./helpers";
-  import { values } from "lodash";
 
   type T = any;
 

@@ -27,27 +27,31 @@
         return NotificationType.GeneralNotification;
       case NotificationTypeEnum.TimedealOpenNotification:
         return NotificationType.TimedealOpenNotification;
+      case NotificationTypeEnum.ExhibitionNotification:
+        return NotificationType.ExhibitionNotification;
       default:
         return "기타";
     }
   };
 
-  export const getNotificationBadgeColor = (notiType: NotificationType) => {
+  export const getNotificationBadgeColor = (notiType: NotificationTypeEnum) => {
     switch (notiType) {
-      case NotificationType.EventNotification:
+      case NotificationTypeEnum.EventNotification:
         return "gray";
-      case NotificationType.ProductDiffNotification:
+      case NotificationTypeEnum.ProductDiffNotification:
         return "blue";
-      case NotificationType.BrandNewProductNotification:
+      case NotificationTypeEnum.BrandNewProductNotification:
         return "teal";
-      case NotificationType.BrandOpenNotification:
+      case NotificationTypeEnum.BrandOpenNotification:
         return "green";
-      case NotificationType.GeneralNotification:
+      case NotificationTypeEnum.GeneralNotification:
         return "cyan";
-      case NotificationType.TimedealOpenNotification:
+      case NotificationTypeEnum.TimedealOpenNotification:
         return "purple";
-      default:
+      case NotificationTypeEnum.ExhibitionNotification:
         return "magenta";
+      default:
+        return "cool-gray";
     }
   };
 

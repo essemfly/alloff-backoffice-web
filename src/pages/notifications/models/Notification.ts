@@ -1,4 +1,5 @@
 export enum NotificationType {
+  ExhibitionNotification = "기획전 오픈 푸시",
   TimedealOpenNotification = "타임딜 오픈 푸시",
   EventNotification = "이벤트 푸시",
   ProductDiffNotification = "상품가격 푸시",
@@ -8,6 +9,7 @@ export enum NotificationType {
 }
 
 export enum NotificationTypeEnum {
+  ExhibitionNotification = "EXHIBITION_NOTIFICATION",
   TimedealOpenNotification = "TIMEDEAL_OPEN_NOTIFICATION",
   EventNotification = "EVENT_NOTIFICATION",
   ProductDiffNotification = "PRODUCT_DIFF_NOTIFICATION",

@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { OrderItemList,OrderItemRetrieve,OrderItemsApi } from "@api";
+  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
   import { toLocaleDateTime } from "@app/helpers/datetime";
   import { numberWithCommas } from "@app/helpers/number";
-  import { getIsForeignLabel,getTypeLabel } from "@app/helpers/order-item";
+  import { getIsForeignLabel, getTypeLabel } from "@app/helpers/order-item";
   import { admin } from "@app/store";
-  import { Button,TabContent,TextInput } from "carbon-components-svelte";
+  import { Button, TabContent, TextInput } from "carbon-components-svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
   import InfoSection from "./InfoSection.svelte";
 
@@ -50,6 +50,10 @@
       ...($admin?.profile.is_admin
         ? [
             { header: "유저 ID", body: item.order.user_id },
+            {
+              header: "개인통관고유번호",
+              body: item.order.payment.personal_customs_number ?? "-",
+            },
             {
               header: "주문수",
               body: `${userItems.length}건`,

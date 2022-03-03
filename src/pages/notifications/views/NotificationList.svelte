@@ -34,7 +34,7 @@
       offset: params.offset ?? 0,
       limit: params.limit ?? 50,
     });
-    const data = res.data as unknown as ListNoti;
+    const { data } = res;
 
     notifications = data.notis.map((x: Noti) => ({
       ...x,
