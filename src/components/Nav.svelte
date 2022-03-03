@@ -1,22 +1,22 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { useLocation } from "svelte-navigator";
+  import { AdminUserApi } from "@api";
+  import { removeTokens } from "@app/core/auth";
   import {
-    Content,
-    Header,
-    HeaderAction,
-    HeaderNav,
-    HeaderNavItem,
-    HeaderNavMenu,
-    HeaderPanelDivider,
-    HeaderPanelLink,
-    HeaderPanelLinks,
-    HeaderUtilities,
-    SideNav,
-    SideNavItems,
-    SideNavLink,
-    SideNavMenu,
-    SkipToContent,
+  Content,
+  Header,
+  HeaderAction,
+  HeaderNav,
+  HeaderNavItem,
+  HeaderNavMenu,
+  HeaderPanelDivider,
+  HeaderPanelLink,
+  HeaderPanelLinks,
+  HeaderUtilities,
+  SideNav,
+  SideNavItems,
+  SideNavLink,
+  SideNavMenu,
+  SkipToContent
   } from "carbon-components-svelte";
   import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
   import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
@@ -33,10 +33,8 @@
   import Template16 from "carbon-icons-svelte/lib/Template16";
   import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
-
-  import { AdminUserApi } from "@api";
-  import { removeTokens } from "@app/core/auth";
-
+  import { onMount } from "svelte";
+  import { useLocation } from "svelte-navigator";
   import { admin } from "../store";
   import MetaTags from "./MetaTags/MetaTags.svelte";
   import { MetaTagsProps } from "./MetaTags/types";
@@ -48,10 +46,10 @@
   let isUtilOpen = false;
 
   const version = import.meta.env.VITE_PACKAGE_VERSION;
-  const isProd = import.meta.env.mode === "production";
+  const isProd = import.meta.env.PROD;
   const location = useLocation();
 
-  const defaultTitle = `Alloff Backoffice${!isProd ? " DEV" : ""}`;
+  const defaultTitle = `Alloff Backoffice ${!isProd ? " DEV" : ""}`;
 
   interface MenuItem {
     label: string;
