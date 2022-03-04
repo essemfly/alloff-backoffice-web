@@ -37,7 +37,6 @@
     "ProductDiffNotification",
     "BrandNewProductNotification",
     "BrandOpenNotification",
-    "GeneralNotification",
   ];
 
   const loadProductGroupList = async () => {
@@ -74,6 +73,8 @@
         if (exhibitionOptions.length === 0) {
           loadExhibitionList();
         }
+      case NotificationTypeEnum.GeneralNotification:
+        form.reference_id = "/";
       default:
       // pass
     }
@@ -128,8 +129,6 @@
         labelText="기획전 검색"
         {selectedValue}
       />
-    {:else}
-      <TextInput labelText="관련ID" bind:value={form.reference_id} />
     {/if}
   </FormGroup>
 </ContentBox>
