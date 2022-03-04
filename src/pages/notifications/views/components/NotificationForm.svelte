@@ -65,16 +65,20 @@
     switch (form.noti_type) {
       // it is deprecated. just remain for older apis
       case NotificationTypeEnum.TimedealOpenNotification:
+        form.reference_id = "";
         if (productGroupOptions.length === 0) {
           loadProductGroupList();
         }
         break;
       case NotificationTypeEnum.ExhibitionNotification:
+        form.reference_id = "";
         if (exhibitionOptions.length === 0) {
           loadExhibitionList();
         }
+        break;
       case NotificationTypeEnum.GeneralNotification:
         form.reference_id = "/";
+        break;
       default:
       // pass
     }
