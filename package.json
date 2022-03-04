@@ -1,6 +1,6 @@
 {
   "name": "backoffice-web",
-  "version": "0.2.18+hotfix.1",
+  "version": "0.2.19",
   "license": "UNLICENSED",
   "scripts": {
     "format": "prettier --write --plugin-search-dir=. ./src/**/*.{js,svelte,ts}",
