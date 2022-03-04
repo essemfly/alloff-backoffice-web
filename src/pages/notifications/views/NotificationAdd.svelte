@@ -12,7 +12,7 @@
 
   let isTouched = true;
   let notification: Notification = {
-    noti_type: NotificationTypeEnum.ExhibitionNotification,
+    noti_type: NotificationTypeEnum.GeneralNotification,
     reference_id: "",
     title: "",
     message: "",
