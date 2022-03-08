@@ -42,6 +42,7 @@
 
   let exhibitionSections: ProductGroup[] = [];
   let selectedExhibitionSections: ProductGroup[] = [];
+  let selectedExhibitionSectionIds: string[] = [];
 
   let tempProductGroup: ProductGroup = {
     title: "",
@@ -57,7 +58,17 @@
 
   onMount(async () => {
     selectedExhibitionSections = form.pgs ?? [];
+    selectedExhibitionSectionIds = selectedExhibitionSections.map(
+      ({ product_group_id }) => product_group_id,
+    );
   });
+
+  const handleExhibitionSectionSelect = (event: CustomEvent<ProductGroup>) => {
+    const section = event.detail;
+    if (section) {
+      selectedExhibitionSections = [...selectedExhibitionSections, section];
+    }
+  };
 
   const handleExhibitionSectionAdd = (selectedItem?: AutocompleteItem) => {
     const exhibitionSection = exhibitionSections.find(
@@ -78,9 +89,10 @@
   };
 
   $: if (selectedExhibitionSections) {
-    form.pg_ids = selectedExhibitionSections.map(
+    selectedExhibitionSectionIds = selectedExhibitionSections.map(
       ({ product_group_id }) => product_group_id,
     );
+    form.pg_ids = selectedExhibitionSectionIds;
   }
 
   const handleProductGroupSubmit = async () => {
@@ -290,7 +302,10 @@
         </div>
       </TabContent>
       <TabContent>
-        <ExhibitionSectionSearchSection />
+        <ExhibitionSectionSearchSection
+          bind:value={selectedExhibitionSectionIds}
+          on:select={handleExhibitionSectionSelect}
+        />
       </TabContent>
     </svelte:fragment>
   </Tabs>

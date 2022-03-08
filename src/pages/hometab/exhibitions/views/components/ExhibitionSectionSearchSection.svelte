@@ -128,7 +128,7 @@
     <div class="bx--label">기획전 섹션 검색</div>
     <Search
       bind:value={searchQuery}
-      placeholder="기획전 섹션 제목/짧은제목 검색"
+      placeholder="기획전 섹션 타이틀/짧은 타이틀 검색"
     />
   </Column>
 </Row>
