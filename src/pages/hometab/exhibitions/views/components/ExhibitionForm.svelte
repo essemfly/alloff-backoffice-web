@@ -35,12 +35,12 @@
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
 
   import ExhibitionSectionForm from "./ExhibitionSectionForm.svelte";
+  import ExhibitionSectionSearchSection from "./ExhibitionSectionSearchSection.svelte";
 
   export let form: Exhibition & { pg_ids: string[] };
   export let isAdding: boolean = false;
 
   let exhibitionSections: ProductGroup[] = [];
-  let filteredExhibitionSections: AutocompleteItem[] = [];
   let selectedExhibitionSections: ProductGroup[] = [];
 
   let tempProductGroup: ProductGroup = {
@@ -55,24 +55,8 @@
     group_type: GroupTypeEnum.Exhibition,
   };
 
-  const productGroupApi = new ProductGroupsApi();
-
   onMount(async () => {
     selectedExhibitionSections = form.pgs ?? [];
-
-    const res = await productGroupApi.productGroupsList({
-      offset: 0,
-      limit: 200,
-      groupType: GroupTypeEnum.Exhibition,
-    });
-    exhibitionSections = res.data.pgs;
-    filteredExhibitionSections = exhibitionSections.map(
-      ({ product_group_id, title, short_title }) => ({
-        key: product_group_id,
-        value: title,
-        subvalue: short_title,
-      }),
-    );
   });
 
   const handleExhibitionSectionAdd = (selectedItem?: AutocompleteItem) => {
@@ -306,16 +290,7 @@
         </div>
       </TabContent>
       <TabContent>
-        <Row>
-          <Column>
-            <Autocomplete
-              options={filteredExhibitionSections}
-              onSubmit={handleExhibitionSectionAdd}
-              placeholder="기획전 섹션 이름/ID로 검색"
-              labelText="기획전 섹션 검색"
-            />
-          </Column>
-        </Row>
+        <ExhibitionSectionSearchSection />
       </TabContent>
     </svelte:fragment>
   </Tabs>
