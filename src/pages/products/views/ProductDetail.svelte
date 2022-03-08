@@ -14,7 +14,8 @@
 
   let product: Product;
   let isLoading = true;
-  let isTouched = true;
+  let isSubmitting = false;
+  // let isTouched = true;
 
   onMount(async () => {
     const res = await productApi.productsRetrieve({ id: productId });
@@ -23,6 +24,7 @@
   });
 
   const handleSubmit = async () => {
+    isSubmitting = true;
     try {
       const res = await productApi.productsUpdate({
         id: product.alloff_product_id,
@@ -33,6 +35,8 @@
       navigate(-1);
     } catch (e) {
       toast.push(`상품 수정에 오류가 발생했습니다.`);
+    } finally {
+      isSubmitting = false;
     }
   };
 </script>
@@ -43,14 +47,14 @@
   {:else}
     <Grid>
       <div class="button-right-wrapper mb10">
-        <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-          {"수정"}
+        <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
+          {isSubmitting ? "수정중..." : "수정"}
         </Button>
       </div>
       <ProductForm form={product} />
       <div class="button-right-wrapper mt10">
-        <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-          {"수정"}
+        <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
+          {isSubmitting ? "수정중..." : "수정"}
         </Button>
       </div>
     </Grid>
