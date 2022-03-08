@@ -79,8 +79,10 @@
     selectedBrandId = event.detail.value?.key ?? "";
   };
 
-  const handleCategoryChange = (event: CustomEvent<AutocompleteItem>) => {
-    selectedCategoryId = event.detail?.key ?? "";
+  const handleCategoryChange = (
+    event: CustomEvent<{ value?: AutocompleteItem }>,
+  ) => {
+    selectedCategoryId = event.detail.value?.key ?? "";
   };
 
   const handleProductSelect = (selectedItem: Product) => () => {
