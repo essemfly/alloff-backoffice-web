@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { AlloffCategoriesApi,AlloffCategory } from "@api";
-  import { Autocomplete,AutocompleteItem } from "@app/components/autocomplete";
-  import { createEventDispatcher,onMount } from "svelte";
+  import { AlloffCategoriesApi, AlloffCategory } from "@api";
+  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import { createEventDispatcher, onMount } from "svelte";
   export let keepValueOnSubmit: boolean = true;
   export let disabled: boolean = false;
 
@@ -42,7 +42,7 @@
   const handleSecondChange = (selected?: AutocompleteItem) => {
     dirty = true;
     selectedSecondItem = selected;
-    dispatch("change", { value: selected });
+    dispatch("change", { value: selected ?? selectedFirstItem });
   };
 
   const load = async (parentId?: string) => {
@@ -83,7 +83,9 @@
 
 <h5>
   선택된 카테고리: {!selectedCategory
-    ? dirty ? "없음" : (initialCategoryName ?? "없음")
+    ? dirty
+      ? "없음"
+      : initialCategoryName ?? "없음"
     : selectedCategory.name}
 </h5>
 
