@@ -6,7 +6,7 @@
     RadioButton,
   } from "carbon-components-svelte";
 
-  import { ExhibitionsApi, Noti, ProductGroupsApi } from "@api";
+  import { Noti, ProductGroupsApi } from "@api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
 
@@ -14,16 +14,15 @@
     NotificationType,
     NotificationTypeEnum,
   } from "../../models/Notification";
+  import ExhibitionListSection from "./ExhibitionListSection.svelte";
 
   export let form: Noti;
   export let isAdding = false;
 
   let productGroupOptions: AutocompleteItem[] = [];
-  let exhibitionOptions: AutocompleteItem[] = [];
   let selectedValue = "";
 
   const productGroupsApi = new ProductGroupsApi();
-  const exhibitionApi = new ExhibitionsApi();
 
   const notiTypes = Object.keys(NotificationType).map((key) => ({
     key,
@@ -50,28 +49,12 @@
     );
   };
 
-  const loadExhibitionList = async () => {
-    const res = await exhibitionApi.exhibitionsList();
-    exhibitionOptions = res.data.exhibitions.map(
-      ({ exhibition_id, title, subtitle }) => ({
-        key: exhibition_id,
-        value: title,
-        subvalue: subtitle,
-      }),
-    );
-  };
-
   $: if (form.noti_type) {
     switch (form.noti_type) {
       // it is deprecated. just remain for older apis
       case NotificationTypeEnum.TimedealOpenNotification:
         if (productGroupOptions.length === 0) {
           loadProductGroupList();
-        }
-        break;
-      case NotificationTypeEnum.ExhibitionNotification:
-        if (exhibitionOptions.length === 0) {
-          loadExhibitionList();
         }
         break;
       case NotificationTypeEnum.GeneralNotification:
@@ -124,13 +107,7 @@
       />
     {:else if form.noti_type === NotificationTypeEnum.ExhibitionNotification}
       <div class="bx--label">관련 기획전</div>
-      <Autocomplete
-        options={exhibitionOptions}
-        onSubmit={handleOptionChange}
-        placeholder="기획전 이름/ID로 검색"
-        labelText="기획전 검색"
-        {selectedValue}
-      />
+      <ExhibitionListSection />
     {/if}
   </FormGroup>
 </ContentBox>

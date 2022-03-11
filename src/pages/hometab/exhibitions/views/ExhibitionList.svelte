@@ -32,6 +32,7 @@
     isLoading = true;
     try {
       const res = await exhibitionApi.exhibitionsList({
+        ...searchFilter,
         ...params,
       });
       exhibitions = res.data.exhibitions.map((x) => ({
