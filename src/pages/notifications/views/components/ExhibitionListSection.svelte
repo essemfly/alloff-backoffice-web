@@ -33,8 +33,9 @@
     totalCount: number;
   };
 
-  export let value: string[] = [];
   export let disabledIds: string[] = [];
+  export let value: string | string[];
+  export let multiple = false;
 
   let params: SearchQueryParam = {
     offset: 0,
@@ -56,9 +57,24 @@
   const dispatch = createEventDispatcher();
 
   onMount(() => {
-    selectedExhibitionIds = value;
     handleSearch(0);
+
+    if (value) {
+      if (multiple) {
+        selectedExhibitionIds = (value as string[]) ?? [];
+      } else {
+        selectedExhibitionIds = [value as string] ?? [];
+      }
+    }
   });
+
+  $: if (value) {
+    if (multiple) {
+      selectedExhibitionIds = (value as string[]) ?? [];
+    } else {
+      selectedExhibitionIds = [value as string] ?? [];
+    }
+  }
 
   const handleScroll = debounce(() => {
     const { scrollTop, scrollHeight, clientHeight } = scrollableList;
@@ -74,7 +90,11 @@
   const loadNext = () => handleSearch(params.offset + params.limit);
 
   const handleSelect = (selectedItem: Exhibition) => () => {
-    selectedExhibitions = [...selectedExhibitions, selectedItem];
+    if (multiple) {
+      selectedExhibitions = [...selectedExhibitions, selectedItem];
+    } else {
+      selectedExhibitions = [selectedItem];
+    }
     dispatch("select", selectedItem);
   };
 
@@ -142,6 +162,78 @@
 </script>
 
 <Row padding>
+  <Column>
+    <h4>선택된 기획전</h4>
+    <StructuredList condensed selection flush>
+      <StructuredListHead>
+        <StructuredListRow head>
+          <StructuredListCell head>썸네일/배너 이미지</StructuredListCell>
+          <StructuredListCell head>타이틀/서브 타이틀</StructuredListCell>
+          <StructuredListCell head>시작일 - 종료일</StructuredListCell>
+          <StructuredListCell head>Actions</StructuredListCell>
+        </StructuredListRow>
+      </StructuredListHead>
+      <StructuredListBody>
+        {#each selectedExhibitions as exhibition}
+          <StructuredListRow
+            on:click={handleSelect(exhibition)}
+            disabled={disabledIds.includes(exhibition.exhibition_id)}
+          >
+            <StructuredListInput value={exhibition.exhibition_id} />
+            <StructuredListCell>
+              <img
+                class="cell_image selected"
+                src={exhibition.thumbnail_image}
+                alt={["exhibition_thumbnail", exhibition.title].join("-")}
+              />
+              <img
+                class="cell_image selected"
+                src={exhibition.banner_image}
+                alt={["exhibition_banner", exhibition.title].join("-")}
+              />
+            </StructuredListCell>
+            <StructuredListCell noWrap>
+              {exhibition.title}<br />
+              <small>{exhibition.subtitle}</small>
+            </StructuredListCell>
+            <StructuredListCell>
+              {formatDate(exhibition.start_time, {
+                month: "short",
+                day: "numeric",
+                weekday: "narrow",
+                hour: "numeric",
+                minute: "numeric",
+              })}<br />
+              -<br />
+              {formatDate(exhibition.finish_time, {
+                month: "short",
+                day: "numeric",
+                weekday: "narrow",
+                hour: "numeric",
+                minute: "numeric",
+              })}
+            </StructuredListCell>
+            <StructuredListCell>
+              <Row padding>
+                <Button
+                  tooltipPosition="bottom"
+                  tooltipAlignment="end"
+                  iconDescription="기획전 상세"
+                  icon={Launch16}
+                  kind="ghost"
+                  size="small"
+                  on:click={handleDetailOpen(exhibition.exhibition_id)}
+                />
+              </Row>
+            </StructuredListCell>
+          </StructuredListRow>
+        {/each}
+      </StructuredListBody>
+    </StructuredList>
+  </Column>
+</Row>
+
+<Row>
   <Column>
     <h4>기획전 목록</h4>
     <Search
@@ -226,14 +318,13 @@
               </StructuredListCell>
             </StructuredListRow>
           {/each}
-
           {#if isLoading}
             <InlineLoading status="active" description="검색중..." />
           {/if}
           {#if !isLoading && params.offset + params.limit <= params.totalCount}
-            <Button size="small" kind="tertiary" on:click={loadNext}
-              >더보기</Button
-            >
+            <Button size="small" kind="tertiary" on:click={loadNext}>
+              더보기
+            </Button>
           {/if}
         </StructuredListBody>
       </StructuredList>
@@ -247,9 +338,14 @@
   }
 
   .cell_image {
-    width: 160px;
-    height: 160px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
+  }
+
+  .selected {
+    width: 180px;
+    height: 180px;
   }
 
   :global(.search-wrapper.bx--row) {

@@ -4,9 +4,11 @@
     TextInput,
     RadioButtonGroup,
     RadioButton,
+    Row,
+    Column,
   } from "carbon-components-svelte";
 
-  import { Noti, ProductGroupsApi } from "@api";
+  import { Noti, ProductGroupsApi, Exhibition } from "@api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
 
@@ -15,12 +17,14 @@
     NotificationTypeEnum,
   } from "../../models/Notification";
   import ExhibitionListSection from "./ExhibitionListSection.svelte";
+  import { formatDate } from "@app/helpers/date";
 
   export let form: Noti;
   export let isAdding = false;
 
   let productGroupOptions: AutocompleteItem[] = [];
   let selectedValue = "";
+  let selectedExhibition: Exhibition;
 
   const productGroupsApi = new ProductGroupsApi();
 
@@ -69,6 +73,11 @@
     form.reference_id = selected.key;
     selectedValue = selected.value;
   };
+
+  const handleExhibitionChange = (event: CustomEvent<Exhibition>) => {
+    form.reference_id = event.detail.exhibition_id;
+    selectedExhibition = event.detail;
+  };
 </script>
 
 <ContentBox title="푸시알림 정보">
@@ -107,7 +116,10 @@
       />
     {:else if form.noti_type === NotificationTypeEnum.ExhibitionNotification}
       <div class="bx--label">관련 기획전</div>
-      <ExhibitionListSection />
+      <ExhibitionListSection
+        value={selectedExhibition ? [selectedExhibition?.exhibition_id] : []}
+        on:select={handleExhibitionChange}
+      />
     {/if}
   </FormGroup>
 </ContentBox>
