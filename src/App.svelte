@@ -1,7 +1,7 @@
 <script lang="ts">
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import "carbon-components-svelte/css/g10.css";
-  import { Route,Router } from "svelte-navigator";
+  import { Route, Router } from "svelte-navigator";
   import "./index.css";
   // import Dashboard from "./pages/analytics/dashboard/Dashboard.svelte";
   import Login from "./pages/auth/Login.svelte";
@@ -67,3 +67,21 @@
     <OrderItems />
   </Route>
 </Router>
+
+<style>
+  :root {
+    --gray-10: #f4f4f4;
+    --gray-80: #393939;
+    --blue-60: #0f62fe;
+    --red-60: #da1e28;
+    --green-60: #198038;
+    --yellow: #f1c21b;
+
+    --support-02: var(--green-60);
+    --support-03: var(--yellow);
+    --ui-background: var(--gray-10);
+    --interactive-01: var(--blue-60);
+    --interactive-02: var(--gray-80);
+    --danger-01: var(--red-60);
+  }
+</style>
