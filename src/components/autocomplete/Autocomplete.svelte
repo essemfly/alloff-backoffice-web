@@ -3,7 +3,12 @@
 
   import { AutocompleteItem, boldSearchTerm, findMatches } from "./utils";
 
-  export let onSubmit = (_?: AutocompleteItem) => {};
+  export let id: string | undefined;
+  export let name: string = "";
+  export let size: "sm" | "xl" | undefined = undefined;
+  export let value: string | number = "";
+
+  export let onSubmit = (_?: AutocompleteItem) => {}; // todo: fix
   export let options: AutocompleteItem[];
   export let keepValueOnSubmit = false;
   export let selectedValue = "";
@@ -85,11 +90,14 @@
 </script>
 
 <div
+  {id}
   class="svelte-autocomplete"
   style="--theme: {themeColor}; --highlightTextColor: {highlightTextColor};"
 >
   <div class="input">
     <Search
+      {name}
+      {size}
       bind:value={selectedValue}
       bind:ref={inputRef}
       on:keydown={handleKeyDown}
