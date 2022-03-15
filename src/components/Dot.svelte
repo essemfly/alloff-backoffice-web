@@ -1,10 +1,24 @@
 <script lang="ts">
   export let kind: "primary" | "secondary" | "warn" | "danger" = "danger";
+  export let label: string | undefined = undefined;
 </script>
 
-<span class={`dot dot-${kind}`} />
+<div class="dot-wrapper">
+  <span class={`dot dot-${kind}`} />
+  {#if label}
+    <span class="dot-label">{label}</span>
+  {/if}
+</div>
 
 <style>
+  .dot-wrapper {
+    display: inline-block;
+  }
+
+  .dot-label {
+    font-size: smaller;
+  }
+
   .dot {
     width: 6px;
     height: 6px;
@@ -13,7 +27,7 @@
     display: inline-block;
     vertical-align: top;
     margin-left: 0px;
-    margin-top: 4px;
+    margin-top: 0px;
   }
 
   .dot-primary {
