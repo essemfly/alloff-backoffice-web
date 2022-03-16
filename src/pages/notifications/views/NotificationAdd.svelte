@@ -1,28 +1,30 @@
 <script lang="ts">
   import { toast } from "@zerodevx/svelte-toast";
+  import { snakeCase } from "change-case-object";
   import { navigate } from "svelte-navigator";
   import { Grid, Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { CreateNotiRequest as Notification, NotificationsApi } from "@api";
+  import { CreateNotiRequest, NotificationsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
 
-  import { NotificationTypeEnum } from "../models/Notification";
   import NotificationForm from "./components/NotificationForm.svelte";
+  import { formStore } from "../models/schema";
 
-  let isTouched = true;
-  let notification: Notification = {
-    noti_type: NotificationTypeEnum.TimedealOpenNotification,
-    reference_id: "",
-    title: "",
-    message: "",
-  };
+  const notificationApi = new NotificationsApi();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: MouseEvent) => {
     try {
-      const notificationApi = new NotificationsApi();
+      event.preventDefault();
+      const isValid = await formStore.validate($formStore.fields);
+      if (!isValid) {
+        toast.push("일부 항목값이 올바르지 않습니다.");
+        return;
+      }
       await notificationApi.notificationsCreate({
-        createNotiRequest: notification,
+        createNotiRequest: snakeCase(
+          $formStore.fields,
+        ) as unknown as CreateNotiRequest,
       });
       toast.push("푸시알림이 등록되었습니다.");
       navigate(-1);
@@ -35,13 +37,13 @@
 <Nav title={"푸시알림 추가"}>
   <Grid>
     <div class="button-right-wrapper mb10">
-      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+      <Button type={"button"} on:click={handleSubmit} icon={Save16}>
         푸시알림 등록
       </Button>
     </div>
-    <NotificationForm bind:form={notification} isAdding />
+    <NotificationForm />
     <div class="button-right-wrapper mt10">
-      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+      <Button type={"button"} on:click={handleSubmit} icon={Save16}>
         푸시알림 등록
       </Button>
     </div>
