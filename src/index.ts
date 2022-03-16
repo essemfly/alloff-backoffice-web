@@ -1,4 +1,4 @@
-import "@app/global.css";
+import "@app/index.css";
 import axios, { AxiosError } from "axios";
 import { TokenApi } from "./api";
 import App from "./App.svelte";

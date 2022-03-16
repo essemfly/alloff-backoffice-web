@@ -27,3 +27,19 @@ html, body {
 .mt10 {
   margin-top: 10px;
 }
+
+:root {
+  --gray-10: #f4f4f4;
+  --gray-80: #393939;
+  --blue-60: #0f62fe;
+  --red-60: #da1e28;
+  --green-60: #198038;
+  --yellow: #f1c21b;
+
+  --support-02: var(--green-60);
+  --support-03: var(--yellow);
+  --ui-background: var(--gray-10);
+  --interactive-01: var(--blue-60);
+  --interactive-02: var(--gray-80);
+  --danger-01: var(--red-60);
+}
