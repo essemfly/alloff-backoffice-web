@@ -7,7 +7,7 @@
   export let name: string = "";
   export let size: "sm" | "xl" | undefined = undefined;
   export let errorText: string = "";
-  export let value: string | number = "";
+  export let value: string = "";
   export let options: AutocompleteItem[];
   export let disabled: boolean = false;
   export let hideLabel: boolean = false;
@@ -16,13 +16,13 @@
   export let onSubmit = (_?: AutocompleteItem) => {}; // todo: fix
 
   const htmlId: string = `autocomplete-field-${generate()}`;
-  const { label, nullable, meta } = schema.spec;
+  const { label, presence, meta } = schema.spec;
   let { placeholder, helperText } = meta ?? {};
   if (!placeholder) {
     placeholder = label;
   }
 
-  const required = !nullable;
+  const required = presence === "required";
 </script>
 
 {#if label && !hideLabel}
@@ -39,11 +39,11 @@
   {size}
   {options}
   {placeholder}
-  bind:value
+  bind:selectedValue={value}
   {disabled}
   {onSubmit}
 />
-{#if !!helperText}
+{#if !!helperText && !errorText}
   <div class="bx--form__helper-text">{helperText}</div>
 {/if}
 {#if !!errorText}

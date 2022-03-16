@@ -16,13 +16,12 @@
   export let schema: any;
 
   const htmlId: string = `radio-field-${generate()}`;
-  const { label, nullable, meta } = schema.spec;
+  const { label, presence, meta } = schema.spec;
   let { placeholder, helperText } = meta ?? {};
   if (!placeholder) {
     placeholder = label;
   }
-  console.log(errorText);
-  const required = !nullable;
+  const required = presence === "required";
 </script>
 
 {#if label && !hideLabel}
@@ -52,6 +51,9 @@
     />
   {/each}
 </RadioButtonGroup>
+{#if !!helperText && !errorText}
+  <div class="bx--form__helper-text">{helperText}</div>
+{/if}
 {#if !!errorText}
   <div class="bx--form-requirement">{errorText}</div>
 {/if}

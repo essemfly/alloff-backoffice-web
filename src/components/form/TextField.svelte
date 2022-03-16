@@ -13,13 +13,13 @@
   export let schema: any;
 
   const htmlId: string = `text-field-${generate()}`;
-  const { label, nullable, meta } = schema.spec;
+  const { label, presence, meta } = schema.spec;
   let { placeholder, helperText } = meta ?? {};
   if (!placeholder) {
     placeholder = label;
   }
 
-  const required = !nullable;
+  const required = presence === "required";
   const type = getInputType(schema.type);
 
   function getInputType(schemaType: string) {
