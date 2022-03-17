@@ -1,18 +1,21 @@
 <script lang="ts">
   import { generate } from "shortid";
-  import { TextInput } from "carbon-components-svelte";
   import Dot from "../Dot.svelte";
+  import Autocomplete from "../autocomplete/Autocomplete.svelte";
+  import { AutocompleteItem } from "../autocomplete";
 
   export let name: string = "";
   export let size: "sm" | "xl" | undefined = undefined;
   export let errorText: string = "";
-  export let value: string | number = "";
-  export let readonly: boolean = false;
+  export let value: string = "";
+  export let options: AutocompleteItem[];
   export let disabled: boolean = false;
   export let hideLabel: boolean = false;
   export let schema: any;
 
-  const htmlId: string = `text-field-${generate()}`;
+  export let onSubmit = (_?: AutocompleteItem) => {}; // todo: fix
+
+  const htmlId: string = `autocomplete-field-${generate()}`;
   const { label, presence, meta } = schema.spec;
   let { placeholder, helperText } = meta ?? {};
   if (!placeholder) {
@@ -20,19 +23,6 @@
   }
 
   const required = presence === "required";
-  const type = getInputType(schema.type);
-
-  function getInputType(schemaType: string) {
-    switch (schemaType) {
-      case "number":
-      case "tel":
-        return "number";
-      case "string":
-      case "text":
-      default:
-        return "text";
-    }
-  }
 </script>
 
 {#if label && !hideLabel}
@@ -43,18 +33,27 @@
     {/if}
   </label>
 {/if}
-<TextInput
+<Autocomplete
   id={htmlId}
-  {type}
-  {size}
-  {placeholder}
-  {helperText}
   {name}
-  bind:value
-  invalid={!!errorText}
-  invalidText={errorText}
-  {required}
-  {readonly}
+  {size}
+  {options}
+  {placeholder}
+  bind:selectedValue={value}
   {disabled}
-  {hideLabel}
+  {onSubmit}
 />
+{#if !!helperText && !errorText}
+  <div class="bx--form__helper-text">{helperText}</div>
+{/if}
+{#if !!errorText}
+  <div class="bx--form-requirement">{errorText}</div>
+{/if}
+
+<style>
+  .bx--form-requirement {
+    display: block;
+    max-height: none;
+    color: var(--danger-01);
+  }
+</style>
