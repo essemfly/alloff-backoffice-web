@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { DateTime } from "luxon";
   import { toast } from "@zerodevx/svelte-toast";
   import { navigate } from "svelte-navigator";
   import { Grid, Button } from "carbon-components-svelte";
@@ -31,10 +32,19 @@
     try {
       const productGroupApi = new ProductGroupsApi();
       const { products, ...requestBody } = productGroup;
+
       const res = await productGroupApi.productGroupsCreate({
-        createProductGroupSeriazlierRequest: requestBody,
+        createProductGroupSeriazlierRequest: {
+          ...requestBody,
+          ...(productGroup.group_type !== GroupTypeEnum.Timedeal && {
+            start_time: DateTime.now().toISO(),
+            finish_time: DateTime.now().toISO(),
+          }),
+        },
       });
+
       const newProductGroup = res.data;
+
       await productGroupApi.productGroupsPushProductsCreate({
         id: newProductGroup.product_group_id,
         pushProductsRequest: {

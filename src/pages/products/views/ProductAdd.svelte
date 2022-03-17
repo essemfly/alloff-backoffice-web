@@ -7,9 +7,10 @@
   import { navigate } from "svelte-navigator";
   import ProductForm from "./components/ProductForm.svelte";
 
-  let isTouched = true;
+  // let isTouched = true;
   let product: Product = {
     alloff_product_id: "",
+    alloff_category_id: "",
     alloff_name: "",
     product_id: "",
     brand_kor_name: "",
@@ -33,7 +34,10 @@
     module_name: "",
   };
 
+  let isSubmitting = false;
+
   const handleSubmit = async () => {
+    isSubmitting = true;
     try {
       const productApi = new ProductsApi();
       const res = await productApi.productsCreate({
@@ -44,6 +48,8 @@
       navigate(-1);
     } catch (e) {
       toast.push(`상품 등록에 오류가 발생했습니다.`);
+    } finally {
+      isSubmitting = false;
     }
   };
 </script>
@@ -51,14 +57,14 @@
 <Nav title="상품 추가">
   <Grid>
     <div class="button-right-wrapper mb10">
-      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-        상품 등록
+      <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
+        {isSubmitting ? "상품 등록중..." : "상품 등록"}
       </Button>
     </div>
     <ProductForm form={product} isAdding />
     <div class="button-right-wrapper mt10">
-      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
-        상품 등록
+      <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
+        {isSubmitting ? "상품 등록중..." : "상품 등록"}
       </Button>
     </div>
   </Grid>

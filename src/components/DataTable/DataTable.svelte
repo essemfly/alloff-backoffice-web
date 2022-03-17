@@ -7,10 +7,6 @@
     Toggle,
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
-  import ChevronUp16 from "carbon-icons-svelte/lib/ChevronUp16";
-  import ChevronDown16 from "carbon-icons-svelte/lib/ChevronDown16";
-  import UpToTop16 from "carbon-icons-svelte/lib/UpToTop16";
-  import DownToBottom16 from "carbon-icons-svelte/lib/DownToBottom16";
 
   import {
     DataTableColumn,
@@ -45,9 +41,16 @@
   };
 
   const handleWeightChange = (rowId: string) => (event: CustomEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
     const value = event.detail;
     const rowIndex = data.findIndex(({ id }) => id === rowId);
     dispatch("change:weight", [value, rowIndex]);
+  };
+
+  const handleToggle = (row: T, value: boolean) => {
+    const rowIndex = data.findIndex(({ id }) => id === row.id);
+    dispatch("change:toggle", [value, rowIndex]);
   };
 
   $: if (data) {
@@ -68,6 +71,11 @@
     let:cell
     let:row
     on:click={(event) => {
+      if (toggleColumns.includes(cell.key)) {
+        event.stopPropagation();
+        event.preventDefault();
+        handleToggle(row, !cell.value);
+      }
       if (cell.key === "weight") {
         event.stopPropagation();
         event.preventDefault();

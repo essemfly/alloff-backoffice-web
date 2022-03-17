@@ -17,7 +17,6 @@
   }
 
   export let value: HometabExhibitionSectionValue;
-  export let isAdding: boolean = false;
 
   let backImageUrl: string;
   let tags: string[] = [];
@@ -51,11 +50,14 @@
     )!;
   };
 
-  $: if (selectedExhibition) {
+  $: if (backImageUrl || selectedExhibition || tags) {
     dispatch("change", {
       item_type: ItemTypeEnum.Exhibition,
-      exhibition_ids: [selectedExhibition.exhibition_id],
+      exhibition_ids: selectedExhibition
+        ? [selectedExhibition.exhibition_id]
+        : [],
       back_image_url: backImageUrl,
+      tags,
     });
   }
 </script>
@@ -63,11 +65,7 @@
 <ContentBox title={`${HometabItemType.Exhibition} 정보`}>
   <Row>
     <Column>
-      <ImageUploadField
-        label={"배경 이미지"}
-        bind:value={backImageUrl}
-        disabled={!isAdding}
-      />
+      <ImageUploadField label={"배경 이미지"} bind:value={backImageUrl} />
     </Column>
   </Row>
   <Row>
@@ -75,16 +73,16 @@
       <MultilineTextInput label="태그" bind:value={tags} />
     </Column>
   </Row>
-
   <h4>기획전 선택</h4>
   <Row>
     <Column>
+      <div>선택된 기획전: {selectedExhibition?.title ?? "None"}</div>
       <Autocomplete
         options={filteredExhibitions}
         onSubmit={handleExhibitionChange}
         placeholder="기획전 이름/ID로 검색"
         labelText="기획전 검색"
-        disabled={!isAdding}
+        selectedValue={selectedExhibition?.exhibition_id ?? ""}
         keepValueOnSubmit
       />
     </Column>

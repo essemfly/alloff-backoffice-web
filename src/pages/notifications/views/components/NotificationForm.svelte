@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { FormGroup } from "carbon-components-svelte";
 
-  import { ProductGroupsApi } from "@api";
+  import { Exhibition, ProductGroupsApi } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import {
     TextField,
@@ -17,18 +16,20 @@
     NotificationTypeEnum,
   } from "../../models/Notification";
   import { formStore, schema } from "../../models/schema";
+  import ExhibitionListSection from "./ExhibitionListSection.svelte";
 
   let productGroupOptions: AutocompleteItem[] = [];
   let selectedValue = "";
+  let selectedExhibition: Exhibition;
 
   const productGroupsApi = new ProductGroupsApi();
 
   const disabledNotiTypes = [
+    "TimedealOpenNotification",
     "EventNotification",
     "ProductDiffNotification",
     "BrandNewProductNotification",
     "BrandOpenNotification",
-    // "GeneralNotification",
   ];
 
   const notiTypes = Object.keys(NotificationType).map((key) => ({
@@ -39,7 +40,7 @@
     disabled: disabledNotiTypes.includes(key),
   }));
 
-  onMount(async () => {
+  const loadProductGroupList = async () => {
     const res = await productGroupsApi.productGroupsList();
     productGroupOptions = res.data.pgs.map(
       ({ product_group_id, title, short_title }) => ({
@@ -48,7 +49,7 @@
         subvalue: short_title,
       }),
     );
-  });
+  };
 
   const handleProductGroupChange = (selected?: AutocompleteItem) => {
     if (selected) {
@@ -56,6 +57,27 @@
       selectedValue = selected.value;
     }
   };
+
+  const handleExhibitionChange = (event: CustomEvent<Exhibition>) => {
+    formStore.update({ referenceId: event.detail.exhibition_id });
+    selectedExhibition = event.detail;
+  };
+
+  $: if ($formStore.fields.notiType) {
+    switch ($formStore.fields.notiType) {
+      // it is deprecated. just remain for older apis
+      case NotificationTypeEnum.TimedealOpenNotification:
+        if (productGroupOptions.length === 0) {
+          loadProductGroupList();
+        }
+        break;
+      case NotificationTypeEnum.GeneralNotification:
+        formStore.update({ referenceId: "/" });
+        break;
+      default:
+      // pass
+    }
+  }
 </script>
 
 <ContentBox title="푸시알림 정보">
@@ -69,7 +91,6 @@
       bind:value={$formStore.fields.title}
     />
   </FormGroup>
-
   <FormGroup>
     <TextField
       schema={schema.fields.message}
@@ -77,7 +98,6 @@
       bind:value={$formStore.fields.message}
     />
   </FormGroup>
-
   <FormGroup>
     <RadioField
       schema={schema.fields.notiType}
@@ -86,7 +106,6 @@
       options={notiTypes}
     />
   </FormGroup>
-
   <FormGroup>
     {#if $formStore.fields.notiType === NotificationTypeEnum.TimedealOpenNotification}
       <AutocompleteField
@@ -96,11 +115,11 @@
         errorText={$formStore.errors.referenceId}
         bind:value={selectedValue}
       />
-    {:else}
-      <TextField
-        schema={schema.fields.referenceId}
-        errorText={$formStore.errors.referenceId}
-        bind:value={$formStore.fields.referenceId}
+    {:else if $formStore.fields.notiType === NotificationTypeEnum.ExhibitionNotification}
+      <div class="bx--label">관련 기획전</div>
+      <ExhibitionListSection
+        value={selectedExhibition ? [selectedExhibition?.exhibition_id] : []}
+        on:select={handleExhibitionChange}
       />
     {/if}
   </FormGroup>

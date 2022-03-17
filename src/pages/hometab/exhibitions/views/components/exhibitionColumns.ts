@@ -22,4 +22,10 @@ export const exhibitionColumns: DataTableColumn<Exhibition>[] = [
     name: "종료일시",
     get: (data) => formatDate(data.finish_time),
   },
+  {
+    key: "is_live",
+    name: "활성화 여부",
+    type: "toggle",
+    get: (data) => data.is_live,
+  },
 ];

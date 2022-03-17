@@ -17,6 +17,7 @@
   import DataTable from "@app/components/DataTable/DataTable.svelte";
 
   import { exhibitionColumns } from "./components/exhibitionColumns";
+  import { debounce } from "lodash";
 
   let exhibitions: DataTableData<Exhibition>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
@@ -31,6 +32,7 @@
     isLoading = true;
     try {
       const res = await exhibitionApi.exhibitionsList({
+        ...searchFilter,
         ...params,
       });
       exhibitions = res.data.exhibitions.map((x) => ({
@@ -74,6 +76,25 @@
     navigate(`/hometab/exhibitions/${event.detail.id}`);
   };
 
+  const handleIsLiveChange = debounce(
+    async (event: CustomEvent<[boolean, number]>) => {
+      const [is_live, index] = event.detail;
+
+      let exhibitionItem = exhibitions[index];
+      exhibitionItem.is_live = is_live;
+      exhibitions = exhibitions;
+
+      const res = await exhibitionApi.exhibitionsPartialUpdate({
+        id: exhibitionItem.exhibition_id,
+        patchedExhibitionRequest: {
+          exhibition_id: exhibitionItem.exhibition_id,
+          is_live,
+        },
+      });
+    },
+    500,
+  );
+
   $: if ($location) {
     const params = parseQueryString<SearchQueryParam>($location.search);
     load(params);
@@ -95,6 +116,7 @@
     data={exhibitions}
     columns={exhibitionColumns}
     on:click:row={handleRowClick}
+    on:change:toggle={handleIsLiveChange}
   />
   <div class="button-right-wrapper mt10">
     <Button on:click={handleAddClick}>기획전 추가</Button>

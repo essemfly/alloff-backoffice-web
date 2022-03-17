@@ -24,7 +24,6 @@
   }
 
   export let value: HometabBrandSectionValue;
-  export let isAdding: boolean = false;
 
   let brands: Brand[] = [];
   let selectedBrands: Brand[] = [];
@@ -74,18 +73,16 @@
 </script>
 
 <ContentBox title={`${HometabItemType.Brands} 정보`}>
-  {#if isAdding}
-    <h4>브랜드 추가</h4>
-    <Row>
-      <Column>
-        <BrandSelect
-          on:change={handleBrandChange}
-          bind:excludes={selectedBrandKeynames}
-          keepValueOnSubmit={false}
-        />
-      </Column>
-    </Row>
-  {/if}
+  <h4>브랜드 추가</h4>
+  <Row>
+    <Column>
+      <BrandSelect
+        on:change={handleBrandChange}
+        bind:excludes={selectedBrandKeynames}
+        keepValueOnSubmit={false}
+      />
+    </Column>
+  </Row>
 
   <Row>
     <Column>

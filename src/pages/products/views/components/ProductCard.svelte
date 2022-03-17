@@ -1,18 +1,18 @@
 <script lang="ts">
+  import { EditProductRequestApiRequest,Product,ProductsApi } from "@api";
   import { toast } from "@zerodevx/svelte-toast";
-  import { navigate } from "svelte-navigator";
   import {
-    Button,
-    Tag,
-    StructuredList,
-    StructuredListRow,
-    StructuredListCell,
-    StructuredListBody,
-    Modal,
+  Button,
+  Modal,
+  StructuredList,
+  StructuredListBody,
+  StructuredListCell,
+  StructuredListRow,
+  Tag
   } from "carbon-components-svelte";
+  import Share16 from "carbon-icons-svelte/lib/Share16";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-
-  import { Product, ProductsApi, EditProductRequestRequest } from "@api";
+  import { navigate } from "svelte-navigator";
 
   export let product: Product;
 
@@ -23,6 +23,45 @@
   const handleCardClick = (event: MouseEvent) => {
     event.preventDefault();
     navigate(`/products/${product.alloff_product_id}`);
+  };
+
+  const handleDeeplinkClick = async (event: MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const isProd = import.meta.env.PROD;
+    const apiKey = !isProd
+      ? "AIzaSyAzcMKkMoBjrLVS1OgoaYRxQ270ZFFAZgU"
+      : "AIzaSyA1pk7YM0oExgaxRBxvdpzVEj39W1h4wJ0";
+    const firebaseUrl = `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${apiKey}`;
+    const domain = !isProd ? "alloff-webhome-dev" : "alloff-webhome";
+    const longLink = `https://${domain}.lett.io/products/${product.alloff_product_id}`;
+    const res = await fetch(firebaseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        dynamicLinkInfo: {
+          domainUriPrefix: !isProd
+            ? "https://alloffdev.page.link"
+            : "https://alloff.page.link",
+          link: longLink,
+          androidInfo: {
+            androidPackageName: !isProd ? "co.alloff.app.dev" : "co.alloff.app",
+            androidFallbackLink:
+              "https://play.google.com/store/apps/details?id=co.alloff.app",
+          },
+          iosInfo: {
+            iosBundleId: !isProd ? "co.alloff.app.dev" : "co.alloff.app",
+            iosFallbackLink: "https://apps.apple.com/kr/app/1570192380",
+          },
+        },
+      }),
+    });
+    const json = await res.json();
+    const shortLink = json.shortLink;
+    navigator.clipboard.writeText(shortLink);
+    toast.push(`딥링크를 복사했습니다! (${product.alloff_name})`);
   };
 
   const handleDeleteClick = async (event: MouseEvent) => {
@@ -39,7 +78,7 @@
         editProductRequestApiRequest: {
           ...product,
           is_removed: true,
-        } as unknown as EditProductRequestRequest,
+        } as unknown as EditProductRequestApiRequest,
       });
       toast.push("상품이 삭제되었습니다.");
       handleModalToggle(false);
@@ -61,6 +100,15 @@
     <Button
       tooltipPosition="bottom"
       tooltipAlignment="end"
+      iconDescription="딥링크 복사"
+      icon={Share16}
+      kind="tertiary"
+      on:click={handleDeeplinkClick}
+    />
+    <br />
+    <Button
+      tooltipPosition="bottom"
+      tooltipAlignment="end"
       iconDescription="상품 삭제"
       icon={TrashCan16}
       kind="danger"
@@ -74,7 +122,8 @@
     />
   </div>
   <div class="info">
-    <p>{product.brand_kor_name}</p>
+    <p style="font-weight: bold;">{product.brand_kor_name}</p>
+    <p>{product.alloff_category_name}</p>
     <h6>{product.alloff_name}</h6>
     {#if product.inventory.reduce((prev, curr) => prev + curr.quantity, 0) === 0}
       <Tag type="red">⚠️ 재고없음</Tag>
@@ -130,6 +179,8 @@
     position: absolute;
     top: 10px;
     right: 10px;
+    display: flex;
+    flex-direction: column;
   }
 
   .product > .image {

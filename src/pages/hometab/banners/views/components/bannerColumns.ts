@@ -16,6 +16,12 @@ export const bannerColumns: DataTableColumn<TopBanner>[] = [
     name: "서브타이틀",
   },
   {
+    key: "is_live",
+    name: "활성화 여부",
+    type: "toggle",
+    get: (data) => data.is_live,
+  },
+  {
     key: "exhibition_id",
     name: "기획전",
     type: "link",

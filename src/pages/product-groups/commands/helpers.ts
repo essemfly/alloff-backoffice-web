@@ -1,5 +1,10 @@
 import { GroupTypeEnum } from "@api";
 
+export function getGroupTypeByIndex(typeIndex: number) {
+  const key = Object.keys(GroupTypeEnum)[typeIndex];
+  return GroupTypeEnum[key as keyof typeof GroupTypeEnum];
+}
+
 export function getGroupTypeLabelByIndex(typeIndex: number) {
   const type = Object.keys(GroupTypeEnum)[typeIndex];
   switch (type) {

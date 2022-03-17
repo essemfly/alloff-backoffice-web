@@ -35,10 +35,11 @@
   }));
 
   const handleChange = (event: CustomEvent<Partial<CreateHomeTabRequest>>) => {
-    const { back_image_url, ...contents } = event.detail;
+    const { back_image_url, tags, ...contents } = event.detail;
     form = {
       ...form,
       back_image_url: back_image_url ?? "",
+      tags: tags ?? [],
       contents: {
         ...form.contents,
         ...contents,
@@ -92,7 +93,6 @@
       backImageUrl: form.back_image_url,
     }}
     on:change={handleChange}
-    {isAdding}
   />
 {/if}
 
@@ -100,7 +100,6 @@
   <HometabBrandSection
     value={{ brands: form.brands }}
     on:change={handleChange}
-    {isAdding}
   />
 {/if}
 
@@ -108,18 +107,17 @@
   <HometabExhibitionCollectionSection
     value={{ exhibitions: form.exhibitions }}
     on:change={handleChange}
-    {isAdding}
   />
 {/if}
 
 {#if itemType === ItemTypeEnum.Exhibition}
   <HometabExhibitionSection
     value={{
+      backImageUrl: form.back_image_url ?? "",
       exhibition: form.exhibitions ? form.exhibitions[0] : undefined,
       tags: form.tags ?? [],
     }}
     on:change={handleChange}
-    {isAdding}
   />
 {/if}
 
@@ -130,7 +128,6 @@
       options: form.reference?.options ?? [],
     }}
     on:change={handleChange}
-    {isAdding}
   />
 {/if}
 
@@ -141,6 +138,5 @@
       options: form.reference?.options ?? [],
     }}
     on:change={handleChange}
-    {isAdding}
   />
 {/if}

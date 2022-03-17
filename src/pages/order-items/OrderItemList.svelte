@@ -1,17 +1,20 @@
 <script lang="ts">
-  import { OrderItemList,OrderItemsApi,OrderItemStatusEnum } from "@api";
+  import { OrderItemList, OrderItemsApi, OrderItemStatusEnum } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import { ORDER_ITEM_ALL_STATUSES } from "@app/constants";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import { getStatusLabel } from "@app/helpers/order-item";
   import {
-  Checkbox,
-  DatePicker,
-  DatePickerInput,
-  Pagination
+    Checkbox,
+    DatePicker,
+    DatePickerInput,
+    Pagination,
+    Button
   } from "carbon-components-svelte";
   import { DateTime } from "luxon";
+  import TableShortcut16 from "carbon-icons-svelte/lib/TableShortcut16";
   import { useLocation } from "svelte-navigator";
+  import ExcelExportModal from "./components/ExcelExportModal.svelte";
   import OrderItemsTable from "./components/OrderItemsTable.svelte";
   import { search } from "./store";
 
@@ -24,18 +27,15 @@
   let page = 1;
   let pageSize = 20;
   let totalItems = 0;
-  let dateFrom = DateTime.now().minus({ days: 7 }).toISO().split("T")[0];
-  let dateTo = DateTime.now().toISO().split("T")[0];
 
   let statuses = [...ORDER_ITEM_ALL_STATUSES];
+  let exportModalOpen = false;
   const pageSizes = [20, 50, 100];
   const api = new OrderItemsApi();
   const load = async (
     p: number,
     size: number,
     statuses: OrderItemStatusEnum[],
-    dateFrom: string,
-    dateTo: string,
     search?: string,
   ) => {
     if (userId) {
@@ -52,11 +52,6 @@
         search,
         size,
         statuses,
-        dateFrom: DateTime.fromISO(dateFrom).toISO(),
-        dateTo: DateTime.fromISO(dateTo)
-          .plus({ days: 1 })
-          .minus({ milliseconds: 1 })
-          .toISO(),
       });
 
       totalItems = count ?? 0;
@@ -68,13 +63,11 @@
     page,
     pageSize,
     statuses,
-    dateFrom,
-    dateTo,
     $search.trim() === "" ? undefined : $search,
   );
 </script>
 
-<Nav>
+<Nav title="주문 목록">
   <MediaQuery query="(max-width: 480px)" let:matches>
     {#if userId}
       <h6>USER ID: {userId}</h6>
@@ -84,15 +77,9 @@
       <div style="height:10px;" />
     {/if}
     {#if !userId && !alloffOrderId}
-      <DatePicker
-        datePickerType="range"
-        bind:valueFrom={dateFrom}
-        bind:valueTo={dateTo}
-        dateFormat="Y-m-d"
+      <Button icon={TableShortcut16} on:click={() => (exportModalOpen = true)}
+        >엑셀 추출</Button
       >
-        <DatePickerInput labelText="시작일" placeholder="yyyy-mm-dd" />
-        <DatePickerInput labelText="종료일" placeholder="yyyy-mm-dd" />
-      </DatePicker>
       <div
         style={`margin-top: 10px; margin-bottom: 5px; display: flex; align-items: center; flex-direction: ${
           matches ? "column" : "row"
@@ -116,4 +103,5 @@
     {/if}
     <OrderItemsTable isMobile={matches} {items} canSearch={!userId} />
   </MediaQuery>
+  <ExcelExportModal api={api} bind:open={exportModalOpen} />
 </Nav>

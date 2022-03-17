@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Search } from "carbon-components-svelte";
-
   import { AutocompleteItem, boldSearchTerm, findMatches } from "./utils";
 
   export let id: string | undefined;
@@ -17,11 +16,11 @@
   export let placeholder: string | undefined = undefined;
   export let labelText: string | undefined = undefined;
   export let disabled: boolean = false;
+  export let selected: AutocompleteItem | undefined = undefined;
 
   let inputRef: HTMLInputElement | null | undefined;
   let showAutocompleteResults = false;
   let highlightIndex = 0;
-  let selected: AutocompleteItem | undefined;
 
   const showResults = () => {
     highlightIndex = 0;

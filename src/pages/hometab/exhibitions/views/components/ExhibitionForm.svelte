@@ -14,6 +14,7 @@
     Tabs,
     Tab,
     TabContent,
+    TextArea,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
@@ -34,13 +35,14 @@
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
 
   import ExhibitionSectionForm from "./ExhibitionSectionForm.svelte";
+  import ExhibitionSectionSearchSection from "./ExhibitionSectionSearchSection.svelte";
 
   export let form: Exhibition & { pg_ids: string[] };
   export let isAdding: boolean = false;
 
   let exhibitionSections: ProductGroup[] = [];
-  let filteredExhibitionSections: AutocompleteItem[] = [];
   let selectedExhibitionSections: ProductGroup[] = [];
+  let selectedExhibitionSectionIds: string[] = [];
 
   let tempProductGroup: ProductGroup = {
     title: "",
@@ -54,23 +56,19 @@
     group_type: GroupTypeEnum.Exhibition,
   };
 
-  const productGroupApi = new ProductGroupsApi();
-
   onMount(async () => {
     selectedExhibitionSections = form.pgs ?? [];
-
-    const res = await productGroupApi.productGroupsList({
-      groupType: GroupTypeEnum.Exhibition,
-    });
-    exhibitionSections = res.data.pgs;
-    filteredExhibitionSections = exhibitionSections.map(
-      ({ product_group_id, title, short_title }) => ({
-        key: product_group_id,
-        value: title,
-        subvalue: short_title,
-      }),
+    selectedExhibitionSectionIds = selectedExhibitionSections.map(
+      ({ product_group_id }) => product_group_id,
     );
   });
+
+  const handleExhibitionSectionSelect = (event: CustomEvent<ProductGroup>) => {
+    const section = event.detail;
+    if (section) {
+      selectedExhibitionSections = [...selectedExhibitionSections, section];
+    }
+  };
 
   const handleExhibitionSectionAdd = (selectedItem?: AutocompleteItem) => {
     const exhibitionSection = exhibitionSections.find(
@@ -91,9 +89,10 @@
   };
 
   $: if (selectedExhibitionSections) {
-    form.pg_ids = selectedExhibitionSections.map(
+    selectedExhibitionSectionIds = selectedExhibitionSections.map(
       ({ product_group_id }) => product_group_id,
     );
+    form.pg_ids = selectedExhibitionSectionIds;
   }
 
   const handleProductGroupSubmit = async () => {
@@ -196,7 +195,7 @@
   </Row>
   <Row padding>
     <Column>
-      <TextInput labelText={"상세"} bind:value={form.description} />
+      <TextArea labelText={"상세"} bind:value={form.description} />
     </Column>
   </Row>
   <Row padding>
@@ -303,16 +302,10 @@
         </div>
       </TabContent>
       <TabContent>
-        <Row>
-          <Column>
-            <Autocomplete
-              options={filteredExhibitionSections}
-              onSubmit={handleExhibitionSectionAdd}
-              placeholder="기획전 섹션 이름/ID로 검색"
-              labelText="기획전 섹션 검색"
-            />
-          </Column>
-        </Row>
+        <ExhibitionSectionSearchSection
+          bind:value={selectedExhibitionSectionIds}
+          on:select={handleExhibitionSectionSelect}
+        />
       </TabContent>
     </svelte:fragment>
   </Tabs>
