@@ -2,21 +2,22 @@
   import { AdminUserApi } from "@api";
   import { removeTokens } from "@app/core/auth";
   import {
-  Content,
-  Header,
-  HeaderAction,
-  HeaderNav,
-  HeaderNavItem,
-  HeaderNavMenu,
-  HeaderPanelDivider,
-  HeaderPanelLink,
-  HeaderPanelLinks,
-  HeaderUtilities,
-  SideNav,
-  SideNavItems,
-  SideNavLink,
-  SideNavMenu,
-  SkipToContent
+    Content,
+    Header,
+    HeaderAction,
+    HeaderNav,
+    HeaderNavItem,
+    HeaderNavMenu,
+    HeaderPanelDivider,
+    HeaderPanelLink,
+    HeaderPanelLinks,
+    HeaderUtilities,
+    Loading,
+    SideNav,
+    SideNavItems,
+    SideNavLink,
+    SideNavMenu,
+    SkipToContent,
   } from "carbon-components-svelte";
   import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
   import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
@@ -41,6 +42,8 @@
 
   export let title: string = "";
   export let metaTags: MetaTagsProps = {};
+  export let loading: boolean = false;
+  export let loadingText: string = "Loading";
 
   let isSideNavOpen = false;
   let isUtilOpen = false;
@@ -157,6 +160,7 @@
   bind:isSideNavOpen
   persistentHamburgerMenu
 >
+  <Loading small description={loadingText} active={loading} />
   <div class="subtitle">
     {#if !isProd}
       <p class="dev">DEV</p>

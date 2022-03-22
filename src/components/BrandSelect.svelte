@@ -4,10 +4,17 @@
   import { BrandsApi } from "@api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
 
-  export let selectedValue: string = "";
+  export let size: "sm" | "lg" | undefined = undefined;
+  export let value: string = "";
   export let excludes: string[] = [];
   export let keepValueOnSubmit: boolean = true;
+  export let placeholder: string | undefined = "브랜드 이름/Keyname/ID로 검색";
+  export let labelText: string | undefined = undefined;
   export let disabled: boolean = false;
+  export let helperText: string = "";
+  export let errorText: string = "";
+
+  export let selectedBrandName: string | undefined = undefined;
 
   let selectedItem: AutocompleteItem | undefined;
   let brands: AutocompleteItem[] = [];
@@ -16,17 +23,25 @@
   const brandsAPi = new BrandsApi();
   const dispatch = createEventDispatcher();
 
-  const handleBrandChange = (selected?: AutocompleteItem) => {
-    selectedItem = selected;
-    selectedValue = selected?.value ?? "";
-    dispatch("change", { value: selectedItem });
+  onMount(() => {
+    if (selectedBrandName) {
+      selectedItem = brands.find((x) => x.label === selectedBrandName);
+      value = selectedItem?.value ?? "";
+    }
+  });
+
+  const handleBrandChange = (event: CustomEvent<AutocompleteItem>) => {
+    selectedItem = event.detail;
+    value = selectedItem?.value ?? "";
+    dispatch("change", event.detail);
   };
 
   onMount(async () => {
     const res = await brandsAPi.brandsList();
     brands = res.data.map(({ brand_id, korname, keyname }) => ({
       key: brand_id,
-      value: korname,
+      label: korname,
+      value: keyname,
       subvalue: keyname,
     }));
     filteredBrands = brands.filter(
@@ -43,10 +58,13 @@
 
 <Autocomplete
   options={filteredBrands}
-  onSubmit={handleBrandChange}
-  placeholder="브랜드 이름/Keyname/ID로 검색"
-  labelText="브랜드 검색"
-  bind:selectedValue
+  on:select={handleBrandChange}
+  {placeholder}
+  bind:value
   {keepValueOnSubmit}
+  {labelText}
+  {helperText}
+  {errorText}
   {disabled}
+  {size}
 />
