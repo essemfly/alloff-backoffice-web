@@ -6,13 +6,13 @@
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
   import {
-  Button,
-  Checkbox,
-  Column,
-  NumberInput,
-  Row,
-  TextInput,
-  Toggle
+    Button,
+    Checkbox,
+    Column,
+    NumberInput,
+    Row,
+    TextInput,
+    Toggle,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Editor from "cl-editor/src/Editor.svelte";
@@ -129,7 +129,7 @@
       />
     </Column>
     <Column>
-      <TextInput labelText="제품번호" bind:value={form.product_id} />
+      <TextInput labelText="상품 URL" bind:value={form.product_url} />
     </Column>
   </Row>
   <Row padding>
