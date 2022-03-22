@@ -11,8 +11,8 @@
   import { TopBanner, ExhibitionsApi } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
   import { onMount } from "svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
   import Autocomplete from "@app/components/autocomplete/Autocomplete.svelte";
 
   export let form: TopBanner;
@@ -49,7 +49,7 @@
   {/if}
   <Row>
     <Column>
-      <ImageUploadField label={"배너 이미지"} bind:value={form.banner_image} />
+      <ImageUploadInput label={"배너 이미지"} bind:value={form.banner_image} />
     </Column>
   </Row>
   <Row>

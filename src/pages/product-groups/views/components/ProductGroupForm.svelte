@@ -29,7 +29,7 @@
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
   import DateTimePicker from "@app/components/DateTimePicker.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
   import ProductSearchSection from "@app/components/ProductSearchSection.svelte";
 
   const productGroupApi = new ProductGroupsApi();
@@ -130,7 +130,7 @@
   {#if form.group_type === GroupTypeEnum.Timedeal}
     <Row padding>
       <Column>
-        <ImageUploadField label={"대표 이미지"} bind:value={form.image_url} />
+        <ImageUploadInput label={"대표 이미지"} bind:value={form.image_url} />
       </Column>
     </Row>
   {/if}

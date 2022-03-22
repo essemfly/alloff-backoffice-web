@@ -30,7 +30,7 @@
     GroupTypeEnum,
   } from "@api";
   import ContentBox from "@app/components/ContentBox.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
   import DateTimePicker from "@app/components/DateTimePicker.svelte";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
 
@@ -174,10 +174,10 @@
   {/if}
   <Row padding>
     <Column>
-      <ImageUploadField label={"배너 이미지"} bind:value={form.banner_image} />
+      <ImageUploadInput label={"배너 이미지"} bind:value={form.banner_image} />
     </Column>
     <Column>
-      <ImageUploadField
+      <ImageUploadInput
         label={"썸네일 이미지"}
         bind:value={form.thumbnail_image}
       />

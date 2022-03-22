@@ -7,7 +7,7 @@
   import ContentBox from "@app/components/ContentBox.svelte";
 
   import { HometabItemType } from "../../constants";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
 
   interface HometabExhibitionSectionValue {
@@ -65,7 +65,7 @@
 <ContentBox title={`${HometabItemType.Exhibition} 정보`}>
   <Row>
     <Column>
-      <ImageUploadField label={"배경 이미지"} bind:value={backImageUrl} />
+      <ImageUploadInput label={"배경 이미지"} bind:value={backImageUrl} />
     </Column>
   </Row>
   <Row>

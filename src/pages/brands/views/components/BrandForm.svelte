@@ -14,7 +14,7 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
   import ContentBox from "@app/components/ContentBox.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
 
   export let form: any;
   export let isAdding: boolean = false;
@@ -96,13 +96,13 @@
   </Row>
   <Row padding>
     <Column>
-      <ImageUploadField
+      <ImageUploadInput
         label={"로고 이미지"}
         bind:value={form.logo_image_url}
       />
     </Column>
     <Column>
-      <ImageUploadField
+      <ImageUploadInput
         label={"배경 이미지"}
         bind:value={form.back_image_url}
       />
@@ -120,7 +120,7 @@
       />
     </Column>
     <Column>
-      <ImageUploadField
+      <ImageUploadInput
         label={"사이즈 가이드 이미지"}
         bind:value={tempGuide.image_url}
       />

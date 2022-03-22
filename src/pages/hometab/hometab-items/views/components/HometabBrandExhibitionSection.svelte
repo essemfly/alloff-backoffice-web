@@ -5,7 +5,7 @@
   import { Brand, Exhibition, ExhibitionsApi, ItemTypeEnum } from "@api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
 
   import { HometabItemType } from "../../constants";
 
@@ -57,7 +57,7 @@
 <ContentBox title={`${HometabItemType.ExhibitionA} 정보`}>
   <Row>
     <Column>
-      <ImageUploadField label={"배경 이미지"} bind:value={backImageUrl} />
+      <ImageUploadInput label={"배경 이미지"} bind:value={backImageUrl} />
     </Column>
   </Row>
   <h4>기획전</h4>
