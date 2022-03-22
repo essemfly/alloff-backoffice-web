@@ -40,15 +40,16 @@
     filteredExhibitions = exhibitions.map(
       ({ exhibition_id, title, subtitle }) => ({
         key: exhibition_id,
-        value: title,
+        label: title,
+        value: exhibition_id,
         subvalue: subtitle,
       }),
     );
   });
 
-  const handleExhibitionChange = (selected?: AutocompleteItem) => {
+  const handleExhibitionChange = (event: CustomEvent<AutocompleteItem>) => {
     const selectedExhibition = exhibitions.find(
-      ({ exhibition_id }) => exhibition_id === selected?.key,
+      ({ exhibition_id }) => exhibition_id === event.detail?.value,
     )!;
     selectedExhibitions = [...selectedExhibitions, selectedExhibition];
   };
@@ -80,7 +81,7 @@
     <Column>
       <Autocomplete
         options={filteredExhibitions}
-        onSubmit={handleExhibitionChange}
+        on:select={handleExhibitionChange}
         placeholder="기획전 이름/ID로 검색"
         labelText="기획전 검색"
       />

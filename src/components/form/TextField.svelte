@@ -6,6 +6,7 @@
   export let name: string = "";
   export let size: "sm" | "xl" | undefined = undefined;
   export let errorText: string = "";
+  export let label: string | undefined = undefined;
   export let value: string | number = "";
   export let readonly: boolean = false;
   export let disabled: boolean = false;
@@ -13,10 +14,11 @@
   export let schema: any;
 
   const htmlId: string = `text-field-${generate()}`;
-  const { label, presence, meta } = schema.spec;
+  const { label: schemaLabel, presence, meta } = schema.spec;
   let { placeholder, helperText } = meta ?? {};
+  const fieldLabel = label ?? schemaLabel;
   if (!placeholder) {
-    placeholder = label;
+    placeholder = fieldLabel;
   }
 
   const required = presence === "required";
@@ -35,9 +37,9 @@
   }
 </script>
 
-{#if label && !hideLabel}
+{#if fieldLabel && !hideLabel}
   <label for={htmlId} class="bx--label">
-    {label}
+    {fieldLabel}
     {#if required}
       <Dot kind="danger" />
     {/if}

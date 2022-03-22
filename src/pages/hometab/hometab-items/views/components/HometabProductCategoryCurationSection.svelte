@@ -44,14 +44,15 @@
     const res = await categoryApi.alloffCategoriesList();
     categories = res.data.categories.map(({ category_id, name, keyname }) => ({
       key: category_id,
-      value: name,
+      label: name,
+      value: category_id,
       subvalue: keyname,
     }));
   });
 
-  const handleCategoryChange = (selected?: AutocompleteItem) => {
-    categoryId = selected?.key ?? "";
-    selectedCategoryName = selected?.value;
+  const handleCategoryChange = (event: CustomEvent<AutocompleteItem>) => {
+    categoryId = event.detail?.value ?? "";
+    selectedCategoryName = event.detail?.label;
   };
 
   const handleOptionCheck = (option: OptionsEnum) => () => {
@@ -87,10 +88,10 @@
     <div>선택된 카테고리: {selectedCategoryName}</div>
     <Autocomplete
       options={categories}
-      onSubmit={handleCategoryChange}
+      on:select={handleCategoryChange}
       placeholder="카테고리 이름/Keyname/ID로 검색"
       labelText="카테고리 검색"
-      selectedValue={categoryId}
+      value={categoryId}
     />
   </FormGroup>
 </ContentBox>

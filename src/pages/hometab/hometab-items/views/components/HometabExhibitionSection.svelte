@@ -7,7 +7,7 @@
   import ContentBox from "@app/components/ContentBox.svelte";
 
   import { HometabItemType } from "../../constants";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
 
   interface HometabExhibitionSectionValue {
@@ -44,9 +44,9 @@
     );
   });
 
-  const handleExhibitionChange = (selected?: AutocompleteItem) => {
+  const handleExhibitionChange = (event: CustomEvent<AutocompleteItem>) => {
     selectedExhibition = exhibitions.find(
-      ({ exhibition_id }) => exhibition_id === selected?.key,
+      ({ exhibition_id }) => exhibition_id === event.detail?.value,
     )!;
   };
 
@@ -65,7 +65,7 @@
 <ContentBox title={`${HometabItemType.Exhibition} 정보`}>
   <Row>
     <Column>
-      <ImageUploadField label={"배경 이미지"} bind:value={backImageUrl} />
+      <ImageUploadInput label={"배경 이미지"} bind:value={backImageUrl} />
     </Column>
   </Row>
   <Row>
@@ -79,10 +79,10 @@
       <div>선택된 기획전: {selectedExhibition?.title ?? "None"}</div>
       <Autocomplete
         options={filteredExhibitions}
-        onSubmit={handleExhibitionChange}
+        on:select={handleExhibitionChange}
         placeholder="기획전 이름/ID로 검색"
         labelText="기획전 검색"
-        selectedValue={selectedExhibition?.exhibition_id ?? ""}
+        value={selectedExhibition?.exhibition_id ?? ""}
         keepValueOnSubmit
       />
     </Column>

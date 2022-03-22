@@ -11,9 +11,12 @@
   import NotificationForm from "./components/NotificationForm.svelte";
   import { formStore } from "../models/schema";
 
+  let isSubmitting = false;
+
   const notificationApi = new NotificationsApi();
 
   const handleSubmit = async (event: MouseEvent) => {
+    isSubmitting = true;
     try {
       event.preventDefault();
       const isValid = await formStore.validate($formStore.fields);
@@ -30,11 +33,13 @@
       navigate(-1);
     } catch (e) {
       toast.push("푸시알림 등록에 오류가 발생했습니다.");
+    } finally {
+      isSubmitting = false;
     }
   };
 </script>
 
-<Nav title={"푸시알림 추가"}>
+<Nav title={"푸시알림 추가"} loading={isSubmitting}>
   <Grid>
     <div class="button-right-wrapper mb10">
       <Button type={"button"} on:click={handleSubmit} icon={Save16}>

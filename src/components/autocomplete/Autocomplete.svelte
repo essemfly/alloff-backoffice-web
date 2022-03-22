@@ -1,26 +1,26 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import { Search } from "carbon-components-svelte";
+
   import { AutocompleteItem, boldSearchTerm, findMatches } from "./utils";
 
-  export let id: string | undefined;
-  export let name: string = "";
-  export let size: "sm" | "xl" | undefined = undefined;
+  export let id: string | undefined = undefined;
+  export let size: "sm" | "lg" | undefined = "lg";
   export let value: string | number = "";
-
-  export let onSubmit = (_?: AutocompleteItem) => {}; // todo: fix
   export let options: AutocompleteItem[];
   export let keepValueOnSubmit = false;
-  export let selectedValue = "";
-  export let themeColor = "#2462FE";
-  export let highlightTextColor = "#fff";
   export let placeholder: string | undefined = undefined;
   export let labelText: string | undefined = undefined;
   export let disabled: boolean = false;
-  export let selected: AutocompleteItem | undefined = undefined;
+  export let helperText: string = "";
+  export let errorText: string = "";
 
   let inputRef: HTMLInputElement | null | undefined;
   let showAutocompleteResults = false;
   let highlightIndex = 0;
+  let searchQuery = "";
+
+  const dispatch = createEventDispatcher();
 
   const showResults = () => {
     highlightIndex = 0;
@@ -42,11 +42,10 @@
         }
         break;
       case "ArrowDown":
-        if (!selectedValue && !showAutocompleteResults) {
+        if (!searchQuery && !showAutocompleteResults) {
           showResults();
           break;
         }
-
         if (showAutocompleteResults && highlightIndex === matches.length - 1) {
           highlightIndex = 0;
         } else {
@@ -58,9 +57,7 @@
         break;
       case "Enter":
         const highlightedOption = matches[highlightIndex];
-        // const value = highlightedOption || selectedValue;
-        // selectedValue = highlightedOption.value;
-        handleSubmit(highlightedOption);
+        handleSelect(highlightedOption);
         break;
       default:
         return;
@@ -68,44 +65,42 @@
   };
 
   const handleClear = () => {
-    onSubmit(undefined);
-    selectedValue = "";
+    dispatch("select", undefined);
+    value = "";
   };
 
-  const handleSubmit = (value: AutocompleteItem) => {
-    if (!value) return;
+  const handleSelect = (selectedItem: AutocompleteItem) => {
+    if (!selectedItem) return;
 
-    onSubmit(value);
+    dispatch("select", selectedItem);
     hideResults();
+
     if (keepValueOnSubmit) {
-      selected = value;
-      selectedValue = value.value ?? "";
+      searchQuery = selectedItem.label;
+      value = selectedItem.value;
     } else {
-      selectedValue = "";
+      searchQuery = "";
+      value = "";
     }
   };
 
-  $: matches = findMatches(options, selectedValue);
+  $: matches = findMatches(options, searchQuery);
 </script>
 
-<div
-  {id}
-  class="svelte-autocomplete"
-  style="--theme: {themeColor}; --highlightTextColor: {highlightTextColor};"
->
+<div {id} class="svelte-autocomplete">
   <div class="input">
     <Search
-      {name}
       {size}
-      bind:value={selectedValue}
+      bind:value={searchQuery}
       bind:ref={inputRef}
       on:keydown={handleKeyDown}
       on:input={showResults}
       on:focus={showResults}
       on:clear={handleClear}
-      {labelText}
       {placeholder}
       {disabled}
+      {labelText}
+      {...!!errorText ? { "data-invalid": true } : {}}
     />
   </div>
 
@@ -123,18 +118,18 @@
     <ul class="results-list" class:border-none={!matches.length}>
       {#each matches as match, index (match)}
         <li
-          on:click={() => handleSubmit(match)}
+          on:click={() => handleSelect(match)}
           class:highlight={index === highlightIndex}
           aria-selected={index === highlightIndex}
           aria-label={match.value}
           role="option"
         >
           <div>
-            {@html boldSearchTerm(match.value, selectedValue)}
+            {@html boldSearchTerm(match.label, searchQuery)}
           </div>
           {#if match.subvalue}
             <div class="match-subvalue">
-              {@html boldSearchTerm(match.subvalue, selectedValue)}
+              {@html boldSearchTerm(match.subvalue, searchQuery)}
             </div>
           {/if}
         </li>
@@ -143,7 +138,20 @@
   </div>
 </div>
 
+{#if !!helperText && !errorText}
+  <div class="bx--form__helper-text">{helperText}</div>
+{/if}
+{#if !!errorText}
+  <div class="bx--form-requirement">{errorText}</div>
+{/if}
+
 <style>
+  .bx--form-requirement {
+    display: block;
+    max-height: none;
+    color: var(--danger-01);
+  }
+
   .match-subvalue {
     font-size: 11px;
     font-weight: 300;
@@ -205,8 +213,8 @@
   .results-list li:hover,
   :global(.results-list li:hover span),
   :global(.results-list .highlight span) {
-    background: var(--theme);
-    color: var(--highlightTextColor);
+    background: var(--interactive-01);
+    color: var(--text-04);
     font-weight: normal;
   }
 </style>

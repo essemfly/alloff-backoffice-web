@@ -19,7 +19,6 @@
   import ExhibitionListSection from "./ExhibitionListSection.svelte";
 
   let productGroupOptions: AutocompleteItem[] = [];
-  let selectedValue = "";
   let selectedExhibition: Exhibition;
 
   const productGroupsApi = new ProductGroupsApi();
@@ -45,16 +44,17 @@
     productGroupOptions = res.data.pgs.map(
       ({ product_group_id, title, short_title }) => ({
         key: product_group_id,
-        value: title,
+        label: title,
+        value: product_group_id,
         subvalue: short_title,
       }),
     );
   };
 
-  const handleProductGroupChange = (selected?: AutocompleteItem) => {
+  const handleProductGroupChange = (event: CustomEvent<AutocompleteItem>) => {
+    const selected = event.detail;
     if (selected) {
-      formStore.update({ referenceId: selected.key });
-      selectedValue = selected.value;
+      formStore.update({ referenceId: selected.value });
     }
   };
 
@@ -109,11 +109,11 @@
   <FormGroup>
     {#if $formStore.fields.notiType === NotificationTypeEnum.TimedealOpenNotification}
       <AutocompleteField
-        onSubmit={handleProductGroupChange}
+        on:select={handleProductGroupChange}
         options={productGroupOptions}
         schema={schema.fields.referenceId}
         errorText={$formStore.errors.referenceId}
-        bind:value={selectedValue}
+        bind:value={$formStore.fields.referenceId}
       />
     {:else if $formStore.fields.notiType === NotificationTypeEnum.ExhibitionNotification}
       <div class="bx--label">관련 기획전</div>

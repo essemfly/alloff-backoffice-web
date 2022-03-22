@@ -10,7 +10,7 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
   import { Brand, BrandsApi, ImageUploadApi } from "@api";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
 
   const brandApi = new BrandsApi();
   const imageApi = new ImageUploadApi();
@@ -166,7 +166,7 @@
       <RadioButton labelText="No" value="false" />
     </RadioButtonGroup>
     <hr />
-    <ImageUploadField
+    <ImageUploadInput
       label={"배경 이미지"}
       bind:value={brand.back_image_url}
       on:change={handleBackgroundImageUpdate}

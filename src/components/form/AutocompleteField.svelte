@@ -4,7 +4,6 @@
   import Autocomplete from "../autocomplete/Autocomplete.svelte";
   import { AutocompleteItem } from "../autocomplete";
 
-  export let name: string = "";
   export let size: "sm" | "xl" | undefined = undefined;
   export let errorText: string = "";
   export let value: string = "";
@@ -12,8 +11,6 @@
   export let disabled: boolean = false;
   export let hideLabel: boolean = false;
   export let schema: any;
-
-  export let onSubmit = (_?: AutocompleteItem) => {}; // todo: fix
 
   const htmlId: string = `autocomplete-field-${generate()}`;
   const { label, presence, meta } = schema.spec;
@@ -35,13 +32,11 @@
 {/if}
 <Autocomplete
   id={htmlId}
-  {name}
   {size}
   {options}
   {placeholder}
-  bind:selectedValue={value}
+  bind:value
   {disabled}
-  {onSubmit}
 />
 {#if !!helperText && !errorText}
   <div class="bx--form__helper-text">{helperText}</div>
