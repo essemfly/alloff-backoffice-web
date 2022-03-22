@@ -100,7 +100,7 @@
 
   <StructuredList condensed flush>
     <StructuredListBody>
-      {#each value as item, index}
+      {#each images as item, index}
         <StructuredListRow class="image-upload-field-box-list-item">
           <StructuredListCell>
             <div class="image-wrapper">
