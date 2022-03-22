@@ -44,9 +44,9 @@
     );
   });
 
-  const handleExhibitionChange = (selected?: AutocompleteItem) => {
+  const handleExhibitionChange = (event: CustomEvent<AutocompleteItem>) => {
     selectedExhibition = exhibitions.find(
-      ({ exhibition_id }) => exhibition_id === selected?.key,
+      ({ exhibition_id }) => exhibition_id === event.detail?.value,
     )!;
   };
 
@@ -79,10 +79,10 @@
       <div>선택된 기획전: {selectedExhibition?.title ?? "None"}</div>
       <Autocomplete
         options={filteredExhibitions}
-        onSubmit={handleExhibitionChange}
+        on:select={handleExhibitionChange}
         placeholder="기획전 이름/ID로 검색"
         labelText="기획전 검색"
-        selectedValue={selectedExhibition?.exhibition_id ?? ""}
+        value={selectedExhibition?.exhibition_id ?? ""}
         keepValueOnSubmit
       />
     </Column>

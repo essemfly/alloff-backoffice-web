@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import {
     Row,
     Column,
@@ -11,7 +12,6 @@
   import { TopBanner, ExhibitionsApi } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
-  import { onMount } from "svelte";
   import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
   import Autocomplete from "@app/components/autocomplete/Autocomplete.svelte";
 
@@ -22,8 +22,8 @@
 
   const exhibitionApi = new ExhibitionsApi();
 
-  const handleExhibitionChange = (value?: AutocompleteItem) => {
-    form.exhibition_id = value?.key ?? "";
+  const handleExhibitionChange = (event: CustomEvent<AutocompleteItem>) => {
+    form.exhibition_id = event.detail?.value ?? "";
   };
 
   onMount(async () => {
@@ -31,7 +31,8 @@
     exhibitions = res.data.exhibitions.map(
       ({ exhibition_id, title, subtitle }) => ({
         key: exhibition_id,
-        value: title,
+        label: title,
+        value: exhibition_id,
         subvalue: subtitle,
       }),
     );
@@ -77,7 +78,7 @@
       <div class="bx--label">관련 기획전</div>
       <Autocomplete
         options={exhibitions}
-        onSubmit={handleExhibitionChange}
+        on:select={handleExhibitionChange}
         keepValueOnSubmit
       />
     </Column>
