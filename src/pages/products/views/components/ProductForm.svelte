@@ -1,244 +1,280 @@
 <script lang="ts">
-  import { Product } from "@api";
-  import { AutocompleteItem } from "@app/components/autocomplete";
-  import BrandSelect from "@app/components/BrandSelect.svelte";
-  import ContentBox from "@app/components/ContentBox.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
-  import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
+  import Editor from "cl-editor";
   import {
-  Button,
-  Checkbox,
-  Column,
-  NumberInput,
-  Row,
-  TextInput,
-  Toggle
+    Button,
+    Checkbox,
+    Column,
+    FormGroup,
+    NumberInput,
+    Row,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import Editor from "cl-editor/src/Editor.svelte";
-  import { debounce } from "lodash";
-  import CategorySelect from "../../../../components/CategorySelect.svelte";
 
-  export let form: Product & {
-    brand_key_name: string;
-  };
+  import ButtonTextInput from "@app/components/ButtonTextInput.svelte";
+  import ContentBox from "@app/components/ContentBox.svelte";
+  import Dot from "@app/components/Dot.svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
+  import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
+  import {
+    TextField,
+    ToggleField,
+    BrandSelectField,
+    CategorySelectField,
+  } from "@app/components/form";
+
+  import { formStore, schema } from "../../models/schema";
+
   export let isAdding: boolean = false;
 
   let discountRate = "0";
   let inventoryTextInput = "";
   let useHtml = false;
-  let html = form.raw_html ?? "";
-
-  const handleBrandChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    form.brand_key_name = event.detail.value?.subvalue ?? "";
-  };
-
-  const handleCategoryChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    form.alloff_category_id = event.detail.value?.key ?? "";
-  };
+  let html = $formStore.fields.rawHtml ?? "";
 
   const handleAddInventory = () => {
-    form.inventory = [
-      ...form.inventory,
+    const inventory = [
+      ...($formStore.fields.inventory ?? []),
       { size: inventoryTextInput, quantity: 1 },
     ];
+    formStore.update({ inventory });
     inventoryTextInput = "";
   };
 
   const handleChangeInventory = (index: number) => () => {
-    if (form.inventory[index].quantity < 1) {
+    if (($formStore.fields.inventory ?? [])[index].quantity < 1) {
       // zero inventory means remove
       handleDeleteInventory(index);
     }
   };
 
   const handleDeleteInventory = (index: number) => () => {
-    const newValue = form.inventory.slice();
+    const newValue = ($formStore.fields.inventory ?? []).slice();
     newValue.splice(index, 1);
-    form.inventory = newValue;
+    formStore.update({ inventory: newValue });
   };
 
-  const handleKeydown = debounce((event: KeyboardEvent) => {
-    if (event.key === "Enter") {
-      handleAddInventory();
-    }
-  }, 100);
-
-  $: if (form.original_price || form.discounted_price) {
+  $: if ($formStore.fields.originalPrice && $formStore.fields.discountedPrice) {
     discountRate = (
-      ((form.original_price - form.discounted_price) / form.original_price) *
+      (($formStore.fields.originalPrice - $formStore.fields.discountedPrice) /
+        $formStore.fields.originalPrice) *
       100
     ).toFixed(0);
   }
 
   $: {
-    form.raw_html = useHtml ? html : null;
+    formStore.update({ rawHtml: useHtml ? html : null });
+    // form.rawHtml = useHtml ? html : null;
   }
 </script>
 
-<ContentBox>
-  <h3>상품 정보</h3>
+<ContentBox title="상품 정보">
+  <div class="button-right-wrapper">
+    <Dot label="필수 입력 사항" />
+  </div>
   {#if !isAdding}
-    <Row padding>
-      <Column>
-        <TextInput
-          labelText={"상품ID"}
-          bind:value={form.alloff_product_id}
-          readonly
-        />
-      </Column>
-    </Row>
+    <FormGroup>
+      <TextField
+        schema={schema.fields.alloffProductId}
+        bind:value={$formStore.fields.alloffProductId}
+        readonly
+      />
+    </FormGroup>
   {/if}
   <Row padding>
     <Column>
-      <TextInput labelText={"상품명"} bind:value={form.alloff_name} />
+      <TextField
+        schema={schema.fields.alloffName}
+        errorText={$formStore.errors.alloffName}
+        bind:value={$formStore.fields.alloffName}
+      />
     </Column>
     <Column>
-      <div class="bx--label">브랜드</div>
-      <BrandSelect
-        on:change={handleBrandChange}
-        selectedValue={form.brand_kor_name}
+      <BrandSelectField
+        schema={schema.fields.brandKeyName}
+        selectedBrandName={$formStore.fields.brandKorName}
+        errorText={$formStore.errors.brandKeyName}
+        bind:value={$formStore.fields.brandKeyName}
       />
     </Column>
   </Row>
   <Row padding>
     <Column>
-      <TextInput labelText={"기존 가격"} bind:value={form.original_price} />
-    </Column>
-    <Column>
-      <TextInput
-        labelText={"할인된 가격 (할인율:" + discountRate + "%)"}
-        bind:value={form.discounted_price}
+      <TextField
+        schema={schema.fields.originalPrice}
+        errorText={$formStore.errors.originalPrice}
+        bind:value={$formStore.fields.originalPrice}
       />
     </Column>
     <Column>
-      <TextInput labelText="우선적용가" bind:value={form.special_price} />
+      <TextField
+        schema={schema.fields.discountedPrice}
+        errorText={$formStore.errors.discountedPrice}
+        bind:value={$formStore.fields.discountedPrice}
+        label={`할인가 (할인율: ${discountRate}%)`}
+      />
+    </Column>
+    <Column>
+      <TextField
+        schema={schema.fields.specialPrice}
+        errorText={$formStore.errors.specialPrice}
+        bind:value={$formStore.fields.specialPrice}
+      />
     </Column>
   </Row>
   <Row padding>
     <Column>
-      <CategorySelect
-        initialCategoryName={form.alloff_category_name === ""
-          ? undefined
-          : form.alloff_category_name}
-        on:change={handleCategoryChange}
+      <CategorySelectField
+        schema={schema.fields.alloffCategoryId}
+        errorText={$formStore.errors.alloffCategoryId}
+        bind:value={$formStore.fields.alloffCategoryId}
+        initialCategoryName={$formStore.fields.alloffCategoryName ?? undefined}
       />
     </Column>
     <Column>
-      <TextInput labelText="제품번호" bind:value={form.product_id} />
+      <TextField
+        schema={schema.fields.productId}
+        errorText={$formStore.errors.productId}
+        bind:value={$formStore.fields.productId}
+      />
     </Column>
   </Row>
   <Row padding>
     <Column>
-      <ImageUploadField
+      <ImageUploadInput
         label={"상품 이미지"}
-        bind:value={form.images}
+        bind:value={$formStore.fields.images}
         multiple
       />
     </Column>
   </Row>
   <Row padding>
     <Column>
-      <MultilineTextInput label="상품 설명" bind:value={form.description} />
+      <MultilineTextInput
+        label="상품 설명"
+        bind:value={$formStore.fields.description}
+      />
     </Column>
   </Row>
   <Row padding>
     <Column>
-      <ImageUploadField
+      <ImageUploadInput
         label={"상품 설명 이미지"}
-        bind:value={form.description_images}
+        bind:value={$formStore.fields.descriptionImages}
         multiple
       />
     </Column>
   </Row>
   <Row padding>
     <Column>
-      <NumberInput label={"Total Score"} bind:value={form.total_score} />
-    </Column>
-  </Row>
-</ContentBox>
-<ContentBox>
-  <h3>배송 관련 정보</h3>
-  <Row padding>
-    <Column>
-      <NumberInput
-        label="가장 빠른 도착예정일"
-        bind:value={form.earliest_delivery_days}
-      />
-    </Column>
-    <Column>
-      <NumberInput
-        label="가장 느린 도착예정일"
-        bind:value={form.latest_delivery_days}
-      />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <TextInput labelText="반품 비용" bind:value={form.refund_fee} />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <Toggle
-        labelText="반품가능 여부"
-        bind:toggled={form.is_refund_possible}
-      />
-    </Column>
-    <Column>
-      <Toggle
-        labelText="해외배송 여부"
-        bind:toggled={form.is_foreign_delivery}
+      <TextField
+        schema={schema.fields.totalScore}
+        errorText={$formStore.errors.totalScore}
+        bind:value={$formStore.fields.totalScore}
       />
     </Column>
   </Row>
 </ContentBox>
-<ContentBox>
-  <h3>재고 정보</h3>
+<ContentBox title="배송 관련 정보">
+  <div class="button-right-wrapper">
+    <Dot label="필수 입력 사항" />
+  </div>
   <Row padding>
     <Column>
-      <Toggle labelText="판매불가 여부" bind:toggled={form.is_removed} />
+      <TextField
+        schema={schema.fields.earliestDeliveryDays}
+        errorText={$formStore.errors.earliestDeliveryDays}
+        bind:value={$formStore.fields.earliestDeliveryDays}
+      />
     </Column>
     <Column>
-      <Toggle labelText="품절 여부" bind:toggled={form.is_soldout} />
+      <TextField
+        schema={schema.fields.latestDeliveryDays}
+        errorText={$formStore.errors.latestDeliveryDays}
+        bind:value={$formStore.fields.latestDeliveryDays}
+      />
     </Column>
   </Row>
   <Row padding>
     <Column>
-      <TextInput
-        labelText={"신규 사이즈 등록"}
+      <TextField
+        schema={schema.fields.refundFee}
+        errorText={$formStore.errors.refundFee}
+        bind:value={$formStore.fields.refundFee}
+      />
+    </Column>
+  </Row>
+  <Row padding>
+    <Column>
+      <ToggleField
+        schema={schema.fields.isRefundPossible}
+        errorText={$formStore.errors.isRefundPossible}
+        bind:value={$formStore.fields.isRefundPossible}
+      />
+    </Column>
+    <Column>
+      <ToggleField
+        schema={schema.fields.isForeignDelivery}
+        errorText={$formStore.errors.isForeignDelivery}
+        bind:value={$formStore.fields.isForeignDelivery}
+      />
+    </Column>
+  </Row>
+</ContentBox>
+<ContentBox title="재고 정보">
+  <div class="button-right-wrapper">
+    <Dot label="필수 입력 사항" />
+  </div>
+  <Row padding>
+    <Column>
+      <ToggleField
+        schema={schema.fields.isRemoved}
+        errorText={$formStore.errors.isRemoved}
+        bind:value={$formStore.fields.isRemoved}
+      />
+    </Column>
+    <Column>
+      <ToggleField
+        schema={schema.fields.isSoldout}
+        errorText={$formStore.errors.isSoldout}
+        bind:value={$formStore.fields.isSoldout}
+      />
+    </Column>
+  </Row>
+  <Row padding>
+    <Column>
+      <ButtonTextInput
+        label={"신규 사이즈 등록"}
         placeholder="작성 후 추가 버튼을 누르세요"
         bind:value={inventoryTextInput}
-        on:keydown={handleKeydown}
+        on:click={handleAddInventory}
+        buttonText="추가"
       />
-      <Button kind="secondary" on:click={handleAddInventory}>추가</Button>
-      {#each form.inventory as inv, index}
-        <NumberInput
-          label={inv.size}
-          bind:value={inv.quantity}
-          min={0}
-          on:change={handleChangeInventory(index)}
-        />
-        <div class="delete-button">
-          <Button
-            tooltipPosition="bottom"
-            tooltipAlignment="end"
-            iconDescription="재고 삭제"
-            icon={TrashCan16}
-            kind="danger"
-            on:click={handleDeleteInventory(index)}
-          />
-        </div>
-      {/each}
+      <div class="inventory-item-list">
+        {#each $formStore.fields.inventory ?? [] as inv, index}
+          <div class="inventory-item">
+            <label for={inv.size}>{inv.size}</label>
+            <NumberInput
+              bind:value={inv.quantity}
+              min={0}
+              on:change={handleChangeInventory(index)}
+            />
+            <div class="delete-button">
+              <Button
+                tooltipPosition="bottom"
+                tooltipAlignment="end"
+                iconDescription="재고 삭제"
+                icon={TrashCan16}
+                kind="danger"
+                on:click={handleDeleteInventory(index)}
+              />
+            </div>
+          </div>
+        {/each}
+      </div>
     </Column>
   </Row>
 </ContentBox>
-<ContentBox>
-  <h3>HTML 상품 정보</h3>
+<ContentBox title="HTML 상품 정보">
   <Checkbox labelText={"HTML 상품 정보 사용"} bind:checked={useHtml} />
   <p>{"<>"}버튼을 누르면 HTML 태그를 직접 복사/붙여넣기 할 수 있습니다.</p>
   <p>
@@ -255,4 +291,25 @@
 </ContentBox>
 
 <style>
+  .inventory-item-list {
+    margin-top: 10px;
+  }
+
+  .inventory-item label {
+    width: 80px;
+  }
+
+  .inventory-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+  }
+
+  .inventory-item :global(.bx--btn) {
+    height: 2.5rem;
+    min-height: auto;
+    padding: 10px;
+  }
 </style>
