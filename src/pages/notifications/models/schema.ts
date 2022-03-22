@@ -1,4 +1,4 @@
-import { InferType, object, string, lazy } from "yup";
+import { InferType, object, string } from "yup";
 
 import { Form, useForm } from "@app/helpers/useForm";
 

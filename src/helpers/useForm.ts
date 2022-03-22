@@ -1,7 +1,7 @@
 import { writable, Writable } from "svelte/store";
 import { AnyObjectSchema } from "yup";
 
-export type FormField<T> = Partial<T>;
+export type FormField<T> = T;
 export type FormError<T> = Partial<Record<keyof T, string>>;
 export type FormTouch<T> = Partial<Record<keyof T, boolean>>;
 
@@ -13,7 +13,7 @@ export interface FormStore<T> {
 }
 
 export interface Form<T> extends Writable<FormStore<T>> {
-  validate: (fields: FormField<T>) => Promise<boolean>;
+  validate: (fields: FormField<T>, options: any) => Promise<boolean>;
   update: (changes: any) => void;
   // initialize: () => void;
 }
@@ -22,7 +22,7 @@ export const useForm = <T>(
   schema: AnyObjectSchema,
   defaultValues: Partial<T> = {},
 ): Form<T> => {
-  let fields: FormField<T> = {};
+  let fields: FormField<T> = {} as FormField<T>;
   let errors: FormError<T> = {};
   // let touched: FormTouch<T> = {};
 
@@ -50,11 +50,14 @@ export const useForm = <T>(
     });
   }
 
-  async function validate(formData: FormField<T>): Promise<boolean> {
+  async function validate(
+    formData: FormField<T>,
+    options?: any,
+  ): Promise<boolean> {
     // _touchAll();
     _updateStore("fields", formData);
     await schema
-      .validate(fields, { abortEarly: false })
+      .validate(fields, { abortEarly: false, ...options })
       .then(() => {
         _updateStore("errors", {});
       })
@@ -66,7 +69,7 @@ export const useForm = <T>(
   }
 
   function _extractErrors({ inner }: any) {
-    return inner.reduce((acc: any, err: any) => {
+    return inner?.reduce((acc: any, err: any) => {
       return { ...acc, [err.path]: err.message };
     }, {});
   }
@@ -93,7 +96,7 @@ export const useForm = <T>(
 };
 
 function createFormStore<T>(defaultValues: Partial<T> = {}): FormStore<T> {
-  const fields: FormField<T> = { ...defaultValues };
+  const fields: FormField<T> = { ...defaultValues } as FormField<T>;
   const errors: FormError<T> = {};
   // const touched: FormTouch<T> = {};
   // const isTouched = _getIsTouched();
