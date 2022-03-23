@@ -5,7 +5,6 @@
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
   import {
-    ListProductResult,
     Product,
     ProductsApi,
     ProductsApiProductsListRequest as SearchQueryParam,
@@ -34,7 +33,7 @@
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {
-    let res = await productApi.productsList(params);
+    let res = await productApi.productsList({ ...searchFilter, ...params });
 
     products = res.data.products;
 
