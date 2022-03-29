@@ -1,26 +1,13 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
   import { FormGroup, Checkbox } from "carbon-components-svelte";
 
-  import { ItemTypeEnum, OptionsEnum, Brand } from "@api";
+  import { OptionsEnum } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
-  import BrandSelect from "@app/components/BrandSelect.svelte";
+  import { BrandSelectField, CheckboxGroupField } from "@app/components/form";
   import ContentBox from "@app/components/ContentBox.svelte";
 
   import { HometabItemType, HometabSortingOption } from "../../constants";
-  import { getSortingOptionByIndex } from "../../commands/helpers";
-
-  interface HometabExhibitionsSectionValue {
-    options: OptionsEnum[];
-    brand: Brand;
-  }
-
-  export let value: HometabExhibitionsSectionValue;
-
-  let options: OptionsEnum[] = [];
-  let selectedBrandKeyname: string;
-
-  const dispatch = createEventDispatcher();
+  import { schema, formStore } from "../../models/schema";
 
   const sortingOptions = Object.keys(OptionsEnum).map((key) => ({
     key,
@@ -28,48 +15,51 @@
     value: OptionsEnum[key as keyof typeof OptionsEnum],
   }));
 
-  onMount(async () => {
-    options = value.options
-      ? value.options.map((x) => getSortingOptionByIndex(x))
-      : [];
-  });
-
-  const handleBrandChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    selectedBrandKeyname = event.detail.value?.key ?? "";
+  const handleBrandChange = (event: CustomEvent<AutocompleteItem>) => {
+    const selected = event.detail;
+    const brandKeynames = [
+      ...($formStore.fields.contents.brandKeynames ?? []),
+      selected.value,
+    ];
+    formStore.update({
+      contents: {
+        ...$formStore.fields.contents,
+        brandKeynames,
+      },
+    });
   };
 
   const handleOptionCheck = (option: OptionsEnum) => () => {
+    const options = $formStore.fields.contents?.options?.slice(0) ?? [];
     const index = options.indexOf(option);
     if (index > -1) {
       options.splice(index, 1);
     } else {
       options.push(option);
     }
-    options = options;
-  };
-
-  $: if (selectedBrandKeyname || options) {
-    dispatch("change", {
-      item_type: ItemTypeEnum.ProductsBrands,
-      options,
-      brand_keynames: [selectedBrandKeyname],
+    formStore.update({
+      contents: {
+        ...$formStore.fields.contents,
+        options,
+      },
     });
-  }
+  };
 </script>
 
 <ContentBox title={`${HometabItemType.ProductsBrands} 정보`}>
-  <FormGroup legendText="옵션">
-    {#each sortingOptions as option}
-      <Checkbox
-        labelText={option.label}
-        checked={options.includes(option.value)}
-        on:check={handleOptionCheck(option.value)}
-      />
-    {/each}
+  <FormGroup>
+    <CheckboxGroupField
+      options={sortingOptions}
+      schema={schema.fields.contents.fields.options.required()}
+      errorText={$formStore.errors.contents?.options}
+      bind:value={$formStore.fields.contents.options}
+    />
   </FormGroup>
-  <FormGroup legendText="브랜드">
-    <BrandSelect on:change={handleBrandChange} />
+  <FormGroup>
+    <BrandSelectField
+      schema={schema.fields.contents.fields.brandKeynames.required()}
+      errorText={$formStore.errors.contents?.brandKeynames}
+      on:change={handleBrandChange}
+    />
   </FormGroup>
 </ContentBox>

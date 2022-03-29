@@ -1,90 +1,81 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
-  import { Row, Column } from "carbon-components-svelte";
+  import { onMount } from "svelte";
+  import { InlineLoading, FormGroup } from "carbon-components-svelte";
 
-  import { Exhibition, ExhibitionsApi, ItemTypeEnum } from "@api";
-  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import { ExhibitionsApi } from "@api";
+  import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
+  import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
+  import { AutocompleteField, ImageUploadField } from "@app/components/form";
 
   import { HometabItemType } from "../../constants";
-  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
-  import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
+  import { schema, formStore } from "../../models/schema";
 
-  interface HometabExhibitionSectionValue {
-    backImageUrl?: string;
-    tags: string[];
-    exhibition: Exhibition | undefined;
-  }
+  let exhibitions: AutocompleteItem[] = [];
+  let isLoading = false;
 
-  export let value: HometabExhibitionSectionValue;
-
-  let backImageUrl: string;
-  let tags: string[] = [];
-
-  let exhibitions: Exhibition[] = [];
-  let filteredExhibitions: AutocompleteItem[] = [];
-  let selectedExhibition: Exhibition | undefined;
-
-  const dispatch = createEventDispatcher();
   const exhibitionApi = new ExhibitionsApi();
 
-  onMount(async () => {
-    backImageUrl = value.backImageUrl ?? "";
-    tags = value.tags ?? [];
-    selectedExhibition = value.exhibition ?? undefined;
-
-    const res = await exhibitionApi.exhibitionsList();
-    exhibitions = res.data.exhibitions;
-    filteredExhibitions = exhibitions.map(
-      ({ exhibition_id, title, subtitle }) => ({
-        key: exhibition_id,
-        value: title,
-        subvalue: subtitle,
-      }),
-    );
-  });
-
-  const handleExhibitionChange = (event: CustomEvent<AutocompleteItem>) => {
-    selectedExhibition = exhibitions.find(
-      ({ exhibition_id }) => exhibition_id === event.detail?.value,
-    )!;
+  const load = async () => {
+    isLoading = true;
+    try {
+      const res = await exhibitionApi.exhibitionsList();
+      exhibitions = res.data.exhibitions.map(
+        ({ exhibition_id, title, subtitle }) => ({
+          key: exhibition_id,
+          label: title,
+          value: exhibition_id,
+          subvalue: subtitle,
+        }),
+      );
+    } finally {
+      isLoading = false;
+    }
   };
 
-  $: if (backImageUrl || selectedExhibition || tags) {
-    dispatch("change", {
-      item_type: ItemTypeEnum.Exhibition,
-      exhibition_ids: selectedExhibition
-        ? [selectedExhibition.exhibition_id]
-        : [],
-      back_image_url: backImageUrl,
-      tags,
+  onMount(load);
+
+  const handleExhibitionChange = (event: CustomEvent<AutocompleteItem>) => {
+    formStore.update({
+      contents: {
+        ...$formStore.fields.contents,
+        exhibitionIds: event.detail ? [event.detail.value] : [],
+      },
     });
-  }
+  };
+
+  $: selectedExhibitionId = $formStore.fields.contents?.exhibitionIds
+    ? $formStore.fields.contents?.exhibitionIds[0]
+    : "";
 </script>
 
 <ContentBox title={`${HometabItemType.Exhibition} 정보`}>
-  <Row>
-    <Column>
-      <ImageUploadInput label={"배경 이미지"} bind:value={backImageUrl} />
-    </Column>
-  </Row>
-  <Row>
-    <Column>
-      <MultilineTextInput label="태그" bind:value={tags} />
-    </Column>
-  </Row>
-  <h4>기획전 선택</h4>
-  <Row>
-    <Column>
-      <div>선택된 기획전: {selectedExhibition?.title ?? "None"}</div>
-      <Autocomplete
-        options={filteredExhibitions}
-        on:select={handleExhibitionChange}
-        placeholder="기획전 이름/ID로 검색"
-        labelText="기획전 검색"
-        value={selectedExhibition?.exhibition_id ?? ""}
-        keepValueOnSubmit
+  {#if isLoading}
+    <InlineLoading status="active" description="Loading..." />
+  {:else}
+    <FormGroup>
+      <ImageUploadField
+        schema={schema.fields.backImageUrl.required()}
+        errorText={$formStore.errors.backImageUrl}
+        bind:value={$formStore.fields.backImageUrl}
       />
-    </Column>
-  </Row>
+    </FormGroup>
+    <FormGroup>
+      <MultilineTextInput
+        label="상품 설명"
+        bind:value={$formStore.fields.tags}
+      />
+    </FormGroup>
+    <FormGroup>
+      <AutocompleteField
+        options={exhibitions}
+        schema={schema.fields.contents?.fields.exhibitionIds
+          .required()
+          .meta({ placeholder: "기획전 이름/ID로 검색" })}
+        errorText={$formStore.errors.contents?.exhibitionIds}
+        value={selectedExhibitionId}
+        on:select={handleExhibitionChange}
+      />
+    </FormGroup>
+  {/if}
 </ContentBox>

@@ -3,30 +3,29 @@
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { CreateHomeTabRequest, ItemTypeEnum, HometabsApi } from "@api";
+  import { CreateHomeTabRequest, HometabsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
+  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import HometabItemForm from "./components/HometabItemForm.svelte";
-
-  let hometabItem: CreateHomeTabRequest = {
-    title: "",
-    description: "",
-    back_image_url: "",
-    start_time: "",
-    finish_time: "",
-    contents: {
-      item_type: ItemTypeEnum.ExhibitionA,
-      options: [],
-    },
-    weight: 0,
-  };
+  import { formStore } from "../models/schema";
 
   const hometabApi = new HometabsApi();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: MouseEvent) => {
     try {
-      const res = await hometabApi.hometabsCreate({
-        createHomeTabRequest: hometabItem,
+      event.preventDefault();
+      const isValid = await formStore.validate($formStore.fields);
+      if (!isValid) {
+        console.log($formStore.fields, $formStore.errors);
+        toast.push("일부 항목값이 올바르지 않습니다.");
+        console.log($formStore.fields, $formStore.errors);
+        return;
+      }
+      await hometabApi.hometabsCreate({
+        createHomeTabRequest: convertToSnakeCase<CreateHomeTabRequest>(
+          $formStore.fields,
+        ),
       });
       toast.push("홈탭 아이템 등록이 완료되었습니다.");
       navigate(-1);
@@ -41,7 +40,7 @@
   <div class="button-right-wrapper mb10">
     <Button on:click={handleSubmit}>홈탭 아이템 등록</Button>
   </div>
-  <HometabItemForm bind:form={hometabItem} isAdding />
+  <HometabItemForm isAdding />
   <div class="button-right-wrapper mt10">
     <Button on:click={handleSubmit}>홈탭 아이템 등록</Button>
   </div>

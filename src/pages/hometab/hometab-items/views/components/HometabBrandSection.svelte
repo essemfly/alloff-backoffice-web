@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
+  import { onMount } from "svelte";
   import {
-    Row,
-    Column,
+    FormGroup,
     StructuredList,
     StructuredListHead,
     StructuredListRow,
@@ -12,47 +11,42 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { Brand, BrandsApi, ItemTypeEnum } from "@api";
+  import { Brand, BrandsApi } from "@api";
+  import { BrandSelectField } from "@app/components/form";
   import { AutocompleteItem } from "@app/components/autocomplete";
-  import BrandSelect from "@app/components/BrandSelect.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
 
   import { HometabItemType } from "../../constants";
-
-  interface HometabBrandSectionValue {
-    brands: Brand[];
-  }
-
-  export let value: HometabBrandSectionValue;
+  import { schema, formStore } from "../../models/schema";
 
   let brands: Brand[] = [];
   let selectedBrands: Brand[] = [];
-  let selectedBrandKeynames: string[] = [];
 
   const brandsAPi = new BrandsApi();
-  const dispatch = createEventDispatcher();
 
   onMount(async () => {
-    selectedBrandKeynames = value.brands?.map(({ keyname }) => keyname);
     const res = await brandsAPi.brandsList();
-    brands = res.data.filter(
-      ({ keyname }) => !selectedBrandKeynames.includes(keyname),
-    );
-    selectedBrands = res.data.filter(({ keyname }) =>
-      selectedBrandKeynames.includes(keyname),
+    brands = res.data;
+    selectedBrands = brands.filter(({ keyname }) =>
+      $formStore.fields.contents.brandKeynames?.includes(keyname),
     );
   });
 
-  const handleBrandChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    const selected = event.detail.value;
+  const handleBrandChange = (event: CustomEvent<AutocompleteItem>) => {
+    const selected = event.detail;
     const selectedBrand = brands.find(
-      ({ keyname }) => keyname === selected?.subvalue,
+      ({ keyname }) => keyname === selected?.value,
     );
     if (selectedBrand) {
       selectedBrands = [...selectedBrands, selectedBrand];
     }
+    const brandKeynames = selectedBrands.map(({ keyname }) => keyname);
+    formStore.update({
+      contents: {
+        ...$formStore.fields.contents,
+        brandKeynames,
+      },
+    });
   };
 
   const handleBrandDeleteClick =
@@ -61,88 +55,66 @@
       const newValue = selectedBrands.slice();
       newValue.splice(index, 1);
       selectedBrands = newValue;
+      const brandKeynames = selectedBrands.map(({ keyname }) => keyname);
+      formStore.update({
+        contents: {
+          ...$formStore.fields.contents,
+          brandKeynames,
+        },
+      });
     };
-
-  $: if (selectedBrands) {
-    selectedBrandKeynames = selectedBrands.map(({ keyname }) => keyname);
-    dispatch("change", {
-      item_type: ItemTypeEnum.Brands,
-      brand_keynames: selectedBrandKeynames,
-    });
-  }
 </script>
 
 <ContentBox title={`${HometabItemType.Brands} 정보`}>
   <h4>브랜드 추가</h4>
-  <Row>
-    <Column>
-      <BrandSelect
-        on:change={handleBrandChange}
-        bind:excludes={selectedBrandKeynames}
-        keepValueOnSubmit={false}
-      />
-    </Column>
-  </Row>
-
-  <Row>
-    <Column>
-      <StructuredList condensed>
-        <StructuredListHead>
-          <StructuredListRow head>
-            <StructuredListCell head>Logo</StructuredListCell>
-            <StructuredListCell head>Brand</StructuredListCell>
-            <StructuredListCell head>Actions</StructuredListCell>
+  <FormGroup>
+    <BrandSelectField
+      schema={schema.fields.contents.fields.brandKeynames.required()}
+      errorText={$formStore.errors.contents?.brandKeynames}
+      excludes={$formStore.fields.contents.brandKeynames ?? []}
+      keepValueOnSubmit={false}
+      on:change={handleBrandChange}
+    />
+  </FormGroup>
+  <FormGroup>
+    <StructuredList condensed>
+      <StructuredListHead>
+        <StructuredListRow head>
+          <StructuredListCell head>Logo</StructuredListCell>
+          <StructuredListCell head>Brand</StructuredListCell>
+          <StructuredListCell head>Actions</StructuredListCell>
+        </StructuredListRow>
+      </StructuredListHead>
+      <StructuredListBody>
+        {#each selectedBrands as brand, index}
+          <StructuredListRow>
+            <StructuredListCell>
+              <img
+                class="logo_image"
+                src={brand.logo_image_url}
+                alt={[brand.korname, "logo"].join("-")}
+              />
+            </StructuredListCell>
+            <StructuredListCell>
+              {brand.korname}
+              {brand.keyname}
+            </StructuredListCell>
+            <StructuredListCell>
+              <Button
+                size="small"
+                tooltipPosition="bottom"
+                tooltipAlignment="end"
+                iconDescription="삭제"
+                icon={TrashCan16}
+                kind="danger"
+                on:click={handleBrandDeleteClick(index)}
+              />
+            </StructuredListCell>
           </StructuredListRow>
-        </StructuredListHead>
-        <StructuredListBody>
-          {#if value.brands?.length > 0}
-            {#each value.brands as brand}
-              <StructuredListRow>
-                <StructuredListCell>
-                  <img
-                    class="logo_image"
-                    src={brand.logo_image_url}
-                    alt={[brand.korname, "logo"].join("-")}
-                  />
-                </StructuredListCell>
-                <StructuredListCell>
-                  {brand.korname}
-                  {brand.keyname}
-                </StructuredListCell>
-                <StructuredListCell />
-              </StructuredListRow>
-            {/each}
-          {/if}
-          {#each selectedBrands as brand, index}
-            <StructuredListRow>
-              <StructuredListCell>
-                <img
-                  class="logo_image"
-                  src={brand.logo_image_url}
-                  alt={[brand.korname, "logo"].join("-")}
-                />
-              </StructuredListCell>
-              <StructuredListCell>
-                {brand.korname}
-                {brand.keyname}
-              </StructuredListCell>
-              <StructuredListCell>
-                <Button
-                  size="small"
-                  tooltipPosition="bottom"
-                  tooltipAlignment="end"
-                  iconDescription="삭제"
-                  icon={TrashCan16}
-                  kind="danger"
-                  on:click={handleBrandDeleteClick(index)}
-                />
-              </StructuredListCell>
-            </StructuredListRow>
-          {/each}
-        </StructuredListBody>
-      </StructuredList>
-    </Column>
-  </Row>
+        {/each}
+      </StructuredListBody>
+    </StructuredList>
+  </FormGroup>
 </ContentBox>
 
 <style>

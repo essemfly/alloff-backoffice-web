@@ -8,23 +8,43 @@
   import Nav from "@app/components/Nav.svelte";
 
   import HometabItemForm from "./components/HometabItemForm.svelte";
+  import { formStore, schema } from "../models/schema";
+  import {
+    getHometabItemTypeByIndex,
+    getSortingOptionByIndex,
+  } from "../commands/helpers";
 
   export let id: string;
 
   let hometabItem: HomeTab;
-  let isLoading = true;
+  let isLoading = false;
 
   const hometabApi = new HometabsApi();
 
   onMount(async () => {
+    isLoading = true;
     const res = await hometabApi.hometabsRetrieve({ id });
     hometabItem = res.data;
+    const data = schema.camelCase().cast({
+      ...res.data,
+      contents: {
+        itemType: getHometabItemTypeByIndex(
+          hometabItem.item_type as unknown as number,
+        ),
+        exhibitionIds: hometabItem.exhibitions.map((x) => x.exhibition_id),
+        brandKeynames: hometabItem.brands.map((x) => x.keyname),
+        options: hometabItem.reference.options.map((x) =>
+          getSortingOptionByIndex(x as unknown as number),
+        ),
+      },
+    });
+    formStore.update(data);
     isLoading = false;
   });
 
   const handleSubmit = async () => {
     try {
-      const res = await hometabApi.hometabsUpdate({
+      await hometabApi.hometabsUpdate({
         id: hometabItem.item_id,
         editHomeTabRequest: {
           hometab_id: hometabItem.item_id,
@@ -46,7 +66,7 @@
     <div class="button-right-wrapper mb10">
       <Button on:click={handleSubmit}>홈탭 아이템 수정</Button>
     </div>
-    <HometabItemForm bind:form={hometabItem} />
+    <HometabItemForm data={hometabItem} />
     <div class="button-right-wrapper mb10">
       <Button on:click={handleSubmit}>홈탭 아이템 수정</Button>
     </div>
