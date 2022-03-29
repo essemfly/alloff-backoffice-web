@@ -16,7 +16,7 @@
   import SortButtonSet from "./SortButtonSet.svelte";
 
   export let label: string = "";
-  export let value: string | string[];
+  export let value: string | string[] | undefined;
   export let multiple = false;
   export let disabled: boolean = false;
   export let helperText: string = "";

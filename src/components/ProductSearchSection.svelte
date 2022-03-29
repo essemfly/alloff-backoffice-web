@@ -73,16 +73,12 @@
     }
   }, 300);
 
-  const handleBrandChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    selectedBrandId = event.detail.value?.key ?? "";
+  const handleBrandChange = (event: CustomEvent<AutocompleteItem>) => {
+    selectedBrandId = event.detail?.key ?? "";
   };
 
-  const handleCategoryChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    selectedCategoryId = event.detail.value?.key ?? "";
+  const handleCategoryChange = (event: CustomEvent<AutocompleteItem>) => {
+    selectedCategoryId = event.detail?.value ?? "";
   };
 
   const handleProductSelect = (selectedItem: Product) => () => {

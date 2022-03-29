@@ -15,8 +15,9 @@
 
   import ButtonTextInput from "./ButtonTextInput.svelte";
 
-  export let label: string;
+  export let label: string | undefined = undefined;
   export let value: string[] = [];
+  export let disabled: boolean = false;
 
   let inputValue = "";
 
@@ -60,6 +61,7 @@
     bind:value={inputValue}
     on:click={handleAdd}
     buttonText="추가"
+    {disabled}
   />
   <StructuredList condensed flush>
     <StructuredListBody>

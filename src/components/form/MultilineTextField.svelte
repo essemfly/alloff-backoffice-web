@@ -1,16 +1,16 @@
 <script lang="ts">
   import { generate } from "shortid";
   import Dot from "../Dot.svelte";
-  import ImageUploadInput from "../ImageUploadInput.svelte";
+  import MultilineTextInput from "../MultilineTextInput.svelte";
 
   export let errorText: string = "";
   export let label: string | undefined = undefined;
-  export let value: string | string[] | undefined = undefined;
+  export let value: string[] = [];
   export let disabled: boolean = false;
   export let hideLabel: boolean = false;
   export let schema: any;
 
-  const htmlId: string = `image-upload-field-${generate()}`;
+  const htmlId: string = `multiline-text-field-${generate()}`;
   const { label: schemaLabel, presence, meta } = schema.spec;
   let { placeholder, helperText } = meta ?? {};
   const fieldLabel = label ?? schemaLabel;
@@ -29,7 +29,18 @@
     {/if}
   </label>
 {/if}
+<MultilineTextInput bind:value {disabled} />
+{#if !!helperText && !errorText}
+  <div class="bx--form__helper-text">{helperText}</div>
+{/if}
+{#if !!errorText}
+  <div class="bx--form-requirement">{errorText}</div>
+{/if}
 
-<div id={htmlId}>
-  <ImageUploadInput bind:value {errorText} {helperText} {disabled} />
-</div>
+<style>
+  .bx--form-requirement {
+    display: block;
+    max-height: none;
+    color: var(--danger-01);
+  }
+</style>

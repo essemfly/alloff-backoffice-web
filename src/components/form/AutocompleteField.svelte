@@ -1,10 +1,11 @@
 <script lang="ts">
   import { generate } from "shortid";
-  import Dot from "../Dot.svelte";
-  import Autocomplete from "../autocomplete/Autocomplete.svelte";
-  import { AutocompleteItem } from "../autocomplete";
+  import { createEventDispatcher } from "svelte";
 
-  export let size: "sm" | "xl" | undefined = undefined;
+  import Dot from "../Dot.svelte";
+  import { Autocomplete, AutocompleteItem } from "../autocomplete";
+
+  export let size: "sm" | "lg" | undefined = undefined;
   export let errorText: string = "";
   export let value: string = "";
   export let options: AutocompleteItem[];
@@ -20,6 +21,12 @@
   }
 
   const required = presence === "required";
+  const dispatch = createEventDispatcher();
+
+  const handleSelect = (event: CustomEvent<AutocompleteItem>) => {
+    dispatch("select", event.detail);
+    value = event.detail?.value ?? "";
+  };
 </script>
 
 {#if label && !hideLabel}
@@ -37,18 +44,7 @@
   {placeholder}
   bind:value
   {disabled}
+  {helperText}
+  {errorText}
+  on:select={handleSelect}
 />
-{#if !!helperText && !errorText}
-  <div class="bx--form__helper-text">{helperText}</div>
-{/if}
-{#if !!errorText}
-  <div class="bx--form-requirement">{errorText}</div>
-{/if}
-
-<style>
-  .bx--form-requirement {
-    display: block;
-    max-height: none;
-    color: var(--danger-01);
-  }
-</style>
