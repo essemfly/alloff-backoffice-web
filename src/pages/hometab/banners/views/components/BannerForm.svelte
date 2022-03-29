@@ -1,86 +1,106 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import {
-    Row,
-    Column,
-    TextInput,
-    NumberInput,
-    Toggle,
-    TextArea,
-  } from "carbon-components-svelte";
+  import { FormGroup, InlineLoading } from "carbon-components-svelte";
 
-  import { TopBanner, ExhibitionsApi } from "@api";
+  import { ExhibitionsApi } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
-  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
-  import Autocomplete from "@app/components/autocomplete/Autocomplete.svelte";
+  import Dot from "@app/components/Dot.svelte";
+  import {
+    AutocompleteField,
+    ImageUploadField,
+    TextAreaField,
+    TextField,
+    ToggleField,
+  } from "@app/components/form";
 
-  export let form: TopBanner;
+  import { schema, formStore } from "../../models/schema";
+
   export let isAdding: boolean = false;
 
   let exhibitions: AutocompleteItem[] = [];
+  let isLoading = false;
 
   const exhibitionApi = new ExhibitionsApi();
 
-  const handleExhibitionChange = (event: CustomEvent<AutocompleteItem>) => {
-    form.exhibition_id = event.detail?.value ?? "";
+  const load = async () => {
+    isLoading = true;
+    try {
+      const res = await exhibitionApi.exhibitionsList();
+      exhibitions = res.data.exhibitions.map(
+        ({ exhibition_id, title, subtitle }) => ({
+          key: exhibition_id,
+          label: title,
+          value: exhibition_id,
+          subvalue: subtitle,
+        }),
+      );
+    } finally {
+      isLoading = false;
+    }
   };
 
-  onMount(async () => {
-    const res = await exhibitionApi.exhibitionsList();
-    exhibitions = res.data.exhibitions.map(
-      ({ exhibition_id, title, subtitle }) => ({
-        key: exhibition_id,
-        label: title,
-        value: exhibition_id,
-        subvalue: subtitle,
-      }),
-    );
-  });
+  onMount(load);
 </script>
 
-<ContentBox>
-  <h3>배너 정보</h3>
-  {#if !isAdding}
-    <Row>
-      <Column>
-        <TextInput labelText={"ID"} bind:value={form.banner_id} readonly />
-      </Column>
-    </Row>
-  {/if}
-  <Row>
-    <Column>
-      <ImageUploadInput label={"배너 이미지"} bind:value={form.banner_image} />
-    </Column>
-  </Row>
-  <Row>
-    <Column>
-      <TextArea labelText={"타이틀"} bind:value={form.title} />
-    </Column>
-  </Row>
-  <Row>
-    <Column>
-      <TextInput labelText={"서브 타이틀"} bind:value={form.subtitle} />
-    </Column>
-  </Row>
-  <Row>
-    <Column>
-      <NumberInput label={"가중치"} bind:value={form.weight} />
-    </Column>
-  </Row>
-  <Row>
-    <Column>
-      <Toggle labelText="활성화 여부" bind:toggled={form.is_live} />
-    </Column>
-  </Row>
-  <Row>
-    <Column>
-      <div class="bx--label">관련 기획전</div>
-      <Autocomplete
-        options={exhibitions}
-        on:select={handleExhibitionChange}
-        keepValueOnSubmit
+<ContentBox title="배너 정보">
+  <div class="button-right-wrapper">
+    <Dot label="필수 입력 사항" />
+  </div>
+  {#if isLoading}
+    <InlineLoading status="active" description="Loading..." />
+  {:else}
+    {#if !isAdding}
+      <FormGroup>
+        <TextField
+          schema={schema.fields.bannerId}
+          bind:value={$formStore.fields.bannerId}
+          readonly
+        />
+      </FormGroup>
+    {/if}
+    <FormGroup>
+      <ImageUploadField
+        schema={schema.fields.bannerImage}
+        errorText={$formStore.errors.bannerImage}
+        bind:value={$formStore.fields.bannerImage}
       />
-    </Column>
-  </Row>
+    </FormGroup>
+    <FormGroup>
+      <TextAreaField
+        schema={schema.fields.title}
+        errorText={$formStore.errors.title}
+        bind:value={$formStore.fields.title}
+      />
+    </FormGroup>
+    <FormGroup>
+      <TextAreaField
+        schema={schema.fields.subtitle}
+        bind:value={$formStore.fields.subtitle}
+        errorText={$formStore.errors.subtitle}
+      />
+    </FormGroup>
+    <FormGroup>
+      <TextField
+        schema={schema.fields.weight}
+        bind:value={$formStore.fields.weight}
+        errorText={$formStore.errors.weight}
+      />
+    </FormGroup>
+    <FormGroup>
+      <ToggleField
+        schema={schema.fields.isLive}
+        bind:value={$formStore.fields.isLive}
+        errorText={$formStore.errors.isLive}
+      />
+    </FormGroup>
+    <FormGroup>
+      <AutocompleteField
+        options={exhibitions}
+        schema={schema.fields.exhibitionId}
+        errorText={$formStore.errors.exhibitionId}
+        bind:value={$formStore.fields.exhibitionId}
+      />
+    </FormGroup>
+  {/if}
 </ContentBox>
