@@ -6,9 +6,10 @@
 
   import { CreateProductRequestApiRequest, ProductsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
+  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import ProductForm from "./components/ProductForm.svelte";
-  import { formStore, schema } from "../models/schema";
+  import { formStore } from "../models/schema";
 
   let isSubmitting = false;
 
@@ -26,9 +27,8 @@
         return;
       }
       await productApi.productsCreate({
-        createProductRequestApiRequest: schema
-          .snakeCase()
-          .cast($formStore.fields) as unknown as CreateProductRequestApiRequest,
+        createProductRequestApiRequest:
+          convertToSnakeCase<CreateProductRequestApiRequest>($formStore.fields),
       });
       toast.push("상품 등록이 완료되었습니다.");
       navigate(-1);

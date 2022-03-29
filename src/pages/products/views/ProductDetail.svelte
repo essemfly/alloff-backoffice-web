@@ -7,6 +7,7 @@
 
   import { EditProductRequestApiRequest, ProductsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
+  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import ProductForm from "./components/ProductForm.svelte";
   import { formStore, schema } from "../models/schema";
@@ -30,9 +31,10 @@
     try {
       await productApi.productsUpdate({
         id: $formStore.fields.alloffProductId,
-        editProductRequestApiRequest: schema
-          .snakeCase()
-          .cast($formStore.fields) as unknown as EditProductRequestApiRequest,
+        editProductRequestApiRequest:
+          convertToSnakeCase<EditProductRequestApiRequest>(
+            $formStore.fields,
+          ) as unknown as EditProductRequestApiRequest,
       });
       toast.push("상품 수정이 완료되었습니다.");
       navigate(-1);
