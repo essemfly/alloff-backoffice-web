@@ -5,48 +5,70 @@
   import { Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { EditExhibitionRequest, Exhibition, ExhibitionsApi } from "@api";
+  import { EditExhibitionRequest, ExhibitionsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
 
   import ExhibitionForm from "./components/ExhibitionForm.svelte";
+  import { formStore, schema } from "../models/schema";
+  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   export let id: string;
 
-  let exhibition: Exhibition;
-  let isLoading = true;
+  let isLoading = false;
+  let isSubmitting = false;
 
-  const bannerApi = new ExhibitionsApi();
+  const exhibitionApi = new ExhibitionsApi();
 
   onMount(async () => {
-    const res = await bannerApi.exhibitionsRetrieve({ id });
-    exhibition = res.data;
-    isLoading = false;
+    isLoading = true;
+    try {
+      const res = await exhibitionApi.exhibitionsRetrieve({ id });
+      const exhibition = schema.camelCase().cast(res.data);
+      formStore.update(exhibition);
+    } finally {
+      isLoading = false;
+    }
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: MouseEvent) => {
+    isSubmitting = true;
     try {
-      const res = await bannerApi.exhibitionsUpdate({
-        id: exhibition.exhibition_id,
-        editExhibitionRequest: exhibition as unknown as EditExhibitionRequest,
+      event.preventDefault();
+      const isValid = await formStore.validate($formStore.fields);
+      if (!isValid) {
+        toast.push("일부 항목값이 올바르지 않습니다.");
+        return;
+      }
+      await exhibitionApi.exhibitionsUpdate({
+        id: $formStore.fields.exhibitionId,
+        editExhibitionRequest: convertToSnakeCase<EditExhibitionRequest>(
+          $formStore.fields,
+        ),
       });
       toast.push("기획전 수정이 완료되었습니다.");
       navigate(-1);
     } catch (e) {
       toast.push(`기획전 수정에 오류가 발생했습니다.`);
+    } finally {
+      isSubmitting = false;
     }
   };
 </script>
 
-<Nav title={`${exhibition?.title ?? "기획전 상세"}`}>
+<Nav title={`${$formStore.fields.title ?? "기획전 상세"}`}>
   {#if isLoading}
     <InlineLoading status="active" description="On Loading..." />
   {:else}
     <div class="button-right-wrapper mb10">
-      <Button on:click={handleSubmit} icon={Save16}>수정</Button>
+      <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
+        {isSubmitting ? "수정중..." : "수정"}
+      </Button>
     </div>
-    <ExhibitionForm form={exhibition} />
+    <ExhibitionForm />
     <div class="button-right-wrapper mb10">
-      <Button on:click={handleSubmit} icon={Save16}>수정</Button>
+      <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
+        {isSubmitting ? "수정중..." : "수정"}
+      </Button>
     </div>
   {/if}
 </Nav>

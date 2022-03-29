@@ -2,9 +2,7 @@
   import { onMount } from "svelte";
   import {
     Row,
-    Column,
     Button,
-    TextInput,
     StructuredList,
     StructuredListRow,
     StructuredListCell,
@@ -12,34 +10,25 @@
     StructuredListHead,
     NumberInput,
     StructuredListInput,
+    FormGroup,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { ProductGroup, Product } from "@api";
+  import { Product, ProductInGroup } from "@api";
+  import { TextField } from "@app/components/form";
   import ProductSearchSection from "@app/components/ProductSearchSection.svelte";
 
-  export let form: ProductGroup;
+  import { sectionSchema, sectionFormStore } from "../../models/schema";
+
+  export let productInGroups: ProductInGroup[] = [];
   export let isAdding: boolean = false;
 
-  interface SelectedProductInGroup {
-    product: Product;
-    priority: number;
-  }
+  let selectedProductInGroup: ProductInGroup[] = [];
 
-  let images: string[] = [];
-
-  let selectedProductInGroup: SelectedProductInGroup[] = [];
-
-  onMount(async () => {
-    if (form.image_url) {
-      images = [form.image_url];
-    }
+  onMount(() => {
+    sectionFormStore.initialize();
   });
-
-  $: if (images.length > 0) {
-    form.image_url = images[0];
-  }
 
   const handleProductSelect = (event: CustomEvent<Product>) => {
     const newProduct = {
@@ -48,13 +37,16 @@
     };
     selectedProductInGroup = [...selectedProductInGroup, newProduct];
     if (isAdding) {
-      form.products = selectedProductInGroup;
+      productInGroups = selectedProductInGroup;
     }
   };
 
   const handleProductDeselect = (index: number) => () => {
     selectedProductInGroup.splice(index, 1);
     selectedProductInGroup = selectedProductInGroup;
+    if (isAdding) {
+      productInGroups = selectedProductInGroup;
+    }
   };
 
   const handleProductDetailOpen = (productId: string) => () => {
@@ -62,104 +54,97 @@
   };
 </script>
 
-<Row padding>
-  <Column>
-    <TextInput labelText={"섹션 타이틀"} bind:value={form.title} />
-  </Column>
-</Row>
+<FormGroup>
+  <TextField
+    schema={sectionSchema.fields.title.label("섹션 타이틀")}
+    bind:value={$sectionFormStore.fields.title}
+    errorText={$sectionFormStore.errors.title}
+  />
+</FormGroup>
 
 <ProductSearchSection on:select={handleProductSelect} />
-
-<Row padding>
-  <Column>
-    <h4>선택된 상품 목록</h4>
-    <div class="product-list">
-      <StructuredList condensed>
-        <StructuredListHead>
-          <StructuredListRow head>
-            <StructuredListCell head>썸네일</StructuredListCell>
-            <StructuredListCell head>브랜드</StructuredListCell>
-            <StructuredListCell head>제품명</StructuredListCell>
-            <StructuredListCell head>재고</StructuredListCell>
-            <StructuredListCell head>가격</StructuredListCell>
-            <StructuredListCell head>
-              우선순위 (낮을수록 상단)
-            </StructuredListCell>
-            <StructuredListCell head>Actions</StructuredListCell>
-          </StructuredListRow>
-        </StructuredListHead>
-        <StructuredListBody>
-          {#each selectedProductInGroup as { product, priority }, index}
-            <StructuredListRow>
-              <StructuredListInput value={product.alloff_product_id} />
-              <StructuredListCell>
-                <img
-                  class="cell_image"
-                  src={product.images[0]}
-                  alt={["product_preview", product.alloff_name].join("-")}
-                />
-                {#if product.images.length > 1}
-                  <img
-                    class="cell_image"
-                    src={product.images[1]}
-                    alt={["product_preview", product.alloff_name].join("-")}
-                  />
-                {/if}
-              </StructuredListCell>
-              <StructuredListCell noWrap>
-                {product.brand_kor_name}
-              </StructuredListCell>
-              <StructuredListCell noWrap>
-                {product.alloff_name}
-              </StructuredListCell>
-              <StructuredListCell noWrap>
-                {#each product.inventory as inv}
-                  <Row padding>
-                    {inv.size} : {inv.quantity}개
-                  </Row>
-                {/each}
-              </StructuredListCell>
-              <StructuredListCell noWrap>
-                {product.original_price} -> {product.discounted_price} ({(
-                  ((product.original_price - product.discounted_price) /
-                    product.original_price) *
-                  100
-                ).toFixed(0)}%)
-              </StructuredListCell>
-              <StructuredListCell class="product-list-number">
-                <NumberInput bind:value={priority} />
-              </StructuredListCell>
-              <StructuredListCell>
-                <Row padding>
-                  <Button
-                    tooltipPosition="bottom"
-                    tooltipAlignment="end"
-                    iconDescription="상품 상세"
-                    icon={Launch16}
-                    kind="ghost"
-                    size="small"
-                    on:click={handleProductDetailOpen(
-                      product.alloff_product_id,
-                    )}
-                  />
-                  <Button
-                    tooltipPosition="bottom"
-                    tooltipAlignment="end"
-                    iconDescription="상품 삭제"
-                    icon={TrashCan16}
-                    kind="danger"
-                    size="small"
-                    on:click={handleProductDeselect(index)}
-                  />
-                </Row>
-              </StructuredListCell>
-            </StructuredListRow>
-          {/each}
-        </StructuredListBody>
-      </StructuredList>
-    </div>
-  </Column>
-</Row>
+<h4>선택된 상품 목록</h4>
+<div class="product-list">
+  <StructuredList condensed>
+    <StructuredListHead>
+      <StructuredListRow head>
+        <StructuredListCell head>썸네일</StructuredListCell>
+        <StructuredListCell head>브랜드</StructuredListCell>
+        <StructuredListCell head>제품명</StructuredListCell>
+        <StructuredListCell head>재고</StructuredListCell>
+        <StructuredListCell head>가격</StructuredListCell>
+        <StructuredListCell head>우선순위 (낮을수록 상단)</StructuredListCell>
+        <StructuredListCell head>Actions</StructuredListCell>
+      </StructuredListRow>
+    </StructuredListHead>
+    <StructuredListBody>
+      {#each selectedProductInGroup as { product, priority }, index}
+        <StructuredListRow>
+          <StructuredListInput value={product.alloff_product_id} />
+          <StructuredListCell>
+            <img
+              class="cell_image"
+              src={product.images[0]}
+              alt={["product_preview", product.alloff_name].join("-")}
+            />
+            {#if product.images.length > 1}
+              <img
+                class="cell_image"
+                src={product.images[1]}
+                alt={["product_preview", product.alloff_name].join("-")}
+              />
+            {/if}
+          </StructuredListCell>
+          <StructuredListCell noWrap>
+            {product.brand_kor_name}
+          </StructuredListCell>
+          <StructuredListCell noWrap>
+            {product.alloff_name}
+          </StructuredListCell>
+          <StructuredListCell noWrap>
+            {#each product.inventory as inv}
+              <Row padding>
+                {inv.size} : {inv.quantity}개
+              </Row>
+            {/each}
+          </StructuredListCell>
+          <StructuredListCell noWrap>
+            {product.original_price} -> {product.discounted_price} ({(
+              ((product.original_price - product.discounted_price) /
+                product.original_price) *
+              100
+            ).toFixed(0)}%)
+          </StructuredListCell>
+          <StructuredListCell class="product-list-number">
+            <NumberInput bind:value={priority} />
+          </StructuredListCell>
+          <StructuredListCell>
+            <Row padding>
+              <Button
+                tooltipPosition="bottom"
+                tooltipAlignment="end"
+                iconDescription="상품 상세"
+                icon={Launch16}
+                kind="ghost"
+                size="small"
+                on:click={handleProductDetailOpen(product.alloff_product_id)}
+              />
+              <Button
+                tooltipPosition="bottom"
+                tooltipAlignment="end"
+                iconDescription="상품 삭제"
+                icon={TrashCan16}
+                kind="danger"
+                size="small"
+                on:click={handleProductDeselect(index)}
+              />
+            </Row>
+          </StructuredListCell>
+        </StructuredListRow>
+      {/each}
+    </StructuredListBody>
+  </StructuredList>
+</div>
 
 <style>
   :global(.bx--structured-list-td) {
