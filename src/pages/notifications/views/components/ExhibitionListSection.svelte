@@ -164,7 +164,7 @@
 <Row padding>
   <Column>
     <h4>선택된 기획전</h4>
-    <StructuredList condensed selection flush>
+    <StructuredList condensed selection={selectedExhibitions.length > 0}>
       <StructuredListHead>
         <StructuredListRow head>
           <StructuredListCell head>썸네일/배너 이미지</StructuredListCell>
@@ -174,6 +174,11 @@
         </StructuredListRow>
       </StructuredListHead>
       <StructuredListBody>
+        {#if selectedExhibitions.length === 0}
+          <StructuredListRow>
+            <StructuredListCell>선택된 기획전 없음</StructuredListCell>
+          </StructuredListRow>
+        {/if}
         {#each selectedExhibitions as exhibition}
           <StructuredListRow
             on:click={handleSelect(exhibition)}

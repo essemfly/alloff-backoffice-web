@@ -108,7 +108,7 @@
   <form class="mb10">
     <Row class="search-wrapper">
       <Column sm={1}>
-        <BrandSelect on:change={handleBrandChange} />
+        <BrandSelect size="lg" on:change={handleBrandChange} />
       </Column>
       <Column sm={3}>
         <Search

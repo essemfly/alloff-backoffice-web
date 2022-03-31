@@ -17,7 +17,8 @@ export const schema = object({
     .when("notiType", (notiType) => {
       switch (notiType) {
         case NotificationTypeEnum.TimedealOpenNotification:
-          return string().label("관련 ID").required();
+        case NotificationTypeEnum.ExhibitionNotification:
+          return string().label("관련 기획전").required();
         case NotificationTypeEnum.GeneralNotification:
         default:
           return string().label("관련 ID").notRequired();

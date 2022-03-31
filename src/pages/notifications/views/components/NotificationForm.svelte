@@ -67,6 +67,10 @@
     switch ($formStore.fields.notiType) {
       // it is deprecated. just remain for older apis
       case NotificationTypeEnum.TimedealOpenNotification:
+      case NotificationTypeEnum.ExhibitionNotification:
+        if ($formStore.fields.referenceId === "/") {
+          formStore.update({ referenceId: "" });
+        }
         if (productGroupOptions.length === 0) {
           loadProductGroupList();
         }
@@ -116,7 +120,10 @@
         bind:value={$formStore.fields.referenceId}
       />
     {:else if $formStore.fields.notiType === NotificationTypeEnum.ExhibitionNotification}
-      <div class="bx--label">관련 기획전</div>
+      <div class="bx--label">관련 기획전 <Dot kind="danger" /></div>
+      {#if !!$formStore.errors.referenceId}
+        <div class="bx--form-requirement">{$formStore.errors.referenceId}</div>
+      {/if}
       <ExhibitionListSection
         value={selectedExhibition ? [selectedExhibition?.exhibition_id] : []}
         on:select={handleExhibitionChange}
@@ -124,3 +131,11 @@
     {/if}
   </FormGroup>
 </ContentBox>
+
+<style>
+  .bx--form-requirement {
+    display: block;
+    max-height: none;
+    color: var(--danger-01);
+  }
+</style>
