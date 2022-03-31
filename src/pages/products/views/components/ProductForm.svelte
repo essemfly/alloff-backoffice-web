@@ -5,19 +5,23 @@
   import ContentBox from "@app/components/ContentBox.svelte";
   import ImageUploadField from "@app/components/ImageUploadField.svelte";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
+  import TooltipTag from "@app/components/TooltipTag.svelte";
   import {
     Button,
     Checkbox,
     Column,
     NumberInput,
     Row,
+    Tag,
     TextInput,
     Toggle,
+    Tooltip,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Editor from "cl-editor/src/Editor.svelte";
   import { debounce } from "lodash";
   import CategorySelect from "../../../../components/CategorySelect.svelte";
+  import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
 
   export let form: Product & {
     brand_key_name: string;
@@ -121,6 +125,12 @@
   </Row>
   <Row padding>
     <Column>
+      {#if !isAdding}
+        <ProductCategoryClassifiedTag
+          isClassifiedTouched={form.is_classified_touched}
+          isClassifiedDone={form.is_classified_done}
+        />
+      {/if}
       <CategorySelect
         initialCategoryName={form.alloff_category_name === ""
           ? undefined
@@ -253,6 +263,3 @@
     </div>
   {/if}
 </ContentBox>
-
-<style>
-</style>
