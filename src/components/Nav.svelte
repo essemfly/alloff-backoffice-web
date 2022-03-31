@@ -2,21 +2,21 @@
   import { AdminUserApi } from "@api";
   import { removeTokens } from "@app/core/auth";
   import {
-  Content,
-  Header,
-  HeaderAction,
-  HeaderNav,
-  HeaderNavItem,
-  HeaderNavMenu,
-  HeaderPanelDivider,
-  HeaderPanelLink,
-  HeaderPanelLinks,
-  HeaderUtilities,
-  SideNav,
-  SideNavItems,
-  SideNavLink,
-  SideNavMenu,
-  SkipToContent
+    Content,
+    Header,
+    HeaderAction,
+    HeaderNav,
+    HeaderNavItem,
+    HeaderNavMenu,
+    HeaderPanelDivider,
+    HeaderPanelLink,
+    HeaderPanelLinks,
+    HeaderUtilities,
+    SideNav,
+    SideNavItems,
+    SideNavLink,
+    SideNavMenu,
+    SkipToContent,
   } from "carbon-components-svelte";
   import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
   import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
@@ -247,6 +247,11 @@
     </HeaderUtilities>
   {/if}
 </Header>
+{#if $$slots.header}
+  <header class="nav-header-section">
+    <slot name="header" />
+  </header>
+{/if}
 <Content>
   <slot />
 </Content>
@@ -283,5 +288,16 @@
   .super {
     font-weight: bold;
     color: greenyellow;
+  }
+
+  .nav-header-section {
+    background-color: red;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: white;
+  }
+
+  .nav-header-section ~ :global(.bx--content) {
+    margin-top: 0;
   }
 </style>
