@@ -6,12 +6,15 @@
 
   import { Brand, BrandsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
+  import {
+    convertToCamelCase,
+    convertToSnakeCase,
+  } from "@app/helpers/change-case";
 
   import BrandForm from "./components/BrandForm.svelte";
-  import { formStore, schema } from "../models/schema";
+  import { formStore } from "../models/schema";
 
-  export let brand: Brand;
+  export let id: string;
 
   let isLoading = false;
   let isSubmitting = false;
@@ -19,10 +22,19 @@
   const brandApi = new BrandsApi();
 
   onMount(async () => {
+    if ($formStore.fields.brandId) {
+      return;
+    }
     isLoading = true;
     try {
-      const brandData = schema.camelCase().cast(brand);
-      formStore.update(brandData);
+      const res = await brandApi.brandsList();
+      const brand = res.data.find(({ brand_id }: Brand) => brand_id === id);
+      if (brand) {
+        const brandData = convertToCamelCase(brand);
+        formStore.update(brandData);
+      } else {
+        navigate(-1);
+      }
     } finally {
       isLoading = false;
     }
@@ -37,8 +49,9 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      await brandApi.brandsCreate({
-        createBrandRequest: convertToSnakeCase($formStore.fields),
+      await brandApi.brandsPartialUpdate({
+        id: $formStore.fields.brandId,
+        patchedBrandRequest: convertToSnakeCase($formStore.fields),
       });
       toast.push("브랜드 등록이 완료되었습니다.");
       navigate(-1);

@@ -8,8 +8,13 @@
 
   import BrandForm from "./components/BrandForm.svelte";
   import { formStore, schema } from "../models/schema";
+  import { onMount } from "svelte";
 
   const brandApi = new BrandsApi();
+
+  onMount(() => {
+    formStore.initialize();
+  });
 
   const handleSubmit = async () => {
     try {

@@ -41,7 +41,7 @@
     "@web/test-runner": "^0.13.3",
     "axios": "^0.21.4",
     "babel-eslint": "^10.1.0",
-    "carbon-components-svelte": "0.60.0",
+    "carbon-components-svelte": "0.62.3",
     "carbon-icons-svelte": "^10.44.4",
     "chai": "^4.3.4",
     "cl-editor": "^2.3.0",

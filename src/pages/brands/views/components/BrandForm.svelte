@@ -47,17 +47,6 @@
 </script>
 
 <ContentBox title="기본 정보">
-  {#if !isAdding}
-    <Row padding>
-      <Column>
-        <TextField
-          schema={schema.fields.brandId}
-          errorText={$formStore.errors.brandId}
-          bind:value={$formStore.fields.brandId}
-        />
-      </Column>
-    </Row>
-  {/if}
   <Row padding>
     <Column>
       <TextField

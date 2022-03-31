@@ -66,6 +66,7 @@
     dispatch("click:row", event.detail);
   }}
 >
+  <slot />
   <span
     slot="cell"
     let:cell
