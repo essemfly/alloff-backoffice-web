@@ -44,15 +44,11 @@
       value: keyname,
       subvalue: keyname,
     }));
-    filteredBrands = brands.filter(
-      ({ subvalue }) => !excludes.includes(subvalue!),
-    );
+    filteredBrands = brands.filter(({ value }) => !excludes.includes(value!));
   });
 
   $: if (selectedItem) {
-    filteredBrands = brands.filter(
-      ({ subvalue }) => !excludes.includes(subvalue!),
-    );
+    filteredBrands = brands.filter(({ value }) => !excludes.includes(value!));
   }
 </script>
 

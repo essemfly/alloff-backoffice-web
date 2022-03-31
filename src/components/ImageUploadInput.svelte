@@ -15,10 +15,12 @@
   import { ImageUploadApi } from "@api";
   import SortButtonSet from "./SortButtonSet.svelte";
 
-  export let label: string;
-  export let value: string | string[];
+  export let label: string = "";
+  export let value: string | string[] | undefined;
   export let multiple = false;
   export let disabled: boolean = false;
+  export let helperText: string = "";
+  export let errorText: string = "";
 
   let images: string[] = [];
   let isImageUploading = false;
@@ -86,7 +88,7 @@
   };
 </script>
 
-<div class="image-upload-field">
+<div class="image-upload-input">
   {#if label}
     <div class="bx--label">{label}</div>
   {/if}
@@ -96,23 +98,32 @@
     accept={["image/*"]}
     on:add={handleImageAdd}
     {disabled}
+    {...!!errorText ? { "data-invalid": true } : {}}
   />
+  {#if !!helperText && !errorText}
+    <div class="bx--form__helper-text">{helperText}</div>
+  {/if}
+  {#if !!errorText}
+    <div class="bx--form-requirement">{errorText}</div>
+  {/if}
 
   <StructuredList condensed flush>
     <StructuredListBody>
       {#each images as item, index}
-        <StructuredListRow class="image-upload-field-box-list-item">
+        <StructuredListRow class="image-upload-input-box-list-item">
           <StructuredListCell>
             <div class="image-wrapper">
               <img class="image" src={item} alt={[label, index].join("_")} />
             </div>
           </StructuredListCell>
           <StructuredListCell noWrap>
-            <SortButtonSet
-              value={images}
-              {index}
-              on:change={handleSortChange}
-            />
+            {#if multiple}
+              <SortButtonSet
+                value={images}
+                {index}
+                on:change={handleSortChange}
+              />
+            {/if}
             <Button
               size="small"
               icon={TrashCan16}
@@ -146,7 +157,24 @@
     border-radius: 2px;
   }
 
-  .image-upload-field :global(.bx--structured-list) {
+  .image-upload-input :global(.bx--structured-list) {
+    margin-bottom: 0;
+  }
+
+  .bx--form-requirement {
+    display: block;
+    max-height: none;
+    color: var(--danger-01);
+  }
+
+  .image-upload-input
+    :global(.bx--file[data-invalid] .bx--file__drop-container) {
+    outline: 2px solid var(--danger-01);
+    outline-offset: -2px;
+    color: var(--danger-01);
+  }
+
+  .image-upload-input :global(.bx--file-browse-btn) {
     margin-bottom: 0;
   }
 </style>

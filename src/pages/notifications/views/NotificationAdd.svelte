@@ -1,12 +1,12 @@
 <script lang="ts">
   import { toast } from "@zerodevx/svelte-toast";
-  import { snakeCase } from "change-case-object";
   import { navigate } from "svelte-navigator";
   import { Grid, Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import { CreateNotiRequest, NotificationsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
+  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import NotificationForm from "./components/NotificationForm.svelte";
   import { formStore } from "../models/schema";
@@ -25,9 +25,9 @@
         return;
       }
       await notificationApi.notificationsCreate({
-        createNotiRequest: snakeCase(
+        createNotiRequest: convertToSnakeCase<CreateNotiRequest>(
           $formStore.fields,
-        ) as unknown as CreateNotiRequest,
+        ),
       });
       toast.push("푸시알림이 등록되었습니다.");
       navigate(-1);

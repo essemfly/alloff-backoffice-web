@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
+  import { onMount } from "svelte";
   import {
     Row,
     Column,
@@ -13,31 +13,27 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { Exhibition, ExhibitionsApi, ItemTypeEnum } from "@api";
-  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import { Exhibition, ExhibitionsApi } from "@api";
+  import { AutocompleteField } from "@app/components/form";
+  import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
 
   import { HometabItemType } from "../../constants";
-
-  interface HometabExhibitionsSectionValue {
-    exhibitions: Exhibition[];
-  }
-
-  export let value: HometabExhibitionsSectionValue;
+  import { formStore, schema } from "../../models/schema";
 
   let exhibitions: Exhibition[] = [];
-  let filteredExhibitions: AutocompleteItem[] = [];
+  let exhibitionOptions: AutocompleteItem[] = [];
   let selectedExhibitions: Exhibition[] = [];
 
-  const dispatch = createEventDispatcher();
   const exhibitionApi = new ExhibitionsApi();
 
   onMount(async () => {
-    selectedExhibitions = value.exhibitions ?? [];
-
     const res = await exhibitionApi.exhibitionsList();
     exhibitions = res.data.exhibitions;
-    filteredExhibitions = exhibitions.map(
+    selectedExhibitions = exhibitions.filter(({ exhibition_id }) =>
+      $formStore.fields.contents.brandKeynames?.includes(exhibition_id),
+    );
+    exhibitionOptions = exhibitions.map(
       ({ exhibition_id, title, subtitle }) => ({
         key: exhibition_id,
         label: title,
@@ -51,7 +47,17 @@
     const selectedExhibition = exhibitions.find(
       ({ exhibition_id }) => exhibition_id === event.detail?.value,
     )!;
-    selectedExhibitions = [...selectedExhibitions, selectedExhibition];
+    if (selectedExhibition) {
+      selectedExhibitions = [...selectedExhibitions, selectedExhibition];
+      formStore.update({
+        contents: {
+          ...$formStore.fields.contents,
+          exhibitionIds: selectedExhibitions.map(
+            ({ exhibition_id }) => exhibition_id,
+          ),
+        },
+      });
+    }
   };
 
   const handleDeleteClick = (index: number) => async (event: MouseEvent) => {
@@ -59,31 +65,32 @@
     const newValue = selectedExhibitions.slice();
     newValue.splice(index, 1);
     selectedExhibitions = newValue;
+    formStore.update({
+      contents: {
+        ...$formStore.fields.contents,
+        exhibitionIds: selectedExhibitions.map(
+          ({ exhibition_id }) => exhibition_id,
+        ),
+      },
+    });
   };
 
   const handleDetailOpen = (exhibitionId: string) => () => {
     window.open(`/hometab/exhibitions/${exhibitionId}`, "_blank"); // todo: not use window.open
   };
-
-  $: if (selectedExhibitions) {
-    dispatch("change", {
-      item_type: ItemTypeEnum.Exhibitions,
-      exhibition_ids: selectedExhibitions.map(
-        ({ exhibition_id }) => exhibition_id,
-      ),
-    });
-  }
 </script>
 
 <ContentBox title={`${HometabItemType.Exhibitions} 정보`}>
   <h4>기획전 선택</h4>
   <Row>
     <Column>
-      <Autocomplete
-        options={filteredExhibitions}
+      <AutocompleteField
+        schema={schema.fields.contents.fields.exhibitionIds
+          .required()
+          .meta({ placeholder: "기획전 이름/ID로 검색" })}
+        options={exhibitionOptions}
+        errorText={$formStore.errors.contents?.exhibitionIds}
         on:select={handleExhibitionChange}
-        placeholder="기획전 이름/ID로 검색"
-        labelText="기획전 검색"
       />
     </Column>
   </Row>

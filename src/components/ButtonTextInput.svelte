@@ -19,6 +19,7 @@
   export let buttonText: string = "";
   export let placeholder: string = "";
   export let kind: ButtonKind = "secondary";
+  export let disabled: boolean = false;
 
   const handleKeydown = debounce((event: KeyboardEvent) => {
     if (event.key === "Enter") {
@@ -43,8 +44,9 @@
     {placeholder}
     bind:value
     on:keydown={handleKeydown}
+    {disabled}
   />
-  <Button {kind} on:click={handleButtonClick}>{buttonText}</Button>
+  <Button {kind} on:click={handleButtonClick} {disabled}>{buttonText}</Button>
 </div>
 
 <style>

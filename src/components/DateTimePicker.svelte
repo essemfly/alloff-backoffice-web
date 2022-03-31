@@ -6,8 +6,12 @@
     DatePickerInput,
   } from "carbon-components-svelte";
 
-  export let label: string;
-  export let value: string;
+  export let label: string = "";
+  export let value: string | undefined = undefined;
+  export let size: "sm" | "xl" | undefined = undefined;
+  export let disabled: boolean = false;
+
+  let timeInputRef: HTMLInputElement | null | undefined;
 
   const parseDate = (originDate: string) => {
     if (!value) {
@@ -25,7 +29,7 @@
     return undefined;
   };
 
-  const dateTimeValue = parseDate(value);
+  const dateTimeValue = parseDate(value ?? "");
 
   let dateValue = dateTimeValue?.toISODate();
   let timeValue = dateTimeValue?.toFormat("HH:mm");
@@ -45,17 +49,21 @@
     value = _newDateTime;
   }
 
-  const handleFocus = (event: FocusEvent & { target: HTMLInputElement }) => {
-    const { value } = event.target;
+  const handleFocus = (event: FocusEvent) => {
+    const { value } = event.target as HTMLInputElement;
     timeValue = value.replace(":", "");
   };
 
-  const handleBlur = (event: FocusEvent & { target: HTMLInputElement }) => {
-    const { value } = event.target;
+  const handleBlur = (event: FocusEvent) => {
+    const { value } = event.target as HTMLInputElement;
     if (value.length > 2) {
       const [hh, mm] = value.match(/.{1,2}/g) as string[];
       timeValue = [hh, mm].join(":");
     }
+  };
+
+  const handleDateChange = () => {
+    timeInputRef?.focus();
   };
 </script>
 
@@ -66,8 +74,11 @@
       datePickerType="single"
       bind:value={dateValue}
       dateFormat="Y-m-d"
+      on:change={handleDateChange}
     >
       <DatePickerInput
+        {size}
+        {disabled}
         hideLabel
         labelText={"날짜"}
         placeholder="yyyy-mm-dd"
@@ -75,6 +86,8 @@
       />
     </DatePicker>
     <TimePicker
+      bind:ref={timeInputRef}
+      {size}
       hideLabel
       labelText={"시간 (24시간 형식)"}
       placeholder="hh:mm"
@@ -82,6 +95,7 @@
       invalid={isTouched && !isValid}
       on:focus={handleFocus}
       on:blur={handleBlur}
+      {disabled}
     />
   </div>
   {#if isTouched && !isValid}

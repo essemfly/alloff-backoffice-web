@@ -4,12 +4,12 @@
   import { Button, Grid } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { CreateProductRequestApiRequest, Product, ProductsApi } from "@api";
+  import { CreateProductRequestApiRequest, ProductsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
+  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import ProductForm from "./components/ProductForm.svelte";
   import { formStore } from "../models/schema";
-  import { snakeCase } from "change-case-object";
 
   let isSubmitting = false;
 
@@ -27,9 +27,8 @@
         return;
       }
       await productApi.productsCreate({
-        createProductRequestApiRequest: snakeCase(
-          $formStore.fields,
-        ) as unknown as CreateProductRequestApiRequest,
+        createProductRequestApiRequest:
+          convertToSnakeCase<CreateProductRequestApiRequest>($formStore.fields),
       });
       toast.push("상품 등록이 완료되었습니다.");
       navigate(-1);

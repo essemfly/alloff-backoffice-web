@@ -50,6 +50,7 @@ export const schema = object({
     .default([]),
   moduleName: string(),
   rawHtml: string().nullable(),
+  productUrl: string().label("상품 URL").nullable(),
 });
 
 export type FormSchema = InferType<typeof schema>;

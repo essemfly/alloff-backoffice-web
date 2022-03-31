@@ -85,6 +85,11 @@
   };
 
   $: matches = findMatches(options, searchQuery);
+
+  $: if (value) {
+    const selectedItem = options.find((x) => x.value === value);
+    searchQuery = selectedItem?.label ?? "";
+  }
 </script>
 
 <div {id} class="svelte-autocomplete">
