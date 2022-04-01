@@ -132,9 +132,9 @@
     </Column>
     <Column>
       <TextField
-        schema={schema.fields.productId}
-        errorText={$formStore.errors.productId}
-        bind:value={$formStore.fields.productId}
+        schema={schema.fields.productUrl}
+        errorText={$formStore.errors.productUrl}
+        bind:value={$formStore.fields.productUrl}
       />
     </Column>
   </Row>
