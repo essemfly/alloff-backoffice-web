@@ -242,6 +242,7 @@
     <StructuredListHead>
       <StructuredListRow>
         <StructuredListCell head>Title</StructuredListCell>
+        <StructuredListCell head>Products</StructuredListCell>
         <StructuredListCell head>Actions</StructuredListCell>
       </StructuredListRow>
     </StructuredListHead>
@@ -255,6 +256,18 @@
         <StructuredListRow>
           <StructuredListCell>
             {section.title}
+          </StructuredListCell>
+          <StructuredListCell>
+            {#if section.products.length > 0}
+              <span>
+                {section.products[0].product.alloff_name}
+                {#if section.products.length > 1}
+                  외 {section.products.length - 1}개의 상품
+                {/if}
+              </span>
+            {:else}
+              No products
+            {/if}
           </StructuredListCell>
           <StructuredListCell>
             <Button

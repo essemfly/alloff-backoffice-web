@@ -147,8 +147,9 @@
       <StructuredList condensed selection flush>
         <StructuredListHead>
           <StructuredListRow head>
-            <StructuredListCell head>짧은타이틀</StructuredListCell>
-            <StructuredListCell head>타이틀</StructuredListCell>
+            <StructuredListCell head>Short title</StructuredListCell>
+            <StructuredListCell head>Title</StructuredListCell>
+            <StructuredListCell head>Products</StructuredListCell>
             <StructuredListCell head>Actions</StructuredListCell>
           </StructuredListRow>
         </StructuredListHead>
@@ -170,6 +171,18 @@
               </StructuredListCell>
               <StructuredListCell noWrap>
                 {section.title}
+              </StructuredListCell>
+              <StructuredListCell>
+                {#if section.products.length > 0}
+                  <span>
+                    {section.products[0].product.alloff_name}
+                    {#if section.products.length > 1}
+                      외 {section.products.length - 1}개의 상품
+                    {/if}
+                  </span>
+                {:else}
+                  No products
+                {/if}
               </StructuredListCell>
               <StructuredListCell>
                 <Row padding>
