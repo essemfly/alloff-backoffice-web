@@ -1,5 +1,6 @@
 <script lang="ts">
   import { toast } from "@zerodevx/svelte-toast";
+  import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
@@ -13,6 +14,10 @@
   let isSubmitting = false;
 
   const bannerApi = new TopBannersApi();
+
+  onMount(() => {
+    formStore.initialize();
+  });
 
   const handleSubmit = async (event: MouseEvent) => {
     isSubmitting = true;

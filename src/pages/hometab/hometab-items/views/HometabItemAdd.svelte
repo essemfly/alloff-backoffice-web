@@ -1,5 +1,6 @@
 <script lang="ts">
   import { toast } from "@zerodevx/svelte-toast";
+  import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
@@ -11,6 +12,10 @@
   import { formStore } from "../models/schema";
 
   const hometabApi = new HometabsApi();
+
+  onMount(() => {
+    formStore.initialize();
+  });
 
   const handleSubmit = async (event: MouseEvent) => {
     try {

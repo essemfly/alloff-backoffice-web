@@ -1,5 +1,6 @@
 <script lang="ts">
   import { toast } from "@zerodevx/svelte-toast";
+  import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import { Grid, Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
@@ -14,6 +15,10 @@
   let isSubmitting = false;
 
   const notificationApi = new NotificationsApi();
+
+  onMount(() => {
+    formStore.initialize();
+  });
 
   const handleSubmit = async (event: MouseEvent) => {
     isSubmitting = true;

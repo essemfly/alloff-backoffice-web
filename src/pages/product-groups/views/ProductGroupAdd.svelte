@@ -23,6 +23,7 @@
   const productGroupApi = new ProductGroupsApi();
 
   onMount(() => {
+    formStore.initialize();
     formStore.update({ groupType: productGroupType });
   });
 
