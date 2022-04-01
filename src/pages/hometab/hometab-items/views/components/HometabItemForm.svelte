@@ -24,10 +24,6 @@
     value: ItemTypeEnum[key as keyof typeof ItemTypeEnum],
   }));
 
-  onMount(() => {
-    formStore.initialize();
-  });
-
   $: itemType = $formStore.fields.contents.itemType;
 </script>
 

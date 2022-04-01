@@ -42,6 +42,7 @@
 
   const handleSubmit = async () => {
     try {
+      isSubmitting = true;
       const isValid = await formStore.validate($formStore.fields, {
         context: { isAdding: true },
       });
@@ -57,6 +58,8 @@
       navigate(-1);
     } catch (e) {
       toast.push(`브랜드 등록에 오류가 발생했습니다.`);
+    } finally {
+      isSubmitting = false;
     }
   };
 </script>
