@@ -3,7 +3,7 @@ import { array, boolean, InferType, number, object, string } from "yup";
 import { Form, useForm } from "@app/helpers/useForm";
 
 export const schema = object({
-  alloffProductId: string().label("상품 ID").required(),
+  alloffProductId: string().label("상품 ID"),
   // .when("$isAdding", ([isAdding], schema) => {
   //   console.log(isAdding, schema);
   //   return isAdding ? schema.notRequired() : schema.required();
