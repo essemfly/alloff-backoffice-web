@@ -325,7 +325,7 @@
     <Tab label="등록된 기획전 섹션" />
     <svelte:fragment slot="content">
       <TabContent>
-        <ExhibitionSectionForm {productInGroups} />
+        <ExhibitionSectionForm bind:productInGroups isAdding />
         <div class="button-right-wrapper">
           <Button on:click={handleProductGroupSubmit} disabled={isSubmitting}>
             기획전 섹션 추가{isSubmitting ? "중..." : ""}
