@@ -7,7 +7,7 @@ export {
 } from "@app/pages/product-groups/models/schema";
 
 export const schema = object({
-  exhibitionId: string().label("기획전 ID").required(),
+  exhibitionId: string().label("기획전 ID"),
   title: string().label("제목").required(),
   subtitle: string().label("부제목").required(),
   description: string().label("설명").required(),
