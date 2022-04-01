@@ -1,4 +1,4 @@
-import { groupBy, mergeWith } from "lodash";
+import { mergeWith } from "lodash";
 import { writable, Writable } from "svelte/store";
 import { AnyObjectSchema } from "yup";
 
