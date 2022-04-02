@@ -69,10 +69,8 @@
     handleSearch();
   };
 
-  const handleBrandChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    const brandId = event.detail.value?.key ?? "";
+  const handleBrandChange = (event: CustomEvent<AutocompleteItem>) => {
+    const brandId = event.detail.key ?? "";
     searchFilter = {
       ...searchFilter,
       brandId,
