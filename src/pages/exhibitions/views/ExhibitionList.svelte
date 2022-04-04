@@ -95,7 +95,7 @@
     } else if (type === ExhibitionTypeEnum.Groupdeal) {
       navigate(`/groupdeals/${event.detail.id}`);
     } else {
-      navigate(`/hometab/exhibitions/${event.detail.id}`);
+      navigate(`/exhibitions/${event.detail.id}`);
     }
   };
 

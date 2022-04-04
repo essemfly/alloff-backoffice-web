@@ -16,9 +16,9 @@
     formatQueryString,
     parseQueryString,
   } from "@app/helpers/query-string";
-
-  import { exhibitionColumns } from "./components/exhibitionSectionColumns";
   import Pagination from "@app/components/Pagination.svelte";
+
+  import { productGroupColumns } from "./components/productGroupColumns";
 
   let productGroups: DataTableData<ProductGroup>[] = [];
   let searchFilter: SearchQueryParam & { totalItems: number } = {
@@ -73,7 +73,7 @@
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
-    navigate("/hometab/exhibitions/sections/add");
+    navigate("/product-groups/add");
   };
 
   const handleRowClick = (event: CustomEvent<DataTableData<ProductGroup>>) => {
@@ -99,7 +99,7 @@
   />
   <DataTable
     data={productGroups}
-    columns={exhibitionColumns}
+    columns={productGroupColumns}
     on:click:row={handleRowClick}
   />
   <div class="button-right-wrapper mt10">

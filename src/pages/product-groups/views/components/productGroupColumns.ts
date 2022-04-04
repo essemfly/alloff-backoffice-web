@@ -2,7 +2,7 @@ import { ProductGroup } from "@api";
 import { DataTableColumn } from "@app/components/DataTable/helpers";
 import { formatDate } from "@app/helpers/date";
 
-export const exhibitionColumns: DataTableColumn<ProductGroup>[] = [
+export const productGroupColumns: DataTableColumn<ProductGroup>[] = [
   {
     key: "short_title",
     name: "짧은 타이틀",

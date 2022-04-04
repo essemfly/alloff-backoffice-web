@@ -34,7 +34,7 @@
   };
 
   const handleDetailOpen = (exhibitionId: string) => () => {
-    window.open(`/hometab/exhibitions/${exhibitionId}`, "_blank"); // todo: not use window.open
+    window.open(`/exhibitions/${exhibitionId}`, "_blank"); // todo: not use window.open
   };
 </script>
 

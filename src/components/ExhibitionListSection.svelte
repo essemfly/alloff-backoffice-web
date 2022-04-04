@@ -116,7 +116,7 @@
   }
 
   const handleDetailOpen = (exhibitionId: string) => () => {
-    window.open(`/hometab/exhibitions/${exhibitionId}`, "_blank"); // todo: not use window.open
+    window.open(`/exhibitions/${exhibitionId}`, "_blank"); // todo: not use window.open
   };
 
   const handleSearch = async (offset: number) => {
@@ -234,7 +234,6 @@
                     kind="danger"
                     on:click={handleDeselect(index)}
                   />
-
                   <Button
                     tooltipPosition="bottom"
                     tooltipAlignment="end"
