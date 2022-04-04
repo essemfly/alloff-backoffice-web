@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { FormGroup, InlineLoading } from "carbon-components-svelte";
 
-  import { ExhibitionsApi } from "@api";
+  import { ExhibitionsApi, ExhibitionTypeEnum } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
@@ -26,7 +26,9 @@
   const load = async () => {
     isLoading = true;
     try {
-      const res = await exhibitionApi.exhibitionsList();
+      const res = await exhibitionApi.exhibitionsList({
+        exhibitionType: ExhibitionTypeEnum.Normal,
+      });
       exhibitions = res.data.exhibitions.map(
         ({ exhibition_id, title, subtitle }) => ({
           key: exhibition_id,

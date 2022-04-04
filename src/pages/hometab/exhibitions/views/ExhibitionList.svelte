@@ -6,6 +6,7 @@
     Exhibition,
     ExhibitionsApi,
     ExhibitionsApiExhibitionsListRequest as SearchQueryParam,
+    ExhibitionTypeEnum,
   } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import {
@@ -20,7 +21,11 @@
   import { debounce } from "lodash";
 
   let exhibitions: DataTableData<Exhibition>[] = [];
-  let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
+  let searchFilter: SearchQueryParam = {
+    offset: 0,
+    limit: 50,
+    exhibitionType: ExhibitionTypeEnum.Normal,
+  };
   let isLoading = false;
   let totalItems = 0;
 
