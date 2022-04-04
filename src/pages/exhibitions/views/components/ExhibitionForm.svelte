@@ -1,10 +1,10 @@
 <script lang="ts">
+  import { DateTime } from "luxon";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import {
     Row,
     Column,
-    TextInput,
     Button,
     StructuredList,
     StructuredListBody,
@@ -14,7 +14,7 @@
     Tabs,
     Tab,
     TabContent,
-    TextArea,
+    FormGroup,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
@@ -24,44 +24,45 @@
   import DownToBottom16 from "carbon-icons-svelte/lib/DownToBottom16";
 
   import {
-    Exhibition,
     ProductGroup,
     ProductGroupsApi,
     GroupTypeEnum,
+    ProductInGroup,
   } from "@api";
+  import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
-  import DateTimePicker from "@app/components/DateTimePicker.svelte";
-  import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import Dot from "@app/components/Dot.svelte";
+  import {
+    DateTimeField,
+    ImageUploadField,
+    TextAreaField,
+    TextField,
+  } from "@app/components/form";
+  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import ExhibitionSectionForm from "./ExhibitionSectionForm.svelte";
   import ExhibitionSectionSearchSection from "./ExhibitionSectionSearchSection.svelte";
+  import { formStore, schema, sectionFormStore } from "../../models/schema";
 
-  export let form: Exhibition & { pg_ids: string[] };
   export let isAdding: boolean = false;
+  export let label: string = "기획전";
 
   let exhibitionSections: ProductGroup[] = [];
   let selectedExhibitionSections: ProductGroup[] = [];
   let selectedExhibitionSectionIds: string[] = [];
+  let productInGroups: ProductInGroup[] = [];
+  let isSubmitting = false;
 
-  let tempProductGroup: ProductGroup = {
-    title: "",
-    short_title: "",
-    image_url: "",
-    start_time: form.start_time,
-    finish_time: form.finish_time,
-    product_group_id: "",
-    products: [],
-    instruction: [],
-    group_type: GroupTypeEnum.Exhibition,
-  };
+  const productGroupApi = new ProductGroupsApi();
 
   onMount(async () => {
-    selectedExhibitionSections = form.pgs ?? [];
+    selectedExhibitionSections = $formStore.fields.pgs ?? [];
     selectedExhibitionSectionIds = selectedExhibitionSections.map(
       ({ product_group_id }) => product_group_id,
     );
   });
+
+  console.log($formStore.fields.exhibitionType, $formStore.fields);
 
   const handleExhibitionSectionSelect = (event: CustomEvent<ProductGroup>) => {
     const section = event.detail;
@@ -72,7 +73,7 @@
 
   const handleExhibitionSectionAdd = (selectedItem?: AutocompleteItem) => {
     const exhibitionSection = exhibitionSections.find(
-      ({ product_group_id }) => product_group_id === selectedItem?.key,
+      ({ product_group_id }) => product_group_id === selectedItem?.value,
     );
     if (exhibitionSection) {
       selectedExhibitionSections = [
@@ -92,26 +93,43 @@
     selectedExhibitionSectionIds = selectedExhibitionSections.map(
       ({ product_group_id }) => product_group_id,
     );
-    form.pg_ids = selectedExhibitionSectionIds;
+    formStore.update({ pgIds: selectedExhibitionSectionIds });
   }
 
-  const handleProductGroupSubmit = async () => {
+  const handleProductGroupSubmit = async (event: MouseEvent) => {
+    event.preventDefault();
+    if (isSubmitting) {
+      return;
+    }
+
     try {
-      const productGroupApi = new ProductGroupsApi();
-      const { products, ...requestBody } = tempProductGroup;
+      isSubmitting = true;
+      const formData = {
+        ...$sectionFormStore.fields,
+        groupType: GroupTypeEnum.Exhibition,
+        startTime: $formStore.fields.startTime
+          ? $formStore.fields.startTime
+          : DateTime.now().toISO(),
+        finishTime: $formStore.fields.finishTime
+          ? $formStore.fields.finishTime
+          : DateTime.now().toISO(),
+      };
+      const isValid = await sectionFormStore.validate(formData, {
+        context: { isAdding: true },
+      });
+      if (!isValid) {
+        toast.push("일부 항목값이 올바르지 않습니다.");
+        return;
+      }
       const res = await productGroupApi.productGroupsCreate({
-        createProductGroupSeriazlierRequest: {
-          ...requestBody,
-          start_time: form.start_time,
-          finish_time: form.finish_time,
-        },
+        createProductGroupSeriazlierRequest: convertToSnakeCase(formData),
       });
       const newProductGroup = res.data;
       await productGroupApi.productGroupsPushProductsCreate({
         id: newProductGroup.product_group_id,
         pushProductsRequest: {
           product_group_id: newProductGroup.product_group_id,
-          product_priority: products.map(({ product, priority }) => ({
+          product_priority: productInGroups.map(({ product, priority }) => ({
             product_id: product.alloff_product_id,
             priority,
           })),
@@ -123,21 +141,13 @@
       ];
       handleExhibitionSectionAdd({
         key: newProductGroup.product_group_id,
-        value: newProductGroup.title,
+        label: newProductGroup.title,
+        value: newProductGroup.product_group_id,
       });
-      tempProductGroup = {
-        title: "",
-        short_title: "",
-        image_url: "",
-        start_time: form.start_time,
-        finish_time: form.finish_time,
-        product_group_id: "",
-        products: [],
-        instruction: [],
-        group_type: GroupTypeEnum.Exhibition,
-      };
     } catch (e) {
       toast.push(`기획전 섹션 등록에 오류가 발생했습니다.`);
+    } finally {
+      isSubmitting = false;
     }
   };
 
@@ -164,55 +174,78 @@
   };
 </script>
 
-<ContentBox title="기획전 정보">
+<ContentBox title={`${label} 정보`}>
+  <div class="button-right-wrapper">
+    <Dot label="필수 입력 사항" />
+  </div>
   {#if !isAdding}
-    <Row padding>
-      <Column>
-        <TextInput labelText={"ID"} bind:value={form.exhibition_id} readonly />
-      </Column>
-    </Row>
+    <FormGroup>
+      <TextField
+        schema={schema.fields.exhibitionId}
+        value={$formStore.fields.exhibitionId}
+        readonly
+      />
+    </FormGroup>
   {/if}
+  <FormGroup>
+    <ImageUploadField
+      schema={schema.fields.bannerImage}
+      bind:value={$formStore.fields.bannerImage}
+      errorText={$formStore.errors.bannerImage}
+    />
+  </FormGroup>
+  <FormGroup>
+    <ImageUploadField
+      schema={schema.fields.thumbnailImage}
+      bind:value={$formStore.fields.thumbnailImage}
+      errorText={$formStore.errors.thumbnailImage}
+    />
+  </FormGroup>
+  <FormGroup>
+    <TextField
+      schema={schema.fields.title}
+      bind:value={$formStore.fields.title}
+      errorText={$formStore.errors.title}
+    />
+  </FormGroup>
+  <FormGroup>
+    <TextField
+      schema={schema.fields.subtitle}
+      bind:value={$formStore.fields.subtitle}
+      errorText={$formStore.errors.subtitle}
+    />
+  </FormGroup>
+  <FormGroup>
+    <TextAreaField
+      schema={schema.fields.description}
+      bind:value={$formStore.fields.description}
+      errorText={$formStore.errors.description}
+    />
+  </FormGroup>
   <Row padding>
     <Column>
-      <ImageUploadField label={"배너 이미지"} bind:value={form.banner_image} />
-    </Column>
-    <Column>
-      <ImageUploadField
-        label={"썸네일 이미지"}
-        bind:value={form.thumbnail_image}
+      <DateTimeField
+        schema={schema.fields.startTime}
+        bind:value={$formStore.fields.startTime}
+        errorText={$formStore.errors.startTime}
       />
     </Column>
-  </Row>
-  <Row padding>
     <Column>
-      <TextInput labelText={"타이틀"} bind:value={form.title} />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <TextInput labelText={"서브 타이틀"} bind:value={form.subtitle} />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <TextArea labelText={"상세"} bind:value={form.description} />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <DateTimePicker label={"시작일"} bind:value={form.start_time} />
-    </Column>
-    <Column>
-      <DateTimePicker label={"종료일"} bind:value={form.finish_time} />
+      <DateTimeField
+        schema={schema.fields.finishTime}
+        bind:value={$formStore.fields.finishTime}
+        errorText={$formStore.errors.finishTime}
+      />
     </Column>
   </Row>
 </ContentBox>
 
-<ContentBox title="기획전 섹션 목록">
+<ContentBox title={`${label} 섹션 목록`}>
   <StructuredList>
     <StructuredListHead>
       <StructuredListRow>
         <StructuredListCell head>Title</StructuredListCell>
+        <StructuredListCell head>Products</StructuredListCell>
         <StructuredListCell head>Actions</StructuredListCell>
       </StructuredListRow>
     </StructuredListHead>
@@ -226,6 +259,18 @@
         <StructuredListRow>
           <StructuredListCell>
             {section.title}
+          </StructuredListCell>
+          <StructuredListCell>
+            {#if section.products.length > 0}
+              <span>
+                {section.products[0].product.alloff_name}
+                {#if section.products.length > 1}
+                  외 {section.products.length - 1}개의 상품
+                {/if}
+              </span>
+            {:else}
+              No products
+            {/if}
           </StructuredListCell>
           <StructuredListCell>
             <Button
@@ -289,16 +334,18 @@
   </StructuredList>
 </ContentBox>
 
-<ContentBox title="기획전 섹션">
+<ContentBox title={`${label} 섹션`}>
   <h4>기획전 섹션</h4>
   <Tabs>
-    <Tab label="새로운 기획전 섹션" />
-    <Tab label="등록된 기획전 섹션" />
+    <Tab label="새로운 섹션" />
+    <Tab label="등록된 섹션" />
     <svelte:fragment slot="content">
       <TabContent>
-        <ExhibitionSectionForm bind:form={tempProductGroup} />
+        <ExhibitionSectionForm bind:productInGroups isAdding />
         <div class="button-right-wrapper">
-          <Button on:click={handleProductGroupSubmit}>기획전 섹션 추가</Button>
+          <Button on:click={handleProductGroupSubmit} disabled={isSubmitting}>
+            섹션 추가{isSubmitting ? "중..." : ""}
+          </Button>
         </div>
       </TabContent>
       <TabContent>

@@ -1,48 +1,39 @@
 <script lang="ts">
-  import { CreateProductRequestApiRequest,Product,ProductsApi } from "@api";
-  import Nav from "@app/components/Nav.svelte";
   import { toast } from "@zerodevx/svelte-toast";
-  import { Button,Grid } from "carbon-components-svelte";
-  import Save16 from "carbon-icons-svelte/lib/Save16";
+  import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
-  import ProductForm from "./components/ProductForm.svelte";
+  import { Button, Grid } from "carbon-components-svelte";
+  import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  // let isTouched = true;
-  let product: Product = {
-    alloff_product_id: "",
-    alloff_category_id: "",
-    alloff_name: "",
-    product_id: "",
-    brand_kor_name: "",
-    category_name: "",
-    alloff_category_name: "",
-    is_foreign_delivery: true,
-    is_refund_possible: true,
-    is_removed: false,
-    is_soldout: false,
-    original_price: 0,
-    discounted_price: 0,
-    special_price: 0,
-    earliest_delivery_days: 2,
-    latest_delivery_days: 7,
-    refund_fee: 0,
-    total_score: 0,
-    description: [],
-    images: [],
-    description_images: [],
-    inventory: [],
-    module_name: "",
-  };
+  import { CreateProductRequestApiRequest, ProductsApi } from "@api";
+  import Nav from "@app/components/Nav.svelte";
+  import { convertToSnakeCase } from "@app/helpers/change-case";
+
+  import ProductForm from "./components/ProductForm.svelte";
+  import { formStore } from "../models/schema";
 
   let isSubmitting = false;
 
-  const handleSubmit = async () => {
+  const productApi = new ProductsApi();
+
+  onMount(() => {
+    formStore.initialize();
+  });
+
+  const handleSubmit = async (event: MouseEvent) => {
     isSubmitting = true;
     try {
-      const productApi = new ProductsApi();
-      const res = await productApi.productsCreate({
+      event.preventDefault();
+      const isValid = await formStore.validate($formStore.fields, {
+        context: { isAdding: true },
+      });
+      if (!isValid) {
+        toast.push("일부 항목값이 올바르지 않습니다.");
+        return;
+      }
+      await productApi.productsCreate({
         createProductRequestApiRequest:
-          product as unknown as CreateProductRequestApiRequest,
+          convertToSnakeCase<CreateProductRequestApiRequest>($formStore.fields),
       });
       toast.push("상품 등록이 완료되었습니다.");
       navigate(-1);
@@ -54,14 +45,14 @@
   };
 </script>
 
-<Nav title="상품 추가">
+<Nav title="상품 추가" loading={isSubmitting}>
   <Grid>
     <div class="button-right-wrapper mb10">
       <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
         {isSubmitting ? "상품 등록중..." : "상품 등록"}
       </Button>
     </div>
-    <ProductForm form={product} isAdding />
+    <ProductForm isAdding />
     <div class="button-right-wrapper mt10">
       <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
         {isSubmitting ? "상품 등록중..." : "상품 등록"}

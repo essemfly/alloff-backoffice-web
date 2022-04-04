@@ -1,15 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { navigate, useLocation } from "svelte-navigator";
-  import {
-    Button,
-    Checkbox,
-    Column,
-    FormGroup,
-    Grid,
-    Row,
-    Search,
-  } from "carbon-components-svelte";
+  import { Button, Column, Grid, Row, Search } from "carbon-components-svelte";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
   import {
@@ -30,7 +22,6 @@
 
   import ProductCard from "./components/ProductCard.svelte";
   import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
-  import { search } from "@app/pages/logistics/inventories/store";
 
   let products: Product[] = [];
   let searchFilter: SearchQueryParam = {
@@ -39,7 +30,7 @@
     searchQuery: "",
     brandId: "",
     alloffCategoryId: "",
-    // isClassifiedDone: false,
+    isClassifiedDone: false,
   };
   let totalItems = 0;
   let isLoading = false;
@@ -96,10 +87,8 @@
     handleSearch();
   };
 
-  const handleBrandChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    const brandId = event.detail.value?.key ?? "";
+  const handleBrandChange = (event: CustomEvent<AutocompleteItem>) => {
+    const brandId = event.detail.key ?? "";
     searchFilter = {
       ...searchFilter,
       brandId,
@@ -156,7 +145,7 @@
     <Row>
       <Column sm={1}>
         <p class="bx--label">브랜드</p>
-        <BrandSelect on:change={handleBrandChange} />
+        <BrandSelect size="lg" on:change={handleBrandChange} />
       </Column>
       <Column sm={1}>
         <p class="bx--label">카테고리</p>

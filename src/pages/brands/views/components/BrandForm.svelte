@@ -2,115 +2,132 @@
   import {
     Row,
     Column,
-    TextInput,
-    Toggle,
     Button,
     StructuredList,
     StructuredListHead,
     StructuredListRow,
     StructuredListCell,
     StructuredListBody,
+    TextInput,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
+  import {
+    TextField,
+    ToggleField,
+    ImageUploadField,
+  } from "@app/components/form";
   import ContentBox from "@app/components/ContentBox.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
 
-  export let form: any;
+  import { formStore, schema } from "../../models/schema";
+
   export let isAdding: boolean = false;
 
   let tempGuide = {
     label: "",
-    image_url: "",
+    imageUrl: "",
   };
 
   const handleSizeGuideAdd = () => {
-    form.size_guide.push(tempGuide);
-    form.size_guide = form.size_guide;
+    const sizeGuide = $formStore.fields.sizeGuide.slice(0);
+    sizeGuide.push(tempGuide);
+    formStore.update({ sizeGuide });
     tempGuide = {
       label: "",
-      image_url: "",
+      imageUrl: "",
     };
   };
 
   const handleSizeGuideRemove = (index: number) => () => {
-    const newSizeGuide = form.size_guide.slice();
-    newSizeGuide.splice(index, 1);
-    form.size_guide = newSizeGuide;
+    const sizeGuide = $formStore.fields.sizeGuide.slice(0);
+    sizeGuide.splice(index, 1);
+    formStore.update({ sizeGuide });
   };
 </script>
 
 <ContentBox title="기본 정보">
-  {#if !isAdding}
-    <Row padding>
-      <Column>
-        <TextInput labelText={"ID"} bind:value={form.item_id} readonly />
-      </Column>
-    </Row>
-  {/if}
   <Row padding>
     <Column>
-      <TextInput
-        labelText="브랜드 키네임"
-        bind:value={form.keyname}
+      <TextField
+        schema={schema.fields.keyname}
+        errorText={$formStore.errors.keyname}
+        bind:value={$formStore.fields.keyname}
         readonly={!isAdding}
       />
     </Column>
     <Column>
-      <TextInput labelText="브랜드명(한글)" bind:value={form.korname} />
-    </Column>
-    <Column>
-      <TextInput labelText="브랜드명(영문)" bind:value={form.engname} />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <TextInput labelText="설명" bind:value={form.description} />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <Toggle
-        labelText="인기있는 브랜드 여부"
-        labelA="No"
-        labelB="Yes"
-        bind:toggled={form.is_popular}
+      <TextField
+        schema={schema.fields.korname}
+        errorText={$formStore.errors.korname}
+        bind:value={$formStore.fields.korname}
       />
     </Column>
     <Column>
-      <Toggle
-        labelText="브랜드 오픈 여부"
+      <TextField
+        schema={schema.fields.engname}
+        errorText={$formStore.errors.engname}
+        bind:value={$formStore.fields.engname}
+      />
+    </Column>
+  </Row>
+  <Row padding>
+    <Column>
+      <TextField
+        schema={schema.fields.description}
+        errorText={$formStore.errors.description}
+        bind:value={$formStore.fields.description}
+      />
+    </Column>
+  </Row>
+  <Row padding>
+    <Column>
+      <ToggleField
+        schema={schema.fields.isPopular}
+        errorText={$formStore.errors.isPopular}
+        bind:value={$formStore.fields.isPopular}
+        labelA="No"
+        labelB="Yes"
+      />
+    </Column>
+    <Column>
+      <ToggleField
+        schema={schema.fields.isOpen}
+        errorText={$formStore.errors.isOpen}
+        bind:value={$formStore.fields.isOpen}
         labelA="Closed"
         labelB="Open"
-        bind:toggled={form.is_open}
       />
     </Column>
     <Column>
-      <Toggle
-        labelText="숨김처리 여부"
+      <ToggleField
+        schema={schema.fields.inMaintenance}
+        errorText={$formStore.errors.inMaintenance}
+        bind:value={$formStore.fields.inMaintenance}
         labelA="No"
         labelB="Yes"
-        bind:toggled={form.in_maintenance}
       />
     </Column>
   </Row>
   <Row padding>
     <Column>
       <ImageUploadField
-        label={"로고 이미지"}
-        bind:value={form.logo_image_url}
+        schema={schema.fields.logoImageUrl}
+        errorText={$formStore.errors.logoImageUrl}
+        bind:value={$formStore.fields.logoImageUrl}
       />
     </Column>
     <Column>
       <ImageUploadField
-        label={"배경 이미지"}
-        bind:value={form.back_image_url}
+        schema={schema.fields.backImageUrl}
+        errorText={$formStore.errors.backImageUrl}
+        bind:value={$formStore.fields.backImageUrl}
       />
     </Column>
   </Row>
 </ContentBox>
 <ContentBox title="사이즈 가이드">
-  <h4>가이드 영역 추가</h4>
+  <h4>가이드 추가</h4>
   <Row padding>
     <Column>
       <TextInput
@@ -120,9 +137,9 @@
       />
     </Column>
     <Column>
-      <ImageUploadField
-        label={"사이즈 가이드 이미지"}
-        bind:value={tempGuide.image_url}
+      <ImageUploadInput
+        label={"가이드 이미지"}
+        bind:value={tempGuide.imageUrl}
       />
     </Column>
   </Row>
@@ -132,6 +149,7 @@
     </Button>
   </div>
   <hr />
+  <h4>사이즈 가이드</h4>
   <Row>
     <Column>
       <StructuredList condensed>
@@ -143,19 +161,23 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {#if form.size_guide.length === 0}
+          {#if $formStore.fields.sizeGuide.length === 0}
             <StructuredListRow>
               <StructuredListCell>No size guides</StructuredListCell>
             </StructuredListRow>
           {/if}
-          {#each form.size_guide as guide, index}
+          {#each $formStore.fields.sizeGuide as guide, index}
             <StructuredListRow>
               <StructuredListCell noWrap>{guide.label}</StructuredListCell>
               <StructuredListCell>
                 <img
                   class="cell_image"
-                  src={guide.image_url}
-                  alt={["Size guide", form.keyname, guide.label].join("-")}
+                  src={guide.imageUrl}
+                  alt={[
+                    "Size guide",
+                    $formStore.fields.keyname,
+                    guide.label,
+                  ].join("-")}
                 />
               </StructuredListCell>
               <StructuredListCell>

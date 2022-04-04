@@ -12,6 +12,7 @@
     HeaderPanelLink,
     HeaderPanelLinks,
     HeaderUtilities,
+    Loading,
     SideNav,
     SideNavItems,
     SideNavLink,
@@ -41,6 +42,8 @@
 
   export let title: string = "";
   export let metaTags: MetaTagsProps = {};
+  export let loading: boolean = false;
+  export let loadingText: string = "Loading";
 
   let isSideNavOpen = false;
   let isUtilOpen = false;
@@ -84,27 +87,28 @@
                   path: "/hometab/banners",
                   icon: CarouselHorizontal16,
                 },
-                {
-                  label: "타임딜 목록",
-                  path: "/hometab/timedeals",
-                  icon: Timer16,
-                },
-                {
-                  label: "기획전 목록",
-                  path: "/hometab/exhibitions",
-                  icon: Catalog16,
-                },
-                {
-                  label: "기획전 섹션 목록",
-                  path: "/hometab/exhibitions/sections",
-                  icon: Template16,
-                },
               ],
             },
+            { label: "브랜드", path: "/brands", icon: Classification16 },
             {
               label: "푸시알림",
               path: "/notifications",
               icon: NotificationNew16,
+            },
+            {
+              label: "기획전 목록",
+              path: "/exhibitions",
+              icon: Catalog16,
+            },
+            {
+              label: "타임딜 목록",
+              path: "/timedeals",
+              icon: Timer16,
+            },
+            {
+              label: "그룹딜 목록",
+              path: "/groupdeals",
+              icon: Timer16,
             },
             {
               label: "물류",
@@ -127,7 +131,6 @@
                 },
               ],
             },
-            { label: "브랜드", path: "/brands", icon: Classification16 },
           ]
         : [{ label: "상품문의", path: "/inquiries", icon: PhoneIp16 }]),
     ];
@@ -157,6 +160,7 @@
   bind:isSideNavOpen
   persistentHamburgerMenu
 >
+  <Loading small description={loadingText} active={loading} />
   <div class="subtitle">
     {#if !isProd}
       <p class="dev">DEV</p>
