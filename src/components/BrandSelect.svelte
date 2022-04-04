@@ -23,7 +23,16 @@
   const brandsAPi = new BrandsApi();
   const dispatch = createEventDispatcher();
 
-  onMount(() => {
+  onMount(async () => {
+    const res = await brandsAPi.brandsList();
+    brands = res.data.map(({ brand_id, korname, keyname }) => ({
+      key: brand_id,
+      label: korname,
+      value: keyname,
+      subvalue: keyname,
+    }));
+    filteredBrands = brands.filter(({ value }) => !excludes.includes(value!));
+
     if (selectedBrandName) {
       selectedItem = brands.find((x) => x.label === selectedBrandName);
       value = selectedItem?.value ?? "";
@@ -35,17 +44,6 @@
     value = selectedItem?.value ?? "";
     dispatch("change", event.detail);
   };
-
-  onMount(async () => {
-    const res = await brandsAPi.brandsList();
-    brands = res.data.map(({ brand_id, korname, keyname }) => ({
-      key: brand_id,
-      label: korname,
-      value: keyname,
-      subvalue: keyname,
-    }));
-    filteredBrands = brands.filter(({ value }) => !excludes.includes(value!));
-  });
 
   $: if (selectedItem) {
     filteredBrands = brands.filter(({ value }) => !excludes.includes(value!));
