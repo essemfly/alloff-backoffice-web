@@ -10,13 +10,13 @@
   } from "@app/components/form";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
+  import ExhibitionListSection from "@app/components/ExhibitionListSection.svelte";
 
   import {
     NotificationType,
     NotificationTypeEnum,
   } from "../../models/Notification";
   import { formStore, schema } from "../../models/schema";
-  import ExhibitionListSection from "./ExhibitionListSection.svelte";
 
   let productGroupOptions: AutocompleteItem[] = [];
   let selectedExhibition: Exhibition;

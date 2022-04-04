@@ -19,7 +19,7 @@ export interface FormStore<T> {
 export interface Form<T> extends Writable<FormStore<T>> {
   validate: (fields: FormField<T>, options?: any) => Promise<boolean>;
   update: (changes: any) => void;
-  initialize: () => void;
+  initialize: (values?: any) => void;
 }
 
 export const useForm = <T>(
@@ -89,8 +89,8 @@ export const useForm = <T>(
     return returnValue;
   }
 
-  function initialize(): void {
-    _updateStore("fields", { ...defaultValues });
+  function initialize(values?: any): void {
+    _updateStore("fields", { ...defaultValues, ...(values ?? {}) });
     _updateStore("errors", {});
     // Object.keys(touched)
     //   .filter((field) => touched[field as keyof FormTouch<T>])

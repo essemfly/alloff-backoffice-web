@@ -1,22 +1,30 @@
 <script lang="ts">
   import { toast } from "@zerodevx/svelte-toast";
+  import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { CreateExhibitionRequest, ExhibitionsApi } from "@api";
+  import {
+    CreateExhibitionRequest,
+    ExhibitionsApi,
+    ExhibitionTypeEnum,
+  } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import ExhibitionForm from "./components/ExhibitionForm.svelte";
   import { formStore } from "../models/schema";
-  import { onMount } from "svelte";
+  import { getExhibitionTypeLabel } from "../commands/helpers";
 
+  export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
+
+  let exhibitionLabel = getExhibitionTypeLabel(type);
   let isSubmitting = false;
 
   const exhibitionApi = new ExhibitionsApi();
 
   onMount(() => {
-    formStore.initialize();
+    formStore.initialize({ exhibitionType: type });
   });
 
   const handleSubmit = async (event: MouseEvent) => {
@@ -35,24 +43,24 @@
           $formStore.fields,
         ),
       });
-      toast.push("기획전 등록이 완료되었습니다.");
+      toast.push(`${exhibitionLabel} 등록이 완료되었습니다.`);
       navigate(-1);
     } catch (e) {
-      toast.push(`기획전 등록에 오류가 발생했습니다.`);
+      toast.push(`${exhibitionLabel} 등록에 오류가 발생했습니다.`);
     } finally {
       isSubmitting = false;
     }
   };
 </script>
 
-<Nav title="기획전 추가">
-  <h1>기획전 추가</h1>
+<Nav title={`${exhibitionLabel} 추가`}>
+  <h1>{exhibitionLabel} 추가</h1>
   <div class="button-right-wrapper mb10">
     <Button on:click={handleSubmit} disabled={isSubmitting}>
       {isSubmitting ? "등록중..." : "등록"}
     </Button>
   </div>
-  <ExhibitionForm isAdding />
+  <ExhibitionForm label={exhibitionLabel} isAdding />
   <div class="button-right-wrapper mb10">
     <Button on:click={handleSubmit} disabled={isSubmitting}>
       {isSubmitting ? "등록중..." : "등록"}

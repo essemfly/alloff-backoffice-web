@@ -16,11 +16,13 @@
     InlineLoading,
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
+  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
   import {
     Exhibition,
     ExhibitionsApi,
     ExhibitionsApiExhibitionsListRequest,
+    ExhibitionTypeEnum,
   } from "@api";
   import { formatDate } from "@app/helpers/date";
 
@@ -36,10 +38,12 @@
   export let disabledIds: string[] = [];
   export let value: string | string[];
   export let multiple = false;
+  export let hideSelection = false;
 
   let params: SearchQueryParam = {
     offset: 0,
     limit: 10,
+    exhibitionType: ExhibitionTypeEnum.Normal,
     searchQuery: "",
     totalCount: 0,
   };
@@ -124,6 +128,7 @@
       const res = await exhibitionApi.exhibitionsList({
         offset,
         limit: params.limit,
+        exhibitionType: ExhibitionTypeEnum.Normal,
       });
 
       params = {
@@ -161,83 +166,93 @@
   };
 </script>
 
-<Row padding>
-  <Column>
-    <h4>선택된 기획전</h4>
-    <StructuredList condensed selection={selectedExhibitions.length > 0}>
-      <StructuredListHead>
-        <StructuredListRow head>
-          <StructuredListCell head>썸네일/배너 이미지</StructuredListCell>
-          <StructuredListCell head>타이틀/서브 타이틀</StructuredListCell>
-          <StructuredListCell head>시작일 - 종료일</StructuredListCell>
-          <StructuredListCell head>Actions</StructuredListCell>
-        </StructuredListRow>
-      </StructuredListHead>
-      <StructuredListBody>
-        {#if selectedExhibitions.length === 0}
-          <StructuredListRow>
-            <StructuredListCell>선택된 기획전 없음</StructuredListCell>
+{#if !hideSelection}
+  <Row padding>
+    <Column>
+      <h4>선택된 기획전</h4>
+      <StructuredList condensed flush>
+        <StructuredListHead>
+          <StructuredListRow head>
+            <StructuredListCell head>썸네일/배너 이미지</StructuredListCell>
+            <StructuredListCell head>타이틀/서브 타이틀</StructuredListCell>
+            <StructuredListCell head>시작일 - 종료일</StructuredListCell>
+            <StructuredListCell head>Actions</StructuredListCell>
           </StructuredListRow>
-        {/if}
-        {#each selectedExhibitions as exhibition}
-          <StructuredListRow
-            on:click={handleSelect(exhibition)}
-            disabled={disabledIds.includes(exhibition.exhibition_id)}
-          >
-            <StructuredListInput value={exhibition.exhibition_id} />
-            <StructuredListCell>
-              <img
-                class="cell_image selected"
-                src={exhibition.thumbnail_image}
-                alt={["exhibition_thumbnail", exhibition.title].join("-")}
-              />
-              <img
-                class="cell_image selected"
-                src={exhibition.banner_image}
-                alt={["exhibition_banner", exhibition.title].join("-")}
-              />
-            </StructuredListCell>
-            <StructuredListCell noWrap>
-              {exhibition.title}<br />
-              <small>{exhibition.subtitle}</small>
-            </StructuredListCell>
-            <StructuredListCell>
-              {formatDate(exhibition.start_time, {
-                month: "short",
-                day: "numeric",
-                weekday: "narrow",
-                hour: "numeric",
-                minute: "numeric",
-              })}<br />
-              -<br />
-              {formatDate(exhibition.finish_time, {
-                month: "short",
-                day: "numeric",
-                weekday: "narrow",
-                hour: "numeric",
-                minute: "numeric",
-              })}
-            </StructuredListCell>
-            <StructuredListCell>
-              <Row padding>
-                <Button
-                  tooltipPosition="bottom"
-                  tooltipAlignment="end"
-                  iconDescription="기획전 상세"
-                  icon={Launch16}
-                  kind="ghost"
-                  size="small"
-                  on:click={handleDetailOpen(exhibition.exhibition_id)}
+        </StructuredListHead>
+        <StructuredListBody>
+          {#if selectedExhibitions.length === 0}
+            <StructuredListRow>
+              <StructuredListCell>선택된 기획전 없음</StructuredListCell>
+            </StructuredListRow>
+          {/if}
+          {#each selectedExhibitions as exhibition, index}
+            <StructuredListRow
+              disabled={disabledIds.includes(exhibition.exhibition_id)}
+            >
+              <StructuredListInput value={exhibition.exhibition_id} />
+              <StructuredListCell>
+                <img
+                  class="cell_image selected"
+                  src={exhibition.thumbnail_image}
+                  alt={["exhibition_thumbnail", exhibition.title].join("-")}
                 />
-              </Row>
-            </StructuredListCell>
-          </StructuredListRow>
-        {/each}
-      </StructuredListBody>
-    </StructuredList>
-  </Column>
-</Row>
+                <img
+                  class="cell_image selected"
+                  src={exhibition.banner_image}
+                  alt={["exhibition_banner", exhibition.title].join("-")}
+                />
+              </StructuredListCell>
+              <StructuredListCell noWrap>
+                {exhibition.title}<br />
+                <small>{exhibition.subtitle}</small>
+              </StructuredListCell>
+              <StructuredListCell>
+                {formatDate(exhibition.start_time, {
+                  month: "short",
+                  day: "numeric",
+                  weekday: "narrow",
+                  hour: "numeric",
+                  minute: "numeric",
+                })}<br />
+                -<br />
+                {formatDate(exhibition.finish_time, {
+                  month: "short",
+                  day: "numeric",
+                  weekday: "narrow",
+                  hour: "numeric",
+                  minute: "numeric",
+                })}
+              </StructuredListCell>
+              <StructuredListCell>
+                <Row padding>
+                  <Button
+                    size="small"
+                    tooltipPosition="bottom"
+                    tooltipAlignment="end"
+                    iconDescription="삭제"
+                    icon={TrashCan16}
+                    kind="danger"
+                    on:click={handleDeselect(index)}
+                  />
 
+                  <Button
+                    tooltipPosition="bottom"
+                    tooltipAlignment="end"
+                    iconDescription="기획전 상세"
+                    icon={Launch16}
+                    kind="ghost"
+                    size="small"
+                    on:click={handleDetailOpen(exhibition.exhibition_id)}
+                  />
+                </Row>
+              </StructuredListCell>
+            </StructuredListRow>
+          {/each}
+        </StructuredListBody>
+      </StructuredList>
+    </Column>
+  </Row>
+{/if}
 <Row>
   <Column>
     <h4>기획전 목록</h4>
@@ -252,7 +267,13 @@
       bind:this={scrollableList}
       on:scroll={handleScroll}
     >
-      <StructuredList condensed selection flush>
+      <StructuredList
+        condensed
+        flush
+        selection={!(
+          params.totalCount === 0 || filteredExhibition.length === 0
+        )}
+      >
         <StructuredListHead>
           <StructuredListRow head>
             <StructuredListCell head>썸네일/배너 이미지</StructuredListCell>
