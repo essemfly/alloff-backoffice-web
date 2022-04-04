@@ -55,7 +55,9 @@
   let tempEditProducts: ProductInGroup[] = [];
 
   onMount(async () => {
-    filteredProductInGroup = productInGroups;
+    filteredProductInGroup = productInGroups.sort(
+      (a, b) => a.priority - b.priority,
+    );
   });
 
   const handleProductSelect = (event: CustomEvent<Product>) => {
@@ -108,11 +110,13 @@
 
   const productInGroupFiltering = (value: string) => {
     const productList = isEditProductList ? tempEditProducts : productInGroups;
-    filteredProductInGroup = productList.filter(
-      ({ product }) =>
-        product.brand_kor_name.toLocaleLowerCase().includes(value) ||
-        product.alloff_name.toLocaleLowerCase().includes(value),
-    );
+    filteredProductInGroup = productList
+      .filter(
+        ({ product }) =>
+          product.brand_kor_name.toLocaleLowerCase().includes(value) ||
+          product.alloff_name.toLocaleLowerCase().includes(value),
+      )
+      .sort((a, b) => a.priority - b.priority);
     productInGroupQuery = value;
   };
 
@@ -146,7 +150,7 @@
   const handleAddProductSubmit = async () => {
     const productList = selectedProductInGroup.map(({ product }, i) => ({
       product_id: product.alloff_product_id,
-      priority: i + 1,
+      priority: i,
     }));
     const res = await productGroupApi.productGroupsPushProductsCreate({
       id: $formStore.fields.productGroupId,
@@ -173,7 +177,7 @@
         product_priorities: productList,
       },
     });
-    productInGroups = res.data.products.sort();
+    productInGroups = res.data.products;
     tempEditProducts = [];
     productInGroupQuery = "";
     isEditProductList = false;
@@ -275,7 +279,7 @@
         />
       </div>
     {/if}
-    <StructuredList condensed>
+    <StructuredList condensed flush>
       <StructuredListHead>
         <StructuredListRow head>
           <StructuredListCell head>썸네일</StructuredListCell>
@@ -285,7 +289,7 @@
         </StructuredListRow>
       </StructuredListHead>
       <StructuredListBody>
-        {#each filteredProductInGroup as { product }, index}
+        {#each filteredProductInGroup as { product, priority }, index}
           <StructuredListRow>
             <StructuredListCell>
               <img
@@ -296,6 +300,7 @@
             </StructuredListCell>
             <StructuredListCell noWrap>
               {product.brand_kor_name}
+              {priority}
             </StructuredListCell>
             <StructuredListCell>
               {product.alloff_name}
