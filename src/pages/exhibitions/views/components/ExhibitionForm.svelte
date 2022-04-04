@@ -56,13 +56,13 @@
   const productGroupApi = new ProductGroupsApi();
 
   onMount(async () => {
-    selectedExhibitionSections = $formStore.fields.pgs ?? [];
+    selectedExhibitionSections = $formStore.fields.pgs
+      ? convertToSnakeCase($formStore.fields.pgs)
+      : [];
     selectedExhibitionSectionIds = selectedExhibitionSections.map(
       ({ product_group_id }) => product_group_id,
     );
   });
-
-  console.log($formStore.fields.exhibitionType, $formStore.fields);
 
   const handleExhibitionSectionSelect = (event: CustomEvent<ProductGroup>) => {
     const section = event.detail;

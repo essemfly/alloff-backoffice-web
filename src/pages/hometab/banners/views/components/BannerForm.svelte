@@ -41,7 +41,6 @@
 
   const handleExhibitionChange = (event: CustomEvent<Exhibition[]>) => {
     selectedExhibition = event.detail[0];
-    console.log(event.detail);
     formStore.update({
       exhibitionId: event.detail ? selectedExhibition.exhibition_id : undefined,
     });

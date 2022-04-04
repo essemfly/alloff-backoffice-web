@@ -17,6 +17,7 @@ export const schema = object({
   startTime: string().label("시작일시").required(),
   finishTime: string().label("종료일시").required(),
   pgIds: array().of(string().required()).label("섹션 목록").required(),
+  pgs: array(),
   exhibitionType: string()
     .oneOf(Object.values(ExhibitionTypeEnum))
     .label("기획전 종류")

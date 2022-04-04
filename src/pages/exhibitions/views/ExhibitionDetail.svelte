@@ -11,11 +11,17 @@
     ExhibitionTypeEnum,
   } from "@api";
   import Nav from "@app/components/Nav.svelte";
+  import {
+    convertToSnakeCase,
+    convertToCamelCase,
+  } from "@app/helpers/change-case";
 
   import ExhibitionForm from "./components/ExhibitionForm.svelte";
-  import { formStore, schema } from "../models/schema";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
-  import { getExhibitionTypeLabel } from "../commands/helpers";
+  import { formStore } from "../models/schema";
+  import {
+    getExhibitionTypeByIndex,
+    getExhibitionTypeLabel,
+  } from "../commands/helpers";
 
   export let id: string;
   export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
@@ -30,7 +36,10 @@
     isLoading = true;
     try {
       const res = await exhibitionApi.exhibitionsRetrieve({ id });
-      const exhibition = schema.camelCase().cast(res.data);
+      const exhibition = convertToCamelCase({
+        ...res.data,
+        exhibitionType: getExhibitionTypeByIndex(res.data.exhibition_type),
+      });
       formStore.update(exhibition);
     } finally {
       isLoading = false;
