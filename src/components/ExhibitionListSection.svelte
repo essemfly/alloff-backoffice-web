@@ -21,6 +21,7 @@
     Exhibition,
     ExhibitionsApi,
     ExhibitionsApiExhibitionsListRequest,
+    ExhibitionTypeEnum,
   } from "@api";
   import { formatDate } from "@app/helpers/date";
 
@@ -40,6 +41,7 @@
   let params: SearchQueryParam = {
     offset: 0,
     limit: 10,
+    exhibitionType: ExhibitionTypeEnum.Normal,
     searchQuery: "",
     totalCount: 0,
   };
@@ -124,6 +126,7 @@
       const res = await exhibitionApi.exhibitionsList({
         offset,
         limit: params.limit,
+        exhibitionType: ExhibitionTypeEnum.Normal,
       });
 
       params = {
@@ -164,7 +167,7 @@
 <Row padding>
   <Column>
     <h4>선택된 기획전</h4>
-    <StructuredList condensed selection={selectedExhibitions.length > 0}>
+    <StructuredList condensed flush selection={selectedExhibitions.length > 0}>
       <StructuredListHead>
         <StructuredListRow head>
           <StructuredListCell head>썸네일/배너 이미지</StructuredListCell>
@@ -252,7 +255,13 @@
       bind:this={scrollableList}
       on:scroll={handleScroll}
     >
-      <StructuredList condensed selection flush>
+      <StructuredList
+        condensed
+        flush
+        selection={!(
+          params.totalCount === 0 || filteredExhibition.length === 0
+        )}
+      >
         <StructuredListHead>
           <StructuredListRow head>
             <StructuredListCell head>썸네일/배너 이미지</StructuredListCell>
