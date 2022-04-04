@@ -7,10 +7,13 @@
 
   import { EditTopBannerRequest, TopBannersApi } from "@app/api";
   import Nav from "@app/components/Nav.svelte";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
+  import {
+    convertToCamelCase,
+    convertToSnakeCase,
+  } from "@app/helpers/change-case";
 
   import BannerForm from "./components/BannerForm.svelte";
-  import { formStore, schema } from "../models/schema";
+  import { formStore } from "../models/schema";
 
   export let id: string;
 
@@ -23,7 +26,7 @@
     isLoading = true;
     try {
       const res = await bannerApi.topBannersRetrieve({ id });
-      const banner = schema.camelCase().cast(res.data);
+      const banner = convertToCamelCase(res.data);
       formStore.update(banner);
     } finally {
       isLoading = false;
