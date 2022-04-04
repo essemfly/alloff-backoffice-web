@@ -38,7 +38,9 @@
       const res = await exhibitionApi.exhibitionsRetrieve({ id });
       const exhibition = convertToCamelCase({
         ...res.data,
-        exhibitionType: getExhibitionTypeByIndex(res.data.exhibition_type),
+        exhibitionType: getExhibitionTypeByIndex(
+          res.data.exhibition_type as unknown as number,
+        ),
       });
       formStore.update(exhibition);
     } finally {
@@ -56,13 +58,21 @@
         return;
       }
       await exhibitionApi.exhibitionsUpdate({
-        id: $formStore.fields.exhibitionId,
+        id: $formStore.fields.exhibitionId!,
         editExhibitionRequest: convertToSnakeCase<EditExhibitionRequest>(
           $formStore.fields,
         ),
       });
       toast.push(`${exhibitionLabel} 수정이 완료되었습니다.`);
-      navigate(-1);
+      if ($formStore.fields.exhibitionType === ExhibitionTypeEnum.Timedeal) {
+        navigate(`/timedeals`);
+      } else if (
+        $formStore.fields.exhibitionType === ExhibitionTypeEnum.Groupdeal
+      ) {
+        navigate(`/groupdeals`);
+      } else {
+        navigate(`/exhibitions`);
+      }
     } catch (e) {
       toast.push(`${exhibitionLabel} 수정에 오류가 발생했습니다.`);
     } finally {

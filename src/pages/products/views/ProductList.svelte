@@ -88,17 +88,15 @@
   };
 
   const handleBrandChange = (event: CustomEvent<AutocompleteItem>) => {
-    const brandId = event.detail.key ?? "";
+    const brandId = event.detail?.key ?? "";
     searchFilter = {
       ...searchFilter,
       brandId,
     };
   };
 
-  const handleCategoryChange = (
-    event: CustomEvent<{ value?: AutocompleteItem }>,
-  ) => {
-    const alloffCategoryId = event.detail.value?.key ?? "";
+  const handleCategoryChange = (event: CustomEvent<AutocompleteItem>) => {
+    const alloffCategoryId = event.detail?.key ?? "";
     searchFilter = {
       ...searchFilter,
       alloffCategoryId,
