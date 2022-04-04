@@ -6,8 +6,9 @@
   import UpToTop16 from "carbon-icons-svelte/lib/UpToTop16";
   import DownToBottom16 from "carbon-icons-svelte/lib/DownToBottom16";
 
-  export let value: string[] = [];
+  export let value: any[] = [];
   export let index: number = -1;
+  export let disabled: boolean = false;
 
   const dispatch = createEventDispatcher();
 
@@ -39,6 +40,7 @@
   kind="ghost"
   size="small"
   on:click={handleSort(0)}
+  disabled={index === 0 || disabled}
 />
 <Button
   tooltipPosition="bottom"
@@ -48,6 +50,7 @@
   kind="ghost"
   size="small"
   on:click={handleSort(-1)}
+  disabled={index === 0 || disabled}
 />
 <Button
   tooltipPosition="bottom"
@@ -57,6 +60,7 @@
   kind="ghost"
   size="small"
   on:click={handleSort(+1)}
+  disabled={index === value.length - 1 || disabled}
 />
 <Button
   tooltipPosition="bottom"
@@ -66,4 +70,5 @@
   kind="ghost"
   size="small"
   on:click={handleSort(+100)}
+  disabled={index === value.length - 1 || disabled}
 />
