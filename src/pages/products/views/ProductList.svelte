@@ -5,6 +5,7 @@
     Button,
     Checkbox,
     Column,
+    FormGroup,
     Grid,
     Row,
     Search,
@@ -28,6 +29,8 @@
   } from "@app/helpers/query-string";
 
   import ProductCard from "./components/ProductCard.svelte";
+  import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
+  import { search } from "@app/pages/logistics/inventories/store";
 
   let products: Product[] = [];
   let searchFilter: SearchQueryParam = {
@@ -36,13 +39,18 @@
     searchQuery: "",
     brandId: "",
     alloffCategoryId: "",
-    isClassifiedDone: false,
+    // isClassifiedDone: false,
   };
   let totalItems = 0;
   let isLoading = false;
 
   const productApi = new ProductsApi();
   const location = useLocation<SearchQueryParam>();
+
+  const checkboxOptions = [
+    { label: "설정됨", value: "true" },
+    { label: "미설정", value: "false" },
+  ];
 
   const load = async (params: SearchQueryParam) => {
     if (isLoading) return;
@@ -58,7 +66,7 @@
         limit: res.data.limit,
         searchQuery: res.data.list_query.search_query,
         brandId: res.data.list_query.brand_id,
-        isClassifiedDone: res.data.list_query.is_classified_done,
+        // isClassifiedDone: res.data.list_query.is_classified_done,
       };
       totalItems = res.data.total_counts;
     } finally {
@@ -124,6 +132,19 @@
     navigate(`${$location.pathname}?${queryString}`);
   };
 
+  const handleIsClassifiedCheck = (event: CustomEvent<string[]>) => {
+    if (
+      event.detail.length === checkboxOptions.length ||
+      event.detail.length === 0
+    ) {
+      // all checked
+      searchFilter.isClassifiedDone = undefined;
+    } else {
+      const [value] = event.detail;
+      searchFilter.isClassifiedDone = value;
+    }
+  };
+
   $: if ($location) {
     const params = parseQueryString<SearchQueryParam>($location.search);
     load(params);
@@ -145,9 +166,10 @@
         />
       </Column>
       <Column>
-        <Checkbox
-          labelText="카테고리 미설정만"
-          bind:checked={searchFilter.isClassifiedDone}
+        <CheckboxGroup
+          label="카테고리 설정 여부"
+          options={checkboxOptions}
+          on:change={handleIsClassifiedCheck}
         />
       </Column>
     </Row>
