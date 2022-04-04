@@ -45,6 +45,7 @@
   import { formStore, schema, sectionFormStore } from "../../models/schema";
 
   export let isAdding: boolean = false;
+  export let label: string = "기획전";
 
   let exhibitionSections: ProductGroup[] = [];
   let selectedExhibitionSections: ProductGroup[] = [];
@@ -60,6 +61,8 @@
       ({ product_group_id }) => product_group_id,
     );
   });
+
+  console.log($formStore.fields.exhibitionType, $formStore.fields);
 
   const handleExhibitionSectionSelect = (event: CustomEvent<ProductGroup>) => {
     const section = event.detail;
@@ -171,7 +174,7 @@
   };
 </script>
 
-<ContentBox title="기획전 정보">
+<ContentBox title={`${label} 정보`}>
   <div class="button-right-wrapper">
     <Dot label="필수 입력 사항" />
   </div>
@@ -237,7 +240,7 @@
   </Row>
 </ContentBox>
 
-<ContentBox title="기획전 섹션 목록">
+<ContentBox title={`${label} 섹션 목록`}>
   <StructuredList>
     <StructuredListHead>
       <StructuredListRow>
@@ -331,17 +334,17 @@
   </StructuredList>
 </ContentBox>
 
-<ContentBox title="기획전 섹션">
+<ContentBox title={`${label} 섹션`}>
   <h4>기획전 섹션</h4>
   <Tabs>
-    <Tab label="새로운 기획전 섹션" />
-    <Tab label="등록된 기획전 섹션" />
+    <Tab label="새로운 섹션" />
+    <Tab label="등록된 섹션" />
     <svelte:fragment slot="content">
       <TabContent>
         <ExhibitionSectionForm bind:productInGroups isAdding />
         <div class="button-right-wrapper">
           <Button on:click={handleProductGroupSubmit} disabled={isSubmitting}>
-            기획전 섹션 추가{isSubmitting ? "중..." : ""}
+            섹션 추가{isSubmitting ? "중..." : ""}
           </Button>
         </div>
       </TabContent>

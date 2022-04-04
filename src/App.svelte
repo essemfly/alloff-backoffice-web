@@ -7,6 +7,7 @@
   import Login from "./pages/auth/Login.svelte";
   // Routes
   import BrandRoutes from "./pages/brands/BrandRoutes.svelte";
+  import ExhibitionRoutes from "./pages/exhibitions/ExhibitionRoutes.svelte";
   import HomeTabRoutes from "./pages/hometab/HomeTabRoutes.svelte";
   import LogisticsRoutes from "./pages/logistics/LogisticsRoutes.svelte";
   import NotificationRoutes from "./pages/notifications/NotificationRoutes.svelte";
@@ -59,6 +60,7 @@
   <Route path="notifications/*">
     <NotificationRoutes />
   </Route>
+  <ExhibitionRoutes />
   <Route path="hometab/*">
     <HomeTabRoutes />
   </Route>

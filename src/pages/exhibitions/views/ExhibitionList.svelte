@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { debounce } from "lodash";
   import { navigate, useLocation } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
@@ -18,13 +19,16 @@
   import DataTable from "@app/components/DataTable/DataTable.svelte";
 
   import { exhibitionColumns } from "./components/exhibitionColumns";
-  import { debounce } from "lodash";
+  import { getExhibitionTypeLabel } from "../commands/helpers";
 
+  export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
+
+  let exhibitionLabel = getExhibitionTypeLabel(type);
   let exhibitions: DataTableData<Exhibition>[] = [];
   let searchFilter: SearchQueryParam = {
     offset: 0,
     limit: 50,
-    exhibitionType: ExhibitionTypeEnum.Normal,
+    exhibitionType: type,
   };
   let isLoading = false;
   let totalItems = 0;
@@ -73,12 +77,26 @@
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
-    navigate("/hometab/exhibitions/add");
+    navigate("/exhibitions/add");
+
+    if (type === ExhibitionTypeEnum.Timedeal) {
+      navigate("/timedeals/add");
+    } else if (type === ExhibitionTypeEnum.Groupdeal) {
+      navigate("/groupdeals/add");
+    } else {
+      navigate("/exhibitions/add");
+    }
   };
 
   const handleRowClick = (event: CustomEvent<DataTableData<Exhibition>>) => {
     event.preventDefault();
-    navigate(`/hometab/exhibitions/${event.detail.id}`);
+    if (type === ExhibitionTypeEnum.Timedeal) {
+      navigate(`/timedeals/${event.detail.id}`);
+    } else if (type === ExhibitionTypeEnum.Groupdeal) {
+      navigate(`/groupdeals/${event.detail.id}`);
+    } else {
+      navigate(`/hometab/exhibitions/${event.detail.id}`);
+    }
   };
 
   const handleIsLiveChange = debounce(
@@ -106,10 +124,10 @@
   }
 </script>
 
-<Nav title="기획전 목록">
-  <h1>기획전 목록</h1>
+<Nav title={`${exhibitionLabel} 목록`}>
+  <h1>{exhibitionLabel} 목록</h1>
   <div class="button-right-wrapper mb10">
-    <Button on:click={handleAddClick}>기획전 추가</Button>
+    <Button on:click={handleAddClick}>{exhibitionLabel} 추가</Button>
   </div>
   <Pagination
     limit={searchFilter.limit}
@@ -124,7 +142,7 @@
     on:change:toggle={handleIsLiveChange}
   />
   <div class="button-right-wrapper mt10">
-    <Button on:click={handleAddClick}>기획전 추가</Button>
+    <Button on:click={handleAddClick}>{exhibitionLabel} 추가</Button>
   </div>
 </Nav>
 

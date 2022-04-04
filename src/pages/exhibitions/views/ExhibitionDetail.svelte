@@ -5,15 +5,22 @@
   import { Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { EditExhibitionRequest, ExhibitionsApi } from "@api";
+  import {
+    EditExhibitionRequest,
+    ExhibitionsApi,
+    ExhibitionTypeEnum,
+  } from "@api";
   import Nav from "@app/components/Nav.svelte";
 
   import ExhibitionForm from "./components/ExhibitionForm.svelte";
   import { formStore, schema } from "../models/schema";
   import { convertToSnakeCase } from "@app/helpers/change-case";
+  import { getExhibitionTypeLabel } from "../commands/helpers";
 
   export let id: string;
+  export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
 
+  let exhibitionLabel = getExhibitionTypeLabel(type);
   let isLoading = false;
   let isSubmitting = false;
 
@@ -45,17 +52,17 @@
           $formStore.fields,
         ),
       });
-      toast.push("기획전 수정이 완료되었습니다.");
+      toast.push(`${exhibitionLabel} 수정이 완료되었습니다.`);
       navigate(-1);
     } catch (e) {
-      toast.push(`기획전 수정에 오류가 발생했습니다.`);
+      toast.push(`${exhibitionLabel} 수정에 오류가 발생했습니다.`);
     } finally {
       isSubmitting = false;
     }
   };
 </script>
 
-<Nav title={`${$formStore.fields.title ?? "기획전 상세"}`}>
+<Nav title={`${$formStore.fields.title ?? `${exhibitionLabel} 상세`}`}>
   {#if isLoading}
     <InlineLoading status="active" description="On Loading..." />
   {:else}
@@ -64,7 +71,7 @@
         {isSubmitting ? "수정중..." : "수정"}
       </Button>
     </div>
-    <ExhibitionForm />
+    <ExhibitionForm label={exhibitionLabel} />
     <div class="button-right-wrapper mb10">
       <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
         {isSubmitting ? "수정중..." : "수정"}
