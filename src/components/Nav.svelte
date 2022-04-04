@@ -251,6 +251,11 @@
     </HeaderUtilities>
   {/if}
 </Header>
+{#if $$slots.header}
+  <header class="nav-header-section">
+    <slot name="header" />
+  </header>
+{/if}
 <Content>
   <slot />
 </Content>
@@ -287,5 +292,16 @@
   .super {
     font-weight: bold;
     color: greenyellow;
+  }
+
+  .nav-header-section {
+    background-color: red;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: white;
+  }
+
+  .nav-header-section ~ :global(.bx--content) {
+    margin-top: 0;
   }
 </style>

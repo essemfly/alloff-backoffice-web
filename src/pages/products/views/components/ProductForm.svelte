@@ -22,6 +22,7 @@
     CategorySelectField,
   } from "@app/components/form";
 
+  import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
   import { formStore, schema } from "../../models/schema";
 
   export let isAdding: boolean = false;
@@ -123,6 +124,12 @@
   </Row>
   <Row padding>
     <Column>
+      {#if !isAdding}
+        <ProductCategoryClassifiedTag
+          isClassifiedTouched={$formStore.fields.isClassifiedTouched}
+          isClassifiedDone={$formStore.fields.isClassifiedDone}
+        />
+      {/if}
       <CategorySelectField
         schema={schema.fields.alloffCategoryId}
         errorText={$formStore.errors.alloffCategoryId}
