@@ -1,18 +1,22 @@
 <script lang="ts">
-  import { EditProductRequestApiRequest,Product,ProductsApi } from "@api";
   import { toast } from "@zerodevx/svelte-toast";
+  import { navigate } from "svelte-navigator";
   import {
-  Button,
-  Modal,
-  StructuredList,
-  StructuredListBody,
-  StructuredListCell,
-  StructuredListRow,
-  Tag
+    Button,
+    Modal,
+    StructuredList,
+    StructuredListBody,
+    StructuredListCell,
+    StructuredListRow,
+    Tag,
+    ClickableTile,
   } from "carbon-components-svelte";
   import Share16 from "carbon-icons-svelte/lib/Share16";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import { navigate } from "svelte-navigator";
+
+  import { EditProductRequestApiRequest, Product, ProductsApi } from "@api";
+
+  import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
 
   export let product: Product;
 
@@ -95,51 +99,60 @@
   const handleModalClose = () => handleModalToggle(false);
 </script>
 
-<div class="product" on:click={handleCardClick}>
-  <div class="delete-button">
-    <Button
-      tooltipPosition="bottom"
-      tooltipAlignment="end"
-      iconDescription="딥링크 복사"
-      icon={Share16}
-      kind="tertiary"
-      on:click={handleDeeplinkClick}
-    />
-    <br />
-    <Button
-      tooltipPosition="bottom"
-      tooltipAlignment="end"
-      iconDescription="상품 삭제"
-      icon={TrashCan16}
-      kind="danger"
-      on:click={handleDeleteClick}
-    />
+<ClickableTile on:click={handleCardClick}>
+  <div class="product">
+    <div class="button-wrapper">
+      <Button
+        tooltipPosition="bottom"
+        tooltipAlignment="end"
+        iconDescription="딥링크 복사"
+        icon={Share16}
+        kind="tertiary"
+        size="small"
+        on:click={handleDeeplinkClick}
+      />
+      <Button
+        tooltipPosition="bottom"
+        tooltipAlignment="end"
+        iconDescription="상품 삭제"
+        icon={TrashCan16}
+        kind="danger"
+        size="small"
+        on:click={handleDeleteClick}
+      />
+    </div>
+    <div class="image">
+      <img
+        src={product.images[0]}
+        alt={[product.brand_kor_name, product.alloff_name].join("-")}
+      />
+    </div>
+    <div class="info">
+      <p style="font-weight: bold;">{product.brand_kor_name}</p>
+      <p>
+        {product.alloff_category_name}
+        <ProductCategoryClassifiedTag
+          isClassifiedTouched={product.is_classified_touched}
+          isClassifiedDone={product.is_classified_done}
+        />
+      </p>
+      <h6>{product.alloff_name}</h6>
+      {#if product.inventory.reduce((prev, curr) => prev + curr.quantity, 0) === 0}
+        <Tag type="red">⚠️ 재고없음</Tag>
+      {/if}
+    </div>
+    <StructuredList condensed>
+      <StructuredListBody>
+        {#each product.inventory as inventory}
+          <StructuredListRow>
+            <StructuredListCell noWrap>{inventory.size}</StructuredListCell>
+            <StructuredListCell>{inventory.quantity} EA</StructuredListCell>
+          </StructuredListRow>
+        {/each}
+      </StructuredListBody>
+    </StructuredList>
   </div>
-  <div class="image">
-    <img
-      src={product.images[0]}
-      alt={[product.brand_kor_name, product.alloff_name].join("-")}
-    />
-  </div>
-  <div class="info">
-    <p style="font-weight: bold;">{product.brand_kor_name}</p>
-    <p>{product.alloff_category_name}</p>
-    <h6>{product.alloff_name}</h6>
-    {#if product.inventory.reduce((prev, curr) => prev + curr.quantity, 0) === 0}
-      <Tag type="red">⚠️ 재고없음</Tag>
-    {/if}
-  </div>
-  <StructuredList condensed>
-    <StructuredListBody>
-      {#each product.inventory as inventory}
-        <StructuredListRow>
-          <StructuredListCell noWrap>{inventory.size}</StructuredListCell>
-          <StructuredListCell>{inventory.quantity} EA</StructuredListCell>
-        </StructuredListRow>
-      {/each}
-    </StructuredListBody>
-  </StructuredList>
-</div>
+</ClickableTile>
 
 <Modal
   danger
@@ -157,25 +170,10 @@
 <style>
   .product {
     position: relative;
-    margin: 10px;
-    width: 240px;
-    background-color: white;
-    -webkit-box-shadow: 3px 3px 10px -5px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 3px 3px 10px -5px rgba(0, 0, 0, 0.4);
-    box-shadow: 3px 3px 10px -5px rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease-in-out;
   }
 
-  .product:hover {
-    cursor: pointer;
-    -webkit-box-shadow: 3px 3px 10px -5px rgba(0, 0, 0, 0.8);
-    -moz-box-shadow: 3px 3px 10px -5px rgba(0, 0, 0, 0.8);
-    box-shadow: 3px 3px 10px -5px rgba(0, 0, 0, 0.8);
-  }
-
-  .product > .delete-button {
+  .product > .button-wrapper {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -183,8 +181,13 @@
     flex-direction: column;
   }
 
+  .product > .button-wrapper :global(button) {
+    margin-bottom: 4px;
+  }
+
   .product > .image {
     height: 200px;
+    padding-bottom: 10px;
   }
 
   .product > .image > img {
@@ -193,16 +196,16 @@
     object-fit: cover;
   }
 
-  .product > .info {
-    padding: 10px;
-    height: 70px;
-  }
-
   .product > .info > p {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .product :global(.bx--structured-list) {
     margin-bottom: 0px;
+  }
+
+  :global(.bx--tile) {
+    padding: 10px;
+    height: 100%;
   }
 </style>

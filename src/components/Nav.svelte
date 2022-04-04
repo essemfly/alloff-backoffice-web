@@ -2,21 +2,22 @@
   import { AdminUserApi } from "@api";
   import { removeTokens } from "@app/core/auth";
   import {
-  Content,
-  Header,
-  HeaderAction,
-  HeaderNav,
-  HeaderNavItem,
-  HeaderNavMenu,
-  HeaderPanelDivider,
-  HeaderPanelLink,
-  HeaderPanelLinks,
-  HeaderUtilities,
-  SideNav,
-  SideNavItems,
-  SideNavLink,
-  SideNavMenu,
-  SkipToContent
+    Content,
+    Header,
+    HeaderAction,
+    HeaderNav,
+    HeaderNavItem,
+    HeaderNavMenu,
+    HeaderPanelDivider,
+    HeaderPanelLink,
+    HeaderPanelLinks,
+    HeaderUtilities,
+    Loading,
+    SideNav,
+    SideNavItems,
+    SideNavLink,
+    SideNavMenu,
+    SkipToContent,
   } from "carbon-components-svelte";
   import CarouselHorizontal16 from "carbon-icons-svelte/lib/CarouselHorizontal16";
   import Catalog16 from "carbon-icons-svelte/lib/Catalog16";
@@ -41,6 +42,8 @@
 
   export let title: string = "";
   export let metaTags: MetaTagsProps = {};
+  export let loading: boolean = false;
+  export let loadingText: string = "Loading";
 
   let isSideNavOpen = false;
   let isUtilOpen = false;
@@ -84,27 +87,28 @@
                   path: "/hometab/banners",
                   icon: CarouselHorizontal16,
                 },
-                {
-                  label: "타임딜 목록",
-                  path: "/hometab/timedeals",
-                  icon: Timer16,
-                },
-                {
-                  label: "기획전 목록",
-                  path: "/hometab/exhibitions",
-                  icon: Catalog16,
-                },
-                {
-                  label: "기획전 섹션 목록",
-                  path: "/hometab/exhibitions/sections",
-                  icon: Template16,
-                },
               ],
             },
+            { label: "브랜드", path: "/brands", icon: Classification16 },
             {
               label: "푸시알림",
               path: "/notifications",
               icon: NotificationNew16,
+            },
+            {
+              label: "기획전 목록",
+              path: "/exhibitions",
+              icon: Catalog16,
+            },
+            {
+              label: "타임딜 목록",
+              path: "/timedeals",
+              icon: Timer16,
+            },
+            {
+              label: "그룹딜 목록",
+              path: "/groupdeals",
+              icon: Timer16,
             },
             {
               label: "물류",
@@ -127,7 +131,6 @@
                 },
               ],
             },
-            { label: "브랜드", path: "/brands", icon: Classification16 },
           ]
         : [{ label: "상품문의", path: "/inquiries", icon: PhoneIp16 }]),
     ];
@@ -157,6 +160,7 @@
   bind:isSideNavOpen
   persistentHamburgerMenu
 >
+  <Loading small description={loadingText} active={loading} />
   <div class="subtitle">
     {#if !isProd}
       <p class="dev">DEV</p>
@@ -247,6 +251,11 @@
     </HeaderUtilities>
   {/if}
 </Header>
+{#if $$slots.header}
+  <header class="nav-header-section">
+    <slot name="header" />
+  </header>
+{/if}
 <Content>
   <slot />
 </Content>
@@ -283,5 +292,16 @@
   .super {
     font-weight: bold;
     color: greenyellow;
+  }
+
+  .nav-header-section {
+    background-color: red;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: white;
+  }
+
+  .nav-header-section ~ :global(.bx--content) {
+    margin-top: 0;
   }
 </style>

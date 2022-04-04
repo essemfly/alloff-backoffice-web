@@ -20,4 +20,9 @@
   };
 </script>
 
-<Pagination {pageSizes} {totalItems} on:update={handlePageChange} />
+<Pagination
+  pageSize={limit}
+  {pageSizes}
+  {totalItems}
+  on:update={handlePageChange}
+/>

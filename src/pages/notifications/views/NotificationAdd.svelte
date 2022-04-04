@@ -1,47 +1,59 @@
 <script lang="ts">
   import { toast } from "@zerodevx/svelte-toast";
+  import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import { Grid, Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { CreateNotiRequest as Notification, NotificationsApi } from "@api";
+  import { CreateNotiRequest, NotificationsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
+  import { convertToSnakeCase } from "@app/helpers/change-case";
 
-  import { NotificationTypeEnum } from "../models/Notification";
   import NotificationForm from "./components/NotificationForm.svelte";
+  import { formStore } from "../models/schema";
 
-  let isTouched = true;
-  let notification: Notification = {
-    noti_type: NotificationTypeEnum.GeneralNotification,
-    reference_id: "",
-    title: "",
-    message: "",
-  };
+  let isSubmitting = false;
 
-  const handleSubmit = async () => {
+  const notificationApi = new NotificationsApi();
+
+  onMount(() => {
+    formStore.initialize();
+  });
+
+  const handleSubmit = async (event: MouseEvent) => {
+    isSubmitting = true;
     try {
-      const notificationApi = new NotificationsApi();
+      event.preventDefault();
+      const isValid = await formStore.validate($formStore.fields);
+      if (!isValid) {
+        toast.push("일부 항목값이 올바르지 않습니다.");
+        return;
+      }
       await notificationApi.notificationsCreate({
-        createNotiRequest: notification,
+        createNotiRequest: convertToSnakeCase<CreateNotiRequest>(
+          $formStore.fields,
+        ),
       });
       toast.push("푸시알림이 등록되었습니다.");
       navigate(-1);
     } catch (e) {
       toast.push("푸시알림 등록에 오류가 발생했습니다.");
+    } finally {
+      isSubmitting = false;
     }
   };
 </script>
 
-<Nav title={"푸시알림 추가"}>
+<Nav title={"푸시알림 추가"} loading={isSubmitting}>
   <Grid>
     <div class="button-right-wrapper mb10">
-      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+      <Button type={"button"} on:click={handleSubmit} icon={Save16}>
         푸시알림 등록
       </Button>
     </div>
-    <NotificationForm bind:form={notification} isAdding />
+    <NotificationForm />
     <div class="button-right-wrapper mt10">
-      <Button on:click={handleSubmit} disabled={!isTouched} icon={Save16}>
+      <Button type={"button"} on:click={handleSubmit} icon={Save16}>
         푸시알림 등록
       </Button>
     </div>

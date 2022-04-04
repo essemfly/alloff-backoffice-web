@@ -1,20 +1,26 @@
 export type AutocompleteItem = {
   key: string;
+  label: string;
   value: string;
   subvalue?: string;
 };
 
-export const findMatches = (options: AutocompleteItem[], searchTerm: string) =>
-  options.filter(({ key, value, subvalue }) => {
-    const keyMatch = key.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-    const valueMatch =
-      value.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+export const findMatches = (
+  options: AutocompleteItem[],
+  searchTerm: string,
+) => {
+  const keyword = searchTerm.toLowerCase();
+  return options.filter(({ key, label, value, subvalue }) => {
+    const keyMatch = key.toLowerCase().indexOf(keyword) > -1;
+    const labelMatch = label.toLowerCase().indexOf(keyword) > -1;
+    const valueMatch = value.toLowerCase().indexOf(keyword) > -1;
     const subvalueMatch = subvalue
-      ? subvalue.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+      ? subvalue.toLowerCase().indexOf(keyword) > -1
       : false;
 
-    return keyMatch || valueMatch || subvalueMatch;
+    return keyMatch || labelMatch || valueMatch || subvalueMatch;
   });
+};
 
 export const spanWrapSearchTerm = (
   target: string,

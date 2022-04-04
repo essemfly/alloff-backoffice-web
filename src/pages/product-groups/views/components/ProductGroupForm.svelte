@@ -1,11 +1,11 @@
 <script lang="ts">
   import { debounce } from "lodash";
+  import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import {
     Row,
     Column,
     Button,
-    TextInput,
     StructuredList,
     StructuredListRow,
     StructuredListCell,
@@ -14,49 +14,48 @@
     Search,
     StructuredListInput,
     Toggle,
+    FormGroup,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import {
-    ProductGroup,
     ProductGroupsApi,
     ProductInGroup,
     Product,
     GroupTypeEnum,
   } from "@api";
-  import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
   import ContentBox from "@app/components/ContentBox.svelte";
-  import DateTimePicker from "@app/components/DateTimePicker.svelte";
-  import ImageUploadField from "@app/components/ImageUploadField.svelte";
+  import Dot from "@app/components/Dot.svelte";
   import ProductSearchSection from "@app/components/ProductSearchSection.svelte";
   import SortButtonSet from "@app/components/SortButtonSet.svelte";
+  import {
+    DateTimeField,
+    ImageUploadField,
+    MultilineTextField,
+    TextField,
+  } from "@app/components/form";
+
+  import { formStore, schema } from "../../models/schema";
 
   const productGroupApi = new ProductGroupsApi();
 
-  export let form: ProductGroup;
   export let label: string = "컬렉션";
+  export let productInGroups: ProductInGroup[] = [];
   export let isAdding: boolean = false;
 
-  interface SelectedProductInGroup {
-    product: Product;
-    priority: number;
-  }
-
-  let images: string[] = [];
-  let selectedProductInGroup: SelectedProductInGroup[] = [];
   let productInGroupQuery = "";
-  let filteredProductInGroup: ProductInGroup[] = form.products;
+  let selectedProductInGroup: ProductInGroup[] = [];
+  let filteredProductInGroup: ProductInGroup[] = [];
+  let isSubmitting: boolean = false;
 
   let isEditProductList: boolean = false;
   let isEdited = false;
   let tempEditProducts: ProductInGroup[] = [];
 
   onMount(async () => {
-    if (form.image_url) {
-      images = [form.image_url];
-    }
+    filteredProductInGroup = productInGroups;
   });
 
   const handleProductSelect = (event: CustomEvent<Product>) => {
@@ -66,13 +65,16 @@
     };
     selectedProductInGroup = [...selectedProductInGroup, newProduct];
     if (isAdding) {
-      form.products = selectedProductInGroup;
+      productInGroups = selectedProductInGroup;
     }
   };
 
   const handleProductDeselect = (index: number) => () => {
     selectedProductInGroup.splice(index, 1);
     selectedProductInGroup = selectedProductInGroup;
+    if (isAdding) {
+      productInGroups = selectedProductInGroup;
+    }
   };
 
   const handleProductDetailOpen = (productId: string) => () => {
@@ -80,14 +82,24 @@
   };
 
   const handleDeleteProductFromGroup = (productId: string) => async () => {
-    const res = await productGroupApi.productGroupsRemoveProductCreate({
-      id: form.product_group_id,
-      removeProductInPgRequest: {
-        product_group_id: form.product_group_id,
-        product_id: productId,
-      },
-    });
-    form.products = res.data.products;
+    if (isSubmitting) {
+      return;
+    }
+    try {
+      isSubmitting = true;
+      const res = await productGroupApi.productGroupsRemoveProductCreate({
+        id: $formStore.fields.productGroupId,
+        removeProductInPgRequest: {
+          product_group_id: $formStore.fields.productGroupId,
+          product_id: productId,
+        },
+      });
+      productInGroups = res.data.products;
+    } catch (e) {
+      toast.push("상품 목록 수정이 실패했습니다.");
+    } finally {
+      isSubmitting = false;
+    }
   };
 
   const handleProductInGroupFilter = debounce((event: Event) => {
@@ -95,7 +107,7 @@
   }, 300);
 
   const productInGroupFiltering = (value: string) => {
-    const productList = isEditProductList ? tempEditProducts : form.products;
+    const productList = isEditProductList ? tempEditProducts : productInGroups;
     filteredProductInGroup = productList.filter(
       ({ product }) =>
         product.brand_kor_name.toLocaleLowerCase().includes(value) ||
@@ -115,14 +127,14 @@
       }
       tempEditProducts = [];
     } else {
-      tempEditProducts = form.products;
+      tempEditProducts = productInGroups;
       productInGroupQuery = ""; // reset search query
     }
     isEditProductList = toggled;
   };
 
   const handleAddListSortChange = (event: CustomEvent<ProductInGroup[]>) => {
-    form.products = event.detail;
+    selectedProductInGroup = event.detail;
   };
 
   const handleEditListSortChange = (event: CustomEvent<ProductInGroup[]>) => {
@@ -136,15 +148,14 @@
       product_id: product.alloff_product_id,
       priority: i + 1,
     }));
-
     const res = await productGroupApi.productGroupsPushProductsCreate({
-      id: form.product_group_id,
+      id: $formStore.fields.productGroupId,
       productsInPgRequest: {
-        product_group_id: form.product_group_id,
+        product_group_id: $formStore.fields.productGroupId,
         product_priorities: productList,
       },
     });
-    form.products = res.data.products;
+    productInGroups = res.data.products;
     selectedProductInGroup = [];
     productInGroupQuery = "";
     productInGroupFiltering("");
@@ -153,60 +164,82 @@
   const handleEditListSubmit = async () => {
     const productList = tempEditProducts.map(({ product }, i) => ({
       product_id: product.alloff_product_id,
-      priority: i + 1,
+      priority: i + 10,
     }));
     const res = await productGroupApi.productGroupsUpdateProductsCreate({
-      id: form.product_group_id,
+      id: $formStore.fields.productGroupId,
       productsInPgRequest: {
-        product_group_id: form.product_group_id,
+        product_group_id: $formStore.fields.productGroupId,
         product_priorities: productList,
       },
     });
-    form.products = res.data.products;
+    productInGroups = res.data.products.sort();
     tempEditProducts = [];
     productInGroupQuery = "";
     isEditProductList = false;
   };
 
-  $: if (images.length > 0) {
-    form.image_url = images[0];
+  $: if (productInGroups) {
+    productInGroupFiltering(productInGroupQuery);
   }
 </script>
 
 <ContentBox title={`${label} 정보`}>
-  {#if form.group_type === GroupTypeEnum.Timedeal}
-    <Row padding>
-      <Column>
-        <ImageUploadField label={"대표 이미지"} bind:value={form.image_url} />
-      </Column>
-    </Row>
+  <div class="button-right-wrapper">
+    <Dot label="필수 입력 사항" />
+  </div>
+
+  {#if $formStore.fields.groupType === GroupTypeEnum.Timedeal}
+    <FormGroup>
+      <ImageUploadField
+        schema={schema.fields.imageUrl.required()}
+        bind:value={$formStore.fields.imageUrl}
+        errorText={$formStore.errors.imageUrl}
+      />
+    </FormGroup>
   {/if}
-  <Row padding>
-    <Column>
-      <TextInput labelText={"타이틀"} bind:value={form.title} />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <TextInput labelText={"짧은 타이틀"} bind:value={form.short_title} />
-    </Column>
-  </Row>
-  <Row padding>
-    <Column>
-      <MultilineTextInput label="설명" bind:value={form.instruction} />
-    </Column>
-  </Row>
-  {#if form.group_type === GroupTypeEnum.Timedeal}
+  <FormGroup>
+    <TextField
+      schema={schema.fields.title}
+      bind:value={$formStore.fields.title}
+      errorText={$formStore.errors.title}
+    />
+  </FormGroup>
+  <FormGroup>
+    <TextField
+      schema={schema.fields.shortTitle}
+      bind:value={$formStore.fields.shortTitle}
+      errorText={$formStore.errors.shortTitle}
+    />
+  </FormGroup>
+  <FormGroup>
+    <MultilineTextField
+      schema={schema.fields.instruction}
+      bind:value={$formStore.fields.instruction}
+      errorText={$formStore.errors.instruction}
+    />
+  </FormGroup>
+
+  {#if $formStore.fields.groupType === GroupTypeEnum.Timedeal}
     <Row padding>
       <Column>
-        <DateTimePicker label={"시작일"} bind:value={form.start_time} />
+        <DateTimeField
+          schema={schema.fields.startTime}
+          bind:value={$formStore.fields.startTime}
+          errorText={$formStore.errors.startTime}
+        />
       </Column>
       <Column>
-        <DateTimePicker label={"종료일"} bind:value={form.finish_time} />
+        <DateTimeField
+          schema={schema.fields.finishTime}
+          bind:value={$formStore.fields.finishTime}
+          errorText={$formStore.errors.finishTime}
+        />
       </Column>
     </Row>
   {/if}
 </ContentBox>
+
 {#if !isAdding}
   <ContentBox subtitle="상품 목록">
     <div slot="actions">
@@ -306,7 +339,6 @@
 
 <ContentBox subtitle="상품 추가">
   <ProductSearchSection on:select={handleProductSelect} />
-
   <Row padding>
     <Column>
       <h4>선택된 상품 목록</h4>
@@ -392,17 +424,18 @@
           </StructuredListBody>
         </StructuredList>
       </div>
-
-      {#if !isAdding}
-        <div class="button-wrapper">
-          <Button
-            on:click={handleAddProductSubmit}
-            disabled={selectedProductInGroup.length === 0}>컬렉션에 저장</Button
-          >
-        </div>
-      {/if}
     </Column>
   </Row>
+  {#if !isAdding}
+    <div class="button-wrapper">
+      <Button
+        on:click={handleAddProductSubmit}
+        disabled={isSubmitting || selectedProductInGroup.length === 0}
+      >
+        컬렉션에 {isSubmitting ? "저장중..." : "저장"}
+      </Button>
+    </div>
+  {/if}
 </ContentBox>
 
 <style>

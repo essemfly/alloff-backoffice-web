@@ -121,7 +121,7 @@
       <div class="memo-form">
         <TextInput
           placeholder="새 메모 입력"
-          on:change={(e) => {
+          on:keyup={(e) => {
             newReplyMap = { ...newReplyMap, [row.id]: e.currentTarget.value };
           }}
         />
