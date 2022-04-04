@@ -153,9 +153,9 @@
       priority: i,
     }));
     const res = await productGroupApi.productGroupsPushProductsCreate({
-      id: $formStore.fields.productGroupId,
+      id: $formStore.fields.productGroupId!,
       productsInPgRequest: {
-        product_group_id: $formStore.fields.productGroupId,
+        product_group_id: $formStore.fields.productGroupId!,
         product_priorities: productList,
       },
     });
@@ -171,9 +171,9 @@
       priority: i + 10,
     }));
     const res = await productGroupApi.productGroupsUpdateProductsCreate({
-      id: $formStore.fields.productGroupId,
+      id: $formStore.fields.productGroupId!,
       productsInPgRequest: {
-        product_group_id: $formStore.fields.productGroupId,
+        product_group_id: $formStore.fields.productGroupId!,
         product_priorities: productList,
       },
     });
@@ -289,7 +289,7 @@
         </StructuredListRow>
       </StructuredListHead>
       <StructuredListBody>
-        {#each filteredProductInGroup as { product, priority }, index}
+        {#each filteredProductInGroup as { product }, index}
           <StructuredListRow>
             <StructuredListCell>
               <img
@@ -300,7 +300,6 @@
             </StructuredListCell>
             <StructuredListCell noWrap>
               {product.brand_kor_name}
-              {priority}
             </StructuredListCell>
             <StructuredListCell>
               {product.alloff_name}
