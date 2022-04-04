@@ -145,7 +145,7 @@
         value: newProductGroup.product_group_id,
       });
     } catch (e) {
-      toast.push(`기획전 섹션 등록에 오류가 발생했습니다.`);
+      toast.push(`섹션 등록에 오류가 발생했습니다.`);
     } finally {
       isSubmitting = false;
     }
@@ -335,7 +335,6 @@
 </ContentBox>
 
 <ContentBox title={`${label} 섹션`}>
-  <h4>기획전 섹션</h4>
   <Tabs>
     <Tab label="새로운 섹션" />
     <Tab label="등록된 섹션" />

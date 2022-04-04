@@ -87,11 +87,9 @@
   }
 </script>
 
-<Nav title="기획전 섹션 목록">
+<Nav title="섹션 목록">
   <div class="button-right-wrapper mb10">
-    <Button icon={DocumentAdd16} on:click={handleAddClick}>
-      기획전 섹션 추가
-    </Button>
+    <Button icon={DocumentAdd16} on:click={handleAddClick}>섹션 추가</Button>
   </div>
   <Pagination
     limit={searchFilter.limit}
@@ -105,8 +103,6 @@
     on:click:row={handleRowClick}
   />
   <div class="button-right-wrapper mt10">
-    <Button icon={DocumentAdd16} on:click={handleAddClick}>
-      기획전 섹션 추가
-    </Button>
+    <Button icon={DocumentAdd16} on:click={handleAddClick}>섹션 추가</Button>
   </div>
 </Nav>

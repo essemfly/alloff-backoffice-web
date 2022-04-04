@@ -280,7 +280,7 @@
   <ProductSearchSection on:select={handleProductSelect} />
   <h4>선택된 상품 목록</h4>
   <div class="product-list">
-    <StructuredList condensed>
+    <StructuredList condensed flush>
       <StructuredListHead>
         <StructuredListRow head>
           <StructuredListCell head>썸네일</StructuredListCell>

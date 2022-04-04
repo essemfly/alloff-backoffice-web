@@ -116,7 +116,7 @@
         sections = res.data.pgs;
       }
     } catch (e) {
-      toast.push("기획전 섹션 검색에 오류가 발생했습니다.");
+      toast.push("섹션 검색에 오류가 발생했습니다.");
     } finally {
       isLoading = false;
     }
@@ -125,20 +125,20 @@
 
 <Row padding>
   <Column>
-    <div class="bx--label">기획전 섹션 검색</div>
+    <div class="bx--label">섹션 검색</div>
     <Search
       bind:value={searchQuery}
-      placeholder="기획전 섹션 타이틀/짧은 타이틀 검색"
+      placeholder="섹션 타이틀/짧은 타이틀 검색"
     />
   </Column>
 </Row>
 <div class="button-right-wrapper">
-  <Button on:click={handleSectionSearch}>기획전 섹션 검색</Button>
+  <Button on:click={handleSectionSearch}>섹션 검색</Button>
 </div>
 
 <Row padding>
   <Column>
-    <h4>기획전 섹션 검색 결과</h4>
+    <h4>섹션 검색 결과</h4>
     <div
       class="product-list"
       bind:this={scrollableList}
@@ -157,7 +157,7 @@
           {#if params.totalCount === 0 || filteredSections.length === 0}
             <StructuredListRow>
               <StructuredListCell>
-                검색조건에 맞는 기획전 섹션을 찾지 못했습니다
+                검색조건에 맞는 섹션을 찾지 못했습니다
               </StructuredListCell>
             </StructuredListRow>
           {/if}
@@ -189,7 +189,7 @@
                   <Button
                     tooltipPosition="bottom"
                     tooltipAlignment="end"
-                    iconDescription="기획전 섹션 상세"
+                    iconDescription="상세"
                     icon={Launch16}
                     kind="ghost"
                     size="small"
