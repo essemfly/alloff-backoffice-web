@@ -44,7 +44,15 @@
         ),
       });
       toast.push(`${exhibitionLabel} 등록이 완료되었습니다.`);
-      navigate(-1);
+      if ($formStore.fields.exhibitionType === ExhibitionTypeEnum.Timedeal) {
+        navigate(`/timedeals`);
+      } else if (
+        $formStore.fields.exhibitionType === ExhibitionTypeEnum.Groupdeal
+      ) {
+        navigate(`/groupdeals`);
+      } else {
+        navigate(`/exhibitions`);
+      }
     } catch (e) {
       toast.push(`${exhibitionLabel} 등록에 오류가 발생했습니다.`);
     } finally {

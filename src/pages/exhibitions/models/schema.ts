@@ -1,4 +1,4 @@
-import { array, InferType, object, string } from "yup";
+import { array, InferType, number, object, string } from "yup";
 
 import { Form, useForm } from "@app/helpers/useForm";
 import { ExhibitionTypeEnum } from "@app/api";
@@ -22,6 +22,8 @@ export const schema = object({
     .oneOf(Object.values(ExhibitionTypeEnum))
     .label("기획전 종류")
     .required(),
+  targetSales: number().label("목표 판매량").default(1),
+  currentSales: number().label("현재 판매량").default(0),
 });
 
 export type FormSchema = InferType<typeof schema>;
@@ -36,6 +38,7 @@ const defaultValues = {
   startTime: "",
   finishTime: "",
   pgIds: [],
+  targetSales: 1,
 };
 
 export const formStore: Form<FormSchema> = useForm<FormSchema>(

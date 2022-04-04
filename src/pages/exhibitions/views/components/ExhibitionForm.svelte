@@ -28,6 +28,7 @@
     ProductGroupsApi,
     GroupTypeEnum,
     ProductInGroup,
+    ExhibitionTypeEnum,
   } from "@api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
@@ -127,9 +128,9 @@
       const newProductGroup = res.data;
       await productGroupApi.productGroupsPushProductsCreate({
         id: newProductGroup.product_group_id,
-        pushProductsRequest: {
+        productsInPgRequest: {
           product_group_id: newProductGroup.product_group_id,
-          product_priority: productInGroups.map(({ product, priority }) => ({
+          product_priorities: productInGroups.map(({ product, priority }) => ({
             product_id: product.alloff_product_id,
             priority,
           })),
@@ -238,6 +239,24 @@
       />
     </Column>
   </Row>
+  {#if $formStore.fields.exhibitionType === ExhibitionTypeEnum.Groupdeal}
+    <Row padding>
+      <Column>
+        <TextField
+          schema={schema.fields.targetSales}
+          bind:value={$formStore.fields.targetSales}
+          errorText={$formStore.errors.targetSales}
+        />
+      </Column>
+      <Column>
+        <TextField
+          schema={schema.fields.currentSales}
+          value={$formStore.fields.currentSales}
+          readonly
+        />
+      </Column>
+    </Row>
+  {/if}
 </ContentBox>
 
 <ContentBox title={`${label} 섹션 목록`}>
