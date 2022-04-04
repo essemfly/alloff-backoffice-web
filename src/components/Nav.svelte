@@ -96,17 +96,17 @@
               icon: NotificationNew16,
             },
             {
-              label: "기획전 목록",
+              label: "기획전",
               path: "/exhibitions",
               icon: Catalog16,
             },
             {
-              label: "타임딜 목록",
+              label: "타임딜",
               path: "/timedeals",
               icon: Timer16,
             },
             {
-              label: "그룹딜 목록",
+              label: "그룹딜",
               path: "/groupdeals",
               icon: Timer16,
             },
