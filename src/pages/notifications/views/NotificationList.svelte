@@ -2,7 +2,7 @@
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate, useLocation } from "svelte-navigator";
-  import { Button } from "carbon-components-svelte";
+  import { Button, InlineLoading } from "carbon-components-svelte";
   import AddComment16 from "carbon-icons-svelte/lib/AddComment16";
 
   import {
@@ -25,26 +25,33 @@
   let limit = 50;
   let searchQuery = "";
   let totalItems = 0;
+  let isLoading = false;
 
   const notificationApi = new NotificationsApi();
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {
-    const res = await notificationApi.notificationsList({
-      offset: params.offset ?? 0,
-      limit: params.limit ?? 50,
-    });
-    const { data } = res;
+    if (isLoading) return;
+    try {
+      isLoading = true;
+      const res = await notificationApi.notificationsList({
+        offset: params.offset ?? 0,
+        limit: params.limit ?? 50,
+      });
+      const { data } = res;
 
-    notifications = data.notis.map((x: Noti) => ({
-      ...x,
-      id: x.notification_id,
-    }));
+      notifications = data.notis.map((x: Noti) => ({
+        ...x,
+        id: x.notification_id,
+      }));
 
-    // query strings
-    offset = data.offset;
-    limit = data.limit;
-    totalItems = data.notis.length; // todo: fix
+      // query strings
+      offset = data.offset;
+      limit = data.limit;
+      totalItems = data.notis.length; // todo: fix
+    } finally {
+      isLoading = false;
+    }
   };
 
   onMount(async () => {
@@ -94,8 +101,13 @@
   <div class="button-right-wrapper mb10">
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
+
   <Pagination {limit} {offset} {totalItems} on:change={handlePageChange} />
-  <NotificationDataTable {notifications} on:send={handleSendClick} />
+  {#if isLoading}
+    <InlineLoading label="Loading..." />
+  {:else}
+    <NotificationDataTable {notifications} on:send={handleSendClick} />
+  {/if}
   <div class="button-right-wrapper mt10">
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
