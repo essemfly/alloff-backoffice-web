@@ -51,6 +51,8 @@ export const schema = object({
   moduleName: string(),
   rawHtml: string().nullable(),
   productUrl: string().label("상품 URL").nullable(),
+  isClassifiedTouched: boolean(),
+  isClassifiedDone: boolean(),
 });
 
 export type FormSchema = InferType<typeof schema>;
