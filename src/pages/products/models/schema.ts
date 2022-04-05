@@ -53,6 +53,8 @@ export const schema = object({
   productUrl: string().label("상품 URL").nullable(),
   isClassifiedTouched: boolean(),
   isClassifiedDone: boolean(),
+  productInfos: object().required().default({}),
+  descriptionInfos: object().required().default({}),
 });
 
 export type FormSchema = InferType<typeof schema>;
@@ -78,6 +80,8 @@ const defaultValues = {
   descriptionImages: [],
   inventory: [],
   moduleName: "",
+  productInfos: {},
+  descriptionInfos: {},
 };
 
 export const formStore: Form<FormSchema> = useForm<FormSchema>(

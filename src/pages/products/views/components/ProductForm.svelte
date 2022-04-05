@@ -7,6 +7,7 @@
     FormGroup,
     NumberInput,
     Row,
+    TextInput,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
@@ -23,11 +24,13 @@
   } from "@app/components/form";
 
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
-  import { formStore, schema } from "../../models/schema";
+  import { FormSchema, formStore, schema } from "../../models/schema";
 
   export let isAdding: boolean = false;
 
   let discountRate = "0";
+  let descriptionInfoLabelTextInput = "";
+  let productInfoLabelTextInput = "";
   let inventoryTextInput = "";
   let useHtml = false;
   let html = $formStore.fields.rawHtml ?? "";
@@ -53,6 +56,34 @@
     newValue.splice(index, 1);
     formStore.update({ inventory: newValue });
   };
+
+  const handleInfoAdd =
+    (fieldName: keyof FormSchema) => (event: CustomEvent) => {
+      formStore.update({
+        [fieldName]: {
+          ...($formStore.fields[fieldName] as any),
+          [event.detail]: "",
+        },
+      });
+      descriptionInfoLabelTextInput = "";
+      productInfoLabelTextInput = "";
+    };
+
+  const handleInfoChange =
+    (fieldName: keyof FormSchema, label: string) => (event: CustomEvent) => {
+      formStore.update({
+        [fieldName]: {
+          ...($formStore.fields[fieldName] as any),
+          [label]: event.detail,
+        },
+      });
+    };
+
+  const handleInfoDelete =
+    (fieldName: keyof FormSchema, label: string) => () => {
+      const { [label]: _, ...newValue } = $formStore.fields[fieldName];
+      formStore.update({ [fieldName]: newValue });
+    };
 
   $: if ($formStore.fields.originalPrice && $formStore.fields.discountedPrice) {
     discountRate = (
@@ -180,6 +211,71 @@
       />
     </Column>
   </Row>
+
+  <Row padding>
+    <Column>
+      <ButtonTextInput
+        label={"상품 정보"}
+        placeholder="작성 후 추가 버튼을 누르세요"
+        bind:value={descriptionInfoLabelTextInput}
+        on:click={handleInfoAdd("descriptionInfos")}
+        buttonText="추가"
+      />
+      <div class="inventory-item-list">
+        {#each Object.entries($formStore.fields.descriptionInfos) ?? [] as [label, text], index}
+          <div class="inventory-item">
+            <label for={label}>{label}</label>
+            <TextInput
+              bind:value={text}
+              on:change={handleInfoChange("descriptionInfos", label)}
+            />
+            <div class="delete-button">
+              <Button
+                tooltipPosition="bottom"
+                tooltipAlignment="end"
+                iconDescription="삭제"
+                icon={TrashCan16}
+                kind="danger"
+                on:click={handleInfoDelete("descriptionInfos", label)}
+              />
+            </div>
+          </div>
+        {/each}
+      </div>
+    </Column>
+  </Row>
+  <Row padding>
+    <Column>
+      <ButtonTextInput
+        label={"상품정보 제공고시"}
+        placeholder="작성 후 추가 버튼을 누르세요"
+        bind:value={productInfoLabelTextInput}
+        on:click={handleInfoAdd("productInfos")}
+        buttonText="추가"
+      />
+      <div class="inventory-item-list">
+        {#each Object.entries($formStore.fields.productInfos) ?? [] as [label, text], index}
+          <div class="inventory-item">
+            <label for={label}>{label}</label>
+            <TextInput
+              bind:value={text}
+              on:change={handleInfoChange("productInfos", label)}
+            />
+            <div class="delete-button">
+              <Button
+                tooltipPosition="bottom"
+                tooltipAlignment="end"
+                iconDescription="삭제"
+                icon={TrashCan16}
+                kind="danger"
+                on:click={handleInfoDelete("productInfos", label)}
+              />
+            </div>
+          </div>
+        {/each}
+      </div>
+    </Column>
+  </Row>
 </ContentBox>
 <ContentBox title="배송 관련 정보">
   <div class="button-right-wrapper">
@@ -247,6 +343,7 @@
       />
     </Column>
   </Row>
+
   <Row padding>
     <Column>
       <ButtonTextInput
