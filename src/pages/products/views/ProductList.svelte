@@ -108,6 +108,7 @@
     if (e.key === "Enter") {
       searchFilter = {
         ...searchFilter,
+        offset: 0,
         searchQuery: value,
       };
       handleSearch();
@@ -115,7 +116,7 @@
   };
 
   const handleSearch = () => {
-    const queryString = formatQueryString({ ...searchFilter, offset: 0 });
+    const queryString = formatQueryString({ ...searchFilter });
     navigate(`${$location.pathname}?${queryString}`);
   };
 
