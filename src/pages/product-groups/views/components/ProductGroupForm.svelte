@@ -109,14 +109,21 @@
   }, 300);
 
   const productInGroupFiltering = (value: string) => {
-    const productList = isEditProductList ? tempEditProducts : productInGroups;
-    filteredProductInGroup = productList
-      .filter(
+    if (isEditProductList) {
+      filteredProductInGroup = tempEditProducts.filter(
         ({ product }) =>
           product.brand_kor_name.toLocaleLowerCase().includes(value) ||
           product.alloff_name.toLocaleLowerCase().includes(value),
-      )
-      .sort((a, b) => a.priority - b.priority);
+      );
+    } else {
+      filteredProductInGroup = productInGroups
+        .filter(
+          ({ product }) =>
+            product.brand_kor_name.toLocaleLowerCase().includes(value) ||
+            product.alloff_name.toLocaleLowerCase().includes(value),
+        )
+        .sort((a, b) => a.priority - b.priority);
+    }
     productInGroupQuery = value;
   };
 
