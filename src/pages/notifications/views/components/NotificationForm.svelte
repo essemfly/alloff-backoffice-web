@@ -15,11 +15,19 @@
 
   let selectedExhibition: Exhibition;
 
+  const disabled = [
+    "EventNotification",
+    "ProductDiffNotification",
+    "BrandNewProductNotification",
+    "BrandOpenNotification",
+  ];
+
   const notiTypes = Object.keys(NotificationType).map((key) => ({
     key,
     label: NotificationType[key as keyof typeof NotificationType],
     value:
       NotificationTypeEnum[key as keyof typeof NotificationTypeEnum].toString(),
+    disabled: disabled.includes(key),
   }));
 
   const handleExhibitionChange = (event: CustomEvent<Exhibition>) => {
