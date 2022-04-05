@@ -47,7 +47,8 @@
 
       // query strings
       offset = data.offset;
-      limit = data.limit;
+      // limit = data.limit;
+      limit = data.limit > 0 ? data.limit : 50;
       totalItems = data.notis.length; // todo: fix
     } finally {
       isLoading = false;
