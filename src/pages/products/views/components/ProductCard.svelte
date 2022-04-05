@@ -14,7 +14,12 @@
   import Share16 from "carbon-icons-svelte/lib/Share16";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { EditProductRequestApiRequest, Product, ProductsApi } from "@api";
+  import {
+    EditProductRequestApiRequest,
+    PatchedProductRequest,
+    Product,
+    ProductsApi,
+  } from "@api";
 
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
 
@@ -77,12 +82,11 @@
   const handleDeleteSubmit = async () => {
     // todo: integrate remove api
     try {
-      const res = await productApi.productsUpdate({
+      const res = await productApi.productsPartialUpdate({
         id: product.alloff_product_id,
-        editProductRequestApiRequest: {
-          ...product,
+        patchedProductRequest: {
           is_removed: true,
-        } as unknown as EditProductRequestApiRequest,
+        } as unknown as PatchedProductRequest,
       });
       toast.push("상품이 삭제되었습니다.");
       handleModalToggle(false);
