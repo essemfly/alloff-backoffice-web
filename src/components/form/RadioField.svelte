@@ -1,5 +1,6 @@
 <script lang="ts">
   import { generate } from "shortid";
+  import { createEventDispatcher } from "svelte";
   import { RadioButtonGroup, RadioButton } from "carbon-components-svelte";
 
   import Dot from "../Dot.svelte";
@@ -15,6 +16,8 @@
   export let hideLabel: boolean = false;
   export let schema: any;
 
+  const dispatch = createEventDispatcher();
+
   const htmlId: string = `radio-field-${generate()}`;
   const { label, presence, meta } = schema.spec;
   let { placeholder, helperText } = meta ?? {};
@@ -22,6 +25,10 @@
     placeholder = label;
   }
   const required = presence === "required";
+
+  const handleChange = (event: CustomEvent<typeof value>) => {
+    dispatch("change", event.detail);
+  };
 </script>
 
 {#if label && !hideLabel}
@@ -39,6 +46,7 @@
   {labelPosition}
   {orientation}
   hideLegend={hideLabel}
+  on:change={handleChange}
 >
   {#each options as option}
     <RadioButton
@@ -47,7 +55,6 @@
       value={option.value}
       checked={option.value === value}
       disabled={option.disabled}
-      {hideLabel}
     />
   {/each}
 </RadioButtonGroup>

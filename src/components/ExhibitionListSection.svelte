@@ -14,6 +14,8 @@
     Search,
     StructuredListInput,
     InlineLoading,
+    RadioButtonGroup,
+    RadioButton,
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
@@ -25,6 +27,7 @@
     ExhibitionTypeEnum,
   } from "@api";
   import { formatDate } from "@app/helpers/date";
+  import { getExhibitionTypeLabel } from "@app/pages/exhibitions/commands/helpers";
 
   const exhibitionApi = new ExhibitionsApi();
 
@@ -35,15 +38,17 @@
     totalCount: number;
   };
 
+  export let exhibitionType: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
   export let disabledIds: string[] = [];
   export let value: string | string[];
   export let multiple = false;
   export let hideSelection = false;
+  export let byExhibitionType = false;
 
   let params: SearchQueryParam = {
     offset: 0,
     limit: 10,
-    exhibitionType: ExhibitionTypeEnum.Normal,
+    exhibitionType,
     searchQuery: "",
     totalCount: 0,
   };
@@ -59,6 +64,14 @@
   let scrollableList: HTMLDivElement;
 
   const dispatch = createEventDispatcher();
+
+  const exhibitionTypes = Object.keys(ExhibitionTypeEnum).map((key) => ({
+    key,
+    label: getExhibitionTypeLabel(
+      ExhibitionTypeEnum[key as keyof typeof ExhibitionTypeEnum],
+    ),
+    value: ExhibitionTypeEnum[key as keyof typeof ExhibitionTypeEnum],
+  }));
 
   onMount(() => {
     handleSearch(0);
@@ -126,9 +139,9 @@
     try {
       isLoading = true;
       const res = await exhibitionApi.exhibitionsList({
+        ...params,
+        exhibitionType,
         offset,
-        limit: params.limit,
-        exhibitionType: ExhibitionTypeEnum.Normal,
       });
 
       params = {
@@ -252,15 +265,42 @@
     </Column>
   </Row>
 {/if}
+
 <Row>
   <Column>
     <h4>기획전 목록</h4>
-    <Search
-      value={listSearchQuery}
-      on:input={handleProductSearchResultFilter}
-      on:clear={handleProductSearchResultFilter}
-      placeholder="검색결과 내 검색"
-    />
+    {#if byExhibitionType}
+      <Row>
+        <Column>
+          <RadioButtonGroup
+            legendText="기획전 종류"
+            bind:selected={exhibitionType}
+          >
+            {#each exhibitionTypes as option}
+              <RadioButton
+                labelText={option.label}
+                value={option.value}
+                checked={option.value === exhibitionType}
+              />
+            {/each}
+          </RadioButtonGroup>
+        </Column>
+        <Column>
+          <div class="button-right-wrapper">
+            <Button on:click={() => handleSearch(0)}>검색</Button>
+          </div>
+        </Column>
+      </Row>
+    {/if}
+    <div class="button-right-wrapper">
+      <Search
+        value={listSearchQuery}
+        on:input={handleProductSearchResultFilter}
+        on:clear={handleProductSearchResultFilter}
+        placeholder="검색결과 내 검색"
+        expandable
+      />
+    </div>
     <div
       class="product-list"
       bind:this={scrollableList}
