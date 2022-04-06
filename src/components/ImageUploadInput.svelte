@@ -9,6 +9,7 @@
     StructuredListRow,
     StructuredListBody,
     StructuredListCell,
+    Toggle,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
@@ -21,9 +22,12 @@
   export let disabled: boolean = false;
   export let helperText: string = "";
   export let errorText: string = "";
+  export let hasThumbnail: boolean = false;
+  export let thumbnail: string = "";
 
   let images: string[] = [];
   let isImageUploading = false;
+  let toggleIndex = 0;
 
   const imageApi = new ImageUploadApi();
   const dispatch = createEventDispatcher();
@@ -32,6 +36,14 @@
     if (value) {
       if (multiple) {
         images = (value as string[]) ?? [];
+        if (hasThumbnail) {
+          if (thumbnail) {
+            toggleIndex = images.indexOf(thumbnail);
+          } else {
+            toggleIndex = 0;
+          }
+          thumbnail = images[toggleIndex];
+        }
       } else {
         images = [value as string] ?? [];
       }
@@ -41,6 +53,14 @@
   $: if (value) {
     if (multiple) {
       images = (value as string[]) ?? [];
+      if (hasThumbnail) {
+        if (thumbnail) {
+          toggleIndex = images.indexOf(thumbnail);
+        } else {
+          toggleIndex = 0;
+        }
+        thumbnail = images[toggleIndex];
+      }
     } else {
       images = [value as string] ?? [];
     }
@@ -86,6 +106,22 @@
     }
     dispatch("change", value);
   };
+
+  const handleToggle =
+    (index: number) => (event: CustomEvent<{ toggled: boolean }>) => {
+      const { toggled } = event.detail;
+      if (hasThumbnail) {
+        if (toggled) {
+          thumbnail = images[index];
+          toggleIndex = index;
+          dispatch("change:thumbnail", toggleIndex > 0 ? thumbnail : undefined);
+        } else if (!toggled && index === toggleIndex) {
+          thumbnail = images[0];
+          toggleIndex = 0;
+          dispatch("change:thumbnail", undefined);
+        }
+      }
+    };
 </script>
 
 <div class="image-upload-input">
@@ -109,13 +145,23 @@
 
   <StructuredList condensed flush>
     <StructuredListBody>
-      {#each images as item, index}
+      {#each images as item, index (index)}
         <StructuredListRow class="image-upload-input-box-list-item">
           <StructuredListCell>
             <div class="image-wrapper">
               <img class="image" src={item} alt={[label, index].join("_")} />
             </div>
           </StructuredListCell>
+          {#if hasThumbnail}
+            <StructuredListCell>
+              <Toggle
+                labelText="대표 이미지"
+                size="sm"
+                toggled={index === toggleIndex}
+                on:toggle={handleToggle(index)}
+              />
+            </StructuredListCell>
+          {/if}
           <StructuredListCell noWrap>
             {#if multiple}
               <SortButtonSet
