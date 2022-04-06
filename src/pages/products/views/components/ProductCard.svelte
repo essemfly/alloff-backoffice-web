@@ -127,7 +127,7 @@
     </div>
     <div class="image">
       <img
-        src={product.images[0]}
+        src={product.thumbnail ?? product.images[0]}
         alt={[product.brand_kor_name, product.alloff_name].join("-")}
       />
     </div>

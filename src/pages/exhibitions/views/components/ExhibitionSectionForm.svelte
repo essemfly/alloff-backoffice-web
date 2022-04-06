@@ -84,7 +84,7 @@
           <StructuredListCell>
             <img
               class="cell_image"
-              src={product.images[0]}
+              src={product.thumbnail ?? product.images[0]}
               alt={["product_preview", product.alloff_name].join("-")}
             />
             {#if product.images.length > 1}

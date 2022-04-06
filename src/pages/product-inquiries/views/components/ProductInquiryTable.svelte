@@ -1,13 +1,13 @@
 <script lang="ts">
   import { ProductInquiry } from "@api";
   import {
-  Button,
-  DataTable,
-  InlineLoading,
-  TextInput,
-  Toolbar,
-  ToolbarContent,
-  ToolbarSearch
+    Button,
+    DataTable,
+    InlineLoading,
+    TextInput,
+    Toolbar,
+    ToolbarContent,
+    ToolbarSearch,
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import Delete16 from "carbon-icons-svelte/lib/Delete16";
@@ -77,7 +77,7 @@
           hour12: true,
         })}
       {:else if cell.key === "status"}
-        {!row.is_pending  ? "답변완료" : "답변대기"}
+        {!row.is_pending ? "답변완료" : "답변대기"}
       {:else if cell.key === "body"}
         {row.body.length > ellipsisExtent
           ? row.body.substring(0, Math.min(row.body.length, ellipsisExtent)) +
@@ -86,7 +86,11 @@
       {:else if cell.key === "product_name"}
         {row.product.alloff_name}
       {:else if cell.key === "product_img"}
-        <img src={row.product.images[0]} height="100" alt="상품 이미지" />
+        <img
+          src={row.product.thumbnail ?? row.product.images[0]}
+          height="100"
+          alt="상품 이미지"
+        />
       {:else if cell.key.includes("time")}
         {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
           month: "2-digit",
