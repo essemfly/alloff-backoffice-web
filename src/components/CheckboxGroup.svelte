@@ -27,7 +27,6 @@
       values = [];
     }
     values = uniq(values);
-    dispatch("change", values);
   };
 
   const handleCheck = (value: string) => (event: CustomEvent<boolean>) => {
@@ -39,14 +38,15 @@
     } else {
       const newValues = values.slice();
       const index = values.indexOf(value);
-      newValues.splice(index, 1);
+      values = newValues.splice(index, 1);
       values = newValues;
     }
     values = uniq(values);
-    dispatch("change", values);
   };
 
   $: allChecked = values.length === options.length;
+
+  $: dispatch("change", values);
 </script>
 
 <FormGroup legendText={label}>
@@ -55,7 +55,7 @@
     on:check={handleAllCheck}
     checked={allChecked}
   />
-  {#each options as { label, value }}
+  {#each options as { label, value } (value)}
     <Checkbox
       on:check={handleCheck(value)}
       checked={values.includes(value)}
