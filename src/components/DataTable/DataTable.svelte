@@ -2,8 +2,11 @@
   import { createEventDispatcher } from "svelte";
   import {
     Button,
+    Column,
     DataTable,
     NumberInput,
+    Row,
+    Tile,
     Toggle,
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
@@ -115,6 +118,14 @@
     {/if}
   </span>
 </DataTable>
+
+{#if rows.length === 0}
+  <Row>
+    <Column>
+      <Tile>No data</Tile>
+    </Column>
+  </Row>
+{/if}
 
 <style>
   :global(.bx--data-table tr) {
