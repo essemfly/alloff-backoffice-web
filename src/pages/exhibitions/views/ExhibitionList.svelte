@@ -1,7 +1,17 @@
 <script lang="ts">
   import { debounce } from "lodash";
   import { navigate, useLocation } from "svelte-navigator";
-  import { Button } from "carbon-components-svelte";
+  import {
+    Button,
+    Checkbox,
+    Column,
+    Grid,
+    Row,
+    Search,
+    Toolbar,
+    ToolbarContent,
+    ToolbarSearch,
+  } from "carbon-components-svelte";
 
   import {
     Exhibition,
@@ -19,7 +29,10 @@
   import DataTable from "@app/components/DataTable/DataTable.svelte";
 
   import { exhibitionColumns } from "./components/exhibitionColumns";
-  import { getExhibitionTypeLabel } from "../commands/helpers";
+  import {
+    getExhibitionTypeByIndex,
+    getExhibitionTypeLabel,
+  } from "../commands/helpers";
 
   export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
 
@@ -29,9 +42,12 @@
     offset: 0,
     limit: 50,
     exhibitionType: type,
+    isLive: true,
+    query: "",
   };
   let isLoading = false;
   let totalItems = 0;
+  let innerSearchQuery = "";
 
   const exhibitionApi = new ExhibitionsApi();
   const location = useLocation<SearchQueryParam>();
@@ -51,6 +67,11 @@
       searchFilter = {
         offset: res.data.offset,
         limit: res.data.limit,
+        exhibitionType: getExhibitionTypeByIndex(
+          res.data.group_type as unknown as number,
+        ),
+        isLive: res.data.is_live,
+        query: res.data.query,
       };
       totalItems = res.data.total_counts;
     } finally {
@@ -118,32 +139,79 @@
     500,
   );
 
+  const handleSearchKeydown = (e: KeyboardEvent) => {
+    const value = (e.target as HTMLInputElement).value.trim();
+    if (e.key === "Enter") {
+      searchFilter = {
+        ...searchFilter,
+        offset: 0,
+        query: value,
+      };
+      handleSearch();
+    }
+  };
+
   $: if ($location) {
     const params = parseQueryString<SearchQueryParam>($location.search);
     load(params);
   }
+
+  const handleCheck = (event: CustomEvent<boolean>) => {
+    searchFilter = {
+      ...searchFilter,
+      isLive: !event.detail,
+    };
+  };
 </script>
 
 <Nav title={`${exhibitionLabel} 목록`}>
   <h1>{exhibitionLabel} 목록</h1>
-  <div class="button-right-wrapper mb10">
-    <Button on:click={handleAddClick}>{exhibitionLabel} 추가</Button>
-  </div>
+  <Grid slot="header" noGutter>
+    <Row>
+      <Column>
+        <Checkbox
+          labelText="비활성화 포함"
+          checked={!searchFilter.isLive}
+          on:check={handleCheck}
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column>
+        <Search
+          labelText="검색어"
+          on:keydown={handleSearchKeydown}
+          bind:value={searchFilter.query}
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column>
+        <div class="button-right-wrapper">
+          <Button on:click={handleSearch}>검색</Button>
+        </div>
+      </Column>
+    </Row>
+  </Grid>
+  <DataTable
+    data={exhibitions}
+    columns={exhibitionColumns}
+    on:click:row={handleRowClick}
+    on:change:toggle={handleIsLiveChange}
+  >
+    <Toolbar>
+      <ToolbarContent>
+        <ToolbarSearch shouldFilterRows bind:value={innerSearchQuery} />
+        <Button on:click={handleAddClick}>{exhibitionLabel} 추가</Button>
+      </ToolbarContent>
+    </Toolbar>
+  </DataTable>
   <Pagination
     limit={searchFilter.limit}
     offset={searchFilter.offset}
     {totalItems}
     on:change={handlePageChange}
   />
-  <DataTable
-    data={exhibitions}
-    columns={exhibitionColumns}
-    on:click:row={handleRowClick}
-    on:change:toggle={handleIsLiveChange}
-  />
-  <div class="button-right-wrapper mt10">
-    <Button on:click={handleAddClick}>{exhibitionLabel} 추가</Button>
-  </div>
 </Nav>
 
 <style>
