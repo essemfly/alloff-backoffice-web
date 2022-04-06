@@ -87,7 +87,9 @@
         {row.product.alloff_name}
       {:else if cell.key === "product_img"}
         <img
-          src={row.product.thumbnail ?? row.product.images[0]}
+          src={row.product.thumbnail_image !== ""
+            ? row.product.thumbnail_image
+            : row.product.images[0]}
           height="100"
           alt="상품 이미지"
         />

@@ -24,7 +24,11 @@
 
   onMount(async () => {
     const res = await productApi.productsRetrieve({ id: productId });
-    const product = convertToCamelCase(res.data);
+    const product = convertToCamelCase({
+      ...res.data,
+      thumbnail_image:
+        res.data.main_image_url ?? res.data.thumbnail_image ?? undefined,
+    });
     formStore.update(product);
     isLoading = false;
   });
