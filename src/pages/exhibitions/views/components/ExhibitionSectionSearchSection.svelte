@@ -19,7 +19,7 @@
   import {
     ProductGroup,
     ProductGroupsApi,
-    GroupTypeEnum,
+    GroupTypeCbfEnum as GroupTypeEnum,
     ProductGroupsApiProductGroupsListRequest,
   } from "@api";
 

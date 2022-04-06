@@ -26,7 +26,7 @@
   import {
     ProductGroup,
     ProductGroupsApi,
-    GroupTypeEnum,
+    GroupTypeCbfEnum as GroupTypeEnum,
     ProductInGroup,
     ExhibitionTypeEnum,
   } from "@api";

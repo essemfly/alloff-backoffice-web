@@ -4,7 +4,7 @@
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
   import {
-    GroupTypeEnum,
+    GroupTypeCbfEnum as GroupTypeEnum,
     ProductGroup,
     ProductGroupsApi,
     ProductGroupsApiProductGroupsListRequest as SearchQueryParam,

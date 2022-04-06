@@ -6,7 +6,11 @@
   import { Grid, Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { ProductGroupsApi, GroupTypeEnum, ProductInGroup } from "@api";
+  import {
+    ProductGroupsApi,
+    GroupTypeCbfEnum as GroupTypeEnum,
+    ProductInGroup,
+  } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 

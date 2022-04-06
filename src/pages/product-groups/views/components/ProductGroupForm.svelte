@@ -24,7 +24,7 @@
     ProductGroupsApi,
     ProductInGroup,
     Product,
-    GroupTypeEnum,
+    GroupTypeCbfEnum as GroupTypeEnum,
   } from "@api";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";

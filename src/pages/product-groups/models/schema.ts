@@ -1,7 +1,7 @@
 import { array, InferType, object, string, StringSchema } from "yup";
 
 import { Form, useForm } from "@app/helpers/useForm";
-import { GroupTypeEnum } from "@app/api";
+import { GroupTypeCbfEnum as GroupTypeEnum } from "@api";
 
 export const schema = object({
   productGroupId: string().label("섹션 ID"),

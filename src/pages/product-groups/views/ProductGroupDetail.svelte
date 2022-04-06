@@ -8,7 +8,7 @@
 
   import {
     EditProductGroupRequest,
-    GroupTypeEnum,
+    GroupTypeCbfEnum as GroupTypeEnum,
     ProductGroupsApi,
     ProductInGroup,
   } from "@api";
