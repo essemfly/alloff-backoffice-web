@@ -7,10 +7,13 @@
 
   import { EditProductRequestApiRequest, ProductsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
+  import {
+    convertToCamelCase,
+    convertToSnakeCase,
+  } from "@app/helpers/change-case";
 
   import ProductForm from "./components/ProductForm.svelte";
-  import { formStore, schema } from "../models/schema";
+  import { formStore } from "../models/schema";
 
   const productApi = new ProductsApi();
 
@@ -21,7 +24,7 @@
 
   onMount(async () => {
     const res = await productApi.productsRetrieve({ id: productId });
-    const product = schema.camelCase().cast(res.data);
+    const product = convertToCamelCase(res.data);
     formStore.update(product);
     isLoading = false;
   });

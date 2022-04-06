@@ -36,7 +36,7 @@
     if (value) {
       if (multiple) {
         images = (value as string[]) ?? [];
-        if (hasThumbnail) {
+        if (hasThumbnail && multiple) {
           if (thumbnail) {
             toggleIndex = images.indexOf(thumbnail);
           } else {
@@ -53,7 +53,7 @@
   $: if (value) {
     if (multiple) {
       images = (value as string[]) ?? [];
-      if (hasThumbnail) {
+      if (hasThumbnail && multiple) {
         if (thumbnail) {
           toggleIndex = images.indexOf(thumbnail);
         } else {
@@ -110,7 +110,7 @@
   const handleToggle =
     (index: number) => (event: CustomEvent<{ toggled: boolean }>) => {
       const { toggled } = event.detail;
-      if (hasThumbnail) {
+      if (hasThumbnail && multiple) {
         if (toggled) {
           thumbnail = images[index];
           toggleIndex = index;
@@ -152,7 +152,7 @@
               <img class="image" src={item} alt={[label, index].join("_")} />
             </div>
           </StructuredListCell>
-          {#if hasThumbnail}
+          {#if hasThumbnail && multiple}
             <StructuredListCell>
               <Toggle
                 labelText="대표 이미지"

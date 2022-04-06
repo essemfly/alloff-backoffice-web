@@ -55,6 +55,7 @@ export const schema = object({
   isClassifiedDone: boolean(),
   productInfos: object().required().default({}),
   descriptionInfos: object().required().default({}),
+  thumbnailImage: string().label("대표 이미지"),
 });
 
 export type FormSchema = InferType<typeof schema>;

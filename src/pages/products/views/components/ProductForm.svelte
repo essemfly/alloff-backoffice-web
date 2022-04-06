@@ -95,7 +95,6 @@
 
   $: {
     formStore.update({ rawHtml: useHtml ? html : null });
-    // form.rawHtml = useHtml ? html : null;
   }
 </script>
 
@@ -181,6 +180,8 @@
       <ImageUploadInput
         label={"상품 이미지"}
         bind:value={$formStore.fields.images}
+        bind:thumbnail={$formStore.fields.thumbnailImage}
+        hasThumbnail
         multiple
       />
     </Column>
