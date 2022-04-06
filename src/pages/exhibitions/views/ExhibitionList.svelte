@@ -165,7 +165,6 @@
 </script>
 
 <Nav title={`${exhibitionLabel} 목록`}>
-  <h1>{exhibitionLabel} 목록</h1>
   <Grid slot="header" noGutter>
     <Row>
       <Column>

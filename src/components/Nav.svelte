@@ -36,6 +36,7 @@
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
   import { onMount } from "svelte";
   import { useLocation } from "svelte-navigator";
+  import { compute_slots } from "svelte/internal";
   import { admin } from "../store";
   import MetaTags from "./MetaTags/MetaTags.svelte";
   import { MetaTagsProps } from "./MetaTags/types";
@@ -44,6 +45,7 @@
   export let metaTags: MetaTagsProps = {};
   export let loading: boolean = false;
   export let loadingText: string = "Loading";
+  export let hidePageTitle: boolean = false;
 
   let isSideNavOpen = false;
   let isUtilOpen = false;
@@ -173,7 +175,7 @@
   </div>
 
   <HeaderNav>
-    {#each menu as menuItem}
+    {#each menu as menuItem (menuItem.label)}
       {#if menuItem.items && menuItem.items.length > 0}
         <HeaderNavMenu text={menuItem.label}>
           {#each menuItem.items as { label, path }}
@@ -251,16 +253,26 @@
     </HeaderUtilities>
   {/if}
 </Header>
+
 {#if $$slots.header}
   <header class="nav-header-section">
+    {#if !hidePageTitle}
+      <h1 class="title">{title}</h1>
+    {/if}
     <slot name="header" />
   </header>
 {/if}
 <Content>
+  {#if !hidePageTitle && !$$slots.header}
+    <h1 class="title">{title}</h1>
+  {/if}
   <slot />
 </Content>
 
 <style>
+  h1.title {
+    margin-bottom: 30px;
+  }
   .subtitle {
     display: flex;
     flex-direction: row;

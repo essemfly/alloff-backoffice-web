@@ -2,7 +2,7 @@
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
-  import { Grid, Button } from "carbon-components-svelte";
+  import { Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import { CreateNotiRequest, NotificationsApi } from "@api";
@@ -45,17 +45,15 @@
 </script>
 
 <Nav title={"푸시알림 추가"} loading={isSubmitting}>
-  <Grid>
-    <div class="button-right-wrapper mb10">
-      <Button type={"button"} on:click={handleSubmit} icon={Save16}>
-        푸시알림 등록
-      </Button>
-    </div>
-    <NotificationForm />
-    <div class="button-right-wrapper mt10">
-      <Button type={"button"} on:click={handleSubmit} icon={Save16}>
-        푸시알림 등록
-      </Button>
-    </div>
-  </Grid>
+  <div class="button-right-wrapper mb10">
+    <Button type={"button"} on:click={handleSubmit} icon={Save16}>
+      푸시알림 등록
+    </Button>
+  </div>
+  <NotificationForm />
+  <div class="button-right-wrapper mt10">
+    <Button type={"button"} on:click={handleSubmit} icon={Save16}>
+      푸시알림 등록
+    </Button>
+  </div>
 </Nav>

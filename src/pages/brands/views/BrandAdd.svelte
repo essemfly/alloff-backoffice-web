@@ -39,7 +39,6 @@
 </script>
 
 <Nav title="브랜드 추가">
-  <h1>브랜드 추가</h1>
   <div class="button-right-wrapper mb10">
     <Button on:click={handleSubmit}>브랜드 등록</Button>
   </div>

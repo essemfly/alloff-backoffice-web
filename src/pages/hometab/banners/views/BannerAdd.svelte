@@ -46,14 +46,13 @@
 </script>
 
 <Nav title="배너 추가">
-  <h1>배너 추가</h1>
   <div class="button-right-wrapper mb10">
     <Button on:click={handleSubmit} disabled={isSubmitting}>
       {isSubmitting ? "등록중..." : "등록"}
     </Button>
   </div>
   <BannerForm isAdding />
-  <div class="button-right-wrapper mb10">
+  <div class="button-right-wrapper mt10">
     <Button on:click={handleSubmit} disabled={isSubmitting}>
       {isSubmitting ? "등록중..." : "등록"}
     </Button>

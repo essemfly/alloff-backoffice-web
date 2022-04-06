@@ -62,14 +62,13 @@
 </script>
 
 <Nav title={`${exhibitionLabel} 추가`}>
-  <h1>{exhibitionLabel} 추가</h1>
-  <div class="button-right-wrapper mb10">
+  <div class="button-right-wrapper">
     <Button on:click={handleSubmit} disabled={isSubmitting}>
       {isSubmitting ? "등록중..." : "등록"}
     </Button>
   </div>
   <ExhibitionForm label={exhibitionLabel} isAdding />
-  <div class="button-right-wrapper mb10">
+  <div class="button-right-wrapper">
     <Button on:click={handleSubmit} disabled={isSubmitting}>
       {isSubmitting ? "등록중..." : "등록"}
     </Button>

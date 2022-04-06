@@ -17,7 +17,7 @@
   import { convertToCamelCase } from "@app/helpers/change-case";
 
   import { brandColumns } from "./components/brandColumns";
-  import { formStore, schema } from "../models/schema";
+  import { formStore } from "../models/schema";
 
   let brands: Brand[] = [];
 
@@ -65,8 +65,6 @@
 </script>
 
 <Nav title="브랜드 목록">
-  <h1>브랜드 목록</h1>
-  <div class="mt10" />
   <DataTable
     data={brands}
     columns={brandColumns}

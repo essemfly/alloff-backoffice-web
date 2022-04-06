@@ -1,6 +1,6 @@
 <script lang="ts">
   import { navigate, useLocation } from "svelte-navigator";
-  import { Button } from "carbon-components-svelte";
+  import { Button, Column, Grid, Row } from "carbon-components-svelte";
 
   import {
     HomeTab,
@@ -129,16 +129,25 @@
 </script>
 
 <Nav title="홈탭 아이템 관리">
-  <h1>홈탭 아이템 관리</h1>
-  <div class="button-right-wrapper mb10">
-    <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
-  </div>
-  <Pagination
-    limit={searchFilter.limit}
-    offset={searchFilter.offset}
-    {totalItems}
-    on:change={handlePageChange}
-  />
+  <Grid noGutter>
+    <Row>
+      <Column>
+        <div class="button-right-wrapper">
+          <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
+        </div>
+      </Column>
+    </Row>
+    <Row>
+      <Column>
+        <Pagination
+          limit={searchFilter.limit}
+          offset={searchFilter.offset}
+          {totalItems}
+          on:change={handlePageChange}
+        />
+      </Column>
+    </Row>
+  </Grid>
   <DataTable
     data={hometabs}
     columns={hometabColumns}
@@ -146,7 +155,23 @@
     on:change:weight={handleWeightChange}
     on:change:toggle={handleIsLiveChange}
   />
-  <div class="button-right-wrapper mt10">
-    <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
-  </div>
+  <Grid noGutter>
+    <Row>
+      <Column>
+        <Pagination
+          limit={searchFilter.limit}
+          offset={searchFilter.offset}
+          {totalItems}
+          on:change={handlePageChange}
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column>
+        <div class="button-right-wrapper">
+          <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
+        </div>
+      </Column>
+    </Row>
+  </Grid>
 </Nav>

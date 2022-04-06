@@ -64,8 +64,7 @@
   };
 </script>
 
-<Nav title="브랜드 추가">
-  <h1>브랜드 추가</h1>
+<Nav title={$formStore.fields.korname ?? "브랜드 상세"}>
   {#if isLoading}
     <InlineLoading status="active" description="On Loading..." />
   {:else}
