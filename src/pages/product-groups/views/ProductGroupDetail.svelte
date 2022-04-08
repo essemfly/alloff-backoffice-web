@@ -86,13 +86,13 @@
   {#if isLoading}
     <InlineLoading status="active" description="On Loading..." />
   {:else}
-    <div class="button-right-wrapper mb10">
+    <div class="row-right-wrapper mb10">
       <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
         {isSubmitting ? "수정중..." : "수정"}
       </Button>
     </div>
     <ProductGroupForm label={productGroupTypeLabel} {productInGroups} />
-    <div class="button-right-wrapper mt10">
+    <div class="row-right-wrapper mt10">
       <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
         {isSubmitting ? "수정중..." : "수정"}
       </Button>

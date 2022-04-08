@@ -196,7 +196,7 @@
 </script>
 
 <ContentBox title={`${label} 정보`}>
-  <div class="button-right-wrapper">
+  <div class="row-right-wrapper">
     <Dot label="필수 입력 사항" />
   </div>
 
@@ -276,7 +276,7 @@
       />
     </div>
     {#if !isEditProductList}
-      <div class="button-right-wrapper">
+      <div class="row-right-wrapper">
         <Search
           placeholder="상품 목록의 상품 검색"
           value={productInGroupQuery}

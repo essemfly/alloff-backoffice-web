@@ -104,7 +104,7 @@
   <Grid noGutter>
     <Row>
       <Column>
-        <div class="button-right-wrapper">
+        <div class="row-right-wrapper">
           <Button on:click={handleAddClick}>배너 추가</Button>
         </div>
       </Column>
@@ -139,7 +139,7 @@
     </Row>
     <Row>
       <Column>
-        <div class="button-right-wrapper">
+        <div class="row-right-wrapper">
           <Button on:click={handleAddClick}>배너 추가</Button>
         </div>
       </Column>

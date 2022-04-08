@@ -286,13 +286,13 @@
           </RadioButtonGroup>
         </Column>
         <Column>
-          <div class="button-right-wrapper">
+          <div class="row-right-wrapper">
             <Button on:click={() => handleSearch(0)}>검색</Button>
           </div>
         </Column>
       </Row>
     {/if}
-    <div class="button-right-wrapper">
+    <div class="row-right-wrapper">
       <Search
         value={listSearchQuery}
         on:input={handleProductSearchResultFilter}

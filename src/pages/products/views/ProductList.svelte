@@ -172,7 +172,7 @@
     </Row>
     <Row>
       <Column>
-        <div class="button-right-wrapper">
+        <div class="row-right-wrapper">
           <Button on:click={handleSearch}>검색</Button>
         </div>
       </Column>
@@ -183,7 +183,7 @@
     <svelte:fragment slot="header">
       <Row>
         <Column>
-          <div class="button-right-wrapper">
+          <div class="row-right-wrapper">
             <Button icon={DocumentAdd16} on:click={handleAddClick}>
               상품 추가
             </Button>
@@ -221,7 +221,7 @@
       </Row>
       <Row>
         <Column>
-          <div class="button-right-wrapper">
+          <div class="row-right-wrapper">
             <Button icon={DocumentAdd16} on:click={handleAddClick}>
               상품 추가
             </Button>

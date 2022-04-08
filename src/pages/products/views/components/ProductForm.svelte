@@ -115,7 +115,7 @@
 </script>
 
 <ContentBox title="상품 정보">
-  <div class="button-right-wrapper">
+  <div class="row-right-wrapper">
     <Dot label="필수 입력 사항" />
   </div>
   {#if !isAdding}
@@ -295,7 +295,7 @@
   </Row>
 </ContentBox>
 <ContentBox title="배송 관련 정보">
-  <div class="button-right-wrapper">
+  <div class="row-right-wrapper">
     <Dot label="필수 입력 사항" />
   </div>
   <Row padding>

@@ -55,7 +55,7 @@
 </script>
 
 <ContentBox title="푸시알림 정보">
-  <div class="button-right-wrapper">
+  <div class="row-right-wrapper">
     <Dot label="필수 입력 사항" />
   </div>
   <FormGroup>

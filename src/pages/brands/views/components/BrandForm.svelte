@@ -143,7 +143,7 @@
       />
     </Column>
   </Row>
-  <div class="button-right-wrapper">
+  <div class="row-right-wrapper">
     <Button size="small" kind="secondary" on:click={handleSizeGuideAdd}>
       사이즈 가이드 추가
     </Button>

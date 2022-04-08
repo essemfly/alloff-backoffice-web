@@ -39,11 +39,11 @@
 </script>
 
 <Nav title="브랜드 추가">
-  <div class="button-right-wrapper mb10">
+  <div class="row-right-wrapper mb10">
     <Button on:click={handleSubmit}>브랜드 등록</Button>
   </div>
   <BrandForm isAdding />
-  <div class="button-right-wrapper mt10">
+  <div class="row-right-wrapper mt10">
     <Button on:click={handleSubmit}>브랜드 등록</Button>
   </div>
 </Nav>

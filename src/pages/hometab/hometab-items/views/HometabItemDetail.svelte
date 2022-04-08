@@ -77,13 +77,13 @@
   {#if isLoading}
     <InlineLoading status="active" description="On Loading..." />
   {:else}
-    <div class="button-right-wrapper mb10">
+    <div class="row-right-wrapper mb10">
       <Button on:click={handleSubmit} disabled={isSubmitting}>
         홈탭 아이템 {isSubmitting ? "수정중..." : "수정"}
       </Button>
     </div>
     <HometabItemForm />
-    <div class="button-right-wrapper mb10">
+    <div class="row-right-wrapper mb10">
       <Button on:click={handleSubmit} disabled={isSubmitting}>
         홈탭 아이템 {isSubmitting ? "수정중..." : "수정"}
       </Button>

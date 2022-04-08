@@ -47,13 +47,13 @@
 
 <Nav title="상품 추가" loading={isSubmitting}>
   <Grid>
-    <div class="button-right-wrapper mb10">
+    <div class="row-right-wrapper mb10">
       <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
         {isSubmitting ? "상품 등록중..." : "상품 등록"}
       </Button>
     </div>
     <ProductForm isAdding />
-    <div class="button-right-wrapper mt10">
+    <div class="row-right-wrapper mt10">
       <Button on:click={handleSubmit} disabled={isSubmitting} icon={Save16}>
         {isSubmitting ? "상품 등록중..." : "상품 등록"}
       </Button>

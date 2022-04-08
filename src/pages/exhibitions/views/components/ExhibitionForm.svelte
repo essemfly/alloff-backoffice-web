@@ -176,7 +176,7 @@
 </script>
 
 <ContentBox title={`${label} 정보`}>
-  <div class="button-right-wrapper">
+  <div class="row-right-wrapper">
     <Dot label="필수 입력 사항" />
   </div>
   {#if !isAdding}
@@ -360,7 +360,7 @@
     <svelte:fragment slot="content">
       <TabContent>
         <ExhibitionSectionForm bind:productInGroups isAdding />
-        <div class="button-right-wrapper">
+        <div class="row-right-wrapper">
           <Button on:click={handleProductGroupSubmit} disabled={isSubmitting}>
             섹션 추가{isSubmitting ? "중..." : ""}
           </Button>

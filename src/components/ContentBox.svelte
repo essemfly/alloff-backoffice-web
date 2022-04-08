@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="inner-box">
-    <div class="button-right-wrapper">
+    <div class="row-right-wrapper">
       <slot name="legend" />
     </div>
     <slot />

@@ -88,7 +88,7 @@
 </script>
 
 <Nav title="섹션 목록">
-  <div class="button-right-wrapper mb10">
+  <div class="row-right-wrapper mb10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>섹션 추가</Button>
   </div>
   <Pagination
@@ -102,7 +102,7 @@
     columns={productGroupColumns}
     on:click:row={handleRowClick}
   />
-  <div class="button-right-wrapper mt10">
+  <div class="row-right-wrapper mt10">
     <Button icon={DocumentAdd16} on:click={handleAddClick}>섹션 추가</Button>
   </div>
 </Nav>
