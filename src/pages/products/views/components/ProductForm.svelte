@@ -25,6 +25,7 @@
 
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
   import { FormSchema, formStore, schema } from "../../models/schema";
+  import { onMount } from "svelte";
 
   export let isAdding: boolean = false;
 
@@ -35,6 +36,8 @@
   let useHtml = false;
   let html = $formStore.fields.rawHtml ?? "";
   let inventorySum = 0;
+
+  onMount(() => sumInventories());
 
   const handleAddInventory = () => {
     const inventory = [
