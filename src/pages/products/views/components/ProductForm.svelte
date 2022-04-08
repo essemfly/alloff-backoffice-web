@@ -65,9 +65,12 @@
   };
 
   const sumInventories = () => {
-    inventorySum = $formStore.fields.inventory.reduce((prev, next: any) => {
-      return (prev.quantity ?? 0) + next.quantity;
-    }) as unknown as number;
+    inventorySum =
+      $formStore.fields.inventory.length > 0
+        ? ($formStore.fields.inventory.reduce((prev, next: any) => {
+            return (prev.quantity ?? 0) + next.quantity;
+          }) as unknown as number)
+        : 0;
   };
 
   const handleInfoAdd =
@@ -113,7 +116,9 @@
   $: inventoryStatus = $formStore.fields.isRemoved
     ? "판매 불가: 상품 목록에 표시되지 않습니다"
     : $formStore.fields.isSoldout || inventorySum === 0
-    ? "품절: 상품 목록에 품절로 표시됩니다."
+    ? `품절(${
+        inventorySum === 0 ? "재고 없음" : "품절 처리"
+      }): 상품 목록에 품절로 표시됩니다. `
     : "";
 </script>
 
