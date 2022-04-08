@@ -132,7 +132,7 @@
     />
   </Column>
 </Row>
-<div class="button-right-wrapper">
+<div class="row-right-wrapper">
   <Button on:click={handleSectionSearch}>섹션 검색</Button>
 </div>
 

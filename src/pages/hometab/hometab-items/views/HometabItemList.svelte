@@ -132,7 +132,7 @@
   <Grid noGutter>
     <Row>
       <Column>
-        <div class="button-right-wrapper">
+        <div class="row-right-wrapper">
           <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
         </div>
       </Column>
@@ -168,7 +168,7 @@
     </Row>
     <Row>
       <Column>
-        <div class="button-right-wrapper">
+        <div class="row-right-wrapper">
           <Button on:click={handleAddClick}>홈탭 아이템 추가</Button>
         </div>
       </Column>

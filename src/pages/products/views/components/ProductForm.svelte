@@ -34,6 +34,7 @@
   let inventoryTextInput = "";
   let useHtml = false;
   let html = $formStore.fields.rawHtml ?? "";
+  let inventorySum = 0;
 
   const handleAddInventory = () => {
     const inventory = [
@@ -42,6 +43,7 @@
     ];
     formStore.update({ inventory });
     inventoryTextInput = "";
+    sumInventories();
   };
 
   const handleChangeInventory = (index: number) => () => {
@@ -49,12 +51,20 @@
       // zero inventory means remove
       handleDeleteInventory(index);
     }
+    sumInventories();
   };
 
   const handleDeleteInventory = (index: number) => () => {
     const newValue = ($formStore.fields.inventory ?? []).slice();
     newValue.splice(index, 1);
     formStore.update({ inventory: newValue });
+    sumInventories();
+  };
+
+  const sumInventories = () => {
+    inventorySum = $formStore.fields.inventory.reduce((prev, next: any) => {
+      return (prev.quantity ?? 0) + next.quantity;
+    }) as unknown as number;
   };
 
   const handleInfoAdd =
@@ -96,10 +106,16 @@
   $: {
     formStore.update({ rawHtml: useHtml ? html : null });
   }
+
+  $: inventoryStatus = $formStore.fields.isRemoved
+    ? "판매 불가: 상품 목록에 표시되지 않습니다"
+    : $formStore.fields.isSoldout || inventorySum === 0
+    ? "품절: 상품 목록에 품절로 표시됩니다."
+    : "";
 </script>
 
 <ContentBox title="상품 정보">
-  <div class="button-right-wrapper">
+  <div class="row-right-wrapper">
     <Dot label="필수 입력 사항" />
   </div>
   {#if !isAdding}
@@ -279,7 +295,7 @@
   </Row>
 </ContentBox>
 <ContentBox title="배송 관련 정보">
-  <div class="button-right-wrapper">
+  <div class="row-right-wrapper">
     <Dot label="필수 입력 사항" />
   </div>
   <Row padding>
@@ -325,7 +341,8 @@
   </Row>
 </ContentBox>
 <ContentBox title="재고 정보">
-  <div class="button-right-wrapper">
+  <div class="row-space-wrapper">
+    <p class="inventory-status">{inventoryStatus}</p>
     <Dot label="필수 입력 사항" />
   </div>
   <Row padding>
@@ -334,6 +351,9 @@
         schema={schema.fields.isRemoved}
         errorText={$formStore.errors.isRemoved}
         bind:value={$formStore.fields.isRemoved}
+        labelA="판매 가능"
+        labelB="판매 불가"
+        kind="danger"
       />
     </Column>
     <Column>
@@ -341,6 +361,9 @@
         schema={schema.fields.isSoldout}
         errorText={$formStore.errors.isSoldout}
         bind:value={$formStore.fields.isSoldout}
+        labelA="품절 아님"
+        labelB="품절"
+        kind="danger"
       />
     </Column>
   </Row>
@@ -396,6 +419,12 @@
 </ContentBox>
 
 <style>
+  .inventory-status {
+    height: 20px;
+    font-size: 0.9em;
+    color: var(--danger-01);
+  }
+
   .inventory-item-list {
     margin-top: 10px;
   }

@@ -45,13 +45,13 @@
 </script>
 
 <Nav title={"푸시알림 추가"} loading={isSubmitting}>
-  <div class="button-right-wrapper mb10">
+  <div class="row-right-wrapper mb10">
     <Button type={"button"} on:click={handleSubmit} icon={Save16}>
       푸시알림 등록
     </Button>
   </div>
   <NotificationForm />
-  <div class="button-right-wrapper mt10">
+  <div class="row-right-wrapper mt10">
     <Button type={"button"} on:click={handleSubmit} icon={Save16}>
       푸시알림 등록
     </Button>

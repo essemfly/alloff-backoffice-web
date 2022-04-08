@@ -99,7 +99,7 @@
 </script>
 
 <Nav title="푸시알림 목록">
-  <div class="button-right-wrapper mb10">
+  <div class="row-right-wrapper mb10">
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
 
@@ -109,7 +109,7 @@
   {:else}
     <NotificationDataTable {notifications} on:send={handleSendClick} />
   {/if}
-  <div class="button-right-wrapper mt10">
+  <div class="row-right-wrapper mt10">
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
 </Nav>

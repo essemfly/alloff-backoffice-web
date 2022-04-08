@@ -14,10 +14,16 @@ html, body {
                                 supported by Chrome, Edge, Opera and Firefox */
 }
 
-.button-right-wrapper {
+.row-right-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+}
+
+.row-space-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .mb10 {

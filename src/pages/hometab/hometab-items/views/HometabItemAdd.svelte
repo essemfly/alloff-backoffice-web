@@ -39,11 +39,11 @@
 </script>
 
 <Nav title="홈탭 아이템 추가">
-  <div class="button-right-wrapper mb10">
+  <div class="row-right-wrapper mb10">
     <Button on:click={handleSubmit}>홈탭 아이템 등록</Button>
   </div>
   <HometabItemForm isAdding />
-  <div class="button-right-wrapper mt10">
+  <div class="row-right-wrapper mt10">
     <Button on:click={handleSubmit}>홈탭 아이템 등록</Button>
   </div>
 </Nav>

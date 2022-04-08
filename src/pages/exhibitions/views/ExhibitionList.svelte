@@ -186,7 +186,7 @@
     </Row>
     <Row>
       <Column>
-        <div class="button-right-wrapper">
+        <div class="row-right-wrapper">
           <Button on:click={handleSearch}>검색</Button>
         </div>
       </Column>

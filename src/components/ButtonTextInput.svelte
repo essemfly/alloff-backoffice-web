@@ -33,8 +33,10 @@
   };
 
   const update = (newValue: string) => {
-    value = newValue;
-    dispatch("click", newValue);
+    if (newValue) {
+      value = newValue;
+      dispatch("click", newValue);
+    }
   };
 </script>
 
@@ -46,7 +48,9 @@
     on:keydown={handleKeydown}
     {disabled}
   />
-  <Button {kind} on:click={handleButtonClick} {disabled}>{buttonText}</Button>
+  <Button {kind} on:click={handleButtonClick} disabled={disabled || !value}
+    >{buttonText}</Button
+  >
 </div>
 
 <style>

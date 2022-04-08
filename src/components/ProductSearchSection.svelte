@@ -175,13 +175,13 @@
     <Search bind:value={searchQuery} placeholder="상품 이름 검색" />
   </Column>
 </Row>
-<div class="button-right-wrapper">
+<div class="row-right-wrapper">
   <Button on:click={handleProductSearch}>상품 검색</Button>
 </div>
 <Row padding>
   <Column>
     <h4>상품 검색 결과</h4>
-    <div class="button-right-wrapper">
+    <div class="row-right-wrapper">
       <Search
         value={listSearchQuery}
         on:input={handleProductSearchResultFilter}
