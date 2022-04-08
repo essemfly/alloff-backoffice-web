@@ -331,16 +331,26 @@
   <Row padding>
     <Column>
       <ToggleField
-        schema={schema.fields.isRemoved}
+        schema={schema.fields.isRemoved.meta({
+          helperText: "상품 목록에서 노출되지 않습니다",
+        })}
         errorText={$formStore.errors.isRemoved}
         bind:value={$formStore.fields.isRemoved}
+        labelA="판매 가능"
+        labelB="판매 불가"
+        kind="danger"
       />
     </Column>
     <Column>
       <ToggleField
-        schema={schema.fields.isSoldout}
+        schema={schema.fields.isSoldout.meta({
+          helperText: "상품 목록에서 품절로 표시됩니다",
+        })}
         errorText={$formStore.errors.isSoldout}
         bind:value={$formStore.fields.isSoldout}
+        labelA="품절 아님"
+        labelB="품절"
+        kind="danger"
       />
     </Column>
   </Row>

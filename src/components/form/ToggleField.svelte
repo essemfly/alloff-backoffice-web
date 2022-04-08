@@ -12,6 +12,7 @@
   export let hideLabel: boolean = false;
   export let labelA: string = "Off";
   export let labelB: string = "On";
+  export let kind: "danger" | undefined = undefined;
 
   export let schema: any;
 
@@ -23,29 +24,31 @@
   const required = presence === "required";
 </script>
 
-{#if fieldLabel && !hideLabel}
-  <label for={htmlId} class="bx--toggle-input__label">
-    {fieldLabel}
-    {#if required}
-      <Dot kind="danger" />
-    {/if}
-  </label>
-{/if}
-<Toggle
-  id={htmlId}
-  {size}
-  {name}
-  {disabled}
-  {labelA}
-  {labelB}
-  bind:toggled={value}
-/>
-{#if !!helperText && !errorText}
-  <div class="bx--form__helper-text">{helperText}</div>
-{/if}
-{#if !!errorText}
-  <div class="bx--form-requirement">{errorText}</div>
-{/if}
+<div class={`toggle-input ${kind ? `toggle-input-${kind}` : ""}`}>
+  {#if fieldLabel && !hideLabel}
+    <label for={htmlId} class="bx--toggle-input__label">
+      {fieldLabel}
+      {#if required}
+        <Dot kind="danger" />
+      {/if}
+    </label>
+  {/if}
+  <Toggle
+    id={htmlId}
+    {size}
+    {name}
+    {disabled}
+    {labelA}
+    {labelB}
+    bind:toggled={value}
+  />
+  {#if !!helperText && !errorText}
+    <div class="bx--form__helper-text">{helperText}</div>
+  {/if}
+  {#if !!errorText}
+    <div class="bx--form-requirement">{errorText}</div>
+  {/if}
+</div>
 
 <style>
   .bx--toggle-input__label {
@@ -60,5 +63,12 @@
     display: block;
     max-height: none;
     color: var(--danger-01);
+  }
+
+  .toggle-input-danger
+    :global(.bx--toggle-input:checked
+      + .bx--toggle-input__label
+      > .bx--toggle__switch::before) {
+    background-color: var(--danger-01);
   }
 </style>
