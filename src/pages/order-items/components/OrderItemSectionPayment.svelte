@@ -11,9 +11,9 @@
   import AdjustPaymentModal from "../components/AdjustPaymentModal.svelte";
 
   export let item: OrderItemRetrieve;
-
   export let submitting: boolean;
   export let load: () => void;
+
   const api = new OrderItemsApi();
 
   let refundModalOpen = false;
@@ -125,7 +125,11 @@
           header: "",
           body: ``,
         },
-        { header: "결제 ID", body: item.order.payment.imp_uid ?? "" },
+        {
+          header: "결제 ID",
+          body: item.order.payment.imp_uid ?? "",
+          copyable: true,
+        },
         {
           header: "단건 결제 금액",
           body: `${numberWithCommas(item.total_amount)}원`,

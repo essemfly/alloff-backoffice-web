@@ -1,26 +1,27 @@
 <script lang="ts">
-  import { OrderItemRetrieve,OrderItemsApi,OrderItemStatusEnum } from "@api";
+  import { OrderItemRetrieve, OrderItemsApi, OrderItemStatusEnum } from "@api";
   import SquareTag from "@app/components/SquareTag.svelte";
+  import TextCopy from "@app/components/CopyTextButton.svelte";
   import {
-  ORDER_ITEM_ALL_STATUSES,
-  ORDER_ITEM_DOMESTIC_STATUSES
+    ORDER_ITEM_ALL_STATUSES,
+    ORDER_ITEM_DOMESTIC_STATUSES,
   } from "@app/constants";
   import { numberWithCommas } from "@app/helpers/number";
   import {
-  getIsForeignBadgeColor,
-  getIsForeignLabel,
-  getOrderItemTimestampByStatus,
-  // getOrderTimestampByStatus,
-  getStatusBadgeColor,
-  getStatusLabel,
-  getTypeBadgeColor,
-  getTypeLabel
+    getIsForeignBadgeColor,
+    getIsForeignLabel,
+    getOrderItemTimestampByStatus,
+    // getOrderTimestampByStatus,
+    getStatusBadgeColor,
+    getStatusLabel,
+    getTypeBadgeColor,
+    getTypeLabel,
   } from "@app/helpers/order-item";
   import {
-  Button,
-  OverflowMenu,
-  OverflowMenuItem,
-  Tag
+    Button,
+    OverflowMenu,
+    OverflowMenuItem,
+    Tag,
   } from "carbon-components-svelte";
   import DeliveryTruck16 from "carbon-icons-svelte/lib/DeliveryTruck16";
   import { admin } from "../../../store";
@@ -115,23 +116,36 @@
     }\t'${item.order.payment.buyer_post_code}`;
 </script>
 
-<h3 style="margin-bottom: 10px;">{item.order_item_code}</h3>
-<h6>🙋‍♀️{item.order.payment.buyer_name} 👚{item.product_name}</h6>
+<h3 class="mb10">
+  <TextCopy value={item.order_item_code}>{item.order_item_code}</TextCopy>
+</h3>
+<h6>
+  <TextCopy value={item.order.payment.buyer_name}>
+    🙋‍♀️{item.order.payment.buyer_name}
+  </TextCopy>
+  <TextCopy value={item.product_name}>👚{item.product_name}</TextCopy>
+</h6>
 {#if $admin?.profile.is_admin}
   <h6>
     주문서 ID:
-    <a href={"/items?allofforderid=" + item.order.alloff_order_id}>
+    <a href={`/items?allofforderid=${item.order.alloff_order_id}`}>
       {item.order.alloff_order_id}
     </a>
+    <TextCopy value={item.order.alloff_order_id}>주문서 ID 복사</TextCopy>
+    <TextCopy value={`/items?allofforderid=${item.order.alloff_order_id}`}>
+      주문서 URL 복사
+    </TextCopy>
   </h6>
   <div class="title">
-    <Tag type={getIsForeignBadgeColor(item.is_foreign)}
-      >{getIsForeignLabel(item.is_foreign)} 소싱</Tag
-    >
+    <Tag type={getIsForeignBadgeColor(item.is_foreign)}>
+      {getIsForeignLabel(item.is_foreign)} 소싱
+    </Tag>
     <Tag
       type={getTypeBadgeColor(item.order_item_type)}
-      style="margin-left: 0px;">{getTypeLabel(item.order_item_type)} 주문</Tag
+      style="margin-left: 0px;"
     >
+      {getTypeLabel(item.order_item_type)} 주문
+    </Tag>
     <Tag type="cool-gray">DB #{item.id}</Tag>
     <OverflowMenu>
       <OverflowMenuItem

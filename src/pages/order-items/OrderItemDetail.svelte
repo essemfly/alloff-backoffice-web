@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { OrderItemList,OrderItemRetrieve,OrderItemsApi } from "@api";
+  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import {
-  Breakpoint,
-  InlineLoading,
-  Tab,
-  Tabs
+    Breakpoint,
+    InlineLoading,
+    Tab,
+    Tabs,
   } from "carbon-components-svelte";
+  import { onMount } from "svelte";
   import { admin } from "../../store";
   import OrderItemSectionBasic from "./components/OrderItemSectionBasic.svelte";
   import OrderItemSectionLogs from "./components/OrderItemSectionLogs.svelte";
@@ -39,18 +40,19 @@
     loading = false;
   };
 
-  $: mobile = size === "sm";
-  $: {
-    console.log(idOrCode);
+  onMount(() => {
     if (idOrCode) {
       load();
     }
-  }
+  });
 
   let selectedIndex = 0;
+
+  $: mobile = size === "sm";
+  $: pageTitle = idOrCode ? `${idOrCode} :: 주문 상세` : "주문 상세";
 </script>
 
-<Nav>
+<Nav title={pageTitle} hidePageTitle>
   {#if loading || submitting || !item}
     <div class="overlay">
       <div>
@@ -75,7 +77,7 @@
           bind:submitting
         />
         {#if $admin?.profile.is_admin}
-          <OrderItemSectionPayment {...{ item, api, load }} bind:submitting />
+          <OrderItemSectionPayment {...{ item, load }} bind:submitting />
           <OrderItemSectionPG {item} />
           <OrderItemSectionLogs {item} />
         {/if}

@@ -1,32 +1,39 @@
 import { DateTime } from "luxon";
-import {
-  OrderItemRetrieve,
-  ActionTypeEnum,
-  OrderItemStatusEnum,
-  OrderItemTypeEnum,
-} from "../api";
+import { OrderItemRetrieve, ActionTypeEnum, OrderItemStatusEnum } from "../api";
 
-export const getTypeBadgeColor = (itemType: OrderItemTypeEnum) => {
+export enum OrderItemType {
+  NormalOrder = "NORMAL_ORDER",
+  TimedealOrder = "TIMEDEAL_ORDER",
+  ExhibitionOrder = "EXHIBITION_ORDER",
+  GroupdealOrder = "GROUPDEAL_ORDER",
+  UnknownOrder = "UNKNOWN_ORDER",
+}
+
+export const getTypeBadgeColor = (itemType: OrderItemType) => {
   switch (itemType) {
-    case OrderItemTypeEnum.NormalOrder:
+    case OrderItemType.NormalOrder:
       return "cyan";
-    case OrderItemTypeEnum.ExhibitionOrder:
+    case OrderItemType.ExhibitionOrder:
       return "purple";
-    case OrderItemTypeEnum.TimedealOrder:
+    case OrderItemType.TimedealOrder:
       return "magenta";
-    case OrderItemTypeEnum.UnknownOrder:
+    case OrderItemType.GroupdealOrder:
+      return "teal";
+    case OrderItemType.UnknownOrder:
       return "cool-gray";
   }
 };
-export const getTypeLabel = (itemType: OrderItemTypeEnum) => {
+export const getTypeLabel = (itemType: OrderItemType) => {
   switch (itemType) {
-    case OrderItemTypeEnum.NormalOrder:
+    case OrderItemType.NormalOrder:
       return "일반";
-    case OrderItemTypeEnum.ExhibitionOrder:
+    case OrderItemType.ExhibitionOrder:
       return "기획전";
-    case OrderItemTypeEnum.TimedealOrder:
+    case OrderItemType.TimedealOrder:
       return "타임딜";
-    case OrderItemTypeEnum.UnknownOrder:
+    case OrderItemType.GroupdealOrder:
+      return "그룹딜";
+    case OrderItemType.UnknownOrder:
       return "UNKNOWN";
   }
 };
@@ -42,9 +49,10 @@ export const getStatusBadgeColor = (
     case OrderItemStatusEnum.PaymentFinished:
       return "high-contrast";
     case OrderItemStatusEnum.ProductPreparing:
-    case OrderItemStatusEnum.ForeignProductInspecting:
     case OrderItemStatusEnum.DeliveryPreparing:
       return "green";
+    case OrderItemStatusEnum.ForeignProductInspecting:
+      return "teal";
     case OrderItemStatusEnum.ForeignDeliveryStarted:
     case OrderItemStatusEnum.DeliveryStarted:
       return "cyan";
@@ -106,7 +114,8 @@ export const getStatusLabel = (status: OrderItemStatusEnum | undefined) => {
   }
 };
 
-const parseISODate = (isoDate: string | null | undefined) => isoDate ? DateTime.fromISO(isoDate) : undefined;
+const parseISODate = (isoDate: string | null | undefined) =>
+  isoDate ? DateTime.fromISO(isoDate) : undefined;
 
 export const getOrderItemTimestampByStatus = (
   status: OrderItemStatusEnum,
@@ -152,15 +161,17 @@ export const getLogTypeLabel = (logType: ActionTypeEnum) => {
     case ActionTypeEnum.StatusChange:
       return "상태변경";
     case ActionTypeEnum.GeneratedReceivedItem:
-      return "입고지시"; 
+      return "입고지시";
     case ActionTypeEnum.CanceledReceivedItem:
       return "입고요청취소";
     case ActionTypeEnum.ReceivedInventory:
-      return "입고처리"; 
+      return "입고처리";
     case ActionTypeEnum.RevertedInventory:
       return "재고원복입고취소";
   }
 };
 
-export const getIsForeignLabel = (isForeign: boolean) => isForeign ? "해외" : "국내";
-export const getIsForeignBadgeColor = (isForeign: boolean) => isForeign ? "magenta" : "cyan";
+export const getIsForeignLabel = (isForeign: boolean) =>
+  isForeign ? "해외" : "국내";
+export const getIsForeignBadgeColor = (isForeign: boolean) =>
+  isForeign ? "magenta" : "cyan";
