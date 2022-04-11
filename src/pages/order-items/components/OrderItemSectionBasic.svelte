@@ -1,11 +1,13 @@
 <script lang="ts">
+  import { Button, TabContent, TextInput } from "carbon-components-svelte";
+  import Send16 from "carbon-icons-svelte/lib/Send16";
+
   import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
   import { toLocaleDateTime } from "@app/helpers/datetime";
   import { numberWithCommas } from "@app/helpers/number";
   import { getIsForeignLabel, getTypeLabel } from "@app/helpers/order-item";
   import { admin } from "@app/store";
-  import { Button, TabContent, TextInput } from "carbon-components-svelte";
-  import Send16 from "carbon-icons-svelte/lib/Send16";
+
   import InfoSection from "./InfoSection.svelte";
 
   export let item: OrderItemRetrieve;
@@ -46,13 +48,14 @@
   <InfoSection
     title="고객정보"
     rows={[
-      ...[{ header: "휴대폰", body: item.order.user.mobile }],
+      ...[{ header: "휴대폰", body: item.order.user.mobile, copyable: true }],
       ...($admin?.profile.is_admin
         ? [
-            { header: "유저 ID", body: item.order.user_id },
+            { header: "유저 ID", body: item.order.user_id, copyable: true },
             {
               header: "개인통관고유번호",
               body: item.order.payment.personal_customs_number ?? "-",
+              copyable: !!item.order.payment.personal_customs_number,
             },
             {
               header: "주문수",
@@ -69,19 +72,37 @@
     rows={[
       {
         header: "받는사람",
-        body: `${item.order.payment.buyer_name} (${item.order.payment.buyer_mobile})`,
+        body: `${item.order.payment.buyer_name}`,
+        copyable: true,
+      },
+      {
+        header: "연락처",
+        body: `${item.order.payment.buyer_mobile}`,
+        copyable: true,
       },
       {
         header: "주소",
         body: `${item.order.payment.buyer_address} (${item.order.payment.buyer_post_code})`,
+        copyable: true,
+        additionalCopyValues: [
+          {
+            key: "주소만",
+            value: item.order.payment.buyer_address,
+          },
+          {
+            key: "우편번호만",
+            value: item.order.payment.buyer_post_code,
+          },
+        ],
       },
-      { header: "요청사항", body: item.order.user_memo ?? "" },
+      { header: "요청사항", body: item.order.user_memo ?? "", copyable: true },
       {
         header: "송장번호",
         body:
           item.tracking_number.length > 0
             ? item.tracking_number[item.tracking_number.length - 1]
             : "",
+        copyable: true,
       },
       {
         header: "추적 URL",
@@ -115,6 +136,11 @@
             : []}
           rows={[
             {
+              header: "상품명",
+              body: item.product_name,
+              copyable: true,
+            },
+            {
               header: "상품타입",
               body: getTypeLabel(item.order_item_type),
             },
@@ -125,6 +151,7 @@
             {
               header: "사이즈",
               body: item.size,
+              copyable: true,
             },
             {
               header: "수량",
@@ -133,10 +160,22 @@
             {
               header: "브랜드",
               body: `${item.brand_korname} (${item.brand_keyname})`,
+              copyable: true,
+              additionalCopyValues: [
+                {
+                  key: "한글 브랜드명만",
+                  value: item.brand_korname,
+                },
+                {
+                  key: "브랜드 키네임만",
+                  value: item.brand_keyname,
+                },
+              ],
             },
             {
               header: "상품 ID",
               body: item.product_id,
+              copyable: true,
             },
             {
               header: "상품 URL",

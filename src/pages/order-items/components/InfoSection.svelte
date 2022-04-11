@@ -1,19 +1,26 @@
 <script lang="ts">
   import {
-  Link,
-  OverflowMenu,
-  OverflowMenuItem,
-  StructuredList,
-  StructuredListBody,
-  StructuredListCell,
-  StructuredListRow,
-  Tag
+    Link,
+    OverflowMenu,
+    OverflowMenuItem,
+    StructuredList,
+    StructuredListBody,
+    StructuredListCell,
+    StructuredListRow,
+    Tag,
   } from "carbon-components-svelte";
+
+  import TextCopy from "@app/components/CopyTextButton.svelte";
 
   interface MenuItem {
     text: string;
     onClick: () => void;
     hide?: boolean;
+  }
+
+  interface CopyableValue {
+    key: string;
+    value: string;
   }
 
   interface DetailRow {
@@ -32,12 +39,15 @@
       | "cool-gray"
       | "warm-gray"
       | "high-contrast";
+    copyable?: boolean;
+    additionalCopyValues?: CopyableValue[];
   }
   export let title: string;
   export let menuItems: MenuItem[] | undefined = undefined;
   export let rows: DetailRow[];
   export let fontSize: number | undefined = undefined;
   export let smallTitle: boolean | undefined = undefined;
+  export let copyable: boolean = false;
 </script>
 
 <div class="title" class:smallTitle>
@@ -68,8 +78,9 @@
           head
           noWrap
           style={(fontSize ? `font-size: ${fontSize}px;` : "") + "width: 1%;"}
-          >{row.header}</StructuredListCell
         >
+          {row.header}
+        </StructuredListCell>
         <StructuredListCell
           style={(fontSize ? `font-size: ${fontSize}px;` : "") +
             "width: auto; word-break: keep-all;"}
@@ -87,11 +98,19 @@
             <Tag
               type={row.tagType}
               style="margin-left:0; margin-top:0; margin-bottom: 0;"
-              >{row.body}</Tag
             >
+              {row.body}
+            </Tag>
+          {:else if row.copyable}
+            <TextCopy value={row.body} disabled={!row.body}>
+              {row.body}
+            </TextCopy>
           {:else}
             {row.body}
           {/if}
+          {#each row.additionalCopyValues ?? [] as { key, value }}
+            <TextCopy {value}>{key}</TextCopy>
+          {/each}
         </StructuredListCell>
       </StructuredListRow>
     {/each}
