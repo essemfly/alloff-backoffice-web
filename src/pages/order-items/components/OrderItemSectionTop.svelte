@@ -120,9 +120,9 @@
   <TextCopy value={item.order_item_code}>{item.order_item_code}</TextCopy>
 </h3>
 <h6>
-  <TextCopy value={item.order.payment.buyer_name}
-    >🙋‍♀️{item.order.payment.buyer_name}</TextCopy
-  >
+  <TextCopy value={item.order.payment.buyer_name}>
+    🙋‍♀️{item.order.payment.buyer_name}
+  </TextCopy>
   <TextCopy value={item.product_name}>👚{item.product_name}</TextCopy>
 </h6>
 {#if $admin?.profile.is_admin}
@@ -132,9 +132,9 @@
       {item.order.alloff_order_id}
     </a>
     <TextCopy value={item.order.alloff_order_id}>주문서 ID 복사</TextCopy>
-    <TextCopy value={`/items?allofforderid=${item.order.alloff_order_id}`}
-      >주문서 URL 복사</TextCopy
-    >
+    <TextCopy value={`/items?allofforderid=${item.order.alloff_order_id}`}>
+      주문서 URL 복사
+    </TextCopy>
   </h6>
   <div class="title">
     <Tag type={getIsForeignBadgeColor(item.is_foreign)}>

@@ -163,6 +163,9 @@
   persistentHamburgerMenu
 >
   <Loading small description={loadingText} active={loading} />
+  {#if loading}
+    {loadingText}
+  {/if}
   <div class="subtitle">
     {#if !isProd}
       <p class="dev">DEV</p>
