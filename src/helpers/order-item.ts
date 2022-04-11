@@ -1,32 +1,39 @@
 import { DateTime } from "luxon";
-import {
-  OrderItemRetrieve,
-  ActionTypeEnum,
-  OrderItemStatusEnum,
-  OrderItemTypeEnum,
-} from "../api";
+import { OrderItemRetrieve, ActionTypeEnum, OrderItemStatusEnum } from "../api";
 
-export const getTypeBadgeColor = (itemType: OrderItemTypeEnum) => {
+export enum OrderItemType {
+  NormalOrder = "NORMAL_ORDER",
+  TimedealOrder = "TIMEDEAL_ORDER",
+  ExhibitionOrder = "EXHIBITION_ORDER",
+  GroupdealOrder = "GROUPDEAL_ORDER",
+  UnknownOrder = "UNKNOWN_ORDER",
+}
+
+export const getTypeBadgeColor = (itemType: OrderItemType) => {
   switch (itemType) {
-    case OrderItemTypeEnum.NormalOrder:
+    case OrderItemType.NormalOrder:
       return "cyan";
-    case OrderItemTypeEnum.ExhibitionOrder:
+    case OrderItemType.ExhibitionOrder:
       return "purple";
-    case OrderItemTypeEnum.TimedealOrder:
+    case OrderItemType.TimedealOrder:
       return "magenta";
-    case OrderItemTypeEnum.UnknownOrder:
+    case OrderItemType.GroupdealOrder:
+      return "teal";
+    case OrderItemType.UnknownOrder:
       return "cool-gray";
   }
 };
-export const getTypeLabel = (itemType: OrderItemTypeEnum) => {
+export const getTypeLabel = (itemType: OrderItemType) => {
   switch (itemType) {
-    case OrderItemTypeEnum.NormalOrder:
+    case OrderItemType.NormalOrder:
       return "일반";
-    case OrderItemTypeEnum.ExhibitionOrder:
+    case OrderItemType.ExhibitionOrder:
       return "기획전";
-    case OrderItemTypeEnum.TimedealOrder:
+    case OrderItemType.TimedealOrder:
       return "타임딜";
-    case OrderItemTypeEnum.UnknownOrder:
+    case OrderItemType.GroupdealOrder:
+      return "그룹딜";
+    case OrderItemType.UnknownOrder:
       return "UNKNOWN";
   }
 };
