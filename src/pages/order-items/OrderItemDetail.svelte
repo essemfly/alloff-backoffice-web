@@ -77,7 +77,7 @@
           bind:submitting
         />
         {#if $admin?.profile.is_admin}
-          <OrderItemSectionPayment {...{ item, api, load }} bind:submitting />
+          <OrderItemSectionPayment {...{ item, load }} bind:submitting />
           <OrderItemSectionPG {item} />
           <OrderItemSectionLogs {item} />
         {/if}
