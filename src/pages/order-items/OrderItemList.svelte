@@ -9,7 +9,7 @@
     DatePicker,
     DatePickerInput,
     Pagination,
-    Button
+    Button,
   } from "carbon-components-svelte";
   import { DateTime } from "luxon";
   import TableShortcut16 from "carbon-icons-svelte/lib/TableShortcut16";
@@ -17,6 +17,7 @@
   import ExcelExportModal from "./components/ExcelExportModal.svelte";
   import OrderItemsTable from "./components/OrderItemsTable.svelte";
   import { search } from "./store";
+  import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
 
   const location = useLocation();
   const params = new URLSearchParams($location.search);
@@ -65,6 +66,26 @@
     statuses,
     $search.trim() === "" ? undefined : $search,
   );
+
+  const handleIsClassifiedCheck = (
+    event: CustomEvent<OrderItemStatusEnum[]>,
+  ) => {
+    if (
+      event.detail.length === checkboxOptions.length ||
+      event.detail.length === 0
+    ) {
+      // all checked
+      console.log(event.detail);
+      statuses = [];
+    } else {
+      statuses = event.detail;
+    }
+  };
+
+  const checkboxOptions = ORDER_ITEM_ALL_STATUSES.map((status) => ({
+    label: getStatusLabel(status),
+    value: status,
+  }));
 </script>
 
 <Nav title="주문 목록">
@@ -77,31 +98,17 @@
       <div style="height:10px;" />
     {/if}
     {#if !userId && !alloffOrderId}
-      <Button icon={TableShortcut16} on:click={() => (exportModalOpen = true)}
-        >엑셀 추출</Button
-      >
-      <div
-        style={`margin-top: 10px; margin-bottom: 5px; display: flex; align-items: center; flex-direction: ${
-          matches ? "column" : "row"
-        };`}
-      >
-        {#each ORDER_ITEM_ALL_STATUSES as status}
-          <Checkbox
-            labelText={getStatusLabel(status)}
-            checked={statuses.includes(status)}
-            on:check={(e) => {
-              if (e.detail) {
-                statuses = [...statuses, status];
-              } else {
-                statuses = statuses.filter((s) => s !== status);
-              }
-            }}
-          />
-        {/each}
-      </div>
+      <Button icon={TableShortcut16} on:click={() => (exportModalOpen = true)}>
+        엑셀 추출
+      </Button>
+      <CheckboxGroup
+        options={checkboxOptions}
+        bind:values={statuses}
+        alignment={matches ? "vertical" : "horizontal"}
+      />
       <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
     {/if}
     <OrderItemsTable isMobile={matches} {items} canSearch={!userId} />
   </MediaQuery>
-  <ExcelExportModal api={api} bind:open={exportModalOpen} />
+  <ExcelExportModal {api} bind:open={exportModalOpen} />
 </Nav>

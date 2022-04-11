@@ -14,6 +14,7 @@
   export let values: string[] = [];
   export let label = "";
   export let allLabelText = "전체";
+  export let alignment: "horizontal" | "vertical" = "vertical";
 
   const dispatch = createEventDispatcher();
 
@@ -29,37 +30,35 @@
     values = uniq(values);
   };
 
-  const handleCheck = (value: string) => (event: CustomEvent<boolean>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const checked = event.detail;
-    if (checked) {
-      values = [...values, value];
-    } else {
-      const newValues = values.slice();
-      const index = values.indexOf(value);
-      values = newValues.splice(index, 1);
-      values = newValues;
-    }
-    values = uniq(values);
-  };
-
   $: allChecked = values.length === options.length;
 
   $: dispatch("change", values);
 </script>
 
-<FormGroup legendText={label}>
-  <Checkbox
-    labelText={allLabelText}
-    on:check={handleAllCheck}
-    checked={allChecked}
-  />
-  {#each options as { label, value } (value)}
+<div class={`checkbox-group-wrapper checkbox-group-${alignment}`}>
+  <FormGroup legendText={label}>
     <Checkbox
-      on:check={handleCheck(value)}
-      checked={values.includes(value)}
-      labelText={label}
+      labelText={allLabelText}
+      on:check={handleAllCheck}
+      checked={allChecked}
     />
-  {/each}
-</FormGroup>
+    {#each options as { label, value } (value)}
+      <Checkbox bind:group={values} labelText={label} {value} />
+    {/each}
+  </FormGroup>
+</div>
+
+<style>
+  .checkbox-group-wrapper :global(.bx--fieldset) {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+  }
+
+  .checkbox-group-wrapper.checkbox-group-horizontal :global(.bx--fieldset) {
+    flex-direction: row;
+    align-items: baseline;
+  }
+</style>
