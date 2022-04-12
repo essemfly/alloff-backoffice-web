@@ -1,19 +1,19 @@
 <script lang="ts">
   import {
-  Courier,
-  CouriersApi,
-  OrderItemRetrieve,
-  OrderItemStatusEnum
+    Courier,
+    CouriersApi,
+    OrderItemRetrieve,
+    OrderItemStatusEnum,
   } from "@api";
   import {
-  Checkbox,
-  ComposedModal,
-  Dropdown,
-  Link,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  TextInput
+    Checkbox,
+    ComposedModal,
+    Dropdown,
+    Link,
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
+    TextInput,
   } from "carbon-components-svelte";
   import { onMount } from "svelte";
   import { admin } from "../../../store";
@@ -38,15 +38,21 @@
   export let open = false;
 
   let couriers: Courier[] = [];
-  let selectedCourierIndex = 0;
+  let courierHash: { [key: number]: Courier } = {};
+  let selectedCourierId = 0;
   let selectedCourier: Courier | undefined = undefined;
   $: {
-    selectedCourier = couriers[selectedCourierIndex];
+    selectedCourier = courierHash[selectedCourierId];
   }
+
   onMount(async () => {
     const courierApi = new CouriersApi();
     const res = await courierApi.couriersList();
     couriers = res.data;
+    courierHash = couriers.reduce((acc, courier) => {
+      acc[courier.id] = courier;
+      return acc;
+    }, {} as { [key: number]: Courier });
   });
 
   let deliveryTrackingNumber = "";
@@ -97,7 +103,7 @@
             id: id.toString(),
             text: name,
           }))}
-          bind:selectedIndex={selectedCourierIndex}
+          bind:selectedId={selectedCourierId}
         />
         <TextInput
           labelText="송장번호"
