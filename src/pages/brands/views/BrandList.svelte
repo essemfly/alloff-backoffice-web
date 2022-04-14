@@ -49,6 +49,7 @@
       const brandItem = { ...brands[index], [key]: value };
       brands[index] = brandItem;
       brands = brands;
+
       await brandApi.brandsPartialUpdate({
         id: brandItem.brand_id,
         patchedBrandRequest: {

@@ -19,7 +19,6 @@ export const brandColumns: DataTableColumn<Brand>[] = [
     key: "is_open",
     name: "브랜드 오픈 여부",
     type: "toggle",
-
     get: (data) => data.is_open ?? false,
     toggleOption: {
       activeLabel: "Open",
@@ -37,13 +36,23 @@ export const brandColumns: DataTableColumn<Brand>[] = [
     },
   },
   {
-    key: "in_maintenance",
+    key: "is_hide",
     name: "숨김처리 여부",
+    type: "toggle",
+    get: (data) => data.is_hide ?? false,
+    toggleOption: {
+      activeLabel: "숨겨짐",
+      deactiveLabel: "보여짐",
+    },
+  },
+  {
+    key: "in_maintenance",
+    name: "임시점검 여부",
     type: "toggle",
     get: (data) => data.in_maintenance ?? false,
     toggleOption: {
-      activeLabel: "Yes",
-      deactiveLabel: "No",
+      activeLabel: "임시점검 중",
+      deactiveLabel: "임시점검 아님",
     },
   },
 ];

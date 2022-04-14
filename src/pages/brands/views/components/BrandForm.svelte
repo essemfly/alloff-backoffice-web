@@ -99,6 +99,17 @@
         labelB="Open"
       />
     </Column>
+  </Row>
+  <Row padding>
+    <Column>
+      <ToggleField
+        schema={schema.fields.isHide}
+        errorText={$formStore.errors.isHide}
+        bind:value={$formStore.fields.isHide}
+        labelA="No"
+        labelB="Yes"
+      />
+    </Column>
     <Column>
       <ToggleField
         schema={schema.fields.inMaintenance}

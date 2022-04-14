@@ -21,7 +21,8 @@ export const schema = object({
     .required(),
   isPopular: boolean().label("인기있는 브랜드 여부").required(),
   isOpen: boolean().label("브랜드 오픈 여부").required(),
-  inMaintenance: boolean().label("숨김처리 여부").required(),
+  isHide: boolean().label("숨김처리 여부").required(),
+  inMaintenance: boolean().label("임시점검 여부").required(),
 });
 
 export type FormSchema = InferType<typeof schema>;

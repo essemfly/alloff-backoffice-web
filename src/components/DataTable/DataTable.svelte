@@ -51,9 +51,9 @@
     dispatch("change:weight", [value, rowIndex]);
   };
 
-  const handleToggle = (row: T, value: boolean) => {
+  const handleToggle = (row: T, value: boolean, key: keyof T) => {
     const rowIndex = data.findIndex(({ id }) => id === row.id);
-    dispatch("change:toggle", [value, rowIndex]);
+    dispatch("change:toggle", [value, rowIndex, key]);
   };
 
   $: if (data) {
@@ -78,7 +78,7 @@
       if (toggleColumns.includes(cell.key)) {
         event.stopPropagation();
         event.preventDefault();
-        handleToggle(row, !cell.value);
+        handleToggle(row, !cell.value, cell.key);
       }
       if (cell.key === "weight") {
         event.stopPropagation();
