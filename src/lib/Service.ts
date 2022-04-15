@@ -1,14 +1,17 @@
-import StorageService from "@app/core/StorageService";
-import { apiConfigs, apiConfigsTS } from "@app/store";
 import { TokenApi } from "@lessbutter/alloff-backoffice-api";
 import axios from "axios";
-import { get } from "svelte/store";
+import { writable, Writable } from "svelte/store";
+import { apiConfigsTS } from "@app/store";
+import StorageService from "@app/core/StorageService";
 
-export default abstract class Service {
+export default abstract class Service<M> {
   public storageService: StorageService;
+
+  public entities: Writable<Record<string, M>>;
 
   constructor() {
     this.storageService = new StorageService();
+    this.entities = writable({});
   }
 
   public async catchError(error: any) {
