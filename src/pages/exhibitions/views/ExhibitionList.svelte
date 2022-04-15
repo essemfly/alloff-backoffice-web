@@ -19,6 +19,7 @@
     ExhibitionsApiExhibitionsListRequest as SearchQueryParam,
     ExhibitionTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";
+  import { apiConfigs } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import {
     formatQueryString,
@@ -49,7 +50,7 @@
   let totalItems = 0;
   let innerSearchQuery = "";
 
-  const exhibitionApi = new ExhibitionsApi();
+  const exhibitionApi = new ExhibitionsApi($apiConfigs);
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {

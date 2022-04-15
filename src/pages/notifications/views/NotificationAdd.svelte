@@ -14,10 +14,11 @@
 
   import NotificationForm from "./components/NotificationForm.svelte";
   import { formStore } from "../models/schema";
+  import { apiConfigs } from "@app/store";
 
   let isSubmitting = false;
 
-  const notificationApi = new NotificationsApi();
+  const notificationApi = new NotificationsApi($apiConfigs);
 
   onMount(() => {
     formStore.initialize();

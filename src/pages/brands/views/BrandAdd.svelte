@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { apiConfigs } from "@app/store";
   import { toast } from "@zerodevx/svelte-toast";
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
@@ -13,7 +14,7 @@
   import { formStore, schema } from "../models/schema";
   import { onMount } from "svelte";
 
-  const brandApi = new BrandsApi();
+  const brandApi = new BrandsApi($apiConfigs);
 
   onMount(() => {
     formStore.initialize();

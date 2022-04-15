@@ -9,6 +9,7 @@
     ExhibitionsApi,
     ExhibitionTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";
+  import { apiConfigs } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 
@@ -21,7 +22,7 @@
   let exhibitionLabel = getExhibitionTypeLabel(type);
   let isSubmitting = false;
 
-  const exhibitionApi = new ExhibitionsApi();
+  const exhibitionApi = new ExhibitionsApi($apiConfigs);
 
   onMount(() => {
     formStore.initialize({ exhibitionType: type });

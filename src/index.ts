@@ -1,20 +1,16 @@
 import { TokenApi } from "@lessbutter/alloff-backoffice-api";
-import "@app/index.css";
 import axios, { AxiosError } from "axios";
-import App from "./App.svelte";
-import { getTokens, setTokens } from "./core/auth";
-const toLogin = () => {
-  window.location.href = "/login";
-};
+import { get } from "svelte/store";
+import { navigate } from "svelte-navigator";
 
-axios.interceptors.request.use((config) => {
-  const { access } = getTokens();
-  config.headers = {
-    ...config.headers,
-    Authorization: `Bearer ${access}`,
-  };
-  return config;
-});
+import { getTokens, setTokens } from "./core/auth";
+import { apiConfigs } from "./store";
+import App from "./App.svelte";
+import "./index.css";
+
+const toLogin = () => {
+  navigate("/login");
+};
 
 axios.interceptors.response.use(
   (response) => {
@@ -22,15 +18,14 @@ axios.interceptors.response.use(
   },
   async (error: AxiosError) => {
     const originalRequest = error.config;
-    const isAuth = (error.config.url ?? "").includes("/token/");
+    const isAuth = (error.config?.url ?? "").includes("/token/");
     if (error.response && error.response.status === 401 && !isAuth) {
       const { refresh } = getTokens();
       if (!refresh) {
         return toLogin();
       }
       try {
-        console.log("REFRESHING!");
-        const api = new TokenApi();
+        const api = new TokenApi(get(apiConfigs));
         const { data } = await api.tokenRefreshCreate({
           tokenRefreshRequestRequest: { refresh },
         });
@@ -41,7 +36,6 @@ axios.interceptors.response.use(
         return toLogin();
       }
     }
-    // console.log("?????????????????", { error });
     throw error;
   },
 );

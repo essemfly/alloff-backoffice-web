@@ -18,13 +18,14 @@
 
   import { hometabColumns } from "./components/hometabColumns";
   import { debounce } from "lodash";
+  import { apiConfigs } from "@app/store";
 
   let hometabs: DataTableData<HomeTab>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
   let isLoading = false;
   let totalItems = 0;
 
-  const hometabApi = new HometabsApi();
+  const hometabApi = new HometabsApi($apiConfigs);
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {

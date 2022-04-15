@@ -20,12 +20,13 @@
   import { DateTime } from "luxon";
   import { InquiriesApi } from "../../../../api";
   import { search } from "../../store";
+  import { apiConfigs } from "@app/store";
 
   export let inquiries: ProductInquiry[] = [];
   export let isMobile = false;
   export let reload: () => Promise<void>;
 
-  const api = new InquiriesApi();
+  const api = new InquiriesApi($apiConfigs);
   const ellipsisExtent = 50;
 
   let newReplyMap: { [inquiryId: string]: string } = {};

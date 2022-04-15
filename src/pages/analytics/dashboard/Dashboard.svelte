@@ -6,10 +6,11 @@
 
   import { OrdersApi } from "@lessbutter/alloff-backoffice-api";
 
+  import { apiConfigs } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import DashboardTable from "./components/DashboardTable.svelte";
 
-  const api = new OrdersApi();
+  const api = new OrdersApi($apiConfigs);
   let data = [];
   let loading = true;
 

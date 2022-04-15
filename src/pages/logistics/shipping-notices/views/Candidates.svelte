@@ -11,8 +11,9 @@
   import Nav from "@app/components/Nav.svelte";
 
   import CandidatesTable from "./components/CandidatesTable.svelte";
+  import { apiConfigs } from "@app/store";
 
-  const api = new ShippingNoticesApi();
+  const api = new ShippingNoticesApi($apiConfigs);
 
   let loading = true;
   let fulfilledCandidates: ShippingCandidateProto[] = [];

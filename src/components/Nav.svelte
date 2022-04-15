@@ -37,6 +37,7 @@
   import { onMount } from "svelte";
   import { useLocation } from "svelte-navigator";
   import { compute_slots } from "svelte/internal";
+  import { apiConfigs } from "@app/store";
   import { admin } from "../store";
   import MetaTags from "./MetaTags/MetaTags.svelte";
   import { MetaTagsProps } from "./MetaTags/types";
@@ -139,7 +140,7 @@
   }
 
   onMount(async () => {
-    const adminUserApi = new AdminUserApi();
+    const adminUserApi = new AdminUserApi($apiConfigs);
     try {
       const { data } = await adminUserApi.adminUserMeRetrieve();
       admin.set(data);

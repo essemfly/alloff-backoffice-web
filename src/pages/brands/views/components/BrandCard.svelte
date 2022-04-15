@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { apiConfigs } from "@app/store";
   import {
     Button,
     Tag,
@@ -16,8 +17,8 @@
   } from "@lessbutter/alloff-backoffice-api";
   import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
 
-  const brandApi = new BrandsApi();
-  const imageApi = new ImageUploadApi();
+  const brandApi = new BrandsApi($apiConfigs);
+  const imageApi = new ImageUploadApi($apiConfigs);
 
   export let brand: Brand;
   export let mobile: boolean;

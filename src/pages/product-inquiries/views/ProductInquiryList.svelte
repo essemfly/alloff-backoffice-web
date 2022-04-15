@@ -14,8 +14,9 @@
   import { DateTime } from "luxon";
   import { search } from "../store";
   import ProductInquiryTable from "./components/ProductInquiryTable.svelte";
+  import { apiConfigs } from "@app/store";
 
-  const api = new InquiriesApi();
+  const api = new InquiriesApi($apiConfigs);
   let inquiries: ProductInquiry[] = [];
   let dateFrom = DateTime.now().minus({ days: 7 }).toISO().split("T")[0];
   let dateTo = DateTime.now().toISO().split("T")[0];

@@ -15,6 +15,7 @@
     InlineLoading,
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
+  import { apiConfigs } from "@app/store";
 
   import {
     ProductGroup,
@@ -51,7 +52,7 @@
 
   const dispatch = createEventDispatcher();
 
-  const productGroupApi = new ProductGroupsApi();
+  const productGroupApi = new ProductGroupsApi($apiConfigs);
 
   onMount(() => {
     selectedSectionIds = value;

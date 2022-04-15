@@ -6,6 +6,7 @@
     AlloffCategory,
   } from "@lessbutter/alloff-backoffice-api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import { apiConfigs } from "@app/store";
 
   export let size: "sm" | "lg" | undefined = undefined;
   export let keepValueOnSubmit: boolean = true;
@@ -26,7 +27,7 @@
   let dirty = false;
   let selectedCategory: AlloffCategory | undefined = undefined;
 
-  const api = new AlloffCategoriesApi();
+  const api = new AlloffCategoriesApi($apiConfigs);
   const dispatch = createEventDispatcher();
 
   const categoryToItem: (category: AlloffCategory) => AutocompleteItem = ({

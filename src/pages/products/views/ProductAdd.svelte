@@ -14,10 +14,11 @@
 
   import ProductForm from "./components/ProductForm.svelte";
   import { formStore } from "../models/schema";
+  import { apiConfigs } from "@app/store";
 
   let isSubmitting = false;
 
-  const productApi = new ProductsApi();
+  const productApi = new ProductsApi($apiConfigs);
 
   onMount(() => {
     formStore.initialize();

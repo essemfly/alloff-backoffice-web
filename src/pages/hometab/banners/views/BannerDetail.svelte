@@ -17,13 +17,14 @@
 
   import BannerForm from "./components/BannerForm.svelte";
   import { formStore } from "../models/schema";
+  import { apiConfigs } from "@app/store";
 
   export let id: string;
 
   let isLoading = false;
   let isSubmitting = false;
 
-  const bannerApi = new TopBannersApi();
+  const bannerApi = new TopBannersApi($apiConfigs);
 
   onMount(async () => {
     isLoading = true;

@@ -5,11 +5,11 @@
   import { Button, InlineLoading } from "carbon-components-svelte";
   import AddComment16 from "carbon-icons-svelte/lib/AddComment16";
 
+  import { apiConfigs } from "@app/store";
   import {
     Noti,
     NotificationsApi,
     NotificationsApiNotificationsListRequest as SearchQueryParam,
-    ListNoti,
   } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
@@ -27,7 +27,7 @@
   let totalItems = 0;
   let isLoading = false;
 
-  const notificationApi = new NotificationsApi();
+  const notificationApi = new NotificationsApi($apiConfigs);
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {

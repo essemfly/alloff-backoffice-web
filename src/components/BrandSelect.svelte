@@ -3,6 +3,7 @@
 
   import { BrandsApi } from "@lessbutter/alloff-backoffice-api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
+  import { apiConfigs } from "@app/store";
 
   export let size: "sm" | "lg" | undefined = undefined;
   export let value: string = "";
@@ -20,7 +21,7 @@
   let brands: AutocompleteItem[] = [];
   let filteredBrands: AutocompleteItem[] = [];
 
-  const brandsAPi = new BrandsApi();
+  const brandsAPi = new BrandsApi($apiConfigs);
   const dispatch = createEventDispatcher();
 
   onMount(async () => {

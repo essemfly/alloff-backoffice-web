@@ -11,8 +11,9 @@
 
   import ReceivedItemTable from "./components/ReceivedItemTable.svelte";
   import { search } from "../store";
+  import { apiConfigs } from "@app/store";
 
-  const api = new ReceivedItemsApi();
+  const api = new ReceivedItemsApi($apiConfigs);
   let ris: ReceivedItem[] = [];
 
   const load = async (p: number, size: number, search?: string) => {
@@ -40,7 +41,7 @@
     });
 
   const forceReceive = async (orderItemId: number) => {
-    const itemsApi = new OrderItemsApi();
+    const itemsApi = new OrderItemsApi($apiConfigs);
     return await itemsApi.orderItemsForceReceiveCreate({
       id: orderItemId,
     });

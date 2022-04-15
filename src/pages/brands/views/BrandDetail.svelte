@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { apiConfigs } from "@app/store";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
@@ -19,7 +20,7 @@
   let isLoading = false;
   let isSubmitting = false;
 
-  const brandApi = new BrandsApi();
+  const brandApi = new BrandsApi($apiConfigs);
 
   onMount(async () => {
     if ($formStore.fields.brandId) {

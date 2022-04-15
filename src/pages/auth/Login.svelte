@@ -3,8 +3,10 @@
   import Login16 from "carbon-icons-svelte/lib/Login16";
 
   import { TokenApi } from "@lessbutter/alloff-backoffice-api";
+  import { apiConfigs } from "@app/store";
   import { setTokens } from "@app/core/auth";
 
+  const api = new TokenApi($apiConfigs);
   const login = async () => {
     if (!valid) return;
     submitting = true;

@@ -18,6 +18,7 @@
     ImageUploadApi,
     BrandRequest,
   } from "@lessbutter/alloff-backoffice-api";
+  import { apiConfigs } from "@app/store";
 
   export let isModalOpen = false;
   export let onCloseModal: () => void;
@@ -45,8 +46,8 @@
     image_url: "",
   };
 
-  const brandApi = new BrandsApi();
-  const imageApi = new ImageUploadApi();
+  const brandApi = new BrandsApi($apiConfigs);
+  const imageApi = new ImageUploadApi($apiConfigs);
 
   const addBrand = async () => {
     newBrandInput.in_maintenance = inMaintenance === "true" ? true : false;

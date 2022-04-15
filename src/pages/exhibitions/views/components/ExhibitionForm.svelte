@@ -30,6 +30,7 @@
     ProductInGroup,
     ExhibitionTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";
+  import { apiConfigs } from "@app/store";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
@@ -54,7 +55,7 @@
   let productInGroups: ProductInGroup[] = [];
   let isSubmitting = false;
 
-  const productGroupApi = new ProductGroupsApi();
+  const productGroupApi = new ProductGroupsApi($apiConfigs);
 
   onMount(async () => {
     selectedExhibitionSections = $formStore.fields.pgs

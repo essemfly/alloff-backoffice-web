@@ -12,8 +12,9 @@
 
   import InventoriesTable from "./components/InventoriesTable.svelte";
   import { search } from "../store";
+  import { apiConfigs } from "@app/store";
 
-  const api = new InventoriesApi();
+  const api = new InventoriesApi($apiConfigs);
   let inventories: Inventory[] = [];
 
   const load = async (

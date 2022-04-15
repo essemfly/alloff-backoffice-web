@@ -13,6 +13,7 @@
 
   import HometabItemForm from "./components/HometabItemForm.svelte";
   import { formStore } from "../models/schema";
+  import { apiConfigs } from "@app/store";
 
   const hometabApi = new HometabsApi($apiConfigs);
 

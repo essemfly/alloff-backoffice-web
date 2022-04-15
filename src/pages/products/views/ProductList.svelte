@@ -22,6 +22,7 @@
 
   import ProductCard from "./components/ProductCard.svelte";
   import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
+  import { apiConfigs } from "@app/store";
 
   let products: Product[] = [];
   let searchFilter: SearchQueryParam = {
@@ -35,7 +36,7 @@
   let totalItems = 0;
   let isLoading = false;
 
-  const productApi = new ProductsApi();
+  const productApi = new ProductsApi($apiConfigs);
   const location = useLocation<SearchQueryParam>();
 
   const checkboxOptions = [

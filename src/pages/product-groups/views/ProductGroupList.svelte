@@ -19,6 +19,7 @@
   import Pagination from "@app/components/Pagination.svelte";
 
   import { productGroupColumns } from "./components/productGroupColumns";
+  import { apiConfigs } from "@app/store";
 
   let productGroups: DataTableData<ProductGroup>[] = [];
   let searchFilter: SearchQueryParam & { totalItems: number } = {
@@ -30,7 +31,7 @@
   };
   let isLoading = false;
 
-  const productGroupApi = new ProductGroupsApi();
+  const productGroupApi = new ProductGroupsApi($apiConfigs);
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {

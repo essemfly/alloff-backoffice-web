@@ -28,8 +28,9 @@
   } from "@lessbutter/alloff-backoffice-api";
   import { formatDate } from "@app/helpers/date";
   import { getExhibitionTypeLabel } from "@app/pages/exhibitions/commands/helpers";
+  import { apiConfigs } from "@app/store";
 
-  const exhibitionApi = new ExhibitionsApi();
+  const exhibitionApi = new ExhibitionsApi($apiConfigs);
 
   type SearchQueryParam = ExhibitionsApiExhibitionsListRequest & {
     offset: number;

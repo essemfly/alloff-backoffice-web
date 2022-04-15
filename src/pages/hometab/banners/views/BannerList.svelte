@@ -18,13 +18,14 @@
 
   import { bannerColumns } from "./components/bannerColumns";
   import { debounce } from "lodash";
+  import { apiConfigs } from "@app/store";
 
   let banners: DataTableData<TopBanner>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
   let isLoading = false;
   let totalItems = 0;
 
-  const bannerApi = new TopBannersApi();
+  const bannerApi = new TopBannersApi($apiConfigs);
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {

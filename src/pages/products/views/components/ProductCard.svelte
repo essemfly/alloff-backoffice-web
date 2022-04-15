@@ -22,10 +22,11 @@
   } from "@lessbutter/alloff-backoffice-api";
 
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
+  import { apiConfigs } from "@app/store";
 
   export let product: Product;
 
-  const productApi = new ProductsApi();
+  const productApi = new ProductsApi($apiConfigs);
 
   let open = false;
 

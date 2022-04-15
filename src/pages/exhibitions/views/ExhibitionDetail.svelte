@@ -10,6 +10,7 @@
     ExhibitionsApi,
     ExhibitionTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";
+  import { apiConfigs } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import {
     convertToSnakeCase,
@@ -30,7 +31,7 @@
   let isLoading = false;
   let isSubmitting = false;
 
-  const exhibitionApi = new ExhibitionsApi();
+  const exhibitionApi = new ExhibitionsApi($apiConfigs);
 
   onMount(async () => {
     isLoading = true;

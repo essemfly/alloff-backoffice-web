@@ -38,8 +38,9 @@
   } from "@app/components/form";
 
   import { formStore, schema } from "../../models/schema";
+  import { apiConfigs } from "@app/store";
 
-  const productGroupApi = new ProductGroupsApi();
+  const productGroupApi = new ProductGroupsApi($apiConfigs);
 
   export let label: string = "컬렉션";
   export let productInGroups: ProductInGroup[] = [];

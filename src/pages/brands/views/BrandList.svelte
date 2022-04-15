@@ -11,6 +11,7 @@
   } from "carbon-components-svelte";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
+  import { apiConfigs } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import DataTable from "@app/components/DataTable/DataTable.svelte";
   import { DataTableData } from "@app/components/DataTable/helpers";
@@ -21,7 +22,7 @@
 
   let brands: Brand[] = [];
 
-  const brandApi = new BrandsApi();
+  const brandApi = new BrandsApi($apiConfigs);
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();

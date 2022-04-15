@@ -18,6 +18,7 @@
   import OrderItemSectionPayment from "./components/OrderItemSectionPayment.svelte";
   import OrderItemSectionPG from "./components/OrderItemSectionPG.svelte";
   import OrderItemSectionTop from "./components/OrderItemSectionTop.svelte";
+  import { apiConfigs } from "@app/store";
 
   export let idOrCode: string;
 
@@ -28,7 +29,7 @@
   let mobile = false;
   let size: "sm" | "md" | "lg" | "xlg" | "max";
 
-  const api = new OrderItemsApi();
+  const api = new OrderItemsApi($apiConfigs);
 
   const load = async () => {
     loading = true;

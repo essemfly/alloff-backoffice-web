@@ -4,6 +4,7 @@
     OrderItemsApi,
     OrderItemStatusEnum,
   } from "@lessbutter/alloff-backoffice-api";
+  import { apiConfigs } from "@app/store";
   import { ORDER_ITEM_ALL_STATUSES } from "@app/constants";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import { getStatusLabel } from "@app/helpers/order-item";
@@ -35,7 +36,7 @@
   let statuses = [...ORDER_ITEM_ALL_STATUSES];
   let exportModalOpen = false;
   const pageSizes = [20, 50, 100];
-  const api = new OrderItemsApi();
+  const api = new OrderItemsApi($apiConfigs);
   const load = async (
     p: number,
     size: number,
