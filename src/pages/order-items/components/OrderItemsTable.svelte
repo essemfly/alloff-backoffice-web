@@ -25,6 +25,7 @@
   } from "@app/helpers/order-item";
 
   import { search } from "../store";
+  import { navigate } from "svelte-navigator";
 
   export let items: OrderItemList[] = [];
   export let isMobile: boolean = false;
@@ -63,7 +64,7 @@
   on:click:row={(e) => {
     const url = `/items/${e.detail.order_item_code}`;
     if (isMobile) {
-      window.location.href = url;
+      navigate(url);
       return;
     }
     window.open(url, "_blank");

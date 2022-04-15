@@ -15,6 +15,7 @@
     ShippingCandidateProto,
     ShippingNoticesApi,
   } from "@lessbutter/alloff-backoffice-api";
+  import { navigate } from "svelte-navigator";
 
   export let candidates: ShippingCandidateProto[];
   export let isMobile = false;
@@ -75,9 +76,11 @@
           on:click={async (e) => {
             e.stopPropagation();
             const res = await submitCandidates(selectedCandidates);
-            window.location.href = "/logistics/shipping-notices/" + res.data.id;
-          }}>출고지시서 생성</Button
+            navigate(`/logistics/shipping-notices/${res.data.id}`);
+          }}
         >
+          출고지시서 생성
+        </Button>
       </ToolbarBatchActions>
     </Toolbar>
     <span slot="cell" let:cell let:row>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { navigate } from "svelte-navigator";
   import { Button, PasswordInput, TextInput } from "carbon-components-svelte";
   import Login16 from "carbon-icons-svelte/lib/Login16";
 
@@ -16,7 +17,7 @@
         tokenObtainPairRequestRequest: { username, password },
       });
       setTokens(data);
-      window.location.href = "/";
+      navigate("/");
     } catch {
       failed = true;
     } finally {

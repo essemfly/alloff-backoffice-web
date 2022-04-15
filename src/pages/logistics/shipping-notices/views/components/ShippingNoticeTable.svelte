@@ -14,6 +14,7 @@
   import { getShippingNolticeStatusLabel } from "@app/helpers/shipping-notice";
 
   import { search } from "../../store";
+  import { navigate } from "svelte-navigator";
 
   export let notices: ShippingNoticeList[] = [];
   export let isMobile = false;
@@ -42,7 +43,7 @@
   on:click:row={(e) => {
     const url = `shipping-notices/${e.detail.id}`;
     if (isMobile) {
-      window.location.href = url;
+      navigate(url);
       return;
     }
     window.open(url, "_blank");
@@ -53,9 +54,11 @@
       <ToolbarSearch on:input={handleSearch} />
       <Button
         on:click={(e) => {
-          window.location.href = "/logistics/shipping-notices/candidates";
-        }}>출고지시서 생성</Button
+          navigate("/logistics/shipping-notices/candidates");
+        }}
       >
+        출고지시서 생성
+      </Button>
     </ToolbarContent>
   </Toolbar>
   <span slot="cell" let:cell let:row>

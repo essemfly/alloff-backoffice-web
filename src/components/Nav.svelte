@@ -1,6 +1,7 @@
 <script lang="ts">
   import { removeTokens } from "@app/core/auth";
   import { AdminUserApi } from "@lessbutter/alloff-backoffice-api";
+  import { navigate, useLocation } from "svelte-navigator";
   import {
     Content,
     Header,
@@ -35,7 +36,6 @@
   import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
   import { onMount } from "svelte";
-  import { useLocation } from "svelte-navigator";
   import { compute_slots } from "svelte/internal";
   import { apiConfigs } from "@app/store";
   import { admin } from "../store";
@@ -151,7 +151,7 @@
 
   const logout = async () => {
     removeTokens();
-    window.location.href = "/login";
+    navigate("/login");
   };
 </script>
 

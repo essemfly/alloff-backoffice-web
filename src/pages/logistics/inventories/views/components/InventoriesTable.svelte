@@ -15,6 +15,7 @@
   import { InventoriesApi, Inventory } from "@lessbutter/alloff-backoffice-api";
   import { getInventoryStatusLabel } from "@app/helpers/inventory";
   import { search } from "../../store";
+  import { navigate } from "svelte-navigator";
 
   export let inventories: Inventory[];
   export let isMobile = false;
@@ -65,7 +66,7 @@
         ? `/timedeal-products/${e.detail.product_id}`
         : `/orders/${e.detail.in_order_id}`;
     if (isMobile) {
-      window.location.href = url;
+      navigate(url);
       return;
     }
     window.open(url, "_blank");
