@@ -1,5 +1,10 @@
 <script lang="ts">
   import {
+    BrandsApi,
+    ImageUploadApi,
+    BrandRequest,
+  } from "@lessbutter/alloff-backoffice-api";
+  import {
     FileUploaderDropContainer,
     TextInput,
     Modal,
@@ -13,11 +18,6 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import {
-    BrandsApi,
-    ImageUploadApi,
-    BrandRequest,
-  } from "@lessbutter/alloff-backoffice-api";
   import { apiConfigs } from "@app/store";
 
   export let isModalOpen = false;

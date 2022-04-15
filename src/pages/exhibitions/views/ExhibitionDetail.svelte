@@ -1,15 +1,15 @@
 <script lang="ts">
+  import {
+    EditExhibitionRequest,
+    ExhibitionsApi,
+    ExhibitionTypeEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import { Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import {
-    EditExhibitionRequest,
-    ExhibitionsApi,
-    ExhibitionTypeEnum,
-  } from "@lessbutter/alloff-backoffice-api";
   import { apiConfigs } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import {

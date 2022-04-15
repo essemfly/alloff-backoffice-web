@@ -1,4 +1,11 @@
 <script lang="ts">
+  import {
+    ProductGroup,
+    ProductGroupsApi,
+    GroupTypeCbfEnum as GroupTypeEnum,
+    ProductInGroup,
+    ExhibitionTypeEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import { DateTime } from "luxon";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
@@ -23,13 +30,6 @@
   import UpToTop16 from "carbon-icons-svelte/lib/UpToTop16";
   import DownToBottom16 from "carbon-icons-svelte/lib/DownToBottom16";
 
-  import {
-    ProductGroup,
-    ProductGroupsApi,
-    GroupTypeCbfEnum as GroupTypeEnum,
-    ProductInGroup,
-    ExhibitionTypeEnum,
-  } from "@lessbutter/alloff-backoffice-api";
   import { apiConfigs } from "@app/store";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";

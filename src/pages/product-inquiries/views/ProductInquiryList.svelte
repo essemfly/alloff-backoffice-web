@@ -6,10 +6,10 @@
   import Nav from "@app/components/Nav.svelte";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import {
-  Checkbox,
-  DatePicker,
-  DatePickerInput,
-  Pagination
+    Checkbox,
+    DatePicker,
+    DatePickerInput,
+    Pagination,
   } from "carbon-components-svelte";
   import { DateTime } from "luxon";
   import { search } from "../store";

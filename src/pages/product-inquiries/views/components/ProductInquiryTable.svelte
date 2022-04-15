@@ -3,6 +3,8 @@
     InquiriesApi,
     ProductInquiry,
   } from "@lessbutter/alloff-backoffice-api";
+  import debounce from "lodash/debounce";
+  import { DateTime } from "luxon";
   import {
     Button,
     DataTable,
@@ -12,13 +14,11 @@
     ToolbarContent,
     ToolbarSearch,
   } from "carbon-components-svelte";
-  import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
+  import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable.svelte";
   import Delete16 from "carbon-icons-svelte/lib/Delete16";
   import Popup16 from "carbon-icons-svelte/lib/Popup16";
   import Send16 from "carbon-icons-svelte/lib/Send16";
-  import debounce from "lodash/debounce";
-  import { DateTime } from "luxon";
-  import { InquiriesApi } from "../../../../api";
+
   import { search } from "../../store";
   import { apiConfigs } from "@app/store";
 

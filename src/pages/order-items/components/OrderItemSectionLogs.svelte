@@ -4,7 +4,7 @@
     OrderItemRetrieve,
   } from "@lessbutter/alloff-backoffice-api";
   import { toLocaleDateTime } from "@app/helpers/datetime";
-  import { getLogTypeLabel,getStatusLabel } from "@app/helpers/order-item";
+  import { getLogTypeLabel, getStatusLabel } from "@app/helpers/order-item";
   import { TabContent } from "carbon-components-svelte";
   import InfoSection from "./InfoSection.svelte";
 

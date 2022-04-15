@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { removeTokens } from "@app/core/auth";
   import { AdminUserApi } from "@lessbutter/alloff-backoffice-api";
+  import { onMount } from "svelte";
   import { navigate, useLocation } from "svelte-navigator";
   import {
     Content,
@@ -32,12 +32,12 @@
   import Product16 from "carbon-icons-svelte/lib/Product16";
   import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
   import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
-  import Template16 from "carbon-icons-svelte/lib/Template16";
   import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
-  import { onMount } from "svelte";
-  import { compute_slots } from "svelte/internal";
+
+  import { removeTokens } from "@app/core/auth";
   import { apiConfigs } from "@app/store";
+
   import { admin } from "../store";
   import MetaTags from "./MetaTags/MetaTags.svelte";
   import { MetaTagsProps } from "./MetaTags/types";

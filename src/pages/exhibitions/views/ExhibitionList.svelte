@@ -1,4 +1,10 @@
 <script lang="ts">
+  import {
+    Exhibition,
+    ExhibitionsApi,
+    ExhibitionsApiExhibitionsListRequest as SearchQueryParam,
+    ExhibitionTypeEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import { debounce } from "lodash";
   import { navigate, useLocation } from "svelte-navigator";
   import {
@@ -13,12 +19,6 @@
     ToolbarSearch,
   } from "carbon-components-svelte";
 
-  import {
-    Exhibition,
-    ExhibitionsApi,
-    ExhibitionsApiExhibitionsListRequest as SearchQueryParam,
-    ExhibitionTypeEnum,
-  } from "@lessbutter/alloff-backoffice-api";
   import { apiConfigs } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import {

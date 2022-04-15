@@ -1,7 +1,7 @@
 import type {
   DataTableHeader,
   DataTableRow,
-} from "carbon-components-svelte/types/DataTable/DataTable";
+} from "carbon-components-svelte/types/DataTable/DataTable.svelte";
 
 export type DataTableData<T> = T & { id: string };
 export type DataTableColumnType =

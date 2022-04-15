@@ -1,13 +1,20 @@
 <script lang="ts">
+  import { TokenApi } from "@lessbutter/alloff-backoffice-api";
   import { navigate } from "svelte-navigator";
   import { Button, PasswordInput, TextInput } from "carbon-components-svelte";
   import Login16 from "carbon-icons-svelte/lib/Login16";
 
-  import { TokenApi } from "@lessbutter/alloff-backoffice-api";
   import { apiConfigs } from "@app/store";
   import { setTokens } from "@app/core/auth";
 
   const api = new TokenApi($apiConfigs);
+  let username = "";
+  let password = "";
+  let submitting = false;
+  let valid = false;
+  let failed = false;
+  let passwordRef: HTMLInputElement | null | undefined;
+
   const login = async () => {
     if (!valid) return;
     submitting = true;
@@ -24,14 +31,6 @@
       submitting = false;
     }
   };
-
-  const api = new TokenApi();
-  let username = "";
-  let password = "";
-  let submitting = false;
-  let valid = false;
-  let failed = false;
-  let passwordRef: HTMLInputElement | null | undefined;
 
   $: valid = username.trim() !== "" && password.trim() !== "";
 </script>
