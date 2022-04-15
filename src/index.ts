@@ -1,4 +1,4 @@
-import { TokenApi } from "@api";
+import { TokenApi } from "@lessbutter/alloff-backoffice-api";
 import "@app/index.css";
 import axios, { AxiosError } from "axios";
 import App from "./App.svelte";

@@ -5,7 +5,10 @@
   import { Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { EditTopBannerRequest, TopBannersApi } from "@app/api";
+  import {
+    EditTopBannerRequest,
+    TopBannersApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import {
     convertToCamelCase,

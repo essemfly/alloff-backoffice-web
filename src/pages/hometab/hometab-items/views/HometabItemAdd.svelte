@@ -4,14 +4,17 @@
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { CreateHomeTabRequest, HometabsApi } from "@api";
+  import {
+    CreateHomeTabRequest,
+    HometabsApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import HometabItemForm from "./components/HometabItemForm.svelte";
   import { formStore } from "../models/schema";
 
-  const hometabApi = new HometabsApi();
+  const hometabApi = new HometabsApi($apiConfigs);
 
   onMount(() => {
     formStore.initialize();

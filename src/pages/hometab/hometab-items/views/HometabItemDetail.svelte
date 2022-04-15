@@ -4,7 +4,7 @@
   import { navigate } from "svelte-navigator";
   import { Button, InlineLoading } from "carbon-components-svelte";
 
-  import { HomeTab, HometabsApi } from "@api";
+  import { HomeTab, HometabsApi } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import {
     convertToCamelCase,

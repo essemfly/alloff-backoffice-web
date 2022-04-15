@@ -6,7 +6,7 @@
     TopBanner,
     TopBannersApi,
     TopBannersApiTopBannersListRequest as SearchQueryParam,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
   import { DataTableData } from "@app/components/DataTable/helpers";

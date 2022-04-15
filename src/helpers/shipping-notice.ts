@@ -1,4 +1,4 @@
-import { ShippingNoticeStatusEnum } from "../api";
+import { ShippingNoticeStatusEnum } from "@lessbutter/alloff-backoffice-api";
 
 export const getShippingNolticeStatusLabel = (
   status: ShippingNoticeStatusEnum,

@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { ProductInquiry } from "@api";
+  import {
+    InquiriesApi,
+    ProductInquiry,
+  } from "@lessbutter/alloff-backoffice-api";
   import {
     Button,
     DataTable,

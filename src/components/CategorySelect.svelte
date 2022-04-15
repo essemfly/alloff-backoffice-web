@@ -1,7 +1,10 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
 
-  import { AlloffCategoriesApi, AlloffCategory } from "@api";
+  import {
+    AlloffCategoriesApi,
+    AlloffCategory,
+  } from "@lessbutter/alloff-backoffice-api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
 
   export let size: "sm" | "lg" | undefined = undefined;

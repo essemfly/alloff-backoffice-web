@@ -19,7 +19,7 @@
     ShippingNoticesApi,
     ShippingNoticesResultUploadApi,
     ShippingNoticeStatusEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import { getStatusBadgeColor, getStatusLabel } from "@app/helpers/order-item";
   import { getShippingNolticeStatusLabel } from "@app/helpers/shipping-notice";
   import Nav from "@app/components/Nav.svelte";

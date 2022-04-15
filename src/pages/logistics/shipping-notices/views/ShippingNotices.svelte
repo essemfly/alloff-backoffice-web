@@ -1,7 +1,10 @@
 <script lang="ts">
   import { Pagination } from "carbon-components-svelte";
 
-  import { ShippingNoticeList, ShippingNoticesApi } from "@api";
+  import {
+    ShippingNoticeList,
+    ShippingNoticesApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import Nav from "@app/components/Nav.svelte";
 

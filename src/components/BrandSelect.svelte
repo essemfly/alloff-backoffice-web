@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
 
-  import { BrandsApi } from "@api";
+  import { BrandsApi } from "@lessbutter/alloff-backoffice-api";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
 
   export let size: "sm" | "lg" | undefined = undefined;

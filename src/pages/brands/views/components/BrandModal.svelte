@@ -13,7 +13,11 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { BrandsApi, ImageUploadApi, BrandRequest } from "@api";
+  import {
+    BrandsApi,
+    ImageUploadApi,
+    BrandRequest,
+  } from "@lessbutter/alloff-backoffice-api";
 
   export let isModalOpen = false;
   export let onCloseModal: () => void;

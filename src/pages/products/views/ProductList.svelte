@@ -8,7 +8,7 @@
     Product,
     ProductsApi,
     ProductsApiProductsListRequest as SearchQueryParam,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import BrandSelect from "@app/components/BrandSelect.svelte";
   import { AutocompleteItem } from "@app/components/autocomplete";

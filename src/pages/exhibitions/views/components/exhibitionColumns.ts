@@ -1,4 +1,4 @@
-import { Exhibition } from "@api";
+import { Exhibition } from "@lessbutter/alloff-backoffice-api";
 import { DataTableColumn } from "@app/components/DataTable/helpers";
 import { formatDate } from "@app/helpers/date";
 

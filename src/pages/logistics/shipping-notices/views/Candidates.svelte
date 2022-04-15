@@ -3,7 +3,10 @@
   import { Button } from "carbon-components-svelte";
   import ArrowLeft16 from "carbon-icons-svelte/lib/ArrowLeft16";
 
-  import { ShippingCandidateProto, ShippingNoticesApi } from "@api";
+  import {
+    ShippingCandidateProto,
+    ShippingNoticesApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import Nav from "@app/components/Nav.svelte";
 

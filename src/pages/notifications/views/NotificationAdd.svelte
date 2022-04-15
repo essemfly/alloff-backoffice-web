@@ -5,7 +5,10 @@
   import { Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { CreateNotiRequest, NotificationsApi } from "@api";
+  import {
+    CreateNotiRequest,
+    NotificationsApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 

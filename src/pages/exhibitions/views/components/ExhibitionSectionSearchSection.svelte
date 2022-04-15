@@ -21,7 +21,7 @@
     ProductGroupsApi,
     GroupTypeCbfEnum as GroupTypeEnum,
     ProductGroupsApiProductGroupsListRequest,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
 
   type SearchQueryParam = ProductGroupsApiProductGroupsListRequest & {
     offset: number;

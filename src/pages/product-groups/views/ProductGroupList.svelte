@@ -8,7 +8,7 @@
     ProductGroup,
     ProductGroupsApi,
     ProductGroupsApiProductGroupsListRequest as SearchQueryParam,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import DataTable from "@app/components/DataTable/DataTable.svelte";
   import { DataTableData } from "@app/components/DataTable/helpers";

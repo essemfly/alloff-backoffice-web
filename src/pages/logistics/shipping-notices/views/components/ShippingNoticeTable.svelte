@@ -10,7 +10,7 @@
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
 
-  import { ShippingNoticeList } from "@api";
+  import { ShippingNoticeList } from "@lessbutter/alloff-backoffice-api";
   import { getShippingNolticeStatusLabel } from "@app/helpers/shipping-notice";
 
   import { search } from "../../store";

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { Brand, BrandsApi } from "@lessbutter/alloff-backoffice-api";
   import { debounce } from "lodash";
   import { navigate } from "svelte-navigator";
   import {
@@ -10,7 +11,6 @@
   } from "carbon-components-svelte";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
-  import { Brand, BrandsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import DataTable from "@app/components/DataTable/DataTable.svelte";
   import { DataTableData } from "@app/components/DataTable/helpers";

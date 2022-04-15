@@ -5,7 +5,10 @@
   import { Button, Grid, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { EditProductRequestApiRequest, ProductsApi } from "@api";
+  import {
+    EditProductRequestApiRequest,
+    ProductsApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import {
     convertToCamelCase,

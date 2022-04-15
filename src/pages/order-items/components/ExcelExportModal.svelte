@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { OrderItemsApi } from "@api";
+  import { OrderItemsApi } from "@lessbutter/alloff-backoffice-api";
   import {
   ComposedModal,
   DatePicker,

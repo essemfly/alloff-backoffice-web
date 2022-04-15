@@ -4,7 +4,10 @@
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { CreateTopBannerRequest, TopBannersApi } from "@app/api";
+  import {
+    CreateTopBannerRequest,
+    TopBannersApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 

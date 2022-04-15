@@ -1,4 +1,4 @@
-import { TopBanner } from "@api";
+import { TopBanner } from "@lessbutter/alloff-backoffice-api";
 import { DataTableColumn } from "@app/components/DataTable/helpers";
 
 export const bannerColumns: DataTableColumn<TopBanner>[] = [

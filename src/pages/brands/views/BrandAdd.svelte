@@ -3,7 +3,10 @@
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { BrandsApi, CreateBrandRequest } from "@api";
+  import {
+    BrandsApi,
+    CreateBrandRequest,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
 
   import BrandForm from "./components/BrandForm.svelte";

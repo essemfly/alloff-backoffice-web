@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { InquiriesApi,ProductInquiry } from "@api";
+  import {
+    InquiriesApi,
+    ProductInquiry,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import {

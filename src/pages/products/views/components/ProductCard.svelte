@@ -19,7 +19,7 @@
     PatchedProductRequest,
     Product,
     ProductsApi,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
 
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
 

@@ -48,5 +48,5 @@ module.exports = {
   settings: {
     "svelte3/typescript": true, // load TypeScript as peer dependency
   },
-  ignorePatterns: ["src/api/*", "node_modules"],
+  ignorePatterns: ["node_modules"],
 };

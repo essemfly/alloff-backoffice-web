@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { ActionTypeEnum,OrderItemRetrieve } from "@api";
+  import {
+    ActionTypeEnum,
+    OrderItemRetrieve,
+  } from "@lessbutter/alloff-backoffice-api";
   import { toLocaleDateTime } from "@app/helpers/datetime";
   import { getLogTypeLabel,getStatusLabel } from "@app/helpers/order-item";
   import { TabContent } from "carbon-components-svelte";

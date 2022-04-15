@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
+  import {
+    OrderItemList,
+    OrderItemRetrieve,
+    OrderItemsApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import {
     Breakpoint,

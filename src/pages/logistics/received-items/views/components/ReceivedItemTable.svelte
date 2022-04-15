@@ -14,7 +14,10 @@
   import Reset16 from "carbon-icons-svelte/lib/Reset16";
   import Close16 from "carbon-icons-svelte/lib/Close16";
 
-  import { ReceivedItem, ReceivedItemStatusEnum } from "@api";
+  import {
+    ReceivedItem,
+    ReceivedItemStatusEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import { getStatusLabel } from "@app/helpers/received-item";
 
   import { search } from "../../store";

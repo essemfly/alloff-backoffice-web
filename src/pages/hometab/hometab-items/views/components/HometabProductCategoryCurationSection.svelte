@@ -1,7 +1,7 @@
 <script lang="ts">
   import { FormGroup } from "carbon-components-svelte";
 
-  import { OptionsEnum } from "@api";
+  import { OptionsEnum } from "@lessbutter/alloff-backoffice-api";
   import ContentBox from "@app/components/ContentBox.svelte";
   import {
     CategorySelectField,

@@ -25,7 +25,7 @@
     ExhibitionsApi,
     ExhibitionsApiExhibitionsListRequest,
     ExhibitionTypeEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import { formatDate } from "@app/helpers/date";
   import { getExhibitionTypeLabel } from "@app/pages/exhibitions/commands/helpers";
 

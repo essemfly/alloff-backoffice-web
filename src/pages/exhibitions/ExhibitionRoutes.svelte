@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Route } from "svelte-navigator";
 
-  import { ExhibitionTypeEnum } from "@api";
+  import { ExhibitionTypeEnum } from "@lessbutter/alloff-backoffice-api";
 
   import ExhibitionAdd from "./views/ExhibitionAdd.svelte";
   import ExhibitionDetail from "./views/ExhibitionDetail.svelte";

@@ -8,7 +8,7 @@
     CreateExhibitionRequest,
     ExhibitionsApi,
     ExhibitionTypeEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 

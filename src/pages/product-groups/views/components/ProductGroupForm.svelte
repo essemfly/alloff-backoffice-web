@@ -25,7 +25,7 @@
     ProductInGroup,
     Product,
     GroupTypeCbfEnum as GroupTypeEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
   import ProductSearchSection from "@app/components/ProductSearchSection.svelte";

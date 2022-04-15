@@ -1,4 +1,4 @@
-import { Brand } from "@api";
+import { Brand } from "@lessbutter/alloff-backoffice-api";
 import { DataTableColumn } from "@app/components/DataTable/helpers";
 
 export const brandColumns: DataTableColumn<Brand>[] = [

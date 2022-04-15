@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Product } from "../../../api";
+import { Product } from "@lessbutter/alloff-backoffice-api";
 
 interface ListRes {
   products: Product[];

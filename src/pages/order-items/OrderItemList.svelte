@@ -1,6 +1,9 @@
 <script lang="ts">
-  import { OrderItemList, OrderItemsApi, OrderItemStatusEnum } from "@api";
-  import Nav from "@app/components/Nav.svelte";
+  import {
+    OrderItemList,
+    OrderItemsApi,
+    OrderItemStatusEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import { ORDER_ITEM_ALL_STATUSES } from "@app/constants";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import { getStatusLabel } from "@app/helpers/order-item";

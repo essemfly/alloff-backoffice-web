@@ -1,4 +1,4 @@
-import { ProductGroup } from "@api";
+import { ProductGroup } from "@lessbutter/alloff-backoffice-api";
 import { DataTableColumn } from "@app/components/DataTable/helpers";
 import { formatDate } from "@app/helpers/date";
 

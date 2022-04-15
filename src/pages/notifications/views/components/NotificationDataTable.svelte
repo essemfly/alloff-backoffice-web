@@ -1,10 +1,10 @@
 <script lang="ts">
+  import { Noti } from "@lessbutter/alloff-backoffice-api";
   import { createEventDispatcher } from "svelte";
   import { DataTable, Tag, Button } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import Send16 from "carbon-icons-svelte/lib/Send16";
 
-  import { Noti } from "../../../../api";
   import { formatDate } from "../../../../helpers/date";
   import {
     NotificationStatus,

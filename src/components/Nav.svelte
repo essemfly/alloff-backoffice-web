@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { AdminUserApi } from "@api";
   import { removeTokens } from "@app/core/auth";
+  import { AdminUserApi } from "@lessbutter/alloff-backoffice-api";
   import {
     Content,
     Header,

@@ -18,7 +18,7 @@
     ExhibitionsApi,
     ExhibitionsApiExhibitionsListRequest as SearchQueryParam,
     ExhibitionTypeEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import {
     formatQueryString,

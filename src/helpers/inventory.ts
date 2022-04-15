@@ -1,4 +1,4 @@
-import { InventoryStatusEnum } from "../api";
+import { InventoryStatusEnum } from "@lessbutter/alloff-backoffice-api";
 
 export const getInventoryStatusLabel = (status: InventoryStatusEnum) => {
   switch (status) {

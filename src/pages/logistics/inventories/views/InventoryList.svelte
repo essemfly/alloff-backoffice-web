@@ -1,7 +1,11 @@
 <script lang="ts">
   import { Checkbox, Pagination } from "carbon-components-svelte";
 
-  import { InventoriesApi, Inventory, InventoryStatusEnum } from "@api";
+  import {
+    InventoriesApi,
+    Inventory,
+    InventoryStatusEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import { getInventoryStatusLabel } from "@app/helpers/inventory";
   import Nav from "@app/components/Nav.svelte";

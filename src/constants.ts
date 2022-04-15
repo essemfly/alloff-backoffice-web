@@ -1,4 +1,4 @@
-import { OrderItemStatusEnum } from "./api";
+import { OrderItemStatusEnum } from "@lessbutter/alloff-backoffice-api";
 
 export const ORDER_ITEM_ALL_STATUSES: OrderItemStatusEnum[] = [
   OrderItemStatusEnum.PaymentFinished,

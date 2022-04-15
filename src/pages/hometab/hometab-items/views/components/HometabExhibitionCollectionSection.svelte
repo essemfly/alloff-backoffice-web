@@ -11,7 +11,7 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { Exhibition } from "@api";
+  import { Exhibition } from "@lessbutter/alloff-backoffice-api";
   import ContentBox from "@app/components/ContentBox.svelte";
   import ExhibitionListSection from "@app/components/ExhibitionListSection.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";

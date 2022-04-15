@@ -9,7 +9,11 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { Brand, BrandsApi, ImageUploadApi } from "@api";
+  import {
+    Brand,
+    BrandsApi,
+    ImageUploadApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
 
   const brandApi = new BrandsApi();

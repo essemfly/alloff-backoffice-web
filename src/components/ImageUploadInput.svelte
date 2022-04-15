@@ -13,7 +13,7 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { ImageUploadApi } from "@api";
+  import { ImageUploadApi } from "@lessbutter/alloff-backoffice-api";
   import SortButtonSet from "./SortButtonSet.svelte";
 
   export let label: string = "";

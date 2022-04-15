@@ -11,7 +11,7 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { Brand, BrandsApi } from "@api";
+  import { Brand, BrandsApi } from "@lessbutter/alloff-backoffice-api";
   import { BrandSelectField } from "@app/components/form";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";

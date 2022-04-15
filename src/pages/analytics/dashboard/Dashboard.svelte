@@ -4,7 +4,7 @@
   import * as d3 from "d3";
   import { InlineLoading } from "carbon-components-svelte";
 
-  import { OrdersApi } from "@api";
+  import { OrdersApi } from "@lessbutter/alloff-backoffice-api";
 
   import Nav from "@app/components/Nav.svelte";
   import DashboardTable from "./components/DashboardTable.svelte";

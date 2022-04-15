@@ -10,7 +10,10 @@
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import Export16 from "carbon-icons-svelte/lib/Export16";
 
-  import { ShippingCandidateProto, ShippingNoticesApi } from "@api";
+  import {
+    ShippingCandidateProto,
+    ShippingNoticesApi,
+  } from "@lessbutter/alloff-backoffice-api";
 
   export let candidates: ShippingCandidateProto[];
   export let isMobile = false;

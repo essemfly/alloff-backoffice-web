@@ -29,7 +29,7 @@
     GroupTypeCbfEnum as GroupTypeEnum,
     ProductInGroup,
     ExhibitionTypeEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";

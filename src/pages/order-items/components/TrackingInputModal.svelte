@@ -4,7 +4,7 @@
     CouriersApi,
     OrderItemRetrieve,
     OrderItemStatusEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import {
     Checkbox,
     ComposedModal,

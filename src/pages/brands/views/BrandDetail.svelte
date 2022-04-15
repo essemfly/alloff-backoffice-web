@@ -4,7 +4,7 @@
   import { navigate } from "svelte-navigator";
   import { Button, InlineLoading } from "carbon-components-svelte";
 
-  import { Brand, BrandsApi } from "@api";
+  import { Brand, BrandsApi } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import {
     convertToCamelCase,

@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { Row, Column, FormGroup } from "carbon-components-svelte";
 
-  import { ItemTypeEnum } from "@api";
+  import { ItemTypeEnum } from "@lessbutter/alloff-backoffice-api";
   import { DateTimeField, RadioField, TextField } from "@app/components/form";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";

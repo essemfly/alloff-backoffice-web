@@ -1,4 +1,4 @@
-import { ReceivedItemStatusEnum } from "../api";
+import { ReceivedItemStatusEnum } from "@lessbutter/alloff-backoffice-api";
 
 export const getStatusLabel = (status: ReceivedItemStatusEnum) => {
     switch (status) {

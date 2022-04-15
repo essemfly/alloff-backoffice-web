@@ -10,7 +10,10 @@
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { Exhibition, ExhibitionsApi } from "@api";
+  import {
+    Exhibition,
+    ExhibitionsApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
   import {
