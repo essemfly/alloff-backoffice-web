@@ -1,5 +1,5 @@
-import { apiConfigs } from "@app/store";
-import { get } from "svelte/store";
+import { apiConfigs, apiConfigsTS } from "@app/store";
+
 import { settings } from "./constants";
 
 type Tokens = { access?: string; refresh?: string };
@@ -10,7 +10,7 @@ export const setTokens = (tokens: Tokens) => {
       settings.auth.accessTokenLocalStorageKey,
       tokens.access,
     );
-    const config = get(apiConfigs);
+    const config = apiConfigsTS;
     config.accessToken = tokens.access;
     apiConfigs.set(config);
   }
@@ -36,7 +36,7 @@ export const getTokens = (): Tokens => {
 export const removeTokens = () => {
   localStorage.removeItem(settings.auth.accessTokenLocalStorageKey);
   localStorage.removeItem(settings.auth.refreshTokenLocalStorageKey);
-  const config = get(apiConfigs);
+  const config = apiConfigsTS;
   config.accessToken = undefined;
   apiConfigs.set(config);
 };

@@ -1,38 +1,31 @@
 <script lang="ts">
-  import { TokenApi } from "@lessbutter/alloff-backoffice-api";
-  import { navigate } from "svelte-navigator";
   import { Button, PasswordInput, TextInput } from "carbon-components-svelte";
   import Login16 from "carbon-icons-svelte/lib/Login16";
 
-  import { apiConfigs } from "@app/store";
-  import { setTokens } from "@app/core/auth";
+  import { useAuthService } from "./AuthService";
 
-  const api = new TokenApi($apiConfigs);
+  const authService = useAuthService();
+
   let username = "";
   let password = "";
-  let submitting = false;
-  let valid = false;
-  let failed = false;
+  let isSubmitting = false;
+  let isValid = false;
+  let isFailed = false;
   let passwordRef: HTMLInputElement | null | undefined;
 
-  const login = async () => {
-    if (!valid) return;
-    submitting = true;
-
+  const handleClick = async () => {
+    if (!isValid) return;
     try {
-      const { data } = await api.tokenCreate({
-        tokenObtainPairRequestRequest: { username, password },
-      });
-      setTokens(data);
-      navigate("/");
+      isSubmitting = true;
+      await authService.login(username, password);
     } catch {
-      failed = true;
+      isFailed = true;
     } finally {
-      submitting = false;
+      isSubmitting = false;
     }
   };
 
-  $: valid = username.trim() !== "" && password.trim() !== "";
+  $: isValid = username.trim() !== "" && password.trim() !== "";
 </script>
 
 <div class="login">
@@ -41,7 +34,7 @@
       labelText="아이디"
       required
       bind:value={username}
-      invalid={failed}
+      invalid={isFailed}
       on:keydown={(e) => {
         if (e.key === "Enter" && passwordRef) {
           passwordRef.focus();
@@ -54,16 +47,20 @@
       type="password"
       labelText="비밀번호"
       bind:value={password}
-      invalid={failed}
+      invalid={isFailed}
       on:keydown={(e) => {
         if (e.key === "Enter") {
-          login();
+          handleClick();
         }
       }}
     />
-    <Button icon={Login16} disabled={submitting || !valid} on:click={login}
-      >{submitting ? "로그인하는 중..." : "로그인"}</Button
+    <Button
+      icon={Login16}
+      disabled={isSubmitting || !isValid}
+      on:click={handleClick}
     >
+      {isSubmitting ? "로그인하는 중..." : "로그인"}
+    </Button>
   </div>
 </div>
 
@@ -72,6 +69,7 @@
     width: 80%;
     max-width: 500px;
   }
+
   .login {
     position: absolute;
     height: 100vh;
