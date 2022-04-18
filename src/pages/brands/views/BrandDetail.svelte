@@ -14,13 +14,14 @@
 
   import BrandForm from "./components/BrandForm.svelte";
   import { formStore } from "../models/schema";
+  import { useBrandService } from "../BrandService";
+
+  const brandService = useBrandService();
 
   export let id: string;
 
   let isLoading = false;
   let isSubmitting = false;
-
-  const brandApi = new BrandsApi($apiConfigs);
 
   onMount(async () => {
     if ($formStore.fields.brandId) {
@@ -28,8 +29,10 @@
     }
     isLoading = true;
     try {
-      const res = await brandApi.brandsList();
-      const brand = res.data.find(({ brand_id }: Brand) => brand_id === id);
+      await brandService.list();
+      const brand = brandService.brands.find(
+        ({ brand_id }: Brand) => brand_id === id,
+      );
       if (brand) {
         const brandData = convertToCamelCase(brand);
         formStore.update(brandData);
@@ -51,14 +54,11 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      await brandApi.brandsPartialUpdate({
-        id: $formStore.fields.brandId,
-        patchedBrandRequest: convertToSnakeCase($formStore.fields),
-      });
-      toast.push("브랜드 등록이 완료되었습니다.");
+      brandService.edit($formStore.fields.brandId!, $formStore.fields);
+      toast.push("브랜드 수정이 완료되었습니다.");
       navigate(-1);
     } catch (e) {
-      toast.push(`브랜드 등록에 오류가 발생했습니다.`);
+      toast.push(`브랜드 수정에 오류가 발생했습니다.`);
     } finally {
       isSubmitting = false;
     }

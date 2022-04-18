@@ -1,12 +1,16 @@
 import {
   Brand as BrandDto,
   BrandsApi,
+  BrandsApiBrandsCreateRequest,
   BrandsApiBrandsPartialUpdateRequest,
+  BrandsApiBrandsUpdateRequest,
 } from "@lessbutter/alloff-backoffice-api";
 
 import { apiConfigsTS } from "@app/store";
 import Service from "@app/lib/Service";
 import { convertToSnakeCase } from "@app/helpers/change-case";
+import { get } from "svelte/store";
+import { FormSchema } from "./models/schema";
 
 interface Brand extends BrandDto {
   id: string;
@@ -15,41 +19,57 @@ interface Brand extends BrandDto {
 export default class BrandService extends Service<Brand> {
   private brandApi: BrandsApi;
 
-  public get brands() {
-    return Object.values(this.entities);
-  }
-
   constructor() {
     super();
     this.brandApi = new BrandsApi(apiConfigsTS);
   }
 
-  private update(data: BrandDto[]) {
-    const newData: Record<string, Brand> = {};
-    data.forEach((x) => {
-      const id = x.brand_id;
-      newData[id] = { ...x, id };
-    });
+  public get brands(): Brand[] {
+    return Object.values(this.entities);
   }
 
-  public async list() {
+  public async list(): Promise<void> {
     try {
       const res = await this.brandApi.brandsList();
-      this.update(res.data);
+      this._update(res.data);
     } catch (e) {
       this.catchError(e);
     }
   }
 
-  public async load() {
-    // todo
+  public load(id: string): Brand | undefined {
+    if (this.brands.length > 0) {
+      return get(this.entities)[id] ?? undefined;
+    }
+    return undefined;
+  }
+
+  public async create(data: FormSchema): Promise<void> {
+    try {
+      await this.brandApi.brandsCreate({
+        createBrandRequest: convertToSnakeCase(data),
+      });
+    } catch (e) {
+      this.catchError(e);
+    }
+  }
+
+  public async edit(id: string, data: FormSchema) {
+    try {
+      await this.brandApi.brandsUpdate({
+        id,
+        editBrandRequest: convertToSnakeCase(data),
+      });
+    } catch (e) {
+      this.catchError(e);
+    }
   }
 
   public async patch(
     id: string,
     keyname: string,
     data: Partial<BrandsApiBrandsPartialUpdateRequest>,
-  ) {
+  ): Promise<void> {
     try {
       await this.brandApi.brandsPartialUpdate({
         id,
@@ -62,6 +82,14 @@ export default class BrandService extends Service<Brand> {
     } catch (e) {
       this.catchError(e);
     }
+  }
+
+  private _update(data: BrandDto[]) {
+    const newData: Record<string, Brand> = {};
+    data.forEach((x) => {
+      const id = x.brand_id;
+      newData[id] = { ...x, id };
+    });
   }
 }
 
