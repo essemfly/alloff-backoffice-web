@@ -1,17 +1,24 @@
 import { TokenApi } from "@lessbutter/alloff-backoffice-api";
 import axios from "axios";
-import { writable, Writable } from "svelte/store";
-import { apiConfigsTS } from "@app/store";
-import StorageService from "@app/core/StorageService";
+import { get, writable, Writable } from "svelte/store";
+
+import CoreProvider, { useCore } from "@app/core/CoreProvider";
 
 export default abstract class Service<M> {
-  public storageService: StorageService;
-
-  public entities: Writable<Record<string, M>>;
+  public core: CoreProvider;
+  public _entities: Writable<Record<string, M>>;
 
   constructor() {
-    this.storageService = new StorageService();
-    this.entities = writable({});
+    this.core = useCore();
+    this._entities = writable({});
+  }
+
+  public get entities() {
+    return get(this._entities);
+  }
+
+  public _updateEntities(values: Record<string, M>) {
+    this._entities.set(values);
   }
 
   public async catchError(error: any) {
@@ -20,20 +27,20 @@ export default abstract class Service<M> {
     const originalRequest = error.config;
     const isAuth = (error.config?.url ?? "").includes("/token/");
     if (error.response && error.response.status === 401 && !isAuth) {
-      const { refresh } = this.storageService.getTokens();
+      const { refresh } = this.core.storage.getTokens();
       if (!refresh) {
-        return this.storageService.toLogin();
+        return this.core.storage.toLogin();
       }
       try {
-        const api = new TokenApi(apiConfigsTS);
+        const api = new TokenApi(this.core.apiConfig);
         const { data } = await api.tokenRefreshCreate({
           tokenRefreshRequestRequest: { refresh },
         });
-        this.storageService.setTokens(data);
+        this.core.storage.setTokens(data);
         return axios(originalRequest);
       } catch (e: any) {
         console.log("Unknown error while refreshing token", { e });
-        return this.storageService.toLogin();
+        return this.core.storage.toLogin();
       }
     }
     throw error;
