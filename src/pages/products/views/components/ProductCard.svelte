@@ -32,38 +32,9 @@
   const handleDeeplinkClick = async (event: MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
-    const isProd = import.meta.env.PROD;
-    const apiKey = !isProd
-      ? "AIzaSyAzcMKkMoBjrLVS1OgoaYRxQ270ZFFAZgU"
-      : "AIzaSyA1pk7YM0oExgaxRBxvdpzVEj39W1h4wJ0";
-    const firebaseUrl = `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${apiKey}`;
-    const domain = !isProd ? "alloff-webhome-dev" : "alloff-webhome";
-    const longLink = `https://${domain}.lett.io/products/${product.alloff_product_id}`;
-    const res = await fetch(firebaseUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        dynamicLinkInfo: {
-          domainUriPrefix: !isProd
-            ? "https://alloffdev.page.link"
-            : "https://alloff.page.link",
-          link: longLink,
-          androidInfo: {
-            androidPackageName: !isProd ? "co.alloff.app.dev" : "co.alloff.app",
-            androidFallbackLink:
-              "https://play.google.com/store/apps/details?id=co.alloff.app",
-          },
-          iosInfo: {
-            iosBundleId: !isProd ? "co.alloff.app.dev" : "co.alloff.app",
-            iosFallbackLink: "https://apps.apple.com/kr/app/1570192380",
-          },
-        },
-      }),
-    });
-    const json = await res.json();
-    const shortLink = json.shortLink;
+    const shortLink = await productService.getDeeplink(
+      product.alloff_product_id,
+    );
     navigator.clipboard.writeText(shortLink);
     toast.push(`딥링크를 복사했습니다! (${product.alloff_name})`);
   };

@@ -9,6 +9,7 @@ import Service from "@app/lib/Service";
 import { convertToSnakeCase } from "@app/helpers/change-case";
 
 import { FormSchema } from "./models/schema";
+import { getDeeplinkSettings } from "@app/core/configs";
 
 export type Product = ProductDto & { id: string };
 
@@ -115,6 +116,43 @@ export default class ProductService extends Service<Product> {
     } catch (e) {
       this.catchError(e);
     }
+  }
+
+  public async getDeeplink(productId: string) {
+    const {
+      apiKey,
+      domain,
+      domainUriPrefix,
+      androidPackageName,
+      androidFallbackLink,
+      iosBundleId,
+      iosFallbackLink,
+    } = getDeeplinkSettings();
+
+    const firebaseUrl = `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${apiKey}`;
+    const longLink = `https://${domain}.lett.io/products/${productId}`;
+    const res = await fetch(firebaseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        dynamicLinkInfo: {
+          domainUriPrefix,
+          link: longLink,
+          androidInfo: {
+            androidPackageName,
+            androidFallbackLink,
+          },
+          iosInfo: {
+            iosBundleId,
+            iosFallbackLink,
+          },
+        },
+      }),
+    });
+    const json = await res.json();
+    return json.shortLink;
   }
 
   private _update(data: ProductDto[]) {
