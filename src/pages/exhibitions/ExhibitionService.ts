@@ -51,7 +51,6 @@ export default class ExhibitionService extends Service<Exhibition> {
 
   public async list(params: SearchQueryParam): Promise<void> {
     try {
-      console.log(params);
       const res = await this.exhibitionApi.exhibitionsList(params);
       this._update(res.data.exhibitions);
       this.searchFilter = {

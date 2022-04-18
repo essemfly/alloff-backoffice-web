@@ -32,13 +32,12 @@
   export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
 
   const exhibitionService = useExhibitionService();
-  const { filter } = exhibitionService;
 
   let exhibitionLabel = getExhibitionTypeLabel(type);
   let exhibitions: DataTableData<Exhibition>[] = [];
   let isLoading = false;
   let innerSearchQuery = "";
-  let searchFilter = filter;
+  let searchFilter = exhibitionService.filter;
 
   const location = useLocation<SearchQueryParam>();
 
@@ -50,6 +49,7 @@
     try {
       await exhibitionService.list(params);
       exhibitions = exhibitionService.exhibitions;
+      searchFilter = exhibitionService.filter;
     } finally {
       isLoading = false;
     }
