@@ -35,8 +35,7 @@
   import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
 
-  import { removeTokens } from "@app/core/auth";
-  import { apiConfigs } from "@app/store";
+  import { useCore } from "@app/core/CoreProvider";
 
   import { admin } from "../store";
   import MetaTags from "./MetaTags/MetaTags.svelte";
@@ -47,6 +46,8 @@
   export let loading: boolean = false;
   export let loadingText: string = "Loading";
   export let hidePageTitle: boolean = false;
+
+  const { storage, apiConfig } = useCore();
 
   let isSideNavOpen = false;
   let isUtilOpen = false;
@@ -140,7 +141,7 @@
   }
 
   onMount(async () => {
-    const adminUserApi = new AdminUserApi($apiConfigs);
+    const adminUserApi = new AdminUserApi(apiConfig);
     try {
       const { data } = await adminUserApi.adminUserMeRetrieve();
       admin.set(data);
@@ -150,7 +151,7 @@
   });
 
   const logout = async () => {
-    removeTokens();
+    storage.removeTokens();
     navigate("/login");
   };
 </script>

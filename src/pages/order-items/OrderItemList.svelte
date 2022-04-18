@@ -8,7 +8,7 @@
   import { Pagination, Button } from "carbon-components-svelte";
   import TableShortcut16 from "carbon-icons-svelte/lib/TableShortcut16";
 
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
   import { ORDER_ITEM_ALL_STATUSES } from "@app/constants";
   import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
   import Nav from "@app/components/Nav.svelte";
@@ -32,7 +32,7 @@
   let statuses = [...ORDER_ITEM_ALL_STATUSES];
   let exportModalOpen = false;
   const pageSizes = [20, 50, 100];
-  const api = new OrderItemsApi($apiConfigs);
+  const api = new OrderItemsApi(apiConfig);
   const load = async (
     p: number,
     size: number,

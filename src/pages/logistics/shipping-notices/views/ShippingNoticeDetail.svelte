@@ -23,7 +23,7 @@
   import { getStatusBadgeColor, getStatusLabel } from "@app/helpers/order-item";
   import { getShippingNolticeStatusLabel } from "@app/helpers/shipping-notice";
   import Nav from "@app/components/Nav.svelte";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let noticeId: number;
 
@@ -36,7 +36,7 @@
   const packageMappedItems: { [packageId: string]: ShippingNoticeItem[] } = {};
   const packageHashMap: { [packageId: string]: Package } = {};
 
-  const api = new ShippingNoticesApi($apiConfigs);
+  const api = new ShippingNoticesApi(apiConfig);
 
   const load = async () => {
     if (!noticeId) return;
@@ -83,7 +83,7 @@
     if (!noticeId) return;
     submitting = true;
     try {
-      const resultApi = new ShippingNoticesResultUploadApi($apiConfigs);
+      const resultApi = new ShippingNoticesResultUploadApi(apiConfig);
       notice = (
         await resultApi.shippingNoticesResultUploadUploadCreate({
           file,
@@ -100,7 +100,7 @@
 
   const submitReprintLabel = async (pkg: Package) => {
     submitting = true;
-    const packageApi = new PackagesApi($apiConfigs);
+    const packageApi = new PackagesApi(apiConfig);
     try {
       await packageApi.packagesReprintLabelCreate({ id: pkg.id });
     } catch (e: any) {

@@ -25,9 +25,9 @@
   import BrandSelect from "@app/components/BrandSelect.svelte";
   import CategorySelect from "@app/components/CategorySelect.svelte";
   import { toast } from "@zerodevx/svelte-toast";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
-  const productApi = new ProductsApi($apiConfigs);
+  const productApi = new ProductsApi(apiConfig);
 
   type SearchQueryParam = ProductsApiProductsListRequest & {
     offset: number;

@@ -10,7 +10,7 @@
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import Delete16 from "carbon-icons-svelte/lib/Delete16";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   import { InventoriesApi, Inventory } from "@lessbutter/alloff-backoffice-api";
   import { getInventoryStatusLabel } from "@app/helpers/inventory";
@@ -43,7 +43,7 @@
   }, 300);
 
   const submitDelete = async (row: any) => {
-    const api = new InventoriesApi($apiConfigs);
+    const api = new InventoriesApi(apiConfig);
     if (!confirm("정말 삭제하시겠습니까?")) return;
     try {
       await api.inventoriesDestroy({ id: row.id });

@@ -3,23 +3,7 @@ import type {
   DataTableRow,
 } from "carbon-components-svelte/types/DataTable/DataTable.svelte";
 
-export type DataTableData<T> = T & { id: string };
-export type DataTableColumnType =
-  | "image"
-  | "link"
-  | "toggle"
-  | "string"
-  | "weight"
-  | "number";
-
-export type DataTableColumn<T> = {
-  key: keyof T;
-  name: string;
-  get?: (data: T) => string | number;
-  type?: DataTableColumnType;
-};
-
-export { DataTableRow };
+import { DataTableColumn } from "./DataTable.svelte";
 
 export const getHeaders = <T>(
   columns: DataTableColumn<T>[],

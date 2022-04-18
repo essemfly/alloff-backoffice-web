@@ -13,11 +13,11 @@
 
   import BannerForm from "./components/BannerForm.svelte";
   import { formStore } from "../models/schema";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   let isSubmitting = false;
 
-  const bannerApi = new TopBannersApi($apiConfigs);
+  const bannerApi = new TopBannersApi(apiConfig);
 
   onMount(() => {
     formStore.initialize();

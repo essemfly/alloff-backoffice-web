@@ -10,9 +10,9 @@
 
   import ShippingNoticeTable from "./components/ShippingNoticeTable.svelte";
   import { search } from "../store";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
-  const api = new ShippingNoticesApi($apiConfigs);
+  const api = new ShippingNoticesApi(apiConfig);
   let notices: ShippingNoticeList[] = [];
 
   const load = async (page: number, size: number, search: string) => {

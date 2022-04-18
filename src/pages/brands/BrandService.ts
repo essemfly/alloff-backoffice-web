@@ -1,27 +1,22 @@
 import {
   Brand as BrandDto,
   BrandsApi,
-  BrandsApiBrandsCreateRequest,
   BrandsApiBrandsPartialUpdateRequest,
-  BrandsApiBrandsUpdateRequest,
 } from "@lessbutter/alloff-backoffice-api";
 
-import { apiConfigsTS } from "@app/store";
 import Service from "@app/lib/Service";
 import { convertToSnakeCase } from "@app/helpers/change-case";
-import { get } from "svelte/store";
+
 import { FormSchema } from "./models/schema";
 
-interface Brand extends BrandDto {
-  id: string;
-}
+type Brand = BrandDto & { id: string };
 
 export default class BrandService extends Service<Brand> {
   private brandApi: BrandsApi;
 
   constructor() {
     super();
-    this.brandApi = new BrandsApi(apiConfigsTS);
+    this.brandApi = new BrandsApi(this.core.apiConfig);
   }
 
   public get brands(): Brand[] {
@@ -39,7 +34,7 @@ export default class BrandService extends Service<Brand> {
 
   public load(id: string): Brand | undefined {
     if (this.brands.length > 0) {
-      return get(this.entities)[id] ?? undefined;
+      return this.entities[id] ?? undefined;
     }
     return undefined;
   }
@@ -90,6 +85,7 @@ export default class BrandService extends Service<Brand> {
       const id = x.brand_id;
       newData[id] = { ...x, id };
     });
+    this._updateEntities(newData);
   }
 }
 

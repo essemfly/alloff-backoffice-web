@@ -9,7 +9,7 @@
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import Export16 from "carbon-icons-svelte/lib/Export16";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   import {
     ShippingCandidateProto,
@@ -41,7 +41,7 @@
   ];
 
   const submitCandidates = (candiates: ShippingCandidateProto[]) => {
-    const api = new ShippingNoticesApi($apiConfigs);
+    const api = new ShippingNoticesApi(apiConfig);
     const candidateSubmissionItems: {
       order_item_id: number;
       inventory_ids: number[];

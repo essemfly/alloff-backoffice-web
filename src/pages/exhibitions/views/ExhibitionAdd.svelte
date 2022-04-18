@@ -9,7 +9,7 @@
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 
@@ -22,7 +22,7 @@
   let exhibitionLabel = getExhibitionTypeLabel(type);
   let isSubmitting = false;
 
-  const exhibitionApi = new ExhibitionsApi($apiConfigs);
+  const exhibitionApi = new ExhibitionsApi(apiConfig);
 
   onMount(() => {
     formStore.initialize({ exhibitionType: type });

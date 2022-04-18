@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";

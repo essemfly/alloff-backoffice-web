@@ -5,11 +5,11 @@
   import { onMount } from "svelte";
   import { InlineLoading } from "carbon-components-svelte";
 
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import DashboardTable from "./components/DashboardTable.svelte";
 
-  const api = new OrdersApi($apiConfigs);
+  const api = new OrdersApi(apiConfig);
   let data = [];
   let loading = true;
 

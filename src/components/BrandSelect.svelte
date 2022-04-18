@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { BrandsApi } from "@lessbutter/alloff-backoffice-api";
   import { createEventDispatcher, onMount } from "svelte";
 
-  import { BrandsApi } from "@lessbutter/alloff-backoffice-api";
+  import { useCore } from "@app/core/CoreProvider";
   import { Autocomplete, AutocompleteItem } from "@app/components/autocomplete";
-  import { apiConfigs } from "@app/store";
 
   export let size: "sm" | "lg" | undefined = undefined;
   export let value: string = "";
@@ -21,7 +21,9 @@
   let brands: AutocompleteItem[] = [];
   let filteredBrands: AutocompleteItem[] = [];
 
-  const brandsAPi = new BrandsApi($apiConfigs);
+  const { apiConfig } = useCore();
+
+  const brandsAPi = new BrandsApi(apiConfig);
   const dispatch = createEventDispatcher();
 
   onMount(async () => {

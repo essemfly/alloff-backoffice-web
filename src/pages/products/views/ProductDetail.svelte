@@ -17,9 +17,9 @@
 
   import ProductForm from "./components/ProductForm.svelte";
   import { formStore } from "../models/schema";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
-  const productApi = new ProductsApi($apiConfigs);
+  const productApi = new ProductsApi(apiConfig);
 
   export let productId: string;
 

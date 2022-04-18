@@ -5,7 +5,7 @@
   import { Button, InlineLoading } from "carbon-components-svelte";
   import AddComment16 from "carbon-icons-svelte/lib/AddComment16";
 
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
   import {
     Noti,
     NotificationsApi,
@@ -27,7 +27,7 @@
   let totalItems = 0;
   let isLoading = false;
 
-  const notificationApi = new NotificationsApi($apiConfigs);
+  const notificationApi = new NotificationsApi(apiConfig);
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {

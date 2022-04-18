@@ -20,13 +20,13 @@
   import Send16 from "carbon-icons-svelte/lib/Send16";
 
   import { search } from "../../store";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let inquiries: ProductInquiry[] = [];
   export let isMobile = false;
   export let reload: () => Promise<void>;
 
-  const api = new InquiriesApi($apiConfigs);
+  const api = new InquiriesApi(apiConfig);
   const ellipsisExtent = 50;
 
   let newReplyMap: { [inquiryId: string]: string } = {};

@@ -17,7 +17,7 @@
   } from "carbon-components-svelte";
   import { onMount } from "svelte";
   import { admin } from "../../../store";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let changeOrderItemStatus: (
     item: OrderItemRetrieve,
@@ -47,7 +47,7 @@
   }
 
   onMount(async () => {
-    const courierApi = new CouriersApi($apiConfigs);
+    const courierApi = new CouriersApi(apiConfig);
     const res = await courierApi.couriersList();
     couriers = res.data;
     courierHash = couriers.reduce((acc, courier) => {

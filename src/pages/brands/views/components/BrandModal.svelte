@@ -18,7 +18,7 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let isModalOpen = false;
   export let onCloseModal: () => void;
@@ -46,8 +46,8 @@
     image_url: "",
   };
 
-  const brandApi = new BrandsApi($apiConfigs);
-  const imageApi = new ImageUploadApi($apiConfigs);
+  const brandApi = new BrandsApi(apiConfig);
+  const imageApi = new ImageUploadApi(apiConfig);
 
   const addBrand = async () => {
     newBrandInput.in_maintenance = inMaintenance === "true" ? true : false;

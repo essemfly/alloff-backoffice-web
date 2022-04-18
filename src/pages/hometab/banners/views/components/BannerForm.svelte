@@ -26,13 +26,13 @@
 
   import { schema, formStore } from "../../models/schema";
   import { onMount } from "svelte";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let isAdding: boolean = false;
 
   let selectedExhibition: Exhibition;
 
-  const exhibitionApi = new ExhibitionsApi($apiConfigs);
+  const exhibitionApi = new ExhibitionsApi(apiConfig);
 
   onMount(async () => {
     if (!isAdding) {

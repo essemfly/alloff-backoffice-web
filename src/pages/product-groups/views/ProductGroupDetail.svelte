@@ -21,7 +21,7 @@
     getGroupTypeLabelByIndex,
   } from "../commands/helpers";
   import { formStore, schema } from "../models/schema";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let productId: string;
 
@@ -30,7 +30,7 @@
   let productGroupTypeLabel = "컬렉션";
   let productInGroups: ProductInGroup[] = [];
 
-  const productGroupApi = new ProductGroupsApi($apiConfigs);
+  const productGroupApi = new ProductGroupsApi(apiConfig);
 
   onMount(async () => {
     isLoading = true;

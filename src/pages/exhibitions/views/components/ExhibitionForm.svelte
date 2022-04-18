@@ -30,7 +30,7 @@
   import UpToTop16 from "carbon-icons-svelte/lib/UpToTop16";
   import DownToBottom16 from "carbon-icons-svelte/lib/DownToBottom16";
 
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
@@ -55,7 +55,7 @@
   let productInGroups: ProductInGroup[] = [];
   let isSubmitting = false;
 
-  const productGroupApi = new ProductGroupsApi($apiConfigs);
+  const productGroupApi = new ProductGroupsApi(apiConfig);
 
   onMount(async () => {
     selectedExhibitionSections = $formStore.fields.pgs

@@ -10,7 +10,7 @@
   import { Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import {
     convertToSnakeCase,
@@ -31,7 +31,7 @@
   let isLoading = false;
   let isSubmitting = false;
 
-  const exhibitionApi = new ExhibitionsApi($apiConfigs);
+  const exhibitionApi = new ExhibitionsApi(apiConfig);
 
   onMount(async () => {
     isLoading = true;

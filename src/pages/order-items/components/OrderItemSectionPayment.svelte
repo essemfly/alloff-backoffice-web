@@ -13,13 +13,13 @@
 
   import RefundModal from "../components/RefundModal.svelte";
   import AdjustPaymentModal from "../components/AdjustPaymentModal.svelte";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let item: OrderItemRetrieve;
   export let submitting: boolean;
   export let load: () => void;
 
-  const api = new OrderItemsApi($apiConfigs);
+  const api = new OrderItemsApi(apiConfig);
 
   let refundModalOpen = false;
   let adjustPaymentModalOpen = false;

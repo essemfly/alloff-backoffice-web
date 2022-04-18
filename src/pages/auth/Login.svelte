@@ -2,9 +2,7 @@
   import { Button, PasswordInput, TextInput } from "carbon-components-svelte";
   import Login16 from "carbon-icons-svelte/lib/Login16";
 
-  import { useAuthService } from "./AuthService";
-
-  const authService = useAuthService();
+  import { useCore } from "@app/core/CoreProvider";
 
   let username = "";
   let password = "";
@@ -13,11 +11,13 @@
   let isFailed = false;
   let passwordRef: HTMLInputElement | null | undefined;
 
+  const { auth } = useCore();
+
   const handleClick = async () => {
     if (!isValid) return;
     try {
       isSubmitting = true;
-      await authService.login(username, password);
+      await auth.login(username, password);
     } catch {
       isFailed = true;
     } finally {

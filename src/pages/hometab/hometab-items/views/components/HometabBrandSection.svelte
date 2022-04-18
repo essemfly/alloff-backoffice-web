@@ -18,12 +18,12 @@
 
   import { HometabItemType } from "../../constants";
   import { schema, formStore } from "../../models/schema";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   let brands: Brand[] = [];
   let selectedBrands: Brand[] = [];
 
-  const brandsAPi = new BrandsApi($apiConfigs);
+  const brandsAPi = new BrandsApi(apiConfig);
 
   onMount(async () => {
     const res = await brandsAPi.brandsList();

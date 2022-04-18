@@ -1,3 +1,25 @@
+<script context="module" lang="ts">
+  import type { DataTableRow } from "carbon-components-svelte/types/DataTable/DataTable.svelte";
+
+  export type DataTableData<T> = T & { id: string };
+  export type DataTableColumnType =
+    | "image"
+    | "link"
+    | "toggle"
+    | "string"
+    | "weight"
+    | "number";
+
+  export type DataTableColumn<T> = {
+    key: keyof T;
+    name: string;
+    get?: (data: T) => string | number;
+    type?: DataTableColumnType;
+  };
+
+  export { DataTableRow };
+</script>
+
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import {
@@ -11,12 +33,7 @@
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import {
-    DataTableColumn,
-    DataTableData,
-    getHeaders,
-    getRows,
-  } from "./helpers";
+  import { getHeaders, getRows } from "./helpers";
 
   type T = any;
 

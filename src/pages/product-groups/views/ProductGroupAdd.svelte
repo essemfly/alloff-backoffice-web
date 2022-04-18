@@ -17,7 +17,7 @@
   import ProductForm from "./components/ProductGroupForm.svelte";
   import { getGroupTypeLabel } from "../commands/helpers";
   import { formStore } from "../models/schema";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let productGroupType: GroupTypeEnum;
 
@@ -25,7 +25,7 @@
   let productGroupTypeLabel = getGroupTypeLabel(productGroupType);
   let productInGroups: ProductInGroup[] = [];
 
-  const productGroupApi = new ProductGroupsApi($apiConfigs);
+  const productGroupApi = new ProductGroupsApi(apiConfig);
 
   onMount(() => {
     formStore.initialize();

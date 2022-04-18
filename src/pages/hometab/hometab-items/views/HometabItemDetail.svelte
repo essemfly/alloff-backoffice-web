@@ -17,14 +17,14 @@
     getHometabItemTypeByIndex,
     getSortingOptionByIndex,
   } from "../commands/helpers";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let id: string;
 
   let isLoading = false;
   let isSubmitting = false;
 
-  const hometabApi = new HometabsApi($apiConfigs);
+  const hometabApi = new HometabsApi(apiConfig);
 
   onMount(async () => {
     isLoading = true;

@@ -15,7 +15,7 @@
 
   import { ImageUploadApi } from "@lessbutter/alloff-backoffice-api";
   import SortButtonSet from "./SortButtonSet.svelte";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
   export let label: string = "";
   export let value: string | string[] | undefined;
@@ -30,7 +30,7 @@
   let isImageUploading = false;
   let toggleIndex = 0;
 
-  const imageApi = new ImageUploadApi($apiConfigs);
+  const imageApi = new ImageUploadApi(apiConfig);
   const dispatch = createEventDispatcher();
 
   onMount(() => {

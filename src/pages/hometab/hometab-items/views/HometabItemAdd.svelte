@@ -13,9 +13,9 @@
 
   import HometabItemForm from "./components/HometabItemForm.svelte";
   import { formStore } from "../models/schema";
-  import { apiConfigs } from "@app/store";
+  import { apiConfig } from "@app/store";
 
-  const hometabApi = new HometabsApi($apiConfigs);
+  const hometabApi = new HometabsApi(apiConfig);
 
   onMount(() => {
     formStore.initialize();
