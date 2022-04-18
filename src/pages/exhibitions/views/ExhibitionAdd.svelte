@@ -1,28 +1,23 @@
 <script lang="ts">
-  import {
-    CreateExhibitionRequest,
-    ExhibitionsApi,
-    ExhibitionTypeEnum,
-  } from "@lessbutter/alloff-backoffice-api";
+  import { ExhibitionTypeEnum } from "@lessbutter/alloff-backoffice-api";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { apiConfig } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import ExhibitionForm from "./components/ExhibitionForm.svelte";
   import { formStore } from "../models/schema";
   import { getExhibitionTypeLabel } from "../commands/helpers";
+  import { useExhibitionService } from "../ExhibitionService";
+
+  const exhibitionService = useExhibitionService();
 
   export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
 
   let exhibitionLabel = getExhibitionTypeLabel(type);
   let isSubmitting = false;
-
-  const exhibitionApi = new ExhibitionsApi(apiConfig);
 
   onMount(() => {
     formStore.initialize({ exhibitionType: type });
@@ -39,11 +34,7 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      await exhibitionApi.exhibitionsCreate({
-        createExhibitionRequest: convertToSnakeCase<CreateExhibitionRequest>(
-          $formStore.fields,
-        ),
-      });
+      await exhibitionService.create($formStore.fields);
       toast.push(`${exhibitionLabel} 등록이 완료되었습니다.`);
       if ($formStore.fields.exhibitionType === ExhibitionTypeEnum.Timedeal) {
         navigate(`/timedeals`);

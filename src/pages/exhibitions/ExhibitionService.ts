@@ -11,6 +11,11 @@ import { convertToSnakeCase } from "@app/helpers/change-case";
 
 import { FormSchema } from "./models/schema";
 import { getExhibitionTypeByIndex } from "./commands/helpers";
+import ProductGroupService, {
+  ProductGroup,
+  useProductGroupService,
+} from "../product-groups/ProductGroupService";
+import { FormSchema as ProductGroupFormSchema } from "../product-groups/models/schema";
 
 export type Exhibition = ExhibitionDto & { id: string };
 
@@ -21,6 +26,7 @@ export type SearchQueryParam = ListRequest & {
 };
 
 export default class ExhibitionService extends Service<Exhibition> {
+  private productGroupService: ProductGroupService;
   private exhibitionApi: ExhibitionsApi;
 
   private searchFilter: SearchQueryParam = {
@@ -32,8 +38,9 @@ export default class ExhibitionService extends Service<Exhibition> {
     totalItems: 0,
   };
 
-  constructor() {
+  constructor(productGroupService: ProductGroupService) {
     super();
+    this.productGroupService = productGroupService;
     this.exhibitionApi = new ExhibitionsApi(this.core.apiConfig);
   }
 
@@ -117,6 +124,34 @@ export default class ExhibitionService extends Service<Exhibition> {
     }
   }
 
+  public async loadProductGroup(id: string): Promise<ProductGroup | undefined> {
+    try {
+      const res = await this.productGroupService.load(id);
+      return res;
+    } catch (e) {
+      this.catchError(e);
+    }
+  }
+
+  public async createProductGroup(
+    data: ProductGroupFormSchema,
+  ): Promise<string | undefined> {
+    try {
+      const res = await this.productGroupService.create(data);
+      return res;
+    } catch (e) {
+      this.catchError(e);
+    }
+  }
+
+  public async pushProducts(id: string, data: any) {
+    try {
+      await this.productGroupService.pushProducts(id, data);
+    } catch (e) {
+      this.catchError(e);
+    }
+  }
+
   private _update(data: ExhibitionDto[]) {
     const newData: Record<string, Exhibition> = {};
     data.forEach((x) => {
@@ -128,5 +163,6 @@ export default class ExhibitionService extends Service<Exhibition> {
 }
 
 export const useExhibitionService = () => {
-  return new ExhibitionService();
+  const productGroupService = useProductGroupService();
+  return new ExhibitionService(productGroupService);
 };

@@ -1,7 +1,6 @@
 <script lang="ts">
   import {
     ProductGroup,
-    ProductGroupsApi,
     GroupTypeCbfEnum as GroupTypeEnum,
     ProductInGroup,
     ExhibitionTypeEnum,
@@ -30,7 +29,6 @@
   import UpToTop16 from "carbon-icons-svelte/lib/UpToTop16";
   import DownToBottom16 from "carbon-icons-svelte/lib/DownToBottom16";
 
-  import { apiConfig } from "@app/store";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
@@ -45,6 +43,9 @@
   import ExhibitionSectionForm from "./ExhibitionSectionForm.svelte";
   import ExhibitionSectionSearchSection from "./ExhibitionSectionSearchSection.svelte";
   import { formStore, schema, sectionFormStore } from "../../models/schema";
+  import { useExhibitionService } from "../../ExhibitionService";
+
+  const exhibitionService = useExhibitionService();
 
   export let isAdding: boolean = false;
   export let label: string = "기획전";
@@ -54,8 +55,6 @@
   let selectedExhibitionSectionIds: string[] = [];
   let productInGroups: ProductInGroup[] = [];
   let isSubmitting = false;
-
-  const productGroupApi = new ProductGroupsApi(apiConfig);
 
   onMount(async () => {
     selectedExhibitionSections = $formStore.fields.pgs
@@ -123,29 +122,31 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      const res = await productGroupApi.productGroupsCreate({
-        createProductGroupSeriazlierRequest: convertToSnakeCase(formData),
-      });
-      const newProductGroup = res.data;
-      await productGroupApi.productGroupsPushProductsCreate({
-        id: newProductGroup.product_group_id,
-        productsInPgRequest: {
-          product_group_id: newProductGroup.product_group_id,
-          product_priorities: productInGroups.map(({ product, priority }) => ({
-            product_id: product.alloff_product_id,
-            priority,
-          })),
-        },
-      });
-      selectedExhibitionSections = [
-        ...selectedExhibitionSections,
-        newProductGroup,
-      ];
-      handleExhibitionSectionAdd({
-        key: newProductGroup.product_group_id,
-        label: newProductGroup.title,
-        value: newProductGroup.product_group_id,
-      });
+
+      const productGroupId = await exhibitionService.createProductGroup(
+        formData,
+      );
+      if (productGroupId) {
+        const productList = productInGroups.map(({ product, priority }) => ({
+          product_id: product.alloff_product_id,
+          priority,
+        }));
+        await exhibitionService.pushProducts(productGroupId, productList);
+        const productGroup = await exhibitionService.loadProductGroup(
+          productGroupId,
+        );
+        if (productGroup) {
+          selectedExhibitionSections = [
+            ...selectedExhibitionSections,
+            productGroup,
+          ];
+          handleExhibitionSectionAdd({
+            key: productGroup.product_group_id,
+            label: productGroup.title,
+            value: productGroup.product_group_id,
+          });
+        }
+      }
     } catch (e) {
       toast.push(`섹션 등록에 오류가 발생했습니다.`);
     } finally {

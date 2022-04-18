@@ -160,6 +160,6 @@
   <ExhibitionListSection
     value={$formStore.fields.exhibitionId}
     on:change={handleExhibitionChange}
-    hideSelection
+    hideSelection={!isAdding}
   />
 </ContentBox>
