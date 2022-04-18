@@ -9,14 +9,20 @@ import Service from "@app/lib/Service";
 import { convertToSnakeCase } from "@app/helpers/change-case";
 
 import { FormSchema } from "./models/schema";
+import ExhibitionService, {
+  Exhibition,
+  useExhibitionService,
+} from "../../exhibitions/ExhibitionService";
 
 type Banner = BannerDto & { id: string };
 
 export default class BannerService extends Service<Banner> {
+  private exhibitionService: ExhibitionService;
   private bannerApi: TopBannersApi;
 
-  constructor() {
+  constructor(exhibitionService: ExhibitionService) {
     super();
+    this.exhibitionService = exhibitionService;
     this.bannerApi = new TopBannersApi(this.core.apiConfig);
   }
 
@@ -82,6 +88,14 @@ export default class BannerService extends Service<Banner> {
     }
   }
 
+  public loadExhibition = async (id: string): Promise<Exhibition> => {
+    let exhibition = this.exhibitionService.getExhibitionById(id);
+    if (!exhibition) {
+      exhibition = await this.exhibitionService.load(id);
+    }
+    return exhibition!;
+  };
+
   private _update(data: BannerDto[]) {
     const newData: Record<string, Banner> = {};
     data.forEach((x) => {
@@ -93,5 +107,6 @@ export default class BannerService extends Service<Banner> {
 }
 
 export const useBannerService = () => {
-  return new BannerService();
+  const exhibitionService = useExhibitionService();
+  return new BannerService(exhibitionService);
 };

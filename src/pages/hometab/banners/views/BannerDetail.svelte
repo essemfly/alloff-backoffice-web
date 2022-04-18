@@ -5,32 +5,25 @@
   import { Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import {
-    EditTopBannerRequest,
-    TopBannersApi,
-  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
-  import {
-    convertToCamelCase,
-    convertToSnakeCase,
-  } from "@app/helpers/change-case";
+  import { convertToCamelCase } from "@app/helpers/change-case";
 
   import BannerForm from "./components/BannerForm.svelte";
   import { formStore } from "../models/schema";
-  import { apiConfig } from "@app/store";
+  import { useBannerService } from "../BannerService";
+
+  const bannerService = useBannerService();
 
   export let id: string;
 
   let isLoading = false;
   let isSubmitting = false;
 
-  const bannerApi = new TopBannersApi(apiConfig);
-
   onMount(async () => {
     isLoading = true;
     try {
-      const res = await bannerApi.topBannersRetrieve({ id });
-      const banner = convertToCamelCase(res.data);
+      const res = await bannerService.load(id);
+      const banner = convertToCamelCase(res);
       formStore.update(banner);
     } finally {
       isLoading = false;
@@ -46,12 +39,7 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      await bannerApi.topBannersUpdate({
-        id: $formStore.fields.bannerId,
-        editTopBannerRequest: convertToSnakeCase<EditTopBannerRequest>(
-          $formStore.fields,
-        ),
-      });
+      await bannerService.edit(id, $formStore.fields);
       toast.push("배너 수정이 완료되었습니다.");
       navigate(-1);
     } catch (e) {

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import {
     Button,
     FormGroup,
@@ -10,10 +11,7 @@
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import {
-    Exhibition,
-    ExhibitionsApi,
-  } from "@lessbutter/alloff-backoffice-api";
+  import { Exhibition } from "@lessbutter/alloff-backoffice-api";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
   import {
@@ -25,21 +23,19 @@
   import ExhibitionListSection from "@app/components/ExhibitionListSection.svelte";
 
   import { schema, formStore } from "../../models/schema";
-  import { onMount } from "svelte";
-  import { apiConfig } from "@app/store";
+  import { useBannerService } from "../../BannerService";
+
+  const bannerService = useBannerService();
 
   export let isAdding: boolean = false;
 
   let selectedExhibition: Exhibition;
 
-  const exhibitionApi = new ExhibitionsApi(apiConfig);
-
   onMount(async () => {
     if (!isAdding) {
-      const res = await exhibitionApi.exhibitionsRetrieve({
-        id: $formStore.fields.exhibitionId,
-      });
-      selectedExhibition = res.data;
+      selectedExhibition = await bannerService.loadExhibition(
+        $formStore.fields.exhibitionId,
+      );
     }
   });
 
