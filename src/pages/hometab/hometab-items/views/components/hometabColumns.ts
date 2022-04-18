@@ -1,6 +1,8 @@
 import { HomeTab } from "@lessbutter/alloff-backoffice-api";
-import { DataTableColumn } from "@app/components/DataTable/helpers";
+
+import { DataTableColumn } from "@app/components/DataTable/DataTable.svelte";
 import { formatDate } from "@app/helpers/date";
+
 import { getHometabItemTypeLabelByIndex } from "../../commands/helpers";
 
 export const hometabColumns: DataTableColumn<HomeTab>[] = [

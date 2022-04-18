@@ -70,6 +70,7 @@ export const schema = object({
       },
       then: (schema: AnySchema) => schema.required().min(1),
     }),
+  exhibitions: array().default([]),
 });
 
 export type FormSchema = InferType<typeof schema>;

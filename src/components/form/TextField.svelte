@@ -7,7 +7,7 @@
   export let size: "sm" | "xl" | undefined = undefined;
   export let errorText: string = "";
   export let label: string | undefined = undefined;
-  export let value: string | number = "";
+  export let value: string | number | null = "";
   export let readonly: boolean = false;
   export let disabled: boolean = false;
   export let hideLabel: boolean = false;

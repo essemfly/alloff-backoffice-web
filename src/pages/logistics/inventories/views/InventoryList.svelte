@@ -32,13 +32,13 @@
       statuses,
     });
 
-    totalItems = count ?? 0;
+    totalCount = count ?? 0;
     inventories = results ?? [];
   };
 
   let page = 1;
   let pageSize = 50;
-  let totalItems = 0;
+  let totalCount = 0;
   let statuses: InventoryStatusEnum[] = [InventoryStatusEnum.InStock];
   const pageSizes = [20, 50, 100];
 
@@ -66,7 +66,7 @@
       />
     {/each}
   </div>
-  <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
+  <Pagination {...{ totalCount, pageSizes }} bind:page bind:pageSize />
   <MediaQuery query="(max-width: 480px)" let:matches>
     <InventoriesTable isMobile={matches} {inventories} />
   </MediaQuery>

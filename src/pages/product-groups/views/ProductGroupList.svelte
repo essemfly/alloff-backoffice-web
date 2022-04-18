@@ -22,12 +22,12 @@
   import { apiConfig } from "@app/store";
 
   let productGroups: DataTableData<ProductGroup>[] = [];
-  let searchFilter: SearchQueryParam & { totalItems: number } = {
+  let searchFilter: SearchQueryParam & { totalCount: number } = {
     offset: 0,
     limit: 50,
     searchQuery: undefined,
     groupType: GroupTypeEnum.Timedeal,
-    totalItems: 0,
+    totalCount: 0,
   };
   let isLoading = false;
 
@@ -48,7 +48,7 @@
       }));
       searchFilter = {
         ...params,
-        totalItems: res.data.total_counts,
+        totalCount: res.data.total_counts,
       };
     } finally {
       isLoading = false;
@@ -95,7 +95,7 @@
   <Pagination
     limit={searchFilter.limit}
     offset={searchFilter.offset}
-    totalItems={searchFilter.totalItems}
+    totalCount={searchFilter.totalCount}
     on:change={handlePageChange}
   />
   <DataTable

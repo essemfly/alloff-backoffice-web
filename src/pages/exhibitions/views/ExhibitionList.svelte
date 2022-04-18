@@ -167,7 +167,7 @@
   <Pagination
     limit={searchFilter.limit}
     offset={searchFilter.offset}
-    totalItems={searchFilter.totalItems}
+    totalCount={searchFilter.totalCount}
     on:change={handlePageChange}
   />
 </Nav>

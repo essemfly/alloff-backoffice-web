@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Brand } from "@lessbutter/alloff-backoffice-api";
   import { onMount } from "svelte";
   import {
     FormGroup,
@@ -11,23 +12,22 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { Brand, BrandsApi } from "@lessbutter/alloff-backoffice-api";
   import { BrandSelectField } from "@app/components/form";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import ContentBox from "@app/components/ContentBox.svelte";
 
   import { HometabItemType } from "../../constants";
   import { schema, formStore } from "../../models/schema";
-  import { apiConfig } from "@app/store";
+  import { useBrandService } from "../../../../brands/BrandService";
+
+  const brandService = useBrandService();
 
   let brands: Brand[] = [];
   let selectedBrands: Brand[] = [];
 
-  const brandsAPi = new BrandsApi(apiConfig);
-
   onMount(async () => {
-    const res = await brandsAPi.brandsList();
-    brands = res.data;
+    await brandService.list();
+    brands = brandService.brands;
     selectedBrands = brands.filter(({ keyname }) =>
       $formStore.fields.contents.brandKeynames?.includes(keyname),
     );

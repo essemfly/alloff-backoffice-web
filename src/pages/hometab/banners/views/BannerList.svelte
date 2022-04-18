@@ -23,7 +23,7 @@
   let banners: DataTableData<TopBanner>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
   let isLoading = false;
-  let totalItems = 0;
+  let totalCount = 0;
 
   const bannerApi = new TopBannersApi(apiConfig);
   const location = useLocation<SearchQueryParam>();
@@ -43,7 +43,7 @@
         offset: res.data.offset,
         limit: res.data.limit,
       };
-      totalItems = res.data.total_counts;
+      totalCount = res.data.total_counts;
     } finally {
       isLoading = false;
     }
@@ -115,7 +115,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          {totalItems}
+          {totalCount}
           on:change={handlePageChange}
         />
       </Column>
@@ -133,7 +133,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          {totalItems}
+          {totalCount}
           on:change={handlePageChange}
         />
       </Column>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Exhibition } from "@lessbutter/alloff-backoffice-api";
   import {
     Button,
     FormGroup,
@@ -10,7 +11,6 @@
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { Exhibition } from "@lessbutter/alloff-backoffice-api";
   import { ImageUploadField } from "@app/components/form";
   import ContentBox from "@app/components/ContentBox.svelte";
   import MultilineTextInput from "@app/components/MultilineTextInput.svelte";

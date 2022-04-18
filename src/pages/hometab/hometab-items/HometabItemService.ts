@@ -1,8 +1,8 @@
 import {
   HomeTab as HomeTabItemDto,
-  HometabsApiHometabsListRequest as SearchQueryParam,
+  HometabsApiHometabsListRequest as ListRequest,
   HometabsApi,
-  HometabsApiHometabsPartialUpdateRequest,
+  PatchedHomeTabRequest,
 } from "@lessbutter/alloff-backoffice-api";
 
 import Service from "@app/lib/Service";
@@ -12,8 +12,20 @@ import { FormSchema } from "./models/schema";
 
 type HomeTabItem = HomeTabItemDto & { id: string };
 
+export type SearchQueryParam = ListRequest & {
+  offset: number;
+  limit: number;
+  totalCount: number;
+};
+
 export default class HometabItemService extends Service<HomeTabItem> {
   private hometabApi: HometabsApi;
+
+  private searchFilter: SearchQueryParam = {
+    offset: 0,
+    limit: 50,
+    totalCount: 0,
+  };
 
   constructor() {
     super();
@@ -24,6 +36,10 @@ export default class HometabItemService extends Service<HomeTabItem> {
     return Object.values(this.entities);
   }
 
+  get filter(): SearchQueryParam {
+    return this.searchFilter;
+  }
+
   public getHometabItemById = (id: string): HomeTabItem | undefined => {
     return this.entities[id] ?? undefined;
   };
@@ -32,6 +48,11 @@ export default class HometabItemService extends Service<HomeTabItem> {
     try {
       const res = await this.hometabApi.hometabsList(params);
       this._update(res.data.items);
+      this.searchFilter = {
+        offset: res.data.offset,
+        limit: res.data.limit,
+        totalCount: res.data.total_counts,
+      };
     } catch (e) {
       this.catchError(e);
     }
@@ -61,7 +82,7 @@ export default class HometabItemService extends Service<HomeTabItem> {
     try {
       await this.hometabApi.hometabsUpdate({
         id,
-        editHomeTabRequest: convertToSnakeCase(data),
+        editHomeTabRequest: convertToSnakeCase({ hometabId: id, ...data }),
       });
     } catch (e) {
       this.catchError(e);
@@ -70,12 +91,12 @@ export default class HometabItemService extends Service<HomeTabItem> {
 
   public async patch(
     id: string,
-    data: Partial<HometabsApiHometabsPartialUpdateRequest>,
+    data: Partial<PatchedHomeTabRequest>,
   ): Promise<void> {
     try {
       await this.hometabApi.hometabsPartialUpdate({
         id,
-        patchedHomeTabRequest: convertToSnakeCase(data),
+        patchedHomeTabRequest: convertToSnakeCase({ hometabId: id, ...data }),
       });
     } catch (e) {
       this.catchError(e);

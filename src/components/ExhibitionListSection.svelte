@@ -82,7 +82,7 @@
     const { scrollTop, scrollHeight, clientHeight } = scrollableList;
     const nextOffset = searchFilter.offset + searchFilter.limit;
     if (
-      nextOffset <= searchFilter.totalItems &&
+      nextOffset <= searchFilter.totalCount &&
       (scrollTop + clientHeight) / scrollHeight > 0.7
     ) {
       loadNext();
@@ -284,7 +284,7 @@
         condensed
         flush
         selection={!(
-          searchFilter.totalItems === 0 || filteredExhibition.length === 0
+          searchFilter.totalCount === 0 || filteredExhibition.length === 0
         )}
       >
         <StructuredListHead>
@@ -296,7 +296,7 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {#if searchFilter.totalItems === 0 || filteredExhibition.length === 0}
+          {#if searchFilter.totalCount === 0 || filteredExhibition.length === 0}
             <StructuredListRow>
               <StructuredListCell>
                 검색조건에 맞는 기획전을 찾지 못했습니다
@@ -360,7 +360,7 @@
           {#if isLoading}
             <InlineLoading status="active" description="검색중..." />
           {/if}
-          {#if !isLoading && searchFilter.offset + searchFilter.limit <= searchFilter.totalItems}
+          {#if !isLoading && searchFilter.offset + searchFilter.limit <= searchFilter.totalCount}
             <Button size="small" kind="tertiary" on:click={loadNext}>
               더보기
             </Button>

@@ -27,7 +27,7 @@
   let items: OrderItemList[] = [];
   let page = 1;
   let pageSize = 20;
-  let totalItems = 0;
+  let totalCount = 0;
 
   let statuses = [...ORDER_ITEM_ALL_STATUSES];
   let exportModalOpen = false;
@@ -55,7 +55,7 @@
         statuses,
       });
 
-      totalItems = count ?? 0;
+      totalCount = count ?? 0;
       items = results ?? [];
     }
   };
@@ -91,7 +91,7 @@
         bind:values={statuses}
         alignment={matches ? "vertical" : "horizontal"}
       />
-      <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
+      <Pagination {...{ totalCount, pageSizes }} bind:page bind:pageSize />
     {/if}
     <OrderItemsTable isMobile={matches} {items} canSearch={!userId} />
   </MediaQuery>

@@ -2,7 +2,7 @@
   import type { DataTableRow } from "carbon-components-svelte/types/DataTable/DataTable.svelte";
 
   export type DataTableData<T> = T & { id: string };
-  export type DataTableColumnType =
+  type DataTableColumnType =
     | "image"
     | "link"
     | "toggle"
@@ -13,7 +13,7 @@
   export type DataTableColumn<T> = {
     key: keyof T;
     name: string;
-    get?: (data: T) => string | number;
+    get?: (data: T) => string | number | boolean;
     type?: DataTableColumnType;
   };
 

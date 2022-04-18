@@ -33,7 +33,7 @@
     alloffCategoryId: "",
     isClassifiedDone: false,
   };
-  let totalItems = 0;
+  let totalCount = 0;
   let isLoading = false;
 
   const productApi = new ProductsApi(apiConfig);
@@ -60,7 +60,7 @@
         brandId: res.data.list_query.brand_id,
         // isClassifiedDone: res.data.list_query.is_classified_done,
       };
-      totalItems = res.data.total_counts;
+      totalCount = res.data.total_counts;
     } finally {
       isLoading = false;
     }
@@ -196,7 +196,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            {totalItems}
+            {totalCount}
             on:change={handlePageChange}
           />
         </Column>
@@ -215,7 +215,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            {totalItems}
+            {totalCount}
             on:change={handlePageChange}
           />
         </Column>

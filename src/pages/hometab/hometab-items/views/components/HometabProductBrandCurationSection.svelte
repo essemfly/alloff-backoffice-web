@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { FormGroup, Checkbox } from "carbon-components-svelte";
-
   import { OptionsEnum } from "@lessbutter/alloff-backoffice-api";
+  import { FormGroup } from "carbon-components-svelte";
+
   import { AutocompleteItem } from "@app/components/autocomplete";
   import { BrandSelectField, CheckboxGroupField } from "@app/components/form";
   import ContentBox from "@app/components/ContentBox.svelte";

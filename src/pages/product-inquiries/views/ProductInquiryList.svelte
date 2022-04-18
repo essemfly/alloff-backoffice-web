@@ -47,13 +47,13 @@
         .toISO(),
     });
 
-    totalItems = count ?? 0;
+    totalCount = count ?? 0;
     inquiries = results ?? [];
   };
 
   let page = 1;
   let pageSize = 20;
-  let totalItems = 0;
+  let totalCount = 0;
   const pageSizes = [20, 50, 100];
 
   $: load(
@@ -80,7 +80,7 @@
     <DatePickerInput labelText="시작일" placeholder="yyyy-mm-dd" />
     <DatePickerInput labelText="종료일" placeholder="yyyy-mm-dd" />
   </DatePicker>
-  <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
+  <Pagination {...{ totalCount, pageSizes }} bind:page bind:pageSize />
   <MediaQuery query="(max-width: 480px)" let:matches>
     <ProductInquiryTable
       isMobile={matches}
