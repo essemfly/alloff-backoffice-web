@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Product } from "@lessbutter/alloff-backoffice-api";
   import { toast } from "@zerodevx/svelte-toast";
   import { navigate } from "svelte-navigator";
   import {
@@ -14,19 +15,12 @@
   import Share16 from "carbon-icons-svelte/lib/Share16";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import {
-    EditProductRequestApiRequest,
-    PatchedProductRequest,
-    Product,
-    ProductsApi,
-  } from "@lessbutter/alloff-backoffice-api";
-
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
-  import { apiConfig } from "@app/store";
+  import { useProductService } from "../../ProductService";
+
+  const productService = useProductService();
 
   export let product: Product;
-
-  const productApi = new ProductsApi(apiConfig);
 
   let open = false;
 
@@ -81,13 +75,9 @@
   };
 
   const handleDeleteSubmit = async () => {
-    // todo: integrate remove api
     try {
-      const res = await productApi.productsPartialUpdate({
-        id: product.alloff_product_id,
-        patchedProductRequest: {
-          is_removed: true,
-        } as unknown as PatchedProductRequest,
+      await productService.patch(product.alloff_product_id, {
+        is_removed: true,
       });
       toast.push("상품이 삭제되었습니다.");
       handleModalToggle(false);

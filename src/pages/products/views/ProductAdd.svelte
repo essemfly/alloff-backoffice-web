@@ -5,20 +5,15 @@
   import { Button, Grid } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import {
-    CreateProductRequestApiRequest,
-    ProductsApi,
-  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import ProductForm from "./components/ProductForm.svelte";
   import { formStore } from "../models/schema";
-  import { apiConfig } from "@app/store";
+  import { useProductService } from "../ProductService";
 
   let isSubmitting = false;
 
-  const productApi = new ProductsApi(apiConfig);
+  const productService = useProductService();
 
   onMount(() => {
     formStore.initialize();
@@ -35,10 +30,7 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      await productApi.productsCreate({
-        createProductRequestApiRequest:
-          convertToSnakeCase<CreateProductRequestApiRequest>($formStore.fields),
-      });
+      await productService.create($formStore.fields);
       toast.push("상품 등록이 완료되었습니다.");
       navigate(-1);
     } catch (e) {

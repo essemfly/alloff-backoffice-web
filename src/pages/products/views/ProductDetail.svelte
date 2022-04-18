@@ -5,21 +5,14 @@
   import { Button, Grid, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import {
-    EditProductRequestApiRequest,
-    ProductsApi,
-  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
-  import {
-    convertToCamelCase,
-    convertToSnakeCase,
-  } from "@app/helpers/change-case";
+  import { convertToCamelCase } from "@app/helpers/change-case";
 
   import ProductForm from "./components/ProductForm.svelte";
   import { formStore } from "../models/schema";
-  import { apiConfig } from "@app/store";
+  import { useProductService } from "../ProductService";
 
-  const productApi = new ProductsApi(apiConfig);
+  const productService = useProductService();
 
   export let productId: string;
 
@@ -27,26 +20,21 @@
   let isSubmitting = false;
 
   onMount(async () => {
-    const res = await productApi.productsRetrieve({ id: productId });
-    const product = convertToCamelCase({
-      ...res.data,
-      thumbnail_image:
-        res.data.main_image_url ?? res.data.thumbnail_image ?? undefined,
-    });
-    formStore.update(product);
+    const res = await productService.load(productId);
+    if (res) {
+      const product = convertToCamelCase({
+        ...res,
+        thumbnail_image: res.main_image_url ?? res.thumbnail_image ?? undefined,
+      });
+      formStore.update(product);
+    }
     isLoading = false;
   });
 
   const handleSubmit = async () => {
     isSubmitting = true;
     try {
-      await productApi.productsUpdate({
-        id: $formStore.fields.alloffProductId,
-        editProductRequestApiRequest:
-          convertToSnakeCase<EditProductRequestApiRequest>(
-            $formStore.fields,
-          ) as unknown as EditProductRequestApiRequest,
-      });
+      await productService.edit(productId, $formStore.fields);
       toast.push("상품 수정이 완료되었습니다.");
       navigate(-1);
     } catch (e) {

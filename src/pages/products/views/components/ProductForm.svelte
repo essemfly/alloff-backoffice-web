@@ -1,5 +1,6 @@
 <script lang="ts">
   import Editor from "cl-editor";
+  import { onMount } from "svelte";
   import {
     Button,
     Checkbox,
@@ -25,7 +26,6 @@
 
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
   import { FormSchema, formStore, schema } from "../../models/schema";
-  import { onMount } from "svelte";
 
   export let isAdding: boolean = false;
 
