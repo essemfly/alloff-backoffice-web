@@ -7,21 +7,21 @@
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import {
-    EditProductGroupRequest,
     GroupTypeCbfEnum as GroupTypeEnum,
-    ProductGroupsApi,
     ProductInGroup,
   } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
+  import { convertToCamelCase } from "@app/helpers/change-case";
 
   import ProductGroupForm from "./components/ProductGroupForm.svelte";
   import {
     getGroupTypeByIndex,
     getGroupTypeLabelByIndex,
   } from "../commands/helpers";
-  import { formStore, schema } from "../models/schema";
-  import { apiConfig } from "@app/store";
+  import { formStore } from "../models/schema";
+  import { useProductGroupService } from "../ProductGroupService";
+
+  const productGroupService = useProductGroupService();
 
   export let productId: string;
 
@@ -30,18 +30,14 @@
   let productGroupTypeLabel = "컬렉션";
   let productInGroups: ProductInGroup[] = [];
 
-  const productGroupApi = new ProductGroupsApi(apiConfig);
-
   onMount(async () => {
     isLoading = true;
     try {
-      const res = await productGroupApi.productGroupsRetrieve({
-        id: productId,
-      });
-      const { group_type, products } = res.data;
+      const res = await productGroupService.load(productId);
+      const { group_type, products } = res!;
       productInGroups = products;
-      const productGroup = schema.camelCase().cast({
-        ...res.data,
+      const productGroup = convertToCamelCase({
+        ...res,
         group_type: getGroupTypeByIndex(group_type as unknown as number),
       });
       formStore.update(productGroup);
@@ -70,11 +66,7 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      await productGroupApi.productGroupsUpdate({
-        id: $formStore.fields.productGroupId,
-        editProductGroupRequest:
-          convertToSnakeCase<EditProductGroupRequest>(formData),
-      });
+      await productGroupService.edit(productId, formData);
       toast.push(`${productGroupTypeLabel} 수정이 완료되었습니다.`);
       navigate(-1);
     } catch (e) {

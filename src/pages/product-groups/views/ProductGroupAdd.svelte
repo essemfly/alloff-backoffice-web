@@ -7,17 +7,17 @@
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import {
-    ProductGroupsApi,
     GroupTypeCbfEnum as GroupTypeEnum,
     ProductInGroup,
   } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import ProductForm from "./components/ProductGroupForm.svelte";
   import { getGroupTypeLabel } from "../commands/helpers";
   import { formStore } from "../models/schema";
-  import { apiConfig } from "@app/store";
+  import { useProductGroupService } from "../ProductGroupService";
+
+  const productGroupService = useProductGroupService();
 
   export let productGroupType: GroupTypeEnum;
 
@@ -25,11 +25,8 @@
   let productGroupTypeLabel = getGroupTypeLabel(productGroupType);
   let productInGroups: ProductInGroup[] = [];
 
-  const productGroupApi = new ProductGroupsApi(apiConfig);
-
   onMount(() => {
-    formStore.initialize();
-    formStore.update({ groupType: productGroupType });
+    formStore.initialize({ groupType: productGroupType });
   });
 
   const handleSubmit = async (event: MouseEvent) => {
@@ -50,21 +47,13 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      const res = await productGroupApi.productGroupsCreate({
-        createProductGroupSeriazlierRequest: convertToSnakeCase(formData),
-      });
-      if (productInGroups.length > 0) {
-        const newProductGroup = res.data;
-        await productGroupApi.productGroupsPushProductsCreate({
-          id: newProductGroup.product_group_id,
-          pushProductsRequest: {
-            product_group_id: newProductGroup.product_group_id,
-            product_priority: productInGroups.map(({ product, priority }) => ({
-              product_id: product.alloff_product_id,
-              priority,
-            })),
-          },
-        });
+      const productGroupId = await productGroupService.create(formData);
+      if (productInGroups.length > 0 && productGroupId) {
+        const productList = productInGroups.map(({ product, priority }) => ({
+          product_id: product.alloff_product_id,
+          priority,
+        }));
+        await productGroupService.pushProducts(productGroupId, productList);
       }
       toast.push(`${productGroupTypeLabel} 등록이 완료되었습니다.`);
       navigate(-1);
