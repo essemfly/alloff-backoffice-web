@@ -213,10 +213,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@lessbutter/alloff-backoffice-api@0.5.0":
-  version "0.5.0"
-  resolved "https://npm.pkg.github.com/download/@app/0.5.0/ca8d4f666e98d445ca3e1d50a7e6c2dfaed04f590bbdfff8ca67ec8fa67bdd3e#7c5d8332dfc5cbe27ee697e78decae9d61a37c30"
-  integrity sha512-R1+9konevZctAX1DDisrtirnSElgOaDWWtMW9+Vyd8kBpGneKLUoXEqTDhrQUfb5FV+YrJJL+AwCRuoA/s14SQ==
+"@lessbutter/alloff-backoffice-api@0.6.0":
+  version "0.6.0"
+  resolved "https://npm.pkg.github.com/download/@lessbutter/alloff-backoffice-api/0.6.0/7dbbef06091720cd301d793e46b6c7546110656cbee2f5c260d9f84914412a43#ae75db6beb9e6ca48fd89a4f1bc90959fcc6afa5"
+  integrity sha512-STxfwKEtLoEuHs7mHJepbwgV8GfA7tcR/PqHZS1lAxEedNjw2QZVovtd4jOTQPANUi3NjyKNxt1iE1SrG2fWKQ==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
