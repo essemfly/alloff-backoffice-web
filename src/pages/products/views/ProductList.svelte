@@ -21,7 +21,6 @@
 
   let products: Product[] = [];
   let searchFilter = productService.filter;
-  let totalCount = 0;
   let isLoading = false;
 
   const location = useLocation<SearchQueryParam>();
@@ -172,7 +171,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            {totalCount}
+            totalCount={searchFilter.totalCount}
             on:change={handlePageChange}
           />
         </Column>
@@ -191,7 +190,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            {totalCount}
+            totalCount={searchFilter.totalCount}
             on:change={handlePageChange}
           />
         </Column>
