@@ -40,6 +40,7 @@
   import { admin } from "../store";
   import MetaTags from "./MetaTags/MetaTags.svelte";
   import { MetaTagsProps } from "./MetaTags/types";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
 
   export let title: string = "";
   export let metaTags: MetaTagsProps = {};
@@ -267,12 +268,14 @@
     <slot name="header" />
   </header>
 {/if}
-<Content>
-  {#if !hidePageTitle && !$$slots.header}
-    <h1 class="title">{title}</h1>
-  {/if}
-  <slot />
-</Content>
+<MediaQuery query="(max-width: 480px)" let:matches>
+  <Content>
+    {#if !hidePageTitle && !$$slots.header}
+      <h1 class="title">{title}</h1>
+    {/if}
+    <slot isMobile={matches} />
+  </Content>
+</MediaQuery>
 
 <style>
   h1.title {

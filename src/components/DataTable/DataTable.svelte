@@ -15,6 +15,8 @@
     name: string;
     get?: (data: T) => string | number | boolean;
     type?: DataTableColumnType;
+    hideMobile?: boolean;
+    maxLength?: number;
   };
 
   export { DataTableRow };
@@ -39,11 +41,10 @@
 
   export let columns: DataTableColumn<T>[] = [];
   export let data: DataTableData<T>[] = [];
+  export let isMobile: boolean = false;
 
   const dispatch = createEventDispatcher();
 
-  let rows = getRows<T>(data, columns);
-  const headers = getHeaders<T>(columns);
   const imageColumns = columns
     .filter(({ type }) => type === "image")
     .map(({ key }) => key);
@@ -73,20 +74,27 @@
     dispatch("change:toggle", [value, rowIndex, key]);
   };
 
-  $: if (data) {
-    rows = getRows<T>(data, columns);
-  }
+  $: rows = getRows<T>(data, columns, isMobile);
+  $: headers = getHeaders<T>(columns, isMobile);
 </script>
 
 <DataTable
   {headers}
   {rows}
+  useStaticWidth
   sortable
+  expandable
+  size={isMobile ? "short" : undefined}
   on:click:row={(event) => {
     dispatch("click:row", event.detail);
   }}
 >
   <slot />
+
+  <div slot="expanded-row" let:row>
+    <slot name="expanded-row" />
+  </div>
+
   <span
     slot="cell"
     let:cell

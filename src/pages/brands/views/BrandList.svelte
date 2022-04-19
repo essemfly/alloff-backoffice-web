@@ -12,8 +12,9 @@
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
   import Nav from "@app/components/Nav.svelte";
-  import DataTable from "@app/components/DataTable/DataTable.svelte";
-  import { DataTableData } from "@app/components/DataTable/helpers";
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
   import { convertToCamelCase } from "@app/helpers/change-case";
 
   import { brandColumns } from "./components/brandColumns";

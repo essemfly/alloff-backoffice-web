@@ -64,7 +64,6 @@ export default class ProductService extends Service<Product> {
         searchQuery: res.data.list_query.search_query,
         totalCount: res.data.total_counts,
       };
-      console.log(this.searchFilter);
     } catch (e) {
       this.catchError(e);
     }

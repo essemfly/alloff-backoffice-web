@@ -9,8 +9,9 @@
   } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
-  import { DataTableData } from "@app/components/DataTable/helpers";
-  import DataTable from "@app/components/DataTable/DataTable.svelte";
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
   import {
     formatQueryString,
     parseQueryString,
