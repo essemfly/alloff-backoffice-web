@@ -15,7 +15,7 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { Product, ProductInGroup } from "@api";
+  import { Product, ProductInGroup } from "@lessbutter/alloff-backoffice-api";
   import { TextField } from "@app/components/form";
   import ProductSearchSection from "@app/components/ProductSearchSection.svelte";
 

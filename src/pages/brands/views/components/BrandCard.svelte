@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { apiConfig } from "@app/store";
   import {
     Button,
     Tag,
@@ -9,11 +10,15 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { Brand, BrandsApi, ImageUploadApi } from "@api";
+  import {
+    Brand,
+    BrandsApi,
+    ImageUploadApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
 
-  const brandApi = new BrandsApi();
-  const imageApi = new ImageUploadApi();
+  const brandApi = new BrandsApi(apiConfig);
+  const imageApi = new ImageUploadApi(apiConfig);
 
   export let brand: Brand;
   export let mobile: boolean;

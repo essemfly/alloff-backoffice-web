@@ -1,5 +1,5 @@
-import { TopBanner } from "@api";
-import { DataTableColumn } from "@app/components/DataTable/helpers";
+import { TopBanner } from "@lessbutter/alloff-backoffice-api";
+import { DataTableColumn } from "@app/components/DataTable/DataTable.svelte";
 
 export const bannerColumns: DataTableColumn<TopBanner>[] = [
   {

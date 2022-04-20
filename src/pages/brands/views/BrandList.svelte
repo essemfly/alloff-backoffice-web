@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { Brand } from "@lessbutter/alloff-backoffice-api";
   import { debounce } from "lodash";
+  import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import {
     Button,
@@ -10,18 +11,20 @@
   } from "carbon-components-svelte";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
-  import { Brand, BrandsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
-  import DataTable from "@app/components/DataTable/DataTable.svelte";
-  import { DataTableData } from "@app/components/DataTable/helpers";
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
   import { convertToCamelCase } from "@app/helpers/change-case";
 
   import { brandColumns } from "./components/brandColumns";
   import { formStore } from "../models/schema";
+  import { useBrandService } from "../BrandService";
+
+  const brandService = useBrandService();
 
   let brands: Brand[] = [];
-
-  const brandApi = new BrandsApi();
+  let value = "";
 
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -29,8 +32,8 @@
   };
 
   onMount(async () => {
-    const res = await brandApi.brandsList();
-    brands = res.data.map((brand: Brand) => ({ ...brand, id: brand.brand_id }));
+    await brandService.list();
+    brands = brandService.brands;
   });
 
   const handleRowClick = (event: CustomEvent<DataTableData<Brand>>) => {
@@ -47,22 +50,14 @@
     async (event: CustomEvent<[boolean, number, keyof Brand]>) => {
       const [value, index, key] = event.detail;
       const brandItem = { ...brands[index], [key]: value };
+      await brandService.patch(brandItem.brand_id, brandItem.keyname, {
+        [key]: value,
+      });
       brands[index] = brandItem;
       brands = brands;
-
-      await brandApi.brandsPartialUpdate({
-        id: brandItem.brand_id,
-        patchedBrandRequest: {
-          keyname: brandItem.keyname,
-          brand_id: brandItem.brand_id,
-          [key]: value,
-        },
-      });
     },
     500,
   );
-
-  let value = "";
 </script>
 
 <Nav title="브랜드 목록">

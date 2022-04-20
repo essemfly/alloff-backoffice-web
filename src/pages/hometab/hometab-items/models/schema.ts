@@ -1,7 +1,7 @@
 import { array, InferType, number, object, string, AnySchema } from "yup";
 
 import { Form, useForm } from "@app/helpers/useForm";
-import { ItemTypeEnum, OptionsEnum } from "@app/api";
+import { ItemTypeEnum, OptionsEnum } from "@lessbutter/alloff-backoffice-api";
 
 export const schema = object({
   itemId: string(),
@@ -70,6 +70,7 @@ export const schema = object({
       },
       then: (schema: AnySchema) => schema.required().min(1),
     }),
+  exhibitions: array().default([]),
 });
 
 export type FormSchema = InferType<typeof schema>;

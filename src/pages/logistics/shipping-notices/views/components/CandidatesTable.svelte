@@ -1,7 +1,7 @@
 <script lang="ts">
   import { InlineLoading } from "carbon-components-svelte";
 
-  import type { ShippingCandidateProto } from "@api";
+  import type { ShippingCandidateProto } from "@lessbutter/alloff-backoffice-api";
 
   import CandidatesDatatable from "./CandidatesDatatable.svelte";
 

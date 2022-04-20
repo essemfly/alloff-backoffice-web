@@ -16,13 +16,18 @@
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { ProductsApi, Product, ProductsApiProductsListRequest } from "@api";
+  import {
+    ProductsApi,
+    Product,
+    ProductsApiProductsListRequest,
+  } from "@lessbutter/alloff-backoffice-api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import BrandSelect from "@app/components/BrandSelect.svelte";
   import CategorySelect from "@app/components/CategorySelect.svelte";
   import { toast } from "@zerodevx/svelte-toast";
+  import { apiConfig } from "@app/store";
 
-  const productApi = new ProductsApi();
+  const productApi = new ProductsApi(apiConfig);
 
   type SearchQueryParam = ProductsApiProductsListRequest & {
     offset: number;

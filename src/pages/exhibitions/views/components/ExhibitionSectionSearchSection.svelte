@@ -15,13 +15,14 @@
     InlineLoading,
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
+  import { apiConfig } from "@app/store";
 
   import {
     ProductGroup,
     ProductGroupsApi,
     GroupTypeCbfEnum as GroupTypeEnum,
     ProductGroupsApiProductGroupsListRequest,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
 
   type SearchQueryParam = ProductGroupsApiProductGroupsListRequest & {
     offset: number;
@@ -51,7 +52,7 @@
 
   const dispatch = createEventDispatcher();
 
-  const productGroupApi = new ProductGroupsApi();
+  const productGroupApi = new ProductGroupsApi(apiConfig);
 
   onMount(() => {
     selectedSectionIds = value;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { TabContent } from "carbon-components-svelte";
 
-  import { OrderItemRetrieve } from "@api";
+  import { OrderItemRetrieve } from "@lessbutter/alloff-backoffice-api";
   import { numberWithCommas } from "@app/helpers/number";
   import InfoSection from "./InfoSection.svelte";
 

@@ -4,7 +4,7 @@
     CouriersApi,
     OrderItemRetrieve,
     OrderItemStatusEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import {
     Checkbox,
     ComposedModal,
@@ -17,6 +17,7 @@
   } from "carbon-components-svelte";
   import { onMount } from "svelte";
   import { admin } from "../../../store";
+  import { apiConfig } from "@app/store";
 
   export let changeOrderItemStatus: (
     item: OrderItemRetrieve,
@@ -46,7 +47,7 @@
   }
 
   onMount(async () => {
-    const courierApi = new CouriersApi();
+    const courierApi = new CouriersApi(apiConfig);
     const res = await courierApi.couriersList();
     couriers = res.data;
     courierHash = couriers.reduce((acc, courier) => {

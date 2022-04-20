@@ -1,28 +1,25 @@
 <script lang="ts">
-  import { ProductInquiry } from "@api";
+  import { ProductInquiry } from "@lessbutter/alloff-backoffice-api";
+  import { DateTime } from "luxon";
   import {
     Button,
     DataTable,
     InlineLoading,
     TextInput,
-    Toolbar,
-    ToolbarContent,
-    ToolbarSearch,
   } from "carbon-components-svelte";
-  import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
+  import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable.svelte";
   import Delete16 from "carbon-icons-svelte/lib/Delete16";
   import Popup16 from "carbon-icons-svelte/lib/Popup16";
   import Send16 from "carbon-icons-svelte/lib/Send16";
-  import debounce from "lodash/debounce";
-  import { DateTime } from "luxon";
-  import { InquiriesApi } from "../../../../api";
-  import { search } from "../../store";
+
+  import { useProductInquiryService } from "../../ProductInquiryService";
+
+  const productInquiryService = useProductInquiryService();
 
   export let inquiries: ProductInquiry[] = [];
   export let isMobile = false;
   export let reload: () => Promise<void>;
 
-  const api = new InquiriesApi();
   const ellipsisExtent = 50;
 
   let newReplyMap: { [inquiryId: string]: string } = {};
@@ -43,9 +40,16 @@
     { key: "product_img", value: "이미지" },
   ];
 
-  const handleSearch = debounce((e) => {
-    search.set(e.target.value);
-  }, 300);
+  const handleReplyCreate = async (rowId: string, body: string) => {
+    await productInquiryService.createReply(rowId, body);
+    reload();
+  };
+
+  const handleReplyRemove = async (replyId: number) => {
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+    await productInquiryService.removeReply(replyId);
+    window.location.reload();
+  };
 </script>
 
 {#if loading}
@@ -61,11 +65,6 @@
     sortable
     expandable
   >
-    <Toolbar>
-      <ToolbarContent>
-        <ToolbarSearch on:input={handleSearch} />
-      </ToolbarContent>
-    </Toolbar>
     <span slot="cell" let:cell let:row>
       {#if cell.key === "created_at"}
         {DateTime.fromISO(cell.value).setLocale("ko").toLocaleString({
@@ -136,13 +135,7 @@
             size="field"
             icon={Send16}
             iconDescription="전송"
-            on:click={async () => {
-              await api.inquiriesCreateReplyCreate({
-                id: row.id,
-                createProductInquiryReplyRequest: { body: newReplyMap[row.id] },
-              });
-              reload();
-            }}
+            on:click={() => handleReplyCreate(row.id, newReplyMap[row.id])}
           />
         </div>
       </div>
@@ -172,13 +165,7 @@
             size="small"
             kind="danger"
             icon={Delete16}
-            on:click={async () => {
-              if (!confirm("정말 삭제하시겠습니까?")) return;
-              api.inquiriesDeleteReplyCreate({
-                deleteProductInquiryReplyRequest: { id: reply.id },
-              });
-              window.location.reload();
-            }}>답변 삭제하기</Button
+            on:click={() => handleReplyRemove(reply.id)}>답변 삭제하기</Button
           >
         </div>
       {/each}

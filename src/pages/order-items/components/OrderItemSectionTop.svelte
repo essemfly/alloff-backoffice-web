@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { OrderItemRetrieve, OrderItemsApi, OrderItemStatusEnum } from "@api";
+  import {
+    OrderItemRetrieve,
+    OrderItemsApi,
+    OrderItemStatusEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import SquareTag from "@app/components/SquareTag.svelte";
   import TextCopy from "@app/components/CopyTextButton.svelte";
   import {

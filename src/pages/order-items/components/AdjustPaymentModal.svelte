@@ -11,7 +11,7 @@
   import PiggyBank16 from "carbon-icons-svelte/lib/PiggyBank16";
   import Purchase16 from "carbon-icons-svelte/lib/Purchase16";
 
-  import { MethodEnum } from "@api";
+  import { MethodEnum } from "@lessbutter/alloff-backoffice-api";
   import { numberWithCommas } from "@app/helpers/number";
 
   export let adjustPayment: (

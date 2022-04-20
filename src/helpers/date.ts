@@ -9,8 +9,10 @@ export const formatDate = (
   },
 ) => {
   if (!originDate) return "";
-  const formatted = DateTime.fromSQL(originDate.replace(" UTC", ""))
-    .setLocale("ko")
-    .toLocaleString(options);
+  let date = DateTime.fromSQL(originDate.replace(" UTC", ""));
+  if (!date.isValid) {
+    date = DateTime.fromISO(originDate.replace(" UTC", ""));
+  }
+  const formatted = date.setLocale("ko").toLocaleString(options);
   return formatted;
 };

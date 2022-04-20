@@ -1,8 +1,17 @@
+<script context="module" lang="ts">
+  export type AutocompleteItem = {
+    key: string;
+    label: string;
+    value: string;
+    subvalue?: string;
+  };
+</script>
+
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import { Search } from "carbon-components-svelte";
 
-  import { AutocompleteItem, boldSearchTerm, findMatches } from "./utils";
+  import { boldSearchTerm, findMatches } from "./utils";
 
   export let id: string | undefined = undefined;
   export let size: "sm" | "lg" | undefined = "lg";

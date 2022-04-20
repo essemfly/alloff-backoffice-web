@@ -1,4 +1,8 @@
 <script lang="ts">
+  import {
+    Exhibition,
+    ExhibitionTypeEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import { debounce } from "lodash";
   import { toast } from "@zerodevx/svelte-toast";
   import { createEventDispatcher, onMount } from "svelte";
@@ -20,23 +24,12 @@
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import {
-    Exhibition,
-    ExhibitionsApi,
-    ExhibitionsApiExhibitionsListRequest,
-    ExhibitionTypeEnum,
-  } from "@api";
   import { formatDate } from "@app/helpers/date";
   import { getExhibitionTypeLabel } from "@app/pages/exhibitions/commands/helpers";
+  import { useExhibitionService } from "@app/pages/exhibitions/ExhibitionService";
 
-  const exhibitionApi = new ExhibitionsApi();
-
-  type SearchQueryParam = ExhibitionsApiExhibitionsListRequest & {
-    offset: number;
-    limit: number;
-    searchQuery: "";
-    totalCount: number;
-  };
+  const exhibitionService = useExhibitionService();
+  const { filter } = exhibitionService;
 
   export let exhibitionType: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
   export let disabledIds: string[] = [];
@@ -45,14 +38,6 @@
   export let hideSelection = false;
   export let byExhibitionType = false;
 
-  let params: SearchQueryParam = {
-    offset: 0,
-    limit: 10,
-    exhibitionType,
-    searchQuery: "",
-    totalCount: 0,
-  };
-
   let isLoading = false;
 
   let exhibitions: Exhibition[] = [];
@@ -60,8 +45,8 @@
   let listSearchQuery = "";
   let selectedExhibitions: Exhibition[] = [];
   let selectedExhibitionIds: string[] = [];
-
   let scrollableList: HTMLDivElement;
+  let searchFilter = filter;
 
   const dispatch = createEventDispatcher();
 
@@ -95,16 +80,16 @@
 
   const handleScroll = debounce(() => {
     const { scrollTop, scrollHeight, clientHeight } = scrollableList;
-    const nextOffset = params.offset + params.limit;
+    const nextOffset = searchFilter.offset + searchFilter.limit;
     if (
-      nextOffset <= params.totalCount &&
+      nextOffset <= searchFilter.totalCount &&
       (scrollTop + clientHeight) / scrollHeight > 0.7
     ) {
       loadNext();
     }
   }, 300);
 
-  const loadNext = () => handleSearch(params.offset + params.limit);
+  const loadNext = () => handleSearch(searchFilter.offset + searchFilter.limit);
 
   const handleSelect = (selectedItem: Exhibition) => () => {
     if (multiple) {
@@ -138,23 +123,12 @@
     }
     try {
       isLoading = true;
-      const res = await exhibitionApi.exhibitionsList({
-        ...params,
-        exhibitionType,
-        offset,
-      });
-
-      params = {
-        offset: res.data.offset,
-        limit: res.data.limit,
-        searchQuery: params.searchQuery ?? "",
-        totalCount: res.data.total_counts,
-      };
-
+      await exhibitionService.list({ ...searchFilter, exhibitionType, offset });
+      searchFilter = exhibitionService.filter;
       if (offset > 0) {
-        exhibitions = [...exhibitions, ...res.data.exhibitions];
+        exhibitions = [...exhibitions, ...exhibitionService.exhibitions];
       } else {
-        exhibitions = res.data.exhibitions;
+        exhibitions = exhibitionService.exhibitions;
       }
       filtering();
     } catch (e) {
@@ -310,7 +284,7 @@
         condensed
         flush
         selection={!(
-          params.totalCount === 0 || filteredExhibition.length === 0
+          searchFilter.totalCount === 0 || filteredExhibition.length === 0
         )}
       >
         <StructuredListHead>
@@ -322,7 +296,7 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {#if params.totalCount === 0 || filteredExhibition.length === 0}
+          {#if searchFilter.totalCount === 0 || filteredExhibition.length === 0}
             <StructuredListRow>
               <StructuredListCell>
                 검색조건에 맞는 기획전을 찾지 못했습니다
@@ -386,7 +360,7 @@
           {#if isLoading}
             <InlineLoading status="active" description="검색중..." />
           {/if}
-          {#if !isLoading && params.offset + params.limit <= params.totalCount}
+          {#if !isLoading && searchFilter.offset + searchFilter.limit <= searchFilter.totalCount}
             <Button size="small" kind="tertiary" on:click={loadNext}>
               더보기
             </Button>

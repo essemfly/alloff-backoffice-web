@@ -5,12 +5,12 @@
   import { Button, InlineLoading } from "carbon-components-svelte";
   import AddComment16 from "carbon-icons-svelte/lib/AddComment16";
 
+  import { apiConfig } from "@app/store";
   import {
     Noti,
     NotificationsApi,
     NotificationsApiNotificationsListRequest as SearchQueryParam,
-    ListNoti,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
   import {
@@ -24,10 +24,10 @@
   let offset = 0;
   let limit = 50;
   let searchQuery = "";
-  let totalItems = 0;
+  let totalCount = 0;
   let isLoading = false;
 
-  const notificationApi = new NotificationsApi();
+  const notificationApi = new NotificationsApi(apiConfig);
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {
@@ -49,7 +49,7 @@
       offset = data.offset;
       // limit = data.limit;
       limit = data.limit > 0 ? data.limit : 50;
-      totalItems = data.notis.length; // todo: fix
+      totalCount = data.notis.length; // todo: fix
     } finally {
       isLoading = false;
     }
@@ -103,7 +103,7 @@
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
 
-  <Pagination {limit} {offset} {totalItems} on:change={handlePageChange} />
+  <Pagination {limit} {offset} {totalCount} on:change={handlePageChange} />
   {#if isLoading}
     <InlineLoading label="Loading..." />
   {:else}

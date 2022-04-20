@@ -1,15 +1,15 @@
 <script>
+  import { OrdersApi } from "@lessbutter/alloff-backoffice-api";
   import { DateTime } from "luxon";
-  import { onMount } from "svelte";
   import * as d3 from "d3";
+  import { onMount } from "svelte";
   import { InlineLoading } from "carbon-components-svelte";
 
-  import { OrdersApi } from "@api";
-
+  import { apiConfig } from "@app/store";
   import Nav from "@app/components/Nav.svelte";
   import DashboardTable from "./components/DashboardTable.svelte";
 
-  const api = new OrdersApi();
+  const api = new OrdersApi(apiConfig);
   let data = [];
   let loading = true;
 

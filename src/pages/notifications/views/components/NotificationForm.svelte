@@ -1,7 +1,7 @@
 <script lang="ts">
   import { FormGroup } from "carbon-components-svelte";
 
-  import { Exhibition } from "@api";
+  import { Exhibition } from "@lessbutter/alloff-backoffice-api";
   import { TextField, RadioField } from "@app/components/form";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";

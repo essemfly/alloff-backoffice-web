@@ -1,7 +1,7 @@
 import { array, InferType, number, object, string } from "yup";
 
 import { Form, useForm } from "@app/helpers/useForm";
-import { ExhibitionTypeEnum } from "@app/api";
+import { ExhibitionTypeEnum } from "@lessbutter/alloff-backoffice-api";
 export {
   schema as sectionSchema,
   formStore as sectionFormStore,

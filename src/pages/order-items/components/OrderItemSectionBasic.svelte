@@ -2,7 +2,11 @@
   import { Button, TabContent, TextInput } from "carbon-components-svelte";
   import Send16 from "carbon-icons-svelte/lib/Send16";
 
-  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
+  import {
+    OrderItemList,
+    OrderItemRetrieve,
+    OrderItemsApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import { toLocaleDateTime } from "@app/helpers/datetime";
   import { numberWithCommas } from "@app/helpers/number";
   import { getIsForeignLabel, getTypeLabel } from "@app/helpers/order-item";
