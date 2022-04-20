@@ -6,11 +6,12 @@
     TopBanner,
     TopBannersApi,
     TopBannersApiTopBannersListRequest as SearchQueryParam,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
-  import { DataTableData } from "@app/components/DataTable/helpers";
-  import DataTable from "@app/components/DataTable/DataTable.svelte";
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
   import {
     formatQueryString,
     parseQueryString,
@@ -18,13 +19,14 @@
 
   import { bannerColumns } from "./components/bannerColumns";
   import { debounce } from "lodash";
+  import { apiConfig } from "@app/store";
 
   let banners: DataTableData<TopBanner>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
   let isLoading = false;
-  let totalItems = 0;
+  let totalCount = 0;
 
-  const bannerApi = new TopBannersApi();
+  const bannerApi = new TopBannersApi(apiConfig);
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {
@@ -42,7 +44,7 @@
         offset: res.data.offset,
         limit: res.data.limit,
       };
-      totalItems = res.data.total_counts;
+      totalCount = res.data.total_counts;
     } finally {
       isLoading = false;
     }
@@ -114,7 +116,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          {totalItems}
+          {totalCount}
           on:change={handlePageChange}
         />
       </Column>
@@ -132,7 +134,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          {totalItems}
+          {totalCount}
           on:change={handlePageChange}
         />
       </Column>

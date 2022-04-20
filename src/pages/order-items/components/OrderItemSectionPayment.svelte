@@ -3,18 +3,23 @@
   import Wallet16 from "carbon-icons-svelte/lib/Wallet16";
   import Run16 from "carbon-icons-svelte/lib/Run16";
 
-  import { MethodEnum, OrderItemRetrieve, OrderItemsApi } from "@api";
+  import {
+    MethodEnum,
+    OrderItemRetrieve,
+    OrderItemsApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import { numberWithCommas } from "@app/helpers/number";
   import InfoSection from "./InfoSection.svelte";
 
   import RefundModal from "../components/RefundModal.svelte";
   import AdjustPaymentModal from "../components/AdjustPaymentModal.svelte";
+  import { apiConfig } from "@app/store";
 
   export let item: OrderItemRetrieve;
   export let submitting: boolean;
   export let load: () => void;
 
-  const api = new OrderItemsApi();
+  const api = new OrderItemsApi(apiConfig);
 
   let refundModalOpen = false;
   let adjustPaymentModalOpen = false;

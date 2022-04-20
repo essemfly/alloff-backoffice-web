@@ -15,6 +15,7 @@
   export let label = "";
   export let allLabelText = "전체";
   export let alignment: "horizontal" | "vertical" = "vertical";
+  let allChecked = false;
 
   const dispatch = createEventDispatcher();
 
@@ -30,9 +31,11 @@
     values = uniq(values);
   };
 
-  $: allChecked = values.length === options.length;
+  const handleCheck = () => {
+    dispatch("change", values);
+  };
 
-  $: dispatch("change", values);
+  $: allChecked = values.length === options.length;
 </script>
 
 <div class={`checkbox-group-wrapper checkbox-group-${alignment}`}>
@@ -43,7 +46,12 @@
       checked={allChecked}
     />
     {#each options as { label, value } (value)}
-      <Checkbox bind:group={values} labelText={label} {value} />
+      <Checkbox
+        bind:group={values}
+        labelText={label}
+        {value}
+        on:check={handleCheck}
+      />
     {/each}
   </FormGroup>
 </div>

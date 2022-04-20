@@ -1,4 +1,4 @@
-import { ItemTypeEnum, OptionsEnum } from "@api";
+import { ItemTypeEnum, OptionsEnum } from "@lessbutter/alloff-backoffice-api";
 import { HometabItemType } from "../constants";
 
 export function getHometabItemTypeByIndex(typeIndex: number) {

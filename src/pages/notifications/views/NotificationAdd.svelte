@@ -5,16 +5,20 @@
   import { Button } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import { CreateNotiRequest, NotificationsApi } from "@api";
+  import {
+    CreateNotiRequest,
+    NotificationsApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import NotificationForm from "./components/NotificationForm.svelte";
   import { formStore } from "../models/schema";
+  import { apiConfig } from "@app/store";
 
   let isSubmitting = false;
 
-  const notificationApi = new NotificationsApi();
+  const notificationApi = new NotificationsApi(apiConfig);
 
   onMount(() => {
     formStore.initialize();

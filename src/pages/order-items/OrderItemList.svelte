@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { OrderItemList, OrderItemsApi, OrderItemStatusEnum } from "@api";
-  import Nav from "@app/components/Nav.svelte";
+  import {
+    OrderItemList,
+    OrderItemsApi,
+    OrderItemStatusEnum,
+  } from "@lessbutter/alloff-backoffice-api";
+  import { useLocation } from "svelte-navigator";
+  import { Pagination, Button } from "carbon-components-svelte";
+  import TableShortcut16 from "carbon-icons-svelte/lib/TableShortcut16";
+
+  import { apiConfig } from "@app/store";
   import { ORDER_ITEM_ALL_STATUSES } from "@app/constants";
+  import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
+  import Nav from "@app/components/Nav.svelte";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import { getStatusLabel } from "@app/helpers/order-item";
-  import {
-    Checkbox,
-    DatePicker,
-    DatePickerInput,
-    Pagination,
-    Button,
-  } from "carbon-components-svelte";
-  import { DateTime } from "luxon";
-  import TableShortcut16 from "carbon-icons-svelte/lib/TableShortcut16";
-  import { useLocation } from "svelte-navigator";
+
   import ExcelExportModal from "./components/ExcelExportModal.svelte";
   import OrderItemsTable from "./components/OrderItemsTable.svelte";
   import { search } from "./store";
-  import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
 
   const location = useLocation();
   const params = new URLSearchParams($location.search);
@@ -27,12 +27,12 @@
   let items: OrderItemList[] = [];
   let page = 1;
   let pageSize = 20;
-  let totalItems = 0;
+  let totalCount = 0;
 
   let statuses = [...ORDER_ITEM_ALL_STATUSES];
   let exportModalOpen = false;
   const pageSizes = [20, 50, 100];
-  const api = new OrderItemsApi();
+  const api = new OrderItemsApi(apiConfig);
   const load = async (
     p: number,
     size: number,
@@ -55,7 +55,7 @@
         statuses,
       });
 
-      totalItems = count ?? 0;
+      totalCount = count ?? 0;
       items = results ?? [];
     }
   };
@@ -66,21 +66,6 @@
     statuses,
     $search.trim() === "" ? undefined : $search,
   );
-
-  const handleIsClassifiedCheck = (
-    event: CustomEvent<OrderItemStatusEnum[]>,
-  ) => {
-    if (
-      event.detail.length === checkboxOptions.length ||
-      event.detail.length === 0
-    ) {
-      // all checked
-      console.log(event.detail);
-      statuses = [];
-    } else {
-      statuses = event.detail;
-    }
-  };
 
   const checkboxOptions = ORDER_ITEM_ALL_STATUSES.map((status) => ({
     label: getStatusLabel(status),
@@ -106,7 +91,7 @@
         bind:values={statuses}
         alignment={matches ? "vertical" : "horizontal"}
       />
-      <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
+      <Pagination {...{ totalCount, pageSizes }} bind:page bind:pageSize />
     {/if}
     <OrderItemsTable isMobile={matches} {items} canSearch={!userId} />
   </MediaQuery>

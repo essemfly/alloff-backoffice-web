@@ -1,4 +1,4 @@
-import { ExhibitionTypeEnum } from "@api";
+import { ExhibitionTypeEnum } from "@lessbutter/alloff-backoffice-api";
 
 export function getExhibitionTypeByIndex(typeIndex: number) {
   const key = Object.keys(ExhibitionTypeEnum)[typeIndex];

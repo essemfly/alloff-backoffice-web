@@ -6,49 +6,38 @@
   import {
     GroupTypeCbfEnum as GroupTypeEnum,
     ProductGroup,
-    ProductGroupsApi,
-    ProductGroupsApiProductGroupsListRequest as SearchQueryParam,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
-  import DataTable from "@app/components/DataTable/DataTable.svelte";
-  import { DataTableData } from "@app/components/DataTable/helpers";
-  import {
-    formatQueryString,
-    parseQueryString,
-  } from "@app/helpers/query-string";
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
+  import { formatQueryString } from "@app/helpers/query-string";
   import Pagination from "@app/components/Pagination.svelte";
 
   import { productGroupColumns } from "./components/productGroupColumns";
+  import {
+    SearchQueryParam,
+    useProductGroupService,
+  } from "../ProductGroupService";
+
+  const productGroupService = useProductGroupService();
 
   let productGroups: DataTableData<ProductGroup>[] = [];
-  let searchFilter: SearchQueryParam & { totalItems: number } = {
-    offset: 0,
-    limit: 50,
-    searchQuery: undefined,
-    groupType: GroupTypeEnum.Timedeal,
-    totalItems: 0,
-  };
+  let searchFilter = productGroupService.filter;
   let isLoading = false;
 
-  const productGroupApi = new ProductGroupsApi();
   const location = useLocation<SearchQueryParam>();
 
   const load = async (params: SearchQueryParam) => {
     if (isLoading) return;
     try {
       isLoading = true;
-      const res = await productGroupApi.productGroupsList({
+      await productGroupService.list({
         ...params,
         groupType: GroupTypeEnum.Exhibition,
       });
-      productGroups = res.data.pgs.map((x) => ({
-        ...x,
-        id: x.product_group_id,
-      }));
-      searchFilter = {
-        ...params,
-        totalItems: res.data.total_counts,
-      };
+      productGroups = productGroupService.productGroups;
+      searchFilter = productGroupService.filter;
     } finally {
       isLoading = false;
     }
@@ -69,6 +58,7 @@
   const handleSearch = () => {
     const queryString = formatQueryString({ ...searchFilter });
     navigate(`${$location.pathname}?${queryString}`);
+    load(searchFilter);
   };
 
   const handleAddClick = (event: MouseEvent) => {
@@ -80,11 +70,6 @@
     event.preventDefault();
     navigate(`/product-groups/${event.detail.id}`);
   };
-
-  $: if ($location) {
-    const params = parseQueryString<SearchQueryParam>($location.search);
-    load(params);
-  }
 </script>
 
 <Nav title="섹션 목록">
@@ -94,7 +79,7 @@
   <Pagination
     limit={searchFilter.limit}
     offset={searchFilter.offset}
-    totalItems={searchFilter.totalItems}
+    totalCount={searchFilter.totalCount}
     on:change={handlePageChange}
   />
   <DataTable

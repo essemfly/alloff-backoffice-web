@@ -9,8 +9,13 @@
   } from "carbon-components-svelte";
   import type { DataTableHeader } from "carbon-components-svelte/types/DataTable/DataTable";
   import Export16 from "carbon-icons-svelte/lib/Export16";
+  import { apiConfig } from "@app/store";
 
-  import { ShippingCandidateProto, ShippingNoticesApi } from "@api";
+  import {
+    ShippingCandidateProto,
+    ShippingNoticesApi,
+  } from "@lessbutter/alloff-backoffice-api";
+  import { navigate } from "svelte-navigator";
 
   export let candidates: ShippingCandidateProto[];
   export let isMobile = false;
@@ -36,7 +41,7 @@
   ];
 
   const submitCandidates = (candiates: ShippingCandidateProto[]) => {
-    const api = new ShippingNoticesApi();
+    const api = new ShippingNoticesApi(apiConfig);
     const candidateSubmissionItems: {
       order_item_id: number;
       inventory_ids: number[];
@@ -71,9 +76,11 @@
           on:click={async (e) => {
             e.stopPropagation();
             const res = await submitCandidates(selectedCandidates);
-            window.location.href = "/logistics/shipping-notices/" + res.data.id;
-          }}>출고지시서 생성</Button
+            navigate(`/logistics/shipping-notices/${res.data.id}`);
+          }}
         >
+          출고지시서 생성
+        </Button>
       </ToolbarBatchActions>
     </Toolbar>
     <span slot="cell" let:cell let:row>

@@ -21,11 +21,10 @@
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import {
-    ProductGroupsApi,
     ProductInGroup,
     Product,
     GroupTypeCbfEnum as GroupTypeEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
   import ProductSearchSection from "@app/components/ProductSearchSection.svelte";
@@ -38,8 +37,9 @@
   } from "@app/components/form";
 
   import { formStore, schema } from "../../models/schema";
+  import { useProductGroupService } from "../../ProductGroupService";
 
-  const productGroupApi = new ProductGroupsApi();
+  const productGroupService = useProductGroupService();
 
   export let label: string = "컬렉션";
   export let productInGroups: ProductInGroup[] = [];
@@ -81,27 +81,6 @@
 
   const handleProductDetailOpen = (productId: string) => () => {
     window.open(`/products/${productId}`, "_blank"); // todo: not use window.open
-  };
-
-  const handleDeleteProductFromGroup = (productId: string) => async () => {
-    if (isSubmitting) {
-      return;
-    }
-    try {
-      isSubmitting = true;
-      const res = await productGroupApi.productGroupsRemoveProductCreate({
-        id: $formStore.fields.productGroupId,
-        removeProductInPgRequest: {
-          product_group_id: $formStore.fields.productGroupId,
-          product_id: productId,
-        },
-      });
-      productInGroups = res.data.products;
-    } catch (e) {
-      toast.push("상품 목록 수정이 실패했습니다.");
-    } finally {
-      isSubmitting = false;
-    }
   };
 
   const handleProductInGroupFilter = debounce((event: Event) => {
@@ -155,39 +134,68 @@
   };
 
   const handleAddProductSubmit = async () => {
-    const productList = selectedProductInGroup.map(({ product }, i) => ({
-      product_id: product.alloff_product_id,
-      priority: i,
-    }));
-    const res = await productGroupApi.productGroupsPushProductsCreate({
-      id: $formStore.fields.productGroupId!,
-      productsInPgRequest: {
-        product_group_id: $formStore.fields.productGroupId!,
-        product_priorities: productList,
-      },
-    });
-    productInGroups = res.data.products;
-    selectedProductInGroup = [];
-    productInGroupQuery = "";
-    productInGroupFiltering("");
+    if (isSubmitting) {
+      return;
+    }
+    try {
+      isSubmitting = true;
+      const productList = selectedProductInGroup.map(({ product }, i) => ({
+        product_id: product.alloff_product_id,
+        priority: i,
+      }));
+      const id = $formStore.fields.productGroupId!;
+      await productGroupService.pushProducts(id, productList);
+      const productGroup = productGroupService.getProductGroupById(id);
+      productInGroups = productGroup?.products ?? [];
+      selectedProductInGroup = [];
+      productInGroupQuery = "";
+      productInGroupFiltering("");
+    } catch (e) {
+      toast.push("상품 목록 등록이 실패했습니다.");
+    } finally {
+      isSubmitting = false;
+    }
   };
 
-  const handleEditListSubmit = async () => {
-    const productList = tempEditProducts.map(({ product }, i) => ({
-      product_id: product.alloff_product_id,
-      priority: i + 10,
-    }));
-    const res = await productGroupApi.productGroupsUpdateProductsCreate({
-      id: $formStore.fields.productGroupId!,
-      productsInPgRequest: {
-        product_group_id: $formStore.fields.productGroupId!,
-        product_priorities: productList,
-      },
-    });
-    productInGroups = res.data.products;
-    tempEditProducts = [];
-    productInGroupQuery = "";
-    isEditProductList = false;
+  const handleEditProductSubmit = async () => {
+    if (isSubmitting) {
+      return;
+    }
+    try {
+      isSubmitting = true;
+      const productList = tempEditProducts.map(({ product }, i) => ({
+        product_id: product.alloff_product_id,
+        priority: i + 10,
+      }));
+      const id = $formStore.fields.productGroupId!;
+      await productGroupService.updateProducts(id, productList);
+      const productGroup = productGroupService.getProductGroupById(id);
+      productInGroups = productGroup?.products ?? [];
+      tempEditProducts = [];
+      productInGroupQuery = "";
+      isEditProductList = false;
+    } catch (e) {
+      toast.push("상품 목록 수정이 실패했습니다.");
+    } finally {
+      isSubmitting = false;
+    }
+  };
+
+  const handleDeleteProductFromGroup = (productId: string) => async () => {
+    if (isSubmitting) {
+      return;
+    }
+    try {
+      isSubmitting = true;
+      const id = $formStore.fields.productGroupId!;
+      await productGroupService.deleteProduct(id, productId);
+      const productGroup = productGroupService.getProductGroupById(id);
+      productInGroups = productGroup?.products ?? [];
+    } catch (e) {
+      toast.push("상품 목록 수정이 실패했습니다.");
+    } finally {
+      isSubmitting = false;
+    }
   };
 
   $: if (productInGroups) {
@@ -257,7 +265,7 @@
       {#if isEditProductList}
         <div class="button-save">
           <Button
-            on:click={handleEditListSubmit}
+            on:click={handleEditProductSubmit}
             size="small"
             disabled={!isEdited}
             icon={Save16}

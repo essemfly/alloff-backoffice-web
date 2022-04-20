@@ -3,13 +3,17 @@
   import { Button } from "carbon-components-svelte";
   import ArrowLeft16 from "carbon-icons-svelte/lib/ArrowLeft16";
 
-  import { ShippingCandidateProto, ShippingNoticesApi } from "@api";
+  import {
+    ShippingCandidateProto,
+    ShippingNoticesApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import MediaQuery from "@app/helpers/MediaQuery.svelte";
   import Nav from "@app/components/Nav.svelte";
 
   import CandidatesTable from "./components/CandidatesTable.svelte";
+  import { apiConfig } from "@app/store";
 
-  const api = new ShippingNoticesApi();
+  const api = new ShippingNoticesApi(apiConfig);
 
   let loading = true;
   let fulfilledCandidates: ShippingCandidateProto[] = [];

@@ -1,4 +1,4 @@
-import { GroupTypeCbfEnum as GroupTypeEnum } from "@api";
+import { GroupTypeCbfEnum as GroupTypeEnum } from "@lessbutter/alloff-backoffice-api";
 
 export function getGroupTypeByIndex(typeIndex: number) {
   const key = Object.keys(GroupTypeEnum)[typeIndex];

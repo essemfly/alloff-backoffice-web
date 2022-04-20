@@ -14,10 +14,14 @@
   import Reset16 from "carbon-icons-svelte/lib/Reset16";
   import Close16 from "carbon-icons-svelte/lib/Close16";
 
-  import { ReceivedItem, ReceivedItemStatusEnum } from "@api";
+  import {
+    ReceivedItem,
+    ReceivedItemStatusEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import { getStatusLabel } from "@app/helpers/received-item";
 
   import { search } from "../../store";
+  import { navigate } from "svelte-navigator";
 
   export let ris: ReceivedItem[] = [];
   export let isMobile = false;
@@ -69,7 +73,7 @@
           ? `/timedeal-products/${e.detail.product_id}`
           : `/orders/${e.detail.in_order_id}`;
       if (isMobile) {
-        window.location.href = url;
+        navigate(url);
         return;
       }
       window.open(url, "_blank");

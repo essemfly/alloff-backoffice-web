@@ -1,95 +1,135 @@
 <script lang="ts">
-  import { InquiriesApi,ProductInquiry } from "@api";
-  import Nav from "@app/components/Nav.svelte";
-  import MediaQuery from "@app/helpers/MediaQuery.svelte";
+  import { ProductInquiry } from "@lessbutter/alloff-backoffice-api";
+  import { onMount } from "svelte";
+  import { navigate, useLocation } from "svelte-navigator";
   import {
-  Checkbox,
-  DatePicker,
-  DatePickerInput,
-  Pagination
+    Button,
+    Column,
+    DatePicker,
+    DatePickerInput,
+    Grid,
+    Pagination,
+    Row,
+    Search,
   } from "carbon-components-svelte";
-  import { DateTime } from "luxon";
-  import { search } from "../store";
+
+  import Nav from "@app/components/Nav.svelte";
+  import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
+  import { formatQueryString } from "@app/helpers/query-string";
+  import DataTable from "@app/components/DataTable/DataTable.svelte";
+
+  import { productInquiryColumns } from "./components/productInquiryColumns";
   import ProductInquiryTable from "./components/ProductInquiryTable.svelte";
+  import {
+    SearchQueryParam,
+    useProductInquiryService,
+  } from "../ProductInquiryService";
 
-  const api = new InquiriesApi();
+  const productInquiryService = useProductInquiryService();
+  const location = useLocation<SearchQueryParam>();
+
   let inquiries: ProductInquiry[] = [];
-  let dateFrom = DateTime.now().minus({ days: 7 }).toISO().split("T")[0];
-  let dateTo = DateTime.now().toISO().split("T")[0];
-  let isPending: boolean | undefined = undefined;
+  let searchFilter = productInquiryService.filter;
 
-  let showPending = true;
-  let showReplied = true;
+  onMount(() => handleSearch());
 
-  const load = async (
-    p: number,
-    size: number,
-    dateFrom: string,
-    dateTo: string,
-    isPending?: boolean,
-    search?: string,
-  ) => {
-    const {
-      data: { count, results },
-    } = await api.inquiriesList({
-      page: p,
-      search,
-      size,
-      isPending,
-      dateFrom: DateTime.fromISO(dateFrom).toISO(),
-      dateTo: DateTime.fromISO(dateTo)
-        .plus({ days: 1 })
-        .minus({ milliseconds: 1 })
-        .toISO(),
-    });
+  const checkboxOptions = [
+    { label: "답변대기", value: "true" },
+    { label: "답변완료", value: "false" },
+  ];
 
-    totalItems = count ?? 0;
-    inquiries = results ?? [];
+  const load = async (params: Partial<SearchQueryParam>) => {
+    await productInquiryService.list(params);
+    inquiries = productInquiryService.inquiries;
+    searchFilter = productInquiryService.filter;
   };
 
-  let page = 1;
-  let pageSize = 20;
-  let totalItems = 0;
-  const pageSizes = [20, 50, 100];
+  const handleCheck = (event: CustomEvent<string[]>) => {
+    if (
+      event.detail.length === checkboxOptions.length ||
+      event.detail.length === 0
+    ) {
+      // all checked
+      searchFilter = {
+        ...searchFilter,
+        isPending: undefined,
+      };
+    } else {
+      const [value] = event.detail;
+      searchFilter = {
+        ...searchFilter,
+        isPending: value,
+      };
+    }
+  };
 
-  $: load(
-    page,
-    pageSize,
-    dateFrom,
-    dateTo,
-    (showPending && showReplied) || (!showPending && !showReplied)
-      ? undefined
-      : showPending,
-    $search.trim() === "" ? undefined : $search,
-  );
+  const handleSearchKeydown = (e: KeyboardEvent) => {
+    const value = (e.target as HTMLInputElement).value.trim();
+    if (e.key === "Enter") {
+      searchFilter = { ...searchFilter, page: 1, search: value };
+      handleSearch();
+    }
+  };
+
+  const handleSearch = () => {
+    const queryString = formatQueryString({ ...searchFilter });
+    navigate(`${$location.pathname}?${queryString}`);
+    load(searchFilter);
+  };
 </script>
 
-<Nav>
-  <Checkbox labelText="답변대기" bind:checked={showPending} />
-  <Checkbox labelText="답변완료" bind:checked={showReplied} />
-  <DatePicker
-    datePickerType="range"
-    bind:valueFrom={dateFrom}
-    bind:valueTo={dateTo}
-    dateFormat="Y-m-d"
-  >
-    <DatePickerInput labelText="시작일" placeholder="yyyy-mm-dd" />
-    <DatePickerInput labelText="종료일" placeholder="yyyy-mm-dd" />
-  </DatePicker>
-  <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
+<Nav title="상품문의 목록" let:isMobile>
+  <Grid slot="header" noGutter>
+    <Row>
+      <Column>
+        <DatePicker
+          datePickerType="range"
+          bind:valueFrom={searchFilter.dateFrom}
+          bind:valueTo={searchFilter.dateTo}
+          dateFormat="Y-m-d"
+        >
+          <DatePickerInput labelText="시작일" placeholder="yyyy-mm-dd" />
+          <DatePickerInput labelText="종료일" placeholder="yyyy-mm-dd" />
+        </DatePicker>
+      </Column>
+      <Column>
+        <CheckboxGroup
+          label="답변 여부"
+          options={checkboxOptions}
+          on:change={handleCheck}
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column>
+        <Search
+          labelText="검색어"
+          on:keydown={handleSearchKeydown}
+          bind:value={searchFilter.search}
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column>
+        <div class="row-right-wrapper">
+          <Button on:click={handleSearch}>검색</Button>
+        </div>
+      </Column>
+    </Row>
+  </Grid>
+  <!-- Need expandable improvement -->
+  <!-- <DataTable data={inquiries} columns={productInquiryColumns} {isMobile} /> -->
+  <Pagination
+    totalItems={searchFilter.totalCount}
+    bind:page={searchFilter.page}
+    bind:pageSize={searchFilter.size}
+  />
   <MediaQuery query="(max-width: 480px)" let:matches>
     <ProductInquiryTable
       isMobile={matches}
       {inquiries}
-      reload={() =>
-        load(
-          page,
-          pageSize,
-          dateFrom,
-          dateTo,
-          isPending,
-          $search.trim() === "" ? undefined : $search,
-        )}
+      reload={() => load(searchFilter)}
     />
   </MediaQuery>
 </Nav>

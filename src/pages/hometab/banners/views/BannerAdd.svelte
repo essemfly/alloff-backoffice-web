@@ -4,16 +4,15 @@
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { CreateTopBannerRequest, TopBannersApi } from "@app/api";
   import Nav from "@app/components/Nav.svelte";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import BannerForm from "./components/BannerForm.svelte";
   import { formStore } from "../models/schema";
+  import { useBannerService } from "../BannerService";
+
+  const bannerService = useBannerService();
 
   let isSubmitting = false;
-
-  const bannerApi = new TopBannersApi();
 
   onMount(() => {
     formStore.initialize();
@@ -30,11 +29,7 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      await bannerApi.topBannersCreate({
-        createTopBannerRequest: convertToSnakeCase<CreateTopBannerRequest>(
-          $formStore.fields,
-        ),
-      });
+      await bannerService.create($formStore.fields);
       toast.push("배너 등록이 완료되었습니다.");
       navigate(-1);
     } catch (e) {

@@ -1,20 +1,13 @@
 <script lang="ts">
+  import { ExhibitionTypeEnum } from "@lessbutter/alloff-backoffice-api";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
   import { Button, InlineLoading } from "carbon-components-svelte";
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
-  import {
-    EditExhibitionRequest,
-    ExhibitionsApi,
-    ExhibitionTypeEnum,
-  } from "@api";
   import Nav from "@app/components/Nav.svelte";
-  import {
-    convertToSnakeCase,
-    convertToCamelCase,
-  } from "@app/helpers/change-case";
+  import { convertToCamelCase } from "@app/helpers/change-case";
 
   import ExhibitionForm from "./components/ExhibitionForm.svelte";
   import { formStore } from "../models/schema";
@@ -22,6 +15,9 @@
     getExhibitionTypeByIndex,
     getExhibitionTypeLabel,
   } from "../commands/helpers";
+  import { useExhibitionService } from "../ExhibitionService";
+
+  const exhibitionService = useExhibitionService();
 
   export let id: string;
   export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
@@ -30,19 +26,19 @@
   let isLoading = false;
   let isSubmitting = false;
 
-  const exhibitionApi = new ExhibitionsApi();
-
   onMount(async () => {
     isLoading = true;
     try {
-      const res = await exhibitionApi.exhibitionsRetrieve({ id });
-      const exhibition = convertToCamelCase({
-        ...res.data,
-        exhibitionType: getExhibitionTypeByIndex(
-          res.data.exhibition_type as unknown as number,
-        ),
-      });
-      formStore.update(exhibition);
+      const res = await exhibitionService.load(id);
+      if (res) {
+        const exhibition = convertToCamelCase({
+          ...res,
+          exhibitionType: getExhibitionTypeByIndex(
+            res.exhibition_type as unknown as number,
+          ),
+        });
+        formStore.update(exhibition);
+      }
     } finally {
       isLoading = false;
     }
@@ -57,12 +53,7 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      await exhibitionApi.exhibitionsUpdate({
-        id: $formStore.fields.exhibitionId!,
-        editExhibitionRequest: convertToSnakeCase<EditExhibitionRequest>(
-          $formStore.fields,
-        ),
-      });
+      await exhibitionService.edit(id, $formStore.fields);
       toast.push(`${exhibitionLabel} 수정이 완료되었습니다.`);
       if ($formStore.fields.exhibitionType === ExhibitionTypeEnum.Timedeal) {
         navigate(`/timedeals`);

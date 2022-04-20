@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { OrderItemList, OrderItemRetrieve, OrderItemsApi } from "@api";
+  import {
+    OrderItemList,
+    OrderItemRetrieve,
+    OrderItemsApi,
+  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import {
     Breakpoint,
@@ -14,6 +18,7 @@
   import OrderItemSectionPayment from "./components/OrderItemSectionPayment.svelte";
   import OrderItemSectionPG from "./components/OrderItemSectionPG.svelte";
   import OrderItemSectionTop from "./components/OrderItemSectionTop.svelte";
+  import { apiConfig } from "@app/store";
 
   export let idOrCode: string;
 
@@ -24,7 +29,7 @@
   let mobile = false;
   let size: "sm" | "md" | "lg" | "xlg" | "max";
 
-  const api = new OrderItemsApi();
+  const api = new OrderItemsApi(apiConfig);
 
   const load = async () => {
     loading = true;

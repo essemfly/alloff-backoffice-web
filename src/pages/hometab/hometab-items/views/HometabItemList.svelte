@@ -1,48 +1,41 @@
 <script lang="ts">
+  import { HomeTab } from "@lessbutter/alloff-backoffice-api";
+  import { debounce } from "lodash";
+  import { onMount } from "svelte";
   import { navigate, useLocation } from "svelte-navigator";
   import { Button, Column, Grid, Row } from "carbon-components-svelte";
 
-  import {
-    HomeTab,
-    HometabsApi,
-    HometabsApiHometabsListRequest as SearchQueryParam,
-  } from "@api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
-  import { DataTableData } from "@app/components/DataTable/helpers";
-  import DataTable from "@app/components/DataTable/DataTable.svelte";
-  import {
-    formatQueryString,
-    parseQueryString,
-  } from "@app/helpers/query-string";
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
+  import { formatQueryString } from "@app/helpers/query-string";
 
   import { hometabColumns } from "./components/hometabColumns";
-  import { debounce } from "lodash";
+  import {
+    SearchQueryParam,
+    useHometabItemService,
+  } from "../HometabItemService";
+
+  const hometabItemService = useHometabItemService();
 
   let hometabs: DataTableData<HomeTab>[] = [];
-  let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
   let isLoading = false;
-  let totalItems = 0;
+  let searchFilter = hometabItemService.filter;
 
-  const hometabApi = new HometabsApi();
   const location = useLocation<SearchQueryParam>();
+
+  onMount(() => handleSearch());
 
   const load = async (params: SearchQueryParam) => {
     if (isLoading) return;
     isLoading = true;
     try {
-      const res = await hometabApi.hometabsList({
-        ...params,
-      });
-      hometabs = res.data.items.map((x) => ({
-        ...x,
-        id: x.item_id,
-      }));
-      searchFilter = {
-        offset: res.data.offset,
-        limit: res.data.limit,
-      };
-      totalItems = res.data.total_counts;
+      await hometabItemService.list(params);
+      hometabs = hometabItemService.hometabItems;
+      searchFilter = hometabItemService.filter;
+      sortItems();
     } finally {
       isLoading = false;
     }
@@ -63,6 +56,7 @@
   const handleSearch = () => {
     const queryString = formatQueryString({ ...searchFilter });
     navigate(`${$location.pathname}?${queryString}`);
+    load(searchFilter);
   };
 
   const handleAddClick = (event: MouseEvent) => {
@@ -77,55 +71,31 @@
 
   const handleWeightChange = debounce(async (event: CustomEvent<number[]>) => {
     const [weight, index] = event.detail;
-
     let hometabItem = hometabs[index];
     hometabItem.weight = weight;
+    await hometabItemService.patch(hometabItem.item_id, { weight });
+    sortItems();
+  }, 500);
 
-    const { start_time, finish_time, ...requestBody } = hometabItem;
+  const handleIsLiveChange = debounce(
+    async (event: CustomEvent<[boolean, number]>) => {
+      const [is_live, index] = event.detail;
+      let hometabItem = hometabs[index];
+      hometabItem.is_live = is_live;
+      await hometabItemService.patch(hometabItem.item_id, { is_live });
+      sortItems();
+    },
+    500,
+  );
 
-    await hometabApi.hometabsUpdate({
-      id: hometabItem.item_id,
-      editHomeTabRequest: {
-        ...requestBody,
-        hometab_id: hometabItem.item_id,
-        weight,
-      },
-    });
-
+  const sortItems = () => {
     hometabs.sort((a, b) => {
       var x = b.weight;
       var y = a.weight;
       return x < y ? -1 : x > y ? 1 : 0;
     });
     hometabs = hometabs;
-  }, 500);
-
-  const handleIsLiveChange = debounce(
-    async (event: CustomEvent<[boolean, number]>) => {
-      const [is_live, index] = event.detail;
-
-      let hometabItem = hometabs[index];
-      hometabItem.is_live = is_live;
-      hometabs = hometabs;
-
-      const { start_time, finish_time, ...requestBody } = hometabItem;
-
-      await hometabApi.hometabsUpdate({
-        id: hometabItem.item_id,
-        editHomeTabRequest: {
-          ...requestBody,
-          hometab_id: hometabItem.item_id,
-          is_live,
-        },
-      });
-    },
-    500,
-  );
-
-  $: if ($location) {
-    const params = parseQueryString<SearchQueryParam>($location.search);
-    load(params);
-  }
+  };
 </script>
 
 <Nav title="홈탭 아이템 관리">
@@ -142,7 +112,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          {totalItems}
+          totalCount={searchFilter.totalCount}
           on:change={handlePageChange}
         />
       </Column>
@@ -161,7 +131,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          {totalItems}
+          totalCount={searchFilter.totalCount}
           on:change={handlePageChange}
         />
       </Column>

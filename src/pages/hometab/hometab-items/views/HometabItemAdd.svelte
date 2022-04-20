@@ -4,14 +4,13 @@
   import { navigate } from "svelte-navigator";
   import { Button } from "carbon-components-svelte";
 
-  import { CreateHomeTabRequest, HometabsApi } from "@api";
   import Nav from "@app/components/Nav.svelte";
-  import { convertToSnakeCase } from "@app/helpers/change-case";
 
   import HometabItemForm from "./components/HometabItemForm.svelte";
   import { formStore } from "../models/schema";
+  import { useHometabItemService } from "../HometabItemService";
 
-  const hometabApi = new HometabsApi();
+  const hometabItemService = useHometabItemService();
 
   onMount(() => {
     formStore.initialize();
@@ -25,11 +24,7 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
-      await hometabApi.hometabsCreate({
-        createHomeTabRequest: convertToSnakeCase<CreateHomeTabRequest>(
-          $formStore.fields,
-        ),
-      });
+      await hometabItemService.create($formStore.fields);
       toast.push("홈탭 아이템 등록이 완료되었습니다.");
       navigate(-1);
     } catch (e) {

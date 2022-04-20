@@ -19,10 +19,11 @@
     ShippingNoticesApi,
     ShippingNoticesResultUploadApi,
     ShippingNoticeStatusEnum,
-  } from "@api";
+  } from "@lessbutter/alloff-backoffice-api";
   import { getStatusBadgeColor, getStatusLabel } from "@app/helpers/order-item";
   import { getShippingNolticeStatusLabel } from "@app/helpers/shipping-notice";
   import Nav from "@app/components/Nav.svelte";
+  import { apiConfig } from "@app/store";
 
   export let noticeId: number;
 
@@ -35,7 +36,7 @@
   const packageMappedItems: { [packageId: string]: ShippingNoticeItem[] } = {};
   const packageHashMap: { [packageId: string]: Package } = {};
 
-  const api = new ShippingNoticesApi();
+  const api = new ShippingNoticesApi(apiConfig);
 
   const load = async () => {
     if (!noticeId) return;
@@ -82,7 +83,7 @@
     if (!noticeId) return;
     submitting = true;
     try {
-      const resultApi = new ShippingNoticesResultUploadApi();
+      const resultApi = new ShippingNoticesResultUploadApi(apiConfig);
       notice = (
         await resultApi.shippingNoticesResultUploadUploadCreate({
           file,
@@ -99,7 +100,7 @@
 
   const submitReprintLabel = async (pkg: Package) => {
     submitting = true;
-    const packageApi = new PackagesApi();
+    const packageApi = new PackagesApi(apiConfig);
     try {
       await packageApi.packagesReprintLabelCreate({ id: pkg.id });
     } catch (e: any) {

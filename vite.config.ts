@@ -10,15 +10,12 @@ export default ({ mode }) => {
   if (mode === "development") {
     publicDir += "-dev";
   }
-  
+
   return defineConfig({
     plugins: [svelte()],
     publicDir,
     resolve: {
-      alias: [
-        { find: "@app", replacement: "/src" },
-        { find: "@api", replacement: "/src/api" },
-      ],
+      alias: [{ find: "@app", replacement: "/src" }],
     },
   });
 };

@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { AdminUserApi } from "@api";
-  import { removeTokens } from "@app/core/auth";
+  import { AdminUserApi } from "@lessbutter/alloff-backoffice-api";
+  import { onMount } from "svelte";
+  import { navigate, useLocation } from "svelte-navigator";
   import {
     Content,
     Header,
@@ -31,21 +32,23 @@
   import Product16 from "carbon-icons-svelte/lib/Product16";
   import Receipt16 from "carbon-icons-svelte/lib/Receipt16";
   import ShoppingCartArrowUp16 from "carbon-icons-svelte/lib/ShoppingCartArrowUp16";
-  import Template16 from "carbon-icons-svelte/lib/Template16";
   import Timer16 from "carbon-icons-svelte/lib/Timer16";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar16";
-  import { onMount } from "svelte";
-  import { useLocation } from "svelte-navigator";
-  import { compute_slots } from "svelte/internal";
+
+  import { useCore } from "@app/core/CoreProvider";
+
   import { admin } from "../store";
   import MetaTags from "./MetaTags/MetaTags.svelte";
   import { MetaTagsProps } from "./MetaTags/types";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
 
   export let title: string = "";
   export let metaTags: MetaTagsProps = {};
   export let loading: boolean = false;
   export let loadingText: string = "Loading";
   export let hidePageTitle: boolean = false;
+
+  const { storage, apiConfig } = useCore();
 
   let isSideNavOpen = false;
   let isUtilOpen = false;
@@ -139,7 +142,7 @@
   }
 
   onMount(async () => {
-    const adminUserApi = new AdminUserApi();
+    const adminUserApi = new AdminUserApi(apiConfig);
     try {
       const { data } = await adminUserApi.adminUserMeRetrieve();
       admin.set(data);
@@ -149,8 +152,8 @@
   });
 
   const logout = async () => {
-    removeTokens();
-    window.location.href = "/login";
+    storage.removeTokens();
+    navigate("/login");
   };
 </script>
 
@@ -265,12 +268,14 @@
     <slot name="header" />
   </header>
 {/if}
-<Content>
-  {#if !hidePageTitle && !$$slots.header}
-    <h1 class="title">{title}</h1>
-  {/if}
-  <slot />
-</Content>
+<MediaQuery query="(max-width: 480px)" let:matches>
+  <Content>
+    {#if !hidePageTitle && !$$slots.header}
+      <h1 class="title">{title}</h1>
+    {/if}
+    <slot isMobile={matches} />
+  </Content>
+</MediaQuery>
 
 <style>
   h1.title {

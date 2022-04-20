@@ -1,41 +1,28 @@
 <script lang="ts">
+  import { Product } from "@lessbutter/alloff-backoffice-api";
   import { onMount } from "svelte";
   import { navigate, useLocation } from "svelte-navigator";
   import { Button, Column, Grid, Row, Search } from "carbon-components-svelte";
   import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
 
-  import {
-    Product,
-    ProductsApi,
-    ProductsApiProductsListRequest as SearchQueryParam,
-  } from "@api";
-  import Nav from "@app/components/Nav.svelte";
-  import BrandSelect from "@app/components/BrandSelect.svelte";
   import { AutocompleteItem } from "@app/components/autocomplete";
+  import { formatQueryString } from "@app/helpers/query-string";
+  import BrandSelect from "@app/components/BrandSelect.svelte";
   import CategorySelect from "@app/components/CategorySelect.svelte";
+  import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
   import GridTile from "@app/components/GridTile.svelte";
+  import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
-  import {
-    formatQueryString,
-    parseQueryString,
-  } from "@app/helpers/query-string";
 
   import ProductCard from "./components/ProductCard.svelte";
-  import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
+  import { SearchQueryParam, useProductService } from "../ProductService";
+
+  const productService = useProductService();
 
   let products: Product[] = [];
-  let searchFilter: SearchQueryParam = {
-    offset: 0,
-    limit: 50,
-    searchQuery: "",
-    brandId: "",
-    alloffCategoryId: "",
-    isClassifiedDone: false,
-  };
-  let totalItems = 0;
+  let searchFilter = productService.filter;
   let isLoading = false;
 
-  const productApi = new ProductsApi();
   const location = useLocation<SearchQueryParam>();
 
   const checkboxOptions = [
@@ -43,36 +30,18 @@
     { label: "미설정", value: "false" },
   ];
 
+  onMount(() => handleSearch());
+
   const load = async (params: SearchQueryParam) => {
     if (isLoading) return;
     try {
       isLoading = true;
-      let res = await productApi.productsList({ ...searchFilter, ...params });
-
-      products = res.data.products;
-
-      // query strings
-      searchFilter = {
-        offset: res.data.offset,
-        limit: res.data.limit,
-        searchQuery: res.data.list_query.search_query,
-        brandId: res.data.list_query.brand_id,
-        // isClassifiedDone: res.data.list_query.is_classified_done,
-      };
-      totalItems = res.data.total_counts;
+      await productService.list(params);
+      products = productService.products;
+      searchFilter = productService.filter;
     } finally {
       isLoading = false;
     }
-  };
-
-  onMount(async () => {
-    const params = parseQueryString<SearchQueryParam>($location.search);
-    await load(params);
-  });
-
-  const handleAddClick = (event: MouseEvent) => {
-    event.preventDefault();
-    navigate("/products/add");
   };
 
   const handlePageChange = (
@@ -115,28 +84,35 @@
     }
   };
 
-  const handleSearch = () => {
-    const queryString = formatQueryString({ ...searchFilter });
-    navigate(`${$location.pathname}?${queryString}`);
-  };
-
   const handleIsClassifiedCheck = (event: CustomEvent<string[]>) => {
     if (
       event.detail.length === checkboxOptions.length ||
       event.detail.length === 0
     ) {
       // all checked
-      searchFilter.isClassifiedDone = undefined;
+      searchFilter = {
+        ...searchFilter,
+        isClassifiedDone: undefined,
+      };
     } else {
       const [value] = event.detail;
-      searchFilter.isClassifiedDone = value;
+      searchFilter = {
+        ...searchFilter,
+        isClassifiedDone: value,
+      };
     }
   };
 
-  $: if ($location) {
-    const params = parseQueryString<SearchQueryParam>($location.search);
-    load(params);
-  }
+  const handleSearch = () => {
+    const queryString = formatQueryString({ ...searchFilter });
+    navigate(`${$location.pathname}?${queryString}`);
+    load(searchFilter);
+  };
+
+  const handleAddClick = (event: MouseEvent) => {
+    event.preventDefault();
+    navigate("/products/add");
+  };
 </script>
 
 <Nav title="상품 목록">
@@ -195,7 +171,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            {totalItems}
+            totalCount={searchFilter.totalCount}
             on:change={handlePageChange}
           />
         </Column>
@@ -214,7 +190,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            {totalItems}
+            totalCount={searchFilter.totalCount}
             on:change={handlePageChange}
           />
         </Column>

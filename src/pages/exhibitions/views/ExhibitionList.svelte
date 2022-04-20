@@ -1,4 +1,8 @@
 <script lang="ts">
+  import {
+    Exhibition,
+    ExhibitionTypeEnum,
+  } from "@lessbutter/alloff-backoffice-api";
   import { debounce } from "lodash";
   import { navigate, useLocation } from "svelte-navigator";
   import {
@@ -13,67 +17,39 @@
     ToolbarSearch,
   } from "carbon-components-svelte";
 
-  import {
-    Exhibition,
-    ExhibitionsApi,
-    ExhibitionsApiExhibitionsListRequest as SearchQueryParam,
-    ExhibitionTypeEnum,
-  } from "@api";
   import Nav from "@app/components/Nav.svelte";
-  import {
-    formatQueryString,
-    parseQueryString,
-  } from "@app/helpers/query-string";
+  import { formatQueryString } from "@app/helpers/query-string";
   import Pagination from "@app/components/Pagination.svelte";
-  import { DataTableData } from "@app/components/DataTable/helpers";
-  import DataTable from "@app/components/DataTable/DataTable.svelte";
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
 
   import { exhibitionColumns } from "./components/exhibitionColumns";
-  import {
-    getExhibitionTypeByIndex,
-    getExhibitionTypeLabel,
-  } from "../commands/helpers";
+  import { getExhibitionTypeLabel } from "../commands/helpers";
+  import { SearchQueryParam, useExhibitionService } from "../ExhibitionService";
+  import { onMount } from "svelte";
 
   export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
 
+  const exhibitionService = useExhibitionService();
+
   let exhibitionLabel = getExhibitionTypeLabel(type);
   let exhibitions: DataTableData<Exhibition>[] = [];
-  let searchFilter: SearchQueryParam = {
-    offset: 0,
-    limit: 50,
-    exhibitionType: type,
-    isLive: true,
-    query: "",
-  };
   let isLoading = false;
-  let totalItems = 0;
   let innerSearchQuery = "";
+  let searchFilter = exhibitionService.filter;
 
-  const exhibitionApi = new ExhibitionsApi();
   const location = useLocation<SearchQueryParam>();
+
+  onMount(() => handleSearch());
 
   const load = async (params: SearchQueryParam) => {
     if (isLoading) return;
     isLoading = true;
     try {
-      const res = await exhibitionApi.exhibitionsList({
-        ...searchFilter,
-        ...params,
-      });
-      exhibitions = res.data.exhibitions.map((x) => ({
-        ...x,
-        id: x.exhibition_id,
-      }));
-      searchFilter = {
-        offset: res.data.offset,
-        limit: res.data.limit,
-        exhibitionType: getExhibitionTypeByIndex(
-          res.data.group_type as unknown as number,
-        ),
-        isLive: res.data.is_live,
-        query: res.data.query,
-      };
-      totalItems = res.data.total_counts;
+      await exhibitionService.list(params);
+      exhibitions = exhibitionService.exhibitions;
+      searchFilter = exhibitionService.filter;
     } finally {
       isLoading = false;
     }
@@ -83,17 +59,29 @@
     event: CustomEvent<{ offset: number; limit: number }>,
   ) => {
     const { offset, limit } = event.detail;
+    searchFilter = { ...searchFilter, offset, limit };
+    handleSearch();
+  };
+
+  const handleSearchKeydown = (e: KeyboardEvent) => {
+    const value = (e.target as HTMLInputElement).value.trim();
+    if (e.key === "Enter") {
+      searchFilter = { ...searchFilter, offset: 0, query: value };
+      handleSearch();
+    }
+  };
+
+  const handleCheck = (event: CustomEvent<boolean>) => {
     searchFilter = {
       ...searchFilter,
-      offset,
-      limit,
+      isLive: !event.detail,
     };
-    handleSearch();
   };
 
   const handleSearch = () => {
     const queryString = formatQueryString({ ...searchFilter });
     navigate(`${$location.pathname}?${queryString}`);
+    load(searchFilter);
   };
 
   const handleAddClick = (event: MouseEvent) => {
@@ -127,41 +115,12 @@
       let exhibitionItem = exhibitions[index];
       exhibitionItem.is_live = is_live;
       exhibitions = exhibitions;
-
-      const res = await exhibitionApi.exhibitionsPartialUpdate({
-        id: exhibitionItem.exhibition_id,
-        patchedExhibitionRequest: {
-          exhibition_id: exhibitionItem.exhibition_id,
-          is_live,
-        },
+      exhibitionService.patch(exhibitionItem.exhibition_id, {
+        is_live,
       });
     },
     500,
   );
-
-  const handleSearchKeydown = (e: KeyboardEvent) => {
-    const value = (e.target as HTMLInputElement).value.trim();
-    if (e.key === "Enter") {
-      searchFilter = {
-        ...searchFilter,
-        offset: 0,
-        query: value,
-      };
-      handleSearch();
-    }
-  };
-
-  $: if ($location) {
-    const params = parseQueryString<SearchQueryParam>($location.search);
-    load(params);
-  }
-
-  const handleCheck = (event: CustomEvent<boolean>) => {
-    searchFilter = {
-      ...searchFilter,
-      isLive: !event.detail,
-    };
-  };
 </script>
 
 <Nav title={`${exhibitionLabel} 목록`}>
@@ -187,7 +146,7 @@
     <Row>
       <Column>
         <div class="row-right-wrapper">
-          <Button on:click={handleSearch}>검색</Button>
+          <Button on:click={() => handleSearch()}>검색</Button>
         </div>
       </Column>
     </Row>
@@ -208,7 +167,7 @@
   <Pagination
     limit={searchFilter.limit}
     offset={searchFilter.offset}
-    {totalItems}
+    totalCount={searchFilter.totalCount}
     on:change={handlePageChange}
   />
 </Nav>

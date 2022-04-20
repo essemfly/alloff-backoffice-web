@@ -1,9 +1,4 @@
-export type AutocompleteItem = {
-  key: string;
-  label: string;
-  value: string;
-  subvalue?: string;
-};
+import { AutocompleteItem } from "./Autocomplete.svelte";
 
 export const findMatches = (
   options: AutocompleteItem[],

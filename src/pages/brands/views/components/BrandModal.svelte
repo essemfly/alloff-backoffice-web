@@ -1,5 +1,10 @@
 <script lang="ts">
   import {
+    BrandsApi,
+    ImageUploadApi,
+    BrandRequest,
+  } from "@lessbutter/alloff-backoffice-api";
+  import {
     FileUploaderDropContainer,
     TextInput,
     Modal,
@@ -13,7 +18,7 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
 
-  import { BrandsApi, ImageUploadApi, BrandRequest } from "@api";
+  import { apiConfig } from "@app/store";
 
   export let isModalOpen = false;
   export let onCloseModal: () => void;
@@ -41,8 +46,8 @@
     image_url: "",
   };
 
-  const brandApi = new BrandsApi();
-  const imageApi = new ImageUploadApi();
+  const brandApi = new BrandsApi(apiConfig);
+  const imageApi = new ImageUploadApi(apiConfig);
 
   const addBrand = async () => {
     newBrandInput.in_maintenance = inMaintenance === "true" ? true : false;
