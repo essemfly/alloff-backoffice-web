@@ -7,7 +7,7 @@
   import Save16 from "carbon-icons-svelte/lib/Save16";
 
   import {
-    GroupTypeCbfEnum as GroupTypeEnum,
+    GroupTypeE67Enum as GroupTypeEnum,
     ProductInGroup,
   } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";

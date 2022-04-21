@@ -1,7 +1,7 @@
 <script lang="ts">
   import {
     ProductGroup,
-    GroupTypeCbfEnum as GroupTypeEnum,
+    GroupTypeE67Enum as GroupTypeEnum,
     ProductInGroup,
     ExhibitionTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";

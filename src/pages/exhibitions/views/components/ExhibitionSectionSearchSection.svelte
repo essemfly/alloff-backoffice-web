@@ -20,7 +20,7 @@
   import {
     ProductGroup,
     ProductGroupsApi,
-    GroupTypeCbfEnum as GroupTypeEnum,
+    GroupTypeE67Enum as GroupTypeEnum,
     ProductGroupsApiProductGroupsListRequest,
   } from "@lessbutter/alloff-backoffice-api";
 
