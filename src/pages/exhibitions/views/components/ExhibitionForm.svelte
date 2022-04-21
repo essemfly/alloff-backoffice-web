@@ -40,8 +40,8 @@
   } from "@app/components/form";
   import { convertToSnakeCase } from "@app/helpers/change-case";
 
-  import ExhibitionSectionForm from "./ExhibitionSectionForm.svelte";
-  import ExhibitionSectionSearchSection from "./ExhibitionSectionSearchSection.svelte";
+  import SectionForm from "./SectionForm.svelte";
+  import SectionSearchSection from "./SectionSearchSection.svelte";
   import { formStore, schema, sectionFormStore } from "../../models/schema";
   import { useExhibitionService } from "../../ExhibitionService";
 
@@ -50,51 +50,48 @@
   export let isAdding: boolean = false;
   export let label: string = "기획전";
 
-  let exhibitionSections: ProductGroup[] = [];
-  let selectedExhibitionSections: ProductGroup[] = [];
-  let selectedExhibitionSectionIds: string[] = [];
+  let sections: ProductGroup[] = [];
+  let selectedSections: ProductGroup[] = [];
+  let selectedSectionIds: string[] = [];
   let productInGroups: ProductInGroup[] = [];
   let isSubmitting = false;
 
   onMount(async () => {
-    selectedExhibitionSections = $formStore.fields.pgs
+    selectedSections = $formStore.fields.pgs
       ? convertToSnakeCase($formStore.fields.pgs)
       : [];
-    selectedExhibitionSectionIds = selectedExhibitionSections.map(
+    selectedSectionIds = selectedSections.map(
       ({ product_group_id }) => product_group_id,
     );
   });
 
-  const handleExhibitionSectionSelect = (event: CustomEvent<ProductGroup>) => {
+  const handleSectionSelect = (event: CustomEvent<ProductGroup>) => {
     const section = event.detail;
     if (section) {
-      selectedExhibitionSections = [...selectedExhibitionSections, section];
+      selectedSections = [...selectedSections, section];
     }
   };
 
-  const handleExhibitionSectionAdd = (selectedItem?: AutocompleteItem) => {
-    const exhibitionSection = exhibitionSections.find(
+  const handleSectionAdd = (selectedItem?: AutocompleteItem) => {
+    const exhibitionSection = sections.find(
       ({ product_group_id }) => product_group_id === selectedItem?.value,
     );
     if (exhibitionSection) {
-      selectedExhibitionSections = [
-        ...selectedExhibitionSections,
-        exhibitionSection,
-      ];
+      selectedSections = [...selectedSections, exhibitionSection];
     }
   };
 
-  const handleExhibitionSectionRemove = (index: number) => () => {
-    const newSections = selectedExhibitionSections.slice();
+  const handleSectionRemove = (index: number) => () => {
+    const newSections = selectedSections.slice();
     newSections.splice(index, 1);
-    selectedExhibitionSections = newSections;
+    selectedSections = newSections;
   };
 
-  $: if (selectedExhibitionSections) {
-    selectedExhibitionSectionIds = selectedExhibitionSections.map(
+  $: if (selectedSections) {
+    selectedSectionIds = selectedSections.map(
       ({ product_group_id }) => product_group_id,
     );
-    formStore.update({ pgIds: selectedExhibitionSectionIds });
+    formStore.update({ pgIds: selectedSectionIds });
   }
 
   const handleProductGroupSubmit = async (event: MouseEvent) => {
@@ -136,11 +133,8 @@
           productGroupId,
         );
         if (productGroup) {
-          selectedExhibitionSections = [
-            ...selectedExhibitionSections,
-            productGroup,
-          ];
-          handleExhibitionSectionAdd({
+          selectedSections = [...selectedSections, productGroup];
+          handleSectionAdd({
             key: productGroup.product_group_id,
             label: productGroup.title,
             value: productGroup.product_group_id,
@@ -159,20 +153,20 @@
   };
 
   const handleSort = (index: number, to: number) => () => {
-    const [current] = selectedExhibitionSections.splice(index, 1);
+    const [current] = selectedSections.splice(index, 1);
     switch (to) {
       case 0:
         // to first
-        selectedExhibitionSections = [current, ...selectedExhibitionSections];
+        selectedSections = [current, ...selectedSections];
         break;
       case 100:
         // to last
-        selectedExhibitionSections = [...selectedExhibitionSections, current];
+        selectedSections = [...selectedSections, current];
         break;
       default:
         const toIndex = index + to;
-        selectedExhibitionSections.splice(toIndex, 0, current);
-        selectedExhibitionSections = selectedExhibitionSections;
+        selectedSections.splice(toIndex, 0, current);
+        selectedSections = selectedSections;
     }
   };
 </script>
@@ -271,12 +265,12 @@
       </StructuredListRow>
     </StructuredListHead>
     <StructuredListBody>
-      {#if selectedExhibitionSections.length === 0}
+      {#if selectedSections.length === 0}
         <StructuredListRow>
           <StructuredListCell>No section submitted</StructuredListCell>
         </StructuredListRow>
       {/if}
-      {#each selectedExhibitionSections as section, index}
+      {#each selectedSections as section, index}
         <StructuredListRow>
           <StructuredListCell>
             {section.title}
@@ -337,7 +331,7 @@
               icon={TrashCan16}
               kind="danger"
               size="small"
-              on:click={handleExhibitionSectionRemove(index)}
+              on:click={handleSectionRemove(index)}
             />
             <Button
               tooltipPosition="bottom"
@@ -370,8 +364,8 @@
       </TabContent>
       <TabContent>
         <ExhibitionSectionSearchSection
-          bind:value={selectedExhibitionSectionIds}
-          on:select={handleExhibitionSectionSelect}
+          bind:value={selectedSectionIds}
+          on:select={handleSectionSelect}
         />
       </TabContent>
     </svelte:fragment>
