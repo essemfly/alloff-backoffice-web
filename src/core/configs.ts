@@ -1,5 +1,9 @@
 export const getEnv = () => {
-  if (import.meta.env.MODE === "production" || import.meta.env.PROD) {
+  if (
+    import.meta.env.MODE === "production" ||
+    import.meta.env.MODE === "prod" ||
+    import.meta.env.PROD
+  ) {
     return "prod";
   }
   if (import.meta.env.MODE === "local") {
