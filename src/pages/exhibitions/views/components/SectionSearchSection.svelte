@@ -30,6 +30,7 @@
     totalCount: number;
   };
 
+  export let type: GroupTypeEnum = GroupTypeEnum.Exhibition;
   export let value: string[] = [];
   export let disabledIds: string[] = [];
 
@@ -100,7 +101,7 @@
       const res = await productGroupApi.productGroupsList({
         offset,
         limit: 30,
-        groupType: GroupTypeEnum.Exhibition,
+        groupType: type,
         searchQuery: searchQuery ?? "",
       });
 
@@ -167,7 +168,7 @@
               on:click={handleSectionSelect(section)}
               disabled={disabledIds.includes(section.product_group_id)}
             >
-              <StructuredListCell noWrap>
+              <StructuredListCell>
                 {section.short_title}
               </StructuredListCell>
               <StructuredListCell noWrap>

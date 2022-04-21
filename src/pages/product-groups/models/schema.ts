@@ -30,6 +30,13 @@ export const schema = object({
       is: (groupType: GroupTypeEnum) => groupType === GroupTypeEnum.Timedeal,
       then: (schema: StringSchema) => schema.required(),
     }),
+  brandId: string()
+    .label("브랜드")
+    .when("groupType", {
+      is: (groupType: GroupTypeEnum) =>
+        groupType === GroupTypeEnum.BrandTimedeal,
+      then: (schema: StringSchema) => schema.required(),
+    }),
 });
 
 export type FormSchema = InferType<typeof schema>;
