@@ -4,7 +4,11 @@ const pkg = require("./package.json");
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
-  process.env = { ...process.env, VITE_PACKAGE_VERSION: pkg.version };
+  process.env = {
+    ...process.env,
+    VITE_PACKAGE_VERSION: pkg.version,
+    VITE_NODE_ENV: process.env.NODE_ENV,
+  };
 
   let publicDir = "public";
   if (mode === "development") {

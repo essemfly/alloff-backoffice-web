@@ -2,11 +2,16 @@ export const getEnv = () => {
   if (
     import.meta.env.MODE === "production" ||
     import.meta.env.MODE === "prod" ||
+    import.meta.env.VITE_NODE_ENV === "production" ||
+    import.meta.env.VITE_NODE_ENV === "prod" ||
     import.meta.env.PROD
   ) {
     return "prod";
   }
-  if (import.meta.env.MODE === "local") {
+  if (
+    import.meta.env.MODE === "local" ||
+    import.meta.env.VITE_NODE_ENV === "local"
+  ) {
     return "local";
   }
   return "dev";
