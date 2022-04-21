@@ -1,7 +1,7 @@
 <script lang="ts">
   import { FormGroup } from "carbon-components-svelte";
 
-  import { Exhibition } from "@lessbutter/alloff-backoffice-api";
+  import { Exhibition, ProductGroup } from "@lessbutter/alloff-backoffice-api";
   import { TextField, RadioField } from "@app/components/form";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
@@ -12,6 +12,7 @@
     NotificationTypeEnum,
   } from "../../models/Notification";
   import { formStore, schema } from "../../models/schema";
+  import ProductGroupSection from "./ProductGroupSection.svelte";
 
   let selectedExhibition: Exhibition;
 
@@ -33,6 +34,10 @@
   const handleExhibitionChange = (event: CustomEvent<Exhibition>) => {
     formStore.update({ referenceId: event.detail.exhibition_id });
     selectedExhibition = event.detail;
+  };
+
+  const handleProductGroupSelect = (event: CustomEvent<ProductGroup>) => {
+    formStore.update({ referenceId: event.detail.product_group_id });
   };
 
   const handleChange = (event: CustomEvent<string>) => {
@@ -90,11 +95,22 @@
       {#if !!$formStore.errors.referenceId}
         <div class="bx--form-requirement">{$formStore.errors.referenceId}</div>
       {/if}
-
       <ExhibitionListSection
         byExhibitionType
         value={selectedExhibition ? [selectedExhibition?.exhibition_id] : []}
         on:select={handleExhibitionChange}
+      />
+    {:else if $formStore.fields.notiType === NotificationTypeEnum.TimedealOpenNotification}
+      <div class="bx--label">
+        타임딜
+        <Dot kind="danger" />
+      </div>
+      {#if !!$formStore.errors.referenceId}
+        <div class="bx--form-requirement">{$formStore.errors.referenceId}</div>
+      {/if}
+      <ProductGroupSection
+        bind:value={$formStore.fields.referenceId}
+        on:select={handleProductGroupSelect}
       />
     {/if}
   </FormGroup>
