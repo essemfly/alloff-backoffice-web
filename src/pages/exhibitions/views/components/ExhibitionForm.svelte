@@ -138,7 +138,9 @@
       isSubmitting = true;
       const formData = {
         ...$sectionFormStore.fields,
-        // groupType: GroupTypeEnum.Exhibition,
+        groupType: isTimedeal
+          ? GroupTypeEnum.BrandTimedeal
+          : GroupTypeEnum.Exhibition,
         startTime: $formStore.fields.startTime
           ? $formStore.fields.startTime
           : DateTime.now().toISO(),

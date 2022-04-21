@@ -80,7 +80,7 @@ const defaultValues = {
   finishTime: "",
   pgIds: [],
   targetSales: 1,
-  exhibitionType: "",
+  banners: [],
 };
 
 export const formStore: Form<FormSchema> = useForm<FormSchema>(
