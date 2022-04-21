@@ -81,7 +81,7 @@
 <DataTable
   {headers}
   {rows}
-  useStaticWidth
+  useStaticWidth={isMobile}
   sortable
   expandable
   size={isMobile ? "short" : undefined}

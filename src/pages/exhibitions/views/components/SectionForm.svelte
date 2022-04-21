@@ -15,12 +15,17 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
 
-  import { Product, ProductInGroup } from "@lessbutter/alloff-backoffice-api";
-  import { TextField } from "@app/components/form";
+  import {
+    GroupTypeE67Enum as GroupTypeEnum,
+    Product,
+    ProductInGroup,
+  } from "@lessbutter/alloff-backoffice-api";
+  import { BrandSelectField, TextField } from "@app/components/form";
   import ProductSearchSection from "@app/components/ProductSearchSection.svelte";
 
   import { sectionSchema, sectionFormStore } from "../../models/schema";
 
+  export let type: GroupTypeEnum = GroupTypeEnum.Exhibition;
   export let productInGroups: ProductInGroup[] = [];
   export let isAdding: boolean = false;
 
@@ -61,6 +66,16 @@
     errorText={$sectionFormStore.errors.title}
   />
 </FormGroup>
+
+{#if type === GroupTypeEnum.BrandTimedeal}
+  <FormGroup>
+    <BrandSelectField
+      schema={sectionSchema.fields.brandId.required()}
+      bind:value={$sectionFormStore.fields.brandId}
+      errorText={$sectionFormStore.errors.brandId}
+    />
+  </FormGroup>
+{/if}
 
 <ProductSearchSection on:select={handleProductSelect} />
 <h4>선택된 상품 목록</h4>

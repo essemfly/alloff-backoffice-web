@@ -47,7 +47,7 @@
     if (isLoading) return;
     isLoading = true;
     try {
-      await exhibitionService.list(params);
+      await exhibitionService.list({ ...params, exhibitionType: type });
       exhibitions = exhibitionService.exhibitions;
       searchFilter = exhibitionService.filter;
     } finally {

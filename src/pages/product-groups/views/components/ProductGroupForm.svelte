@@ -23,7 +23,7 @@
   import {
     ProductInGroup,
     Product,
-    GroupTypeCbfEnum as GroupTypeEnum,
+    GroupTypeE67Enum as GroupTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";
   import ContentBox from "@app/components/ContentBox.svelte";
   import Dot from "@app/components/Dot.svelte";
@@ -38,6 +38,7 @@
 
   import { formStore, schema } from "../../models/schema";
   import { useProductGroupService } from "../../ProductGroupService";
+  import BrandSelectField from "@app/components/form/BrandSelectField.svelte";
 
   const productGroupService = useProductGroupService();
 
@@ -256,6 +257,15 @@
         />
       </Column>
     </Row>
+  {/if}
+  {#if $formStore.fields.groupType === GroupTypeEnum.BrandTimedeal}
+    <FormGroup>
+      <BrandSelectField
+        schema={schema.fields.brandId.required()}
+        bind:value={$formStore.fields.brandId}
+        errorText={$formStore.errors.brandId}
+      />
+    </FormGroup>
   {/if}
 </ContentBox>
 

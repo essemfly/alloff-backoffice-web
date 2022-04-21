@@ -1,7 +1,7 @@
 import { array, InferType, object, string, StringSchema } from "yup";
 
 import { Form, useForm } from "@app/helpers/useForm";
-import { GroupTypeCbfEnum as GroupTypeEnum } from "@lessbutter/alloff-backoffice-api";
+import { GroupTypeE67Enum as GroupTypeEnum } from "@lessbutter/alloff-backoffice-api";
 
 export const schema = object({
   productGroupId: string().label("섹션 ID"),
@@ -28,6 +28,13 @@ export const schema = object({
     .label("종료일시")
     .when("groupType", {
       is: (groupType: GroupTypeEnum) => groupType === GroupTypeEnum.Timedeal,
+      then: (schema: StringSchema) => schema.required(),
+    }),
+  brandId: string()
+    .label("브랜드")
+    .when("groupType", {
+      is: (groupType: GroupTypeEnum) =>
+        groupType === GroupTypeEnum.BrandTimedeal,
       then: (schema: StringSchema) => schema.required(),
     }),
 });

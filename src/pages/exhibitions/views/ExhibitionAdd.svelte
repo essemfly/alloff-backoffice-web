@@ -59,7 +59,7 @@
       {isSubmitting ? "등록중..." : "등록"}
     </Button>
   </div>
-  <ExhibitionForm label={exhibitionLabel} isAdding />
+  <ExhibitionForm label={exhibitionLabel} {type} isAdding />
   <div class="row-right-wrapper">
     <Button on:click={handleSubmit} disabled={isSubmitting}>
       {isSubmitting ? "등록중..." : "등록"}

@@ -1,4 +1,4 @@
-import { GroupTypeCbfEnum as GroupTypeEnum } from "@lessbutter/alloff-backoffice-api";
+import { GroupTypeE67Enum as GroupTypeEnum } from "@lessbutter/alloff-backoffice-api";
 
 export function getGroupTypeByIndex(typeIndex: number) {
   const key = Object.keys(GroupTypeEnum)[typeIndex];
@@ -14,6 +14,12 @@ export function getGroupTypeLabelByIndex(typeIndex: number) {
     case GroupTypeEnum.Exhibition:
     case "Exhibition":
       return "기획전 섹션";
+    case GroupTypeEnum.Groupdeal:
+    case "Groupdeal":
+      return "그룹딜";
+    case GroupTypeEnum.BrandTimedeal:
+    case "BrandTimedeal":
+      return "브랜드 타임딜";
     default:
       return "컬렉션";
   }
@@ -25,6 +31,10 @@ export function getGroupTypeLabel(type: GroupTypeEnum) {
       return "타임딜";
     case GroupTypeEnum.Exhibition:
       return "기획전 섹션";
+    case GroupTypeEnum.Groupdeal:
+      return "그룹딜";
+    case GroupTypeEnum.BrandTimedeal:
+      return "브랜드 타임딜";
     default:
       return "컬렉션";
   }

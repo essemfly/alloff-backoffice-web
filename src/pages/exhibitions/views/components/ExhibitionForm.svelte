@@ -1,10 +1,11 @@
 <script lang="ts">
   import {
+    GroupTypeE67Enum as GroupTypeEnum,
     ProductGroup,
-    GroupTypeCbfEnum as GroupTypeEnum,
     ProductInGroup,
     ExhibitionTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";
+  import { isEmpty } from "lodash";
   import { DateTime } from "luxon";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
@@ -39,62 +40,92 @@
     TextField,
   } from "@app/components/form";
   import { convertToSnakeCase } from "@app/helpers/change-case";
+  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
 
-  import ExhibitionSectionForm from "./ExhibitionSectionForm.svelte";
-  import ExhibitionSectionSearchSection from "./ExhibitionSectionSearchSection.svelte";
-  import { formStore, schema, sectionFormStore } from "../../models/schema";
+  import SectionForm from "./SectionForm.svelte";
+  import SectionSearchSection from "./SectionSearchSection.svelte";
+  import {
+    BannerFormSchema,
+    formStore,
+    schema,
+    sectionFormStore,
+  } from "../../models/schema";
   import { useExhibitionService } from "../../ExhibitionService";
 
   const exhibitionService = useExhibitionService();
 
   export let isAdding: boolean = false;
   export let label: string = "기획전";
+  export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
 
-  let exhibitionSections: ProductGroup[] = [];
-  let selectedExhibitionSections: ProductGroup[] = [];
-  let selectedExhibitionSectionIds: string[] = [];
+  let sections: ProductGroup[] = [];
+  let selectedSections: ProductGroup[] = [];
+  let selectedSectionIds: string[] = [];
   let productInGroups: ProductInGroup[] = [];
   let isSubmitting = false;
+  let banners: Record<string, BannerFormSchema> = {};
+  let isTimedeal = type === ExhibitionTypeEnum.Timedeal;
 
   onMount(async () => {
-    selectedExhibitionSections = $formStore.fields.pgs
+    selectedSections = $formStore.fields.pgs
       ? convertToSnakeCase($formStore.fields.pgs)
       : [];
-    selectedExhibitionSectionIds = selectedExhibitionSections.map(
+    selectedSectionIds = selectedSections.map(
       ({ product_group_id }) => product_group_id,
     );
+    if (isTimedeal) {
+      $formStore.fields.banners.forEach((x: BannerFormSchema) => {
+        banners[x.productGroupId] = x;
+      });
+    }
   });
 
-  const handleExhibitionSectionSelect = (event: CustomEvent<ProductGroup>) => {
+  const handleSectionSelect = (event: CustomEvent<ProductGroup>) => {
     const section = event.detail;
     if (section) {
-      selectedExhibitionSections = [...selectedExhibitionSections, section];
+      selectedSections = [...selectedSections, section];
     }
   };
 
-  const handleExhibitionSectionAdd = (selectedItem?: AutocompleteItem) => {
-    const exhibitionSection = exhibitionSections.find(
+  const handleSectionAdd = (selectedItem?: AutocompleteItem) => {
+    const exhibitionSection = sections.find(
       ({ product_group_id }) => product_group_id === selectedItem?.value,
     );
     if (exhibitionSection) {
-      selectedExhibitionSections = [
-        ...selectedExhibitionSections,
-        exhibitionSection,
-      ];
+      selectedSections = [...selectedSections, exhibitionSection];
     }
   };
 
-  const handleExhibitionSectionRemove = (index: number) => () => {
-    const newSections = selectedExhibitionSections.slice();
-    newSections.splice(index, 1);
-    selectedExhibitionSections = newSections;
+  const handleSectionRemove = (index: number) => () => {
+    const newSections = selectedSections.slice();
+    const removed = newSections.splice(index, 1);
+    selectedSections = newSections;
+    if (isTimedeal && banners[removed[0].product_group_id]) {
+      delete banners[removed[0].product_group_id];
+    }
   };
 
-  $: if (selectedExhibitionSections) {
-    selectedExhibitionSectionIds = selectedExhibitionSections.map(
+  const handleBannerAdd = (
+    event: CustomEvent<string>,
+    section: ProductGroup,
+  ) => {
+    banners[section.product_group_id] = {
+      title: section.title,
+      subtitle: section.brand.keyname ?? section.short_title ?? section.title,
+      imgUrl: event.detail,
+      productGroupId: section.product_group_id,
+    };
+    banners = banners;
+    formStore.update({
+      banners: Object.values(banners).filter((x) => !isEmpty(x.imgUrl)),
+    });
+  };
+
+  $: if (selectedSections) {
+    selectedSectionIds = selectedSections.map(
       ({ product_group_id }) => product_group_id,
     );
-    formStore.update({ pgIds: selectedExhibitionSectionIds });
+    formStore.update({ pgIds: selectedSectionIds });
   }
 
   const handleProductGroupSubmit = async (event: MouseEvent) => {
@@ -107,7 +138,7 @@
       isSubmitting = true;
       const formData = {
         ...$sectionFormStore.fields,
-        groupType: GroupTypeEnum.Exhibition,
+        // groupType: GroupTypeEnum.Exhibition,
         startTime: $formStore.fields.startTime
           ? $formStore.fields.startTime
           : DateTime.now().toISO(),
@@ -136,11 +167,8 @@
           productGroupId,
         );
         if (productGroup) {
-          selectedExhibitionSections = [
-            ...selectedExhibitionSections,
-            productGroup,
-          ];
-          handleExhibitionSectionAdd({
+          selectedSections = [...selectedSections, productGroup];
+          handleSectionAdd({
             key: productGroup.product_group_id,
             label: productGroup.title,
             value: productGroup.product_group_id,
@@ -159,20 +187,20 @@
   };
 
   const handleSort = (index: number, to: number) => () => {
-    const [current] = selectedExhibitionSections.splice(index, 1);
+    const [current] = selectedSections.splice(index, 1);
     switch (to) {
       case 0:
         // to first
-        selectedExhibitionSections = [current, ...selectedExhibitionSections];
+        selectedSections = [current, ...selectedSections];
         break;
       case 100:
         // to last
-        selectedExhibitionSections = [...selectedExhibitionSections, current];
+        selectedSections = [...selectedSections, current];
         break;
       default:
         const toIndex = index + to;
-        selectedExhibitionSections.splice(toIndex, 0, current);
-        selectedExhibitionSections = selectedExhibitionSections;
+        selectedSections.splice(toIndex, 0, current);
+        selectedSections = selectedSections;
     }
   };
 </script>
@@ -190,20 +218,26 @@
       />
     </FormGroup>
   {/if}
-  <FormGroup>
-    <ImageUploadField
-      schema={schema.fields.bannerImage}
-      bind:value={$formStore.fields.bannerImage}
-      errorText={$formStore.errors.bannerImage}
-    />
-  </FormGroup>
-  <FormGroup>
-    <ImageUploadField
-      schema={schema.fields.thumbnailImage}
-      bind:value={$formStore.fields.thumbnailImage}
-      errorText={$formStore.errors.thumbnailImage}
-    />
-  </FormGroup>
+  {#if !isTimedeal}
+    <FormGroup>
+      <ImageUploadField
+        schema={isTimedeal
+          ? schema.fields.bannerImage.notRequired()
+          : schema.fields.bannerImage.required()}
+        bind:value={$formStore.fields.bannerImage}
+        errorText={$formStore.errors.bannerImage}
+      />
+    </FormGroup>
+    <FormGroup>
+      <ImageUploadField
+        schema={isTimedeal
+          ? schema.fields.thumbnailImage.notRequired()
+          : schema.fields.thumbnailImage.required()}
+        bind:value={$formStore.fields.thumbnailImage}
+        errorText={$formStore.errors.thumbnailImage}
+      />
+    </FormGroup>
+  {/if}
   <FormGroup>
     <TextField
       schema={schema.fields.title}
@@ -267,16 +301,19 @@
       <StructuredListRow>
         <StructuredListCell head>Title</StructuredListCell>
         <StructuredListCell head>Products</StructuredListCell>
+        {#if isTimedeal}
+          <StructuredListCell head>Banner</StructuredListCell>
+        {/if}
         <StructuredListCell head>Actions</StructuredListCell>
       </StructuredListRow>
     </StructuredListHead>
     <StructuredListBody>
-      {#if selectedExhibitionSections.length === 0}
+      {#if selectedSections.length === 0}
         <StructuredListRow>
           <StructuredListCell>No section submitted</StructuredListCell>
         </StructuredListRow>
       {/if}
-      {#each selectedExhibitionSections as section, index}
+      {#each selectedSections as section, index}
         <StructuredListRow>
           <StructuredListCell>
             {section.title}
@@ -293,6 +330,17 @@
               No products
             {/if}
           </StructuredListCell>
+          {#if isTimedeal}
+            <StructuredListCell>
+              <ImageUploadInput
+                label={"배너 이미지"}
+                value={banners[section.product_group_id]
+                  ? banners[section.product_group_id].imgUrl
+                  : ""}
+                on:change={(event) => handleBannerAdd(event, section)}
+              />
+            </StructuredListCell>
+          {/if}
           <StructuredListCell>
             <Button
               tooltipPosition="bottom"
@@ -337,7 +385,7 @@
               icon={TrashCan16}
               kind="danger"
               size="small"
-              on:click={handleExhibitionSectionRemove(index)}
+              on:click={handleSectionRemove(index)}
             />
             <Button
               tooltipPosition="bottom"
@@ -361,7 +409,11 @@
     <Tab label="등록된 섹션" />
     <svelte:fragment slot="content">
       <TabContent>
-        <ExhibitionSectionForm bind:productInGroups isAdding />
+        <SectionForm
+          bind:productInGroups
+          isAdding
+          type={isTimedeal ? GroupTypeEnum.BrandTimedeal : undefined}
+        />
         <div class="row-right-wrapper">
           <Button on:click={handleProductGroupSubmit} disabled={isSubmitting}>
             섹션 추가{isSubmitting ? "중..." : ""}
@@ -369,9 +421,10 @@
         </div>
       </TabContent>
       <TabContent>
-        <ExhibitionSectionSearchSection
-          bind:value={selectedExhibitionSectionIds}
-          on:select={handleExhibitionSectionSelect}
+        <SectionSearchSection
+          type={isTimedeal ? GroupTypeEnum.BrandTimedeal : undefined}
+          bind:value={selectedSectionIds}
+          on:select={handleSectionSelect}
         />
       </TabContent>
     </svelte:fragment>
