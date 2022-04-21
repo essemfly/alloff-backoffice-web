@@ -25,9 +25,6 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Generate code from api
-        run: NODE_ENV=prod yarn generate-apis
-
       - name: Build
         run: yarn build
 
