@@ -83,18 +83,12 @@
   {rows}
   useStaticWidth={isMobile}
   sortable
-  expandable
   size={isMobile ? "short" : undefined}
   on:click:row={(event) => {
     dispatch("click:row", event.detail);
   }}
 >
   <slot />
-
-  <div slot="expanded-row" let:row>
-    <slot name="expanded-row" />
-  </div>
-
   <span
     slot="cell"
     let:cell
