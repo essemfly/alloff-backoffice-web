@@ -47,7 +47,6 @@
   export let rows: DetailRow[];
   export let fontSize: number | undefined = undefined;
   export let smallTitle: boolean | undefined = undefined;
-  export let copyable: boolean = false;
 </script>
 
 <div class="title" class:smallTitle>
