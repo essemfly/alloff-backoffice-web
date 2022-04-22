@@ -1,24 +1,22 @@
 <script lang="ts">
-  import { navigate, useLocation } from "svelte-navigator";
-  import { Button } from "carbon-components-svelte";
-  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
-
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
+  import Nav from "@app/components/Nav.svelte";
+  import Pagination from "@app/components/Pagination.svelte";
+  import { formatQueryString } from "@app/helpers/query-string";
   import {
     GroupTypeE67Enum as GroupTypeEnum,
     ProductGroup,
   } from "@lessbutter/alloff-backoffice-api";
-  import Nav from "@app/components/Nav.svelte";
-  import DataTable, {
-    DataTableData,
-  } from "@app/components/DataTable/DataTable.svelte";
-  import { formatQueryString } from "@app/helpers/query-string";
-  import Pagination from "@app/components/Pagination.svelte";
-
-  import { productGroupColumns } from "./components/productGroupColumns";
+  import { Button } from "carbon-components-svelte";
+  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
+  import { navigate, useLocation } from "svelte-navigator";
   import {
     SearchQueryParam,
     useProductGroupService,
   } from "../ProductGroupService";
+  import { productGroupColumns } from "./components/productGroupColumns";
 
   const productGroupService = useProductGroupService();
 
@@ -79,7 +77,7 @@
   <Pagination
     limit={searchFilter.limit}
     offset={searchFilter.offset}
-    totalCount={searchFilter.totalCount}
+    totalItems={searchFilter.totalItems}
     on:change={handlePageChange}
   />
   <DataTable

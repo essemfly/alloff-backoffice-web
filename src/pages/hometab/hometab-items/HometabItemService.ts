@@ -1,12 +1,12 @@
 import {
   HomeTab as HomeTabItemDto,
-  HometabsApiHometabsListRequest as ListRequest,
   HometabsApi,
+  HometabsApiHometabsListRequest as ListRequest,
   PatchedHomeTabRequest,
 } from "@lessbutter/alloff-backoffice-api";
 
-import Service from "@app/lib/Service";
 import { convertToSnakeCase } from "@app/helpers/change-case";
+import Service from "@app/lib/Service";
 
 import { FormSchema } from "./models/schema";
 
@@ -15,7 +15,7 @@ type HomeTabItem = HomeTabItemDto & { id: string };
 export type SearchQueryParam = ListRequest & {
   offset: number;
   limit: number;
-  totalCount: number;
+  totalItems: number;
 };
 
 export default class HometabItemService extends Service<HomeTabItem> {
@@ -24,7 +24,7 @@ export default class HometabItemService extends Service<HomeTabItem> {
   private searchFilter: SearchQueryParam = {
     offset: 0,
     limit: 50,
-    totalCount: 0,
+    totalItems: 0,
   };
 
   constructor() {
@@ -51,7 +51,7 @@ export default class HometabItemService extends Service<HomeTabItem> {
       this.searchFilter = {
         offset: res.data.offset,
         limit: res.data.limit,
-        totalCount: res.data.total_counts,
+        totalItems: res.data.total_counts,
       };
     } catch (e) {
       this.catchError(e);

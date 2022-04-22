@@ -1,7 +1,7 @@
 import {
-  ProductInquiry as ProductInquiryDto,
-  InquiriesApiInquiriesListRequest as ListRequest,
   InquiriesApi,
+  InquiriesApiInquiriesListRequest as ListRequest,
+  ProductInquiry as ProductInquiryDto,
 } from "@lessbutter/alloff-backoffice-api";
 import { DateTime } from "luxon";
 
@@ -10,7 +10,7 @@ import Service from "@app/lib/Service";
 export type ProductInquiry = ProductInquiryDto & { id: string };
 
 export type SearchQueryParam = Omit<ListRequest, "isPending"> & {
-  totalCount: number;
+  totalItems: number;
   isPending?: string | undefined;
 };
 
@@ -23,7 +23,7 @@ export default class ProductInquiryService extends Service<ProductInquiry> {
     dateFrom: DateTime.now().minus({ days: 7 }).toISO().split("T")[0],
     dateTo: DateTime.now().toISO().split("T")[0],
     search: "",
-    totalCount: 0,
+    totalItems: 0,
     page: 1,
     size: 20,
     isPending: undefined,
@@ -62,7 +62,7 @@ export default class ProductInquiryService extends Service<ProductInquiry> {
       });
       this.searchFilter = {
         ...params,
-        totalCount: res.data.count ?? 0,
+        totalItems: res.data.count ?? 0,
       };
       this._update(res.data.results);
     } catch (e) {

@@ -1,32 +1,31 @@
 <script lang="ts">
+  import { formatDate } from "@app/helpers/date";
+  import { getExhibitionTypeLabel } from "@app/pages/exhibitions/commands/helpers";
+  import { useExhibitionService } from "@app/pages/exhibitions/ExhibitionService";
   import {
     Exhibition,
     ExhibitionTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";
-  import { debounce } from "lodash";
   import { toast } from "@zerodevx/svelte-toast";
-  import { createEventDispatcher, onMount } from "svelte";
   import {
-    Row,
-    Column,
     Button,
-    StructuredList,
-    StructuredListRow,
-    StructuredListCell,
-    StructuredListBody,
-    StructuredListHead,
-    Search,
-    StructuredListInput,
+    Column,
     InlineLoading,
-    RadioButtonGroup,
     RadioButton,
+    RadioButtonGroup,
+    Row,
+    Search,
+    StructuredList,
+    StructuredListBody,
+    StructuredListCell,
+    StructuredListHead,
+    StructuredListInput,
+    StructuredListRow,
   } from "carbon-components-svelte";
   import Launch16 from "carbon-icons-svelte/lib/Launch16";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-
-  import { formatDate } from "@app/helpers/date";
-  import { getExhibitionTypeLabel } from "@app/pages/exhibitions/commands/helpers";
-  import { useExhibitionService } from "@app/pages/exhibitions/ExhibitionService";
+  import { debounce } from "lodash";
+  import { createEventDispatcher, onMount } from "svelte";
 
   const exhibitionService = useExhibitionService();
   const { filter } = exhibitionService;
@@ -82,7 +81,7 @@
     const { scrollTop, scrollHeight, clientHeight } = scrollableList;
     const nextOffset = searchFilter.offset + searchFilter.limit;
     if (
-      nextOffset <= searchFilter.totalCount &&
+      nextOffset <= searchFilter.totalItems &&
       (scrollTop + clientHeight) / scrollHeight > 0.7
     ) {
       loadNext();
@@ -284,7 +283,7 @@
         condensed
         flush
         selection={!(
-          searchFilter.totalCount === 0 || filteredExhibition.length === 0
+          searchFilter.totalItems === 0 || filteredExhibition.length === 0
         )}
       >
         <StructuredListHead>
@@ -296,7 +295,7 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {#if searchFilter.totalCount === 0 || filteredExhibition.length === 0}
+          {#if searchFilter.totalItems === 0 || filteredExhibition.length === 0}
             <StructuredListRow>
               <StructuredListCell>
                 검색조건에 맞는 기획전을 찾지 못했습니다
@@ -360,7 +359,7 @@
           {#if isLoading}
             <InlineLoading status="active" description="검색중..." />
           {/if}
-          {#if !isLoading && searchFilter.offset + searchFilter.limit <= searchFilter.totalCount}
+          {#if !isLoading && searchFilter.offset + searchFilter.limit <= searchFilter.totalItems}
             <Button size="small" kind="tertiary" on:click={loadNext}>
               더보기
             </Button>

@@ -1,21 +1,19 @@
 <script lang="ts">
-  import { Product } from "@lessbutter/alloff-backoffice-api";
-  import { onMount } from "svelte";
-  import { navigate, useLocation } from "svelte-navigator";
-  import { Button, Column, Grid, Row, Search } from "carbon-components-svelte";
-  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
-
   import { AutocompleteItem } from "@app/components/autocomplete";
-  import { formatQueryString } from "@app/helpers/query-string";
   import BrandSelect from "@app/components/BrandSelect.svelte";
   import CategorySelect from "@app/components/CategorySelect.svelte";
   import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
   import GridTile from "@app/components/GridTile.svelte";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
-
-  import ProductCard from "./components/ProductCard.svelte";
+  import { formatQueryString } from "@app/helpers/query-string";
+  import { Product } from "@lessbutter/alloff-backoffice-api";
+  import { Button, Column, Grid, Row, Search } from "carbon-components-svelte";
+  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
+  import { onMount } from "svelte";
+  import { navigate, useLocation } from "svelte-navigator";
   import { SearchQueryParam, useProductService } from "../ProductService";
+  import ProductCard from "./components/ProductCard.svelte";
 
   const productService = useProductService();
 
@@ -171,7 +169,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            totalCount={searchFilter.totalCount}
+            totalItems={searchFilter.totalItems}
             on:change={handlePageChange}
           />
         </Column>
@@ -190,7 +188,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            totalCount={searchFilter.totalCount}
+            totalItems={searchFilter.totalItems}
             on:change={handlePageChange}
           />
         </Column>

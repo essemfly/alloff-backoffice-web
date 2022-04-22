@@ -1,16 +1,14 @@
 <script lang="ts">
-  import { Pagination } from "carbon-components-svelte";
-
+  import Nav from "@app/components/Nav.svelte";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
+  import { apiConfig } from "@app/store";
   import {
     ShippingNoticeList,
     ShippingNoticesApi,
   } from "@lessbutter/alloff-backoffice-api";
-  import MediaQuery from "@app/helpers/MediaQuery.svelte";
-  import Nav from "@app/components/Nav.svelte";
-
-  import ShippingNoticeTable from "./components/ShippingNoticeTable.svelte";
+  import { Pagination } from "carbon-components-svelte";
   import { search } from "../store";
-  import { apiConfig } from "@app/store";
+  import ShippingNoticeTable from "./components/ShippingNoticeTable.svelte";
 
   const api = new ShippingNoticesApi(apiConfig);
   let notices: ShippingNoticeList[] = [];
@@ -24,20 +22,20 @@
       search,
     });
 
-    totalCount = count ?? 0;
+    totalItems = count ?? 0;
     notices = results ?? [];
   };
 
   let page = 1;
   let pageSize = 20;
-  let totalCount = 0;
+  let totalItems = 0;
   const pageSizes = [20, 50, 200];
 
   $: load(page, pageSize, $search);
 </script>
 
 <Nav>
-  <Pagination {...{ totalCount, pageSizes }} bind:page bind:pageSize />
+  <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
   <MediaQuery query="(max-width: 480px)" let:matches>
     <ShippingNoticeTable isMobile={matches} {notices} />
   </MediaQuery>

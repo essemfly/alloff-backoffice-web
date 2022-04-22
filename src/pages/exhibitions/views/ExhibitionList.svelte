@@ -1,10 +1,14 @@
 <script lang="ts">
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
+  import Nav from "@app/components/Nav.svelte";
+  import Pagination from "@app/components/Pagination.svelte";
+  import { formatQueryString } from "@app/helpers/query-string";
   import {
     Exhibition,
     ExhibitionTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";
-  import { debounce } from "lodash";
-  import { navigate, useLocation } from "svelte-navigator";
   import {
     Button,
     Checkbox,
@@ -16,18 +20,12 @@
     ToolbarContent,
     ToolbarSearch,
   } from "carbon-components-svelte";
-
-  import Nav from "@app/components/Nav.svelte";
-  import { formatQueryString } from "@app/helpers/query-string";
-  import Pagination from "@app/components/Pagination.svelte";
-  import DataTable, {
-    DataTableData,
-  } from "@app/components/DataTable/DataTable.svelte";
-
-  import { exhibitionColumns } from "./components/exhibitionColumns";
+  import { debounce } from "lodash";
+  import { onMount } from "svelte";
+  import { navigate, useLocation } from "svelte-navigator";
   import { getExhibitionTypeLabel } from "../commands/helpers";
   import { SearchQueryParam, useExhibitionService } from "../ExhibitionService";
-  import { onMount } from "svelte";
+  import { exhibitionColumns } from "./components/exhibitionColumns";
 
   export let type: ExhibitionTypeEnum = ExhibitionTypeEnum.Normal;
 
@@ -164,12 +162,7 @@
       </ToolbarContent>
     </Toolbar>
   </DataTable>
-  <Pagination
-    limit={searchFilter.limit}
-    offset={searchFilter.offset}
-    totalCount={searchFilter.totalCount}
-    on:change={handlePageChange}
-  />
+  <Pagination {...searchFilter} on:change={handlePageChange} />
 </Nav>
 
 <style>

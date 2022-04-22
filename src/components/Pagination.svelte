@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import { Pagination } from "carbon-components-svelte";
+  import { createEventDispatcher } from "svelte";
 
   export let offset = 0;
   export let limit = 50;
-  export let totalCount = 0;
+  export let totalItems = 0;
 
   const pageSizes = [50, 100, 200];
 
@@ -22,7 +22,6 @@
 
 <Pagination
   pageSize={limit}
-  {pageSizes}
-  totalItems={totalCount}
+  {...{ pageSizes, totalItems }}
   on:update={handlePageChange}
 />

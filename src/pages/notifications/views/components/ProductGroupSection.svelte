@@ -1,33 +1,32 @@
 <script lang="ts">
-  import debounce from "lodash/debounce";
-  import { toast } from "@zerodevx/svelte-toast";
-  import { createEventDispatcher, onMount } from "svelte";
-  import {
-    Row,
-    Column,
-    Button,
-    StructuredList,
-    StructuredListBody,
-    StructuredListRow,
-    StructuredListCell,
-    StructuredListHead,
-    Search,
-    InlineLoading,
-  } from "carbon-components-svelte";
-  import Launch16 from "carbon-icons-svelte/lib/Launch16";
   import { apiConfig } from "@app/store";
-
   import {
+    GroupTypeE67Enum as GroupTypeEnum,
     ProductGroup,
     ProductGroupsApi,
-    GroupTypeE67Enum as GroupTypeEnum,
     ProductGroupsApiProductGroupsListRequest,
   } from "@lessbutter/alloff-backoffice-api";
+  import { toast } from "@zerodevx/svelte-toast";
+  import {
+    Button,
+    Column,
+    InlineLoading,
+    Row,
+    Search,
+    StructuredList,
+    StructuredListBody,
+    StructuredListCell,
+    StructuredListHead,
+    StructuredListRow,
+  } from "carbon-components-svelte";
+  import Launch16 from "carbon-icons-svelte/lib/Launch16";
+  import debounce from "lodash/debounce";
+  import { createEventDispatcher, onMount } from "svelte";
 
   type SearchQueryParam = ProductGroupsApiProductGroupsListRequest & {
     offset: number;
     limit: number;
-    totalCount: number;
+    totalItems: number;
   };
 
   export let value: string = "";
@@ -37,7 +36,7 @@
     offset: 0,
     limit: 10,
     searchQuery: "",
-    totalCount: 0,
+    totalItems: 0,
   };
 
   let isLoading = false;
@@ -62,7 +61,7 @@
     const { scrollTop, scrollHeight, clientHeight } = scrollableList;
     const nextOffset = params.offset + params.limit;
     if (
-      nextOffset <= params.totalCount &&
+      nextOffset <= params.totalItems &&
       (scrollTop + clientHeight) / scrollHeight > 0.7
     ) {
       handleSearch(params.offset + params.limit);
@@ -108,7 +107,7 @@
         offset: res.data.offset,
         limit: res.data.limit,
         searchQuery: searchQuery ?? "",
-        totalCount: res.data.total_counts,
+        totalItems: res.data.total_counts,
       };
 
       if (offset > 0) {

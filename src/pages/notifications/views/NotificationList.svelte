@@ -1,30 +1,28 @@
 <script lang="ts">
-  import { toast } from "@zerodevx/svelte-toast";
-  import { onMount } from "svelte";
-  import { navigate, useLocation } from "svelte-navigator";
-  import { Button, InlineLoading } from "carbon-components-svelte";
-  import AddComment16 from "carbon-icons-svelte/lib/AddComment16";
-
-  import { apiConfig } from "@app/store";
-  import {
-    Noti,
-    NotificationsApi,
-    NotificationsApiNotificationsListRequest as SearchQueryParam,
-  } from "@lessbutter/alloff-backoffice-api";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
   import {
     formatQueryString,
     parseQueryString,
   } from "@app/helpers/query-string";
-
+  import { apiConfig } from "@app/store";
+  import {
+    Noti,
+    NotificationsApi,
+    NotificationsApiNotificationsListRequest as SearchQueryParam,
+  } from "@lessbutter/alloff-backoffice-api";
+  import { toast } from "@zerodevx/svelte-toast";
+  import { Button, InlineLoading } from "carbon-components-svelte";
+  import AddComment16 from "carbon-icons-svelte/lib/AddComment16";
+  import { onMount } from "svelte";
+  import { navigate, useLocation } from "svelte-navigator";
   import NotificationDataTable from "./components/NotificationDataTable.svelte";
 
   let notifications: Array<Noti & { id: string }> = [];
   let offset = 0;
   let limit = 50;
   let searchQuery = "";
-  let totalCount = 0;
+  let totalItems = 0;
   let isLoading = false;
 
   const notificationApi = new NotificationsApi(apiConfig);
@@ -39,6 +37,7 @@
         limit: params.limit ?? 50,
       });
       const { data } = res;
+      console.log({ data });
 
       notifications = data.notis.map((x: Noti) => ({
         ...x,
@@ -49,7 +48,7 @@
       offset = data.offset;
       // limit = data.limit;
       limit = data.limit > 0 ? data.limit : 50;
-      totalCount = data.notis.length; // todo: fix
+      totalItems = 1000000; // todo: fix
     } finally {
       isLoading = false;
     }
@@ -103,7 +102,7 @@
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
 
-  <Pagination {limit} {offset} {totalCount} on:change={handlePageChange} />
+  <Pagination {limit} {offset} {totalItems} on:change={handlePageChange} />
   {#if isLoading}
     <InlineLoading label="Loading..." />
   {:else}

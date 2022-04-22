@@ -1,30 +1,28 @@
 <script lang="ts">
-  import { navigate, useLocation } from "svelte-navigator";
-  import { Button, Column, Grid, Row } from "carbon-components-svelte";
-
+  import DataTable, {
+    DataTableData,
+  } from "@app/components/DataTable/DataTable.svelte";
+  import Nav from "@app/components/Nav.svelte";
+  import Pagination from "@app/components/Pagination.svelte";
+  import {
+    formatQueryString,
+    parseQueryString,
+  } from "@app/helpers/query-string";
+  import { apiConfig } from "@app/store";
   import {
     TopBanner,
     TopBannersApi,
     TopBannersApiTopBannersListRequest as SearchQueryParam,
   } from "@lessbutter/alloff-backoffice-api";
-  import Nav from "@app/components/Nav.svelte";
-  import Pagination from "@app/components/Pagination.svelte";
-  import DataTable, {
-    DataTableData,
-  } from "@app/components/DataTable/DataTable.svelte";
-  import {
-    formatQueryString,
-    parseQueryString,
-  } from "@app/helpers/query-string";
-
-  import { bannerColumns } from "./components/bannerColumns";
+  import { Button, Column, Grid, Row } from "carbon-components-svelte";
   import { debounce } from "lodash";
-  import { apiConfig } from "@app/store";
+  import { navigate, useLocation } from "svelte-navigator";
+  import { bannerColumns } from "./components/bannerColumns";
 
   let banners: DataTableData<TopBanner>[] = [];
   let searchFilter: SearchQueryParam = { offset: 0, limit: 50 };
   let isLoading = false;
-  let totalCount = 0;
+  let totalItems = 0;
 
   const bannerApi = new TopBannersApi(apiConfig);
   const location = useLocation<SearchQueryParam>();
@@ -44,7 +42,7 @@
         offset: res.data.offset,
         limit: res.data.limit,
       };
-      totalCount = res.data.total_counts;
+      totalItems = res.data.total_counts;
     } finally {
       isLoading = false;
     }
@@ -116,7 +114,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          {totalCount}
+          {totalItems}
           on:change={handlePageChange}
         />
       </Column>
@@ -134,7 +132,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          {totalCount}
+          {totalItems}
           on:change={handlePageChange}
         />
       </Column>

@@ -1,38 +1,37 @@
 <script lang="ts">
-  import { debounce } from "lodash";
-  import { createEventDispatcher, onMount } from "svelte";
-  import {
-    Row,
-    Column,
-    Button,
-    StructuredList,
-    StructuredListRow,
-    StructuredListCell,
-    StructuredListBody,
-    StructuredListHead,
-    Search,
-    StructuredListInput,
-    InlineLoading,
-  } from "carbon-components-svelte";
-  import Launch16 from "carbon-icons-svelte/lib/Launch16";
-
-  import {
-    ProductsApi,
-    Product,
-    ProductsApiProductsListRequest,
-  } from "@lessbutter/alloff-backoffice-api";
   import { AutocompleteItem } from "@app/components/autocomplete";
   import BrandSelect from "@app/components/BrandSelect.svelte";
   import CategorySelect from "@app/components/CategorySelect.svelte";
-  import { toast } from "@zerodevx/svelte-toast";
   import { apiConfig } from "@app/store";
+  import {
+    Product,
+    ProductsApi,
+    ProductsApiProductsListRequest,
+  } from "@lessbutter/alloff-backoffice-api";
+  import { toast } from "@zerodevx/svelte-toast";
+  import {
+    Button,
+    Column,
+    InlineLoading,
+    Row,
+    Search,
+    StructuredList,
+    StructuredListBody,
+    StructuredListCell,
+    StructuredListHead,
+    StructuredListInput,
+    StructuredListRow,
+  } from "carbon-components-svelte";
+  import Launch16 from "carbon-icons-svelte/lib/Launch16";
+  import { debounce } from "lodash";
+  import { createEventDispatcher, onMount } from "svelte";
 
   const productApi = new ProductsApi(apiConfig);
 
   type SearchQueryParam = ProductsApiProductsListRequest & {
     offset: number;
     limit: number;
-    totalCount: number;
+    totalItems: number;
   };
 
   export let value: string[] = [];
@@ -44,7 +43,7 @@
     searchQuery: "",
     brandId: "",
     alloffCategoryId: "",
-    totalCount: 0,
+    totalItems: 0,
   };
 
   let isLoading = false;
@@ -71,7 +70,7 @@
     const { scrollTop, scrollHeight, clientHeight } = scrollableList;
     const nextOffset = params.offset + params.limit;
     if (
-      nextOffset <= params.totalCount &&
+      nextOffset <= params.totalItems &&
       (scrollTop + clientHeight) / scrollHeight > 0.7
     ) {
       handleSearch(params.offset + params.limit);
@@ -133,7 +132,7 @@
         searchQuery: res.data.list_query.search_query ?? "",
         brandId: res.data.list_query.brand_id ?? "",
         alloffCategoryId: res.data.list_query.alloff_category_id ?? "",
-        totalCount: res.data.total_counts,
+        totalItems: res.data.total_counts,
       };
 
       if (offset > 0) {
@@ -216,7 +215,7 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {#if params.totalCount === 0 || filteredProduct.length === 0}
+          {#if params.totalItems === 0 || filteredProduct.length === 0}
             <StructuredListRow>
               <StructuredListCell>
                 검색조건에 맞는 상품을 찾지 못했습니다

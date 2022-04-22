@@ -1,22 +1,22 @@
 import {
-  Product as ProductDto,
-  ProductsApiProductsListRequest as ListRequest,
-  ProductsApi,
   PatchedProductRequest,
+  Product as ProductDto,
+  ProductsApi,
+  ProductsApiProductsListRequest as ListRequest,
 } from "@lessbutter/alloff-backoffice-api";
 
-import Service from "@app/lib/Service";
 import { convertToSnakeCase } from "@app/helpers/change-case";
+import Service from "@app/lib/Service";
 
-import { FormSchema } from "./models/schema";
 import { getDeeplinkSettings } from "@app/core/configs";
+import { FormSchema } from "./models/schema";
 
 export type Product = ProductDto & { id: string };
 
 export type SearchQueryParam = Omit<ListRequest, "isClassifiedDone"> & {
   offset: number;
   limit: number;
-  totalCount: number;
+  totalItems: number;
   isClassifiedDone: string | undefined;
 };
 
@@ -30,7 +30,7 @@ export default class ProductService extends Service<Product> {
     alloffCategoryId: "",
     isClassifiedDone: undefined,
     searchQuery: "",
-    totalCount: 0,
+    totalItems: 0,
   };
 
   constructor() {
@@ -62,7 +62,7 @@ export default class ProductService extends Service<Product> {
         isClassifiedDone:
           res.data.list_query.is_classified_done?.toString() ?? undefined,
         searchQuery: res.data.list_query.search_query,
-        totalCount: res.data.total_counts,
+        totalItems: res.data.total_counts,
       };
     } catch (e) {
       this.catchError(e);

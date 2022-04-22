@@ -1,28 +1,28 @@
 import {
   Exhibition as ExhibitionDto,
-  ExhibitionsApiExhibitionsListRequest as ListRequest,
   ExhibitionsApi,
+  ExhibitionsApiExhibitionsListRequest as ListRequest,
   ExhibitionTypeEnum,
   PatchedExhibitionRequest,
 } from "@lessbutter/alloff-backoffice-api";
 
-import Service from "@app/lib/Service";
 import { convertToSnakeCase } from "@app/helpers/change-case";
+import Service from "@app/lib/Service";
 
-import { FormSchema } from "./models/schema";
-import { getExhibitionTypeByIndex } from "./commands/helpers";
+import { FormSchema as ProductGroupFormSchema } from "../product-groups/models/schema";
 import ProductGroupService, {
   ProductGroup,
   useProductGroupService,
 } from "../product-groups/ProductGroupService";
-import { FormSchema as ProductGroupFormSchema } from "../product-groups/models/schema";
+import { getExhibitionTypeByIndex } from "./commands/helpers";
+import { FormSchema } from "./models/schema";
 
 export type Exhibition = ExhibitionDto & { id: string };
 
 export type SearchQueryParam = ListRequest & {
   offset: number;
   limit: number;
-  totalCount: number;
+  totalItems: number;
 };
 
 export default class ExhibitionService extends Service<Exhibition> {
@@ -35,7 +35,7 @@ export default class ExhibitionService extends Service<Exhibition> {
     exhibitionType: ExhibitionTypeEnum.Normal,
     isLive: true,
     query: "",
-    totalCount: 0,
+    totalItems: 0,
   };
 
   constructor(productGroupService: ProductGroupService) {
@@ -68,7 +68,7 @@ export default class ExhibitionService extends Service<Exhibition> {
         ),
         isLive: res.data.is_live,
         query: res.data.query,
-        totalCount: res.data.total_counts,
+        totalItems: res.data.total_counts,
       };
     } catch (e) {
       this.catchError(e);

@@ -1,7 +1,9 @@
 <script lang="ts">
+  import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
+  import Nav from "@app/components/Nav.svelte";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
+  import { formatQueryString } from "@app/helpers/query-string";
   import { ProductInquiry } from "@lessbutter/alloff-backoffice-api";
-  import { onMount } from "svelte";
-  import { navigate, useLocation } from "svelte-navigator";
   import {
     Button,
     Column,
@@ -12,19 +14,13 @@
     Row,
     Search,
   } from "carbon-components-svelte";
-
-  import Nav from "@app/components/Nav.svelte";
-  import CheckboxGroup from "@app/components/CheckboxGroup.svelte";
-  import MediaQuery from "@app/helpers/MediaQuery.svelte";
-  import { formatQueryString } from "@app/helpers/query-string";
-  import DataTable from "@app/components/DataTable/DataTable.svelte";
-
-  import { productInquiryColumns } from "./components/productInquiryColumns";
-  import ProductInquiryTable from "./components/ProductInquiryTable.svelte";
+  import { onMount } from "svelte";
+  import { navigate, useLocation } from "svelte-navigator";
   import {
     SearchQueryParam,
     useProductInquiryService,
   } from "../ProductInquiryService";
+  import ProductInquiryTable from "./components/ProductInquiryTable.svelte";
 
   const productInquiryService = useProductInquiryService();
   const location = useLocation<SearchQueryParam>();
@@ -121,7 +117,7 @@
   <!-- Need expandable improvement -->
   <!-- <DataTable data={inquiries} columns={productInquiryColumns} {isMobile} /> -->
   <Pagination
-    totalItems={searchFilter.totalCount}
+    totalItems={searchFilter.totalItems}
     bind:page={searchFilter.page}
     bind:pageSize={searchFilter.size}
   />

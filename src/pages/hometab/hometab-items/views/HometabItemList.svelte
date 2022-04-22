@@ -1,22 +1,20 @@
 <script lang="ts">
-  import { HomeTab } from "@lessbutter/alloff-backoffice-api";
-  import { debounce } from "lodash";
-  import { onMount } from "svelte";
-  import { navigate, useLocation } from "svelte-navigator";
-  import { Button, Column, Grid, Row } from "carbon-components-svelte";
-
-  import Nav from "@app/components/Nav.svelte";
-  import Pagination from "@app/components/Pagination.svelte";
   import DataTable, {
     DataTableData,
   } from "@app/components/DataTable/DataTable.svelte";
+  import Nav from "@app/components/Nav.svelte";
+  import Pagination from "@app/components/Pagination.svelte";
   import { formatQueryString } from "@app/helpers/query-string";
-
-  import { hometabColumns } from "./components/hometabColumns";
+  import { HomeTab } from "@lessbutter/alloff-backoffice-api";
+  import { Button, Column, Grid, Row } from "carbon-components-svelte";
+  import { debounce } from "lodash";
+  import { onMount } from "svelte";
+  import { navigate, useLocation } from "svelte-navigator";
   import {
     SearchQueryParam,
     useHometabItemService,
   } from "../HometabItemService";
+  import { hometabColumns } from "./components/hometabColumns";
 
   const hometabItemService = useHometabItemService();
 
@@ -112,7 +110,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          totalCount={searchFilter.totalCount}
+          totalItems={searchFilter.totalItems}
           on:change={handlePageChange}
         />
       </Column>
@@ -131,7 +129,7 @@
         <Pagination
           limit={searchFilter.limit}
           offset={searchFilter.offset}
-          totalCount={searchFilter.totalCount}
+          totalItems={searchFilter.totalItems}
           on:change={handlePageChange}
         />
       </Column>

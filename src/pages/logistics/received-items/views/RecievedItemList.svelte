@@ -1,17 +1,15 @@
 <script lang="ts">
-  import { Pagination } from "carbon-components-svelte";
-
+  import Nav from "@app/components/Nav.svelte";
+  import MediaQuery from "@app/helpers/MediaQuery.svelte";
+  import { apiConfig } from "@app/store";
   import {
     OrderItemsApi,
     ReceivedItem,
     ReceivedItemsApi,
   } from "@lessbutter/alloff-backoffice-api";
-  import MediaQuery from "@app/helpers/MediaQuery.svelte";
-  import Nav from "@app/components/Nav.svelte";
-
-  import ReceivedItemTable from "./components/ReceivedItemTable.svelte";
+  import { Pagination } from "carbon-components-svelte";
   import { search } from "../store";
-  import { apiConfig } from "@app/store";
+  import ReceivedItemTable from "./components/ReceivedItemTable.svelte";
 
   const api = new ReceivedItemsApi(apiConfig);
   let ris: ReceivedItem[] = [];
@@ -21,7 +19,7 @@
       data: { count, results },
     } = await api.receivedItemsList({ page: p, search, size });
 
-    totalCount = count ?? 0;
+    totalItems = count ?? 0;
     ris = results ?? [];
   };
 
@@ -49,14 +47,14 @@
 
   let page = 1;
   let pageSize = 20;
-  let totalCount = 0;
+  let totalItems = 0;
   const pageSizes = [20, 50, 100];
 
   $: load(page, pageSize, $search.trim() === "" ? undefined : $search);
 </script>
 
 <Nav>
-  <Pagination {...{ totalCount, pageSizes }} bind:page bind:pageSize />
+  <Pagination {...{ totalItems, pageSizes }} bind:page bind:pageSize />
   <MediaQuery query="(max-width: 480px)" let:matches>
     <ReceivedItemTable
       isMobile={matches}

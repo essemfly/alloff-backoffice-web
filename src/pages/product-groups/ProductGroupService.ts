@@ -1,12 +1,12 @@
 import {
-  ProductGroup as ProductGroupDto,
-  ProductGroupsApiProductGroupsListRequest as ListRequest,
-  ProductGroupsApi,
   PatchedProductGroupRequest,
+  ProductGroup as ProductGroupDto,
+  ProductGroupsApi,
+  ProductGroupsApiProductGroupsListRequest as ListRequest,
 } from "@lessbutter/alloff-backoffice-api";
 
-import Service from "@app/lib/Service";
 import { convertToSnakeCase } from "@app/helpers/change-case";
+import Service from "@app/lib/Service";
 
 import { FormSchema } from "./models/schema";
 
@@ -15,7 +15,7 @@ export type ProductGroup = ProductGroupDto & { id: string };
 export type SearchQueryParam = ListRequest & {
   offset: number;
   limit: number;
-  totalCount: number;
+  totalItems: number;
 };
 
 export default class ProductGroupService extends Service<ProductGroup> {
@@ -25,7 +25,7 @@ export default class ProductGroupService extends Service<ProductGroup> {
     offset: 0,
     limit: 50,
     searchQuery: "",
-    totalCount: 0,
+    totalItems: 0,
   };
 
   constructor() {
@@ -53,7 +53,7 @@ export default class ProductGroupService extends Service<ProductGroup> {
         offset: res.data.offset,
         limit: res.data.limit,
         searchQuery: params.searchQuery ?? "",
-        totalCount: res.data.total_counts,
+        totalItems: res.data.total_counts,
       };
     } catch (e) {
       this.catchError(e);
