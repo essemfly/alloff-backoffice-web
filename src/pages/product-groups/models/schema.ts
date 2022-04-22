@@ -15,7 +15,9 @@ export const schema = object({
   imageUrl: string()
     .label("이미지")
     .when("groupType", {
-      is: (groupType: GroupTypeEnum) => groupType === GroupTypeEnum.Timedeal,
+      is: (groupType: GroupTypeEnum) =>
+        groupType === GroupTypeEnum.Timedeal ||
+        groupType === GroupTypeEnum.BrandTimedeal,
       then: (schema: StringSchema) => schema.required(),
     }),
   startTime: string()

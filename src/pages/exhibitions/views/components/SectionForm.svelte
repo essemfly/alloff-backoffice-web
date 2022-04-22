@@ -20,16 +20,22 @@
     Product,
     ProductInGroup,
   } from "@lessbutter/alloff-backoffice-api";
-  import { BrandSelectField, TextField } from "@app/components/form";
+  import {
+    BrandSelectField,
+    ImageUploadField,
+    TextField,
+  } from "@app/components/form";
   import ProductSearchSection from "@app/components/ProductSearchSection.svelte";
 
   import { sectionSchema, sectionFormStore } from "../../models/schema";
+  import { AutocompleteItem } from "@app/components/autocomplete";
 
   export let type: GroupTypeEnum = GroupTypeEnum.Exhibition;
   export let productInGroups: ProductInGroup[] = [];
   export let isAdding: boolean = false;
 
   let selectedProductInGroup: ProductInGroup[] = [];
+  let selectedBrandKeyname: string;
 
   onMount(() => {
     sectionFormStore.initialize();
@@ -44,6 +50,10 @@
     if (isAdding) {
       productInGroups = selectedProductInGroup;
     }
+  };
+
+  const handleBrandSelect = (event: CustomEvent<AutocompleteItem>) => {
+    sectionFormStore.update({ brandId: event.detail.key });
   };
 
   const handleProductDeselect = (index: number) => () => {
@@ -69,10 +79,19 @@
 
 {#if type === GroupTypeEnum.BrandTimedeal}
   <FormGroup>
+    <ImageUploadField
+      schema={sectionSchema.fields.imageUrl.label("메인 이미지").required()}
+      bind:value={$sectionFormStore.fields.imageUrl}
+      errorText={$sectionFormStore.errors.imageUrl}
+    />
+  </FormGroup>
+
+  <FormGroup>
     <BrandSelectField
       schema={sectionSchema.fields.brandId.required()}
-      bind:value={$sectionFormStore.fields.brandId}
+      bind:value={selectedBrandKeyname}
       errorText={$sectionFormStore.errors.brandId}
+      on:change={handleBrandSelect}
     />
   </FormGroup>
 {/if}
