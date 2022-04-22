@@ -50,6 +50,7 @@
       event.preventDefault();
       const isValid = await formStore.validate($formStore.fields);
       if (!isValid) {
+        console.log($formStore.errors);
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
