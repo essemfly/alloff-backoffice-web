@@ -6,52 +6,98 @@
 </script>
 
 <script lang="ts">
-  import { uniq } from "lodash";
-  import { createEventDispatcher } from "svelte";
   import { Checkbox, FormGroup } from "carbon-components-svelte";
-
+  import { isEqual } from "lodash";
+  import { createEventDispatcher, onMount } from "svelte";
+  export let allowEmpty = false;
   export let options: Option[] = [];
   export let values: string[] = [];
   export let label = "";
   export let allLabelText = "전체";
   export let alignment: "horizontal" | "vertical" = "vertical";
-  let allChecked = false;
 
-  const dispatch = createEventDispatcher();
+  let allCheckboxChecked = false;
+  let checkboxMap: Record<string, boolean> = {};
 
-  const handleAllCheck = (event: CustomEvent<boolean>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const checked = event.detail;
-    if (checked) {
-      values = options.map(({ value }) => value);
-    } else {
-      values = [];
+  class EventStream {
+    private _dispatch = createEventDispatcher();
+    private _values: string[] = [];
+    constructor(private _lastMap: Record<string, boolean>) {}
+
+    react(_map: Record<string, boolean>, _allCheckboxChecked: boolean) {
+      const changeIsMap = !isEqual(_map, this._lastMap);
+      const result = { map: _map, allChecked: _allCheckboxChecked };
+
+      const currentIsAllChecked = EventStream.calculateAllChecked(
+        EventStream.makeCandidate(_map),
+      );
+
+      if (changeIsMap) {
+        result.allChecked = currentIsAllChecked;
+        if (currentIsAllChecked) {
+          result.map = EventStream.getCheckAllMap();
+        }
+      } else {
+        if (allowEmpty) {
+          result.map = (
+            currentIsAllChecked
+              ? EventStream.getUncheckAllMap
+              : EventStream.getCheckAllMap
+          )();
+        } else {
+          result.allChecked = true;
+          result.map = EventStream.getCheckAllMap();
+        }
+      }
+
+      this._lastMap = { ...result.map };
+      this._updateValues(EventStream.makeCandidate(result.map));
+      return result;
     }
-    values = uniq(values);
-  };
 
-  const handleCheck = () => {
-    dispatch("change", values);
-  };
+    static makeCandidate = (_map: Record<string, boolean>) =>
+      Object.entries(_map)
+        .filter(([_, value]) => value)
+        .map(([key, _]) => key);
 
-  $: allChecked = values.length === options.length;
+    static calculateAllChecked = (candidate: string[]) => {
+      const lengthEquals = candidate.length === options.length;
+      if (allowEmpty) {
+        return lengthEquals;
+      }
+      return lengthEquals || candidate.length === 0;
+    };
+
+    static getCheckAllMap = () =>
+      Object.fromEntries(options.map(({ value }) => [value, true]));
+
+    static getUncheckAllMap = () =>
+      Object.fromEntries(options.map(({ value }) => [value, false]));
+
+    private _updateValues(values: string[]) {
+      if (isEqual(values, this._values)) return;
+      this._values = values;
+      this._dispatch("change", this._values);
+    }
+  }
+
+  const eventStream = new EventStream(checkboxMap);
+  onMount(() => {
+    eventStream.react(checkboxMap, true); // Select all when mounted
+  });
+
+  $: {
+    const result = eventStream.react(checkboxMap, allCheckboxChecked);
+    checkboxMap = { ...result.map };
+    allCheckboxChecked = result.allChecked;
+  }
 </script>
 
 <div class={`checkbox-group-wrapper checkbox-group-${alignment}`}>
   <FormGroup legendText={label}>
-    <Checkbox
-      labelText={allLabelText}
-      on:check={handleAllCheck}
-      checked={allChecked}
-    />
+    <Checkbox labelText={allLabelText} bind:checked={allCheckboxChecked} />
     {#each options as { label, value } (value)}
-      <Checkbox
-        bind:group={values}
-        labelText={label}
-        {value}
-        on:check={handleCheck}
-      />
+      <Checkbox labelText={label} {value} bind:checked={checkboxMap[value]} />
     {/each}
   </FormGroup>
 </div>
