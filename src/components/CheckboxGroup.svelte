@@ -74,9 +74,10 @@
     static getUncheckAllMap = () =>
       Object.fromEntries(options.map(({ value }) => [value, false]));
 
-    private _updateValues(values: string[]) {
-      if (isEqual(values, this._values)) return;
-      this._values = values;
+    private _updateValues(_values: string[]) {
+      if (isEqual(_values, this._values)) return;
+      this._values = _values;
+      values = _values;
       this._dispatch("change", this._values);
     }
   }
