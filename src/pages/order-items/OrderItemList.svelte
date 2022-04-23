@@ -12,6 +12,7 @@
   } from "@lessbutter/alloff-backoffice-api";
   import { Button, Pagination } from "carbon-components-svelte";
   import TableShortcut16 from "carbon-icons-svelte/lib/TableShortcut16";
+  import { onMount } from "svelte";
   import { useLocation } from "svelte-navigator";
   import ExcelExportModal from "./components/ExcelExportModal.svelte";
   import OrderItemsTable from "./components/OrderItemsTable.svelte";
@@ -31,6 +32,8 @@
   let exportModalOpen = false;
   const pageSizes = [20, 50, 100];
   const api = new OrderItemsApi(apiConfig);
+
+  let isMounted = false;
   const load = async (
     p: number,
     size: number,
@@ -44,6 +47,7 @@
       const res = await api.orderItemsList({ alloffOrderId });
       items = res.data.results;
     } else {
+      if (!isMounted) return;
       const {
         data: { count, results },
       } = await api.orderItemsList({
@@ -52,19 +56,20 @@
         size,
         statuses,
       });
-      console.log(
-        await api.orderItemsList({
-          page: p,
-          search,
-          size,
-          statuses,
-        }),
-      );
-
       totalItems = count ?? 0;
       items = results ?? [];
     }
   };
+
+  const checkboxOptions = ORDER_ITEM_ALL_STATUSES.map((status) => ({
+    label: getStatusLabel(status),
+    value: status,
+  }));
+
+  onMount(() => {
+    // Prevent calling load() twice;
+    isMounted = true;
+  });
 
   $: load(
     page,
@@ -72,11 +77,6 @@
     statuses,
     $search.trim() === "" ? undefined : $search,
   );
-
-  const checkboxOptions = ORDER_ITEM_ALL_STATUSES.map((status) => ({
-    label: getStatusLabel(status),
-    value: status,
-  }));
 </script>
 
 <Nav title="주문 목록">
