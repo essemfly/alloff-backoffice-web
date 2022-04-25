@@ -112,7 +112,7 @@ export default class ProductGroupService extends Service<ProductGroup> {
 
   public async pushProducts(id: string, data: any) {
     try {
-      const res = await this.productGroupApi.productGroupsUpdateProductsCreate({
+      const res = await this.productGroupApi.productGroupsPushProductsCreate({
         id: id,
         productsInPgRequest: convertToSnakeCase({
           productGroupId: id,
