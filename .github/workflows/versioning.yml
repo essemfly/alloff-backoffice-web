@@ -5,10 +5,11 @@ on:
     branches:
       - dev
       - prod
-    types: [ labeled, opened, edited ]
+    types: [ closed ]
 
 jobs:
   versioning:
+    if: ${{ github.event.pull_request.merged }}
     name: Bump version
     runs-on: ubuntu-latest
     steps:
