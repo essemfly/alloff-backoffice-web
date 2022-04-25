@@ -9,7 +9,7 @@ on:
 
 jobs:
   versioning:
-    if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged && contains(github.event.pull_request.labels.*.name, 'DEPLOY') }}
     name: Bump version
     runs-on: ubuntu-latest
     steps:

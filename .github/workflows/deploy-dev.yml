@@ -1,10 +1,14 @@
 name: Deploy to Dev Server
 
 on:
-  push:
-    branches:
-      - staging # staging 브랜치에서 push 이벤트가 일어났을 때 실행 deprecated
-      - dev
+  workflow_run:
+    workflows:
+      ["Versioning"]
+    types: [completed]
+  # push:
+  #   branches:
+  #     - staging # staging 브랜치에서 push 이벤트가 일어났을 때 실행 deprecated
+  #     - dev
 
 jobs:
   build:
