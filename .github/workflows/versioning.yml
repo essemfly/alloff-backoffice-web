@@ -23,14 +23,17 @@ jobs:
         node-version: 16
 
     - name: bump patch version
+      id: versioning_patch
       if: contains(github.event.pull_request.labels.*.name, 'patch')
       run: npm version patch -m "[RELEASE] %s"
 
     - name: bump minor version
+      id: versioning_minor
       if: contains(github.event.pull_request.labels.*.name, 'minor')
       run: npm version minor -m "[RELEASE] %s"
 
     - name: bump major version
+      id: versioning_major
       if: contains(github.event.pull_request.labels.*.name, 'major')
       run: npm version major -m "[RELEASE] %s"
 
