@@ -10,7 +10,7 @@ import Service from "@app/lib/Service";
 export type ProductInquiry = ProductInquiryDto & { id: string };
 
 export type SearchQueryParam = Omit<ListRequest, "isPending"> & {
-  totalItems: number;
+  totalCounts: number;
   isPending?: string | undefined;
 };
 
@@ -23,7 +23,7 @@ export default class ProductInquiryService extends Service<ProductInquiry> {
     dateFrom: DateTime.now().minus({ days: 7 }).toISO().split("T")[0],
     dateTo: DateTime.now().toISO().split("T")[0],
     search: "",
-    totalItems: 0,
+    totalCounts: 0,
     page: 1,
     size: 20,
     isPending: undefined,
@@ -62,7 +62,7 @@ export default class ProductInquiryService extends Service<ProductInquiry> {
       });
       this.searchFilter = {
         ...params,
-        totalItems: res.data.count ?? 0,
+        totalCounts: res.data.count ?? 0,
       };
       this._update(res.data.results);
     } catch (e) {

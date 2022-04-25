@@ -4,7 +4,7 @@
 
   export let offset = 0;
   export let limit = 50;
-  export let totalItems = 0;
+  export let totalCounts = 0;
 
   const pageSizes = [50, 100, 200];
 
@@ -22,6 +22,6 @@
 
 <Pagination
   pageSize={limit}
-  {...{ pageSizes, totalItems }}
+  {...{ pageSizes, totalItems: totalCounts }}
   on:update={handlePageChange}
 />

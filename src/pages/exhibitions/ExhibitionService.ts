@@ -22,7 +22,7 @@ export type Exhibition = ExhibitionDto & { id: string };
 export type SearchQueryParam = ListRequest & {
   offset: number;
   limit: number;
-  totalItems: number;
+  totalCounts: number;
 };
 
 export default class ExhibitionService extends Service<Exhibition> {
@@ -35,7 +35,7 @@ export default class ExhibitionService extends Service<Exhibition> {
     exhibitionType: ExhibitionTypeEnum.Normal,
     isLive: true,
     query: "",
-    totalItems: 0,
+    totalCounts: 0,
   };
 
   constructor(productGroupService: ProductGroupService) {
@@ -68,7 +68,7 @@ export default class ExhibitionService extends Service<Exhibition> {
         ),
         isLive: res.data.is_live,
         query: res.data.query,
-        totalItems: res.data.total_counts,
+        totalCounts: res.data.total_counts,
       };
     } catch (e) {
       this.catchError(e);

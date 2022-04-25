@@ -31,7 +31,7 @@
   type SearchQueryParam = ProductsApiProductsListRequest & {
     offset: number;
     limit: number;
-    totalItems: number;
+    totalCounts: number;
   };
 
   export let value: string[] = [];
@@ -43,7 +43,7 @@
     searchQuery: "",
     brandId: "",
     alloffCategoryId: "",
-    totalItems: 0,
+    totalCounts: 0,
   };
 
   let isLoading = false;
@@ -70,7 +70,7 @@
     const { scrollTop, scrollHeight, clientHeight } = scrollableList;
     const nextOffset = params.offset + params.limit;
     if (
-      nextOffset <= params.totalItems &&
+      nextOffset <= params.totalCounts &&
       (scrollTop + clientHeight) / scrollHeight > 0.7
     ) {
       handleSearch(params.offset + params.limit);
@@ -132,7 +132,7 @@
         searchQuery: res.data.list_query.search_query ?? "",
         brandId: res.data.list_query.brand_id ?? "",
         alloffCategoryId: res.data.list_query.alloff_category_id ?? "",
-        totalItems: res.data.total_counts,
+        totalCounts: res.data.total_counts,
       };
 
       if (offset > 0) {
@@ -215,7 +215,7 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {#if params.totalItems === 0 || filteredProduct.length === 0}
+          {#if params.totalCounts === 0 || filteredProduct.length === 0}
             <StructuredListRow>
               <StructuredListCell>
                 검색조건에 맞는 상품을 찾지 못했습니다

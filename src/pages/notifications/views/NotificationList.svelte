@@ -22,7 +22,7 @@
   let offset = 0;
   let limit = 50;
   let searchQuery = "";
-  let totalItems = 0;
+  let totalCounts = 0;
   let isLoading = false;
 
   const notificationApi = new NotificationsApi(apiConfig);
@@ -48,7 +48,7 @@
       offset = data.offset;
       // limit = data.limit;
       limit = data.limit > 0 ? data.limit : 50;
-      totalItems = 1000000; // todo: fix
+      totalCounts = 1000000; // todo: fix
     } finally {
       isLoading = false;
     }
@@ -102,7 +102,7 @@
     <Button icon={AddComment16} on:click={handleAddClick}>추가</Button>
   </div>
 
-  <Pagination {limit} {offset} {totalItems} on:change={handlePageChange} />
+  <Pagination {limit} {offset} {totalCounts} on:change={handlePageChange} />
   {#if isLoading}
     <InlineLoading label="Loading..." />
   {:else}

@@ -16,7 +16,7 @@ export type Product = ProductDto & { id: string };
 export type SearchQueryParam = Omit<ListRequest, "isClassifiedDone"> & {
   offset: number;
   limit: number;
-  totalItems: number;
+  totalCounts: number;
   isClassifiedDone: string | undefined;
 };
 
@@ -30,7 +30,7 @@ export default class ProductService extends Service<Product> {
     alloffCategoryId: "",
     isClassifiedDone: undefined,
     searchQuery: "",
-    totalItems: 0,
+    totalCounts: 0,
   };
 
   constructor() {
@@ -54,6 +54,7 @@ export default class ProductService extends Service<Product> {
     try {
       const res = await this.productApi.productsList(params as ListRequest);
       this._update(res.data.products);
+
       this.searchFilter = {
         offset: res.data.offset,
         limit: res.data.limit,
@@ -62,7 +63,7 @@ export default class ProductService extends Service<Product> {
         isClassifiedDone:
           res.data.list_query.is_classified_done?.toString() ?? undefined,
         searchQuery: res.data.list_query.search_query,
-        totalItems: res.data.total_counts,
+        totalCounts: res.data.total_counts,
       };
     } catch (e) {
       this.catchError(e);

@@ -15,7 +15,7 @@ export type ProductGroup = ProductGroupDto & { id: string };
 export type SearchQueryParam = ListRequest & {
   offset: number;
   limit: number;
-  totalItems: number;
+  totalCounts: number;
 };
 
 export default class ProductGroupService extends Service<ProductGroup> {
@@ -25,7 +25,7 @@ export default class ProductGroupService extends Service<ProductGroup> {
     offset: 0,
     limit: 50,
     searchQuery: "",
-    totalItems: 0,
+    totalCounts: 0,
   };
 
   constructor() {
@@ -53,7 +53,7 @@ export default class ProductGroupService extends Service<ProductGroup> {
         offset: res.data.offset,
         limit: res.data.limit,
         searchQuery: params.searchQuery ?? "",
-        totalItems: res.data.total_counts,
+        totalCounts: res.data.total_counts,
       };
     } catch (e) {
       this.catchError(e);

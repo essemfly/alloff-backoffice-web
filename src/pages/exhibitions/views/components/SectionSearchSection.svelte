@@ -26,7 +26,7 @@
   type SearchQueryParam = ProductGroupsApiProductGroupsListRequest & {
     offset: number;
     limit: number;
-    totalItems: number;
+    totalCounts: number;
   };
 
   export let type: GroupTypeEnum = GroupTypeEnum.Exhibition;
@@ -37,7 +37,7 @@
     offset: 0,
     limit: 10,
     searchQuery: "",
-    totalItems: 0,
+    totalCounts: 0,
   };
 
   let isLoading = false;
@@ -62,7 +62,7 @@
     const { scrollTop, scrollHeight, clientHeight } = scrollableList;
     const nextOffset = params.offset + params.limit;
     if (
-      nextOffset <= params.totalItems &&
+      nextOffset <= params.totalCounts &&
       (scrollTop + clientHeight) / scrollHeight > 0.7
     ) {
       handleSearch(params.offset + params.limit);
@@ -108,7 +108,7 @@
         offset: res.data.offset,
         limit: res.data.limit,
         searchQuery: searchQuery ?? "",
-        totalItems: res.data.total_counts,
+        totalCounts: res.data.total_counts,
       };
 
       if (offset > 0) {
@@ -155,7 +155,7 @@
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {#if params.totalItems === 0 || filteredSections.length === 0}
+          {#if params.totalCounts === 0 || filteredSections.length === 0}
             <StructuredListRow>
               <StructuredListCell>
                 검색조건에 맞는 섹션을 찾지 못했습니다
