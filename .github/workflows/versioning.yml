@@ -1,0 +1,41 @@
+name: Versioning
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - prod
+    types: [ labeled, opened, edited ]
+
+jobs:
+  versioning:
+    name: Bump version
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+    - run: git config user.name $GITHUB_ACTOR
+    - run: git config user.email gh-actions-${GITHUB_ACTOR}@github.com
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16
+
+    - name: bump patch version
+      if: contains(github.event.pull_request.labels.*.name, 'patch')
+      run: npm version patch -m "[RELEASE] %s"
+
+    - name: bump minor version
+      if: contains(github.event.pull_request.labels.*.name, 'minor')
+      run: npm version minor -m "[RELEASE] %s"
+
+    - name: bump major version
+      if: contains(github.event.pull_request.labels.*.name, 'major')
+      run: npm version major -m "[RELEASE] %s"
+
+    - run: git push --follow-tags
+    - run: git push --tags
+    - uses: actions/upload-artifact@v2
+      with:
+        name: src
+        path: ./
