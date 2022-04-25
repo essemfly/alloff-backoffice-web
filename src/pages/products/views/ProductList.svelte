@@ -83,6 +83,7 @@
   };
 
   const handleIsClassifiedCheck = (event: CustomEvent<string[]>) => {
+    console.log(event.detail);
     if (
       event.detail.length === checkboxOptions.length ||
       event.detail.length === 0

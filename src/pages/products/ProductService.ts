@@ -59,8 +59,9 @@ export default class ProductService extends Service<Product> {
         limit: res.data.limit,
         brandId: res.data.list_query.brand_id,
         alloffCategoryId: res.data.list_query.alloff_category_id,
-        isClassifiedDone:
-          res.data.list_query.is_classified_done?.toString() ?? undefined,
+        isClassifiedDone: params.isClassifiedDone,
+        // todo: fix when server is fixed
+        // res.data.list_query.is_classified_done?.toString() ?? undefined,
         searchQuery: res.data.list_query.search_query,
         totalItems: res.data.total_counts,
       };
