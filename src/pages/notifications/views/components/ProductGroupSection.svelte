@@ -26,7 +26,7 @@
   type SearchQueryParam = ProductGroupsApiProductGroupsListRequest & {
     offset: number;
     limit: number;
-    totalItems: number;
+    totalCounts: number;
   };
 
   export let value: string = "";
@@ -36,7 +36,7 @@
     offset: 0,
     limit: 10,
     searchQuery: "",
-    totalItems: 0,
+    totalCounts: 0,
   };
 
   let isLoading = false;
@@ -61,7 +61,7 @@
     const { scrollTop, scrollHeight, clientHeight } = scrollableList;
     const nextOffset = params.offset + params.limit;
     if (
-      nextOffset <= params.totalItems &&
+      nextOffset <= params.totalCounts &&
       (scrollTop + clientHeight) / scrollHeight > 0.7
     ) {
       handleSearch(params.offset + params.limit);
@@ -107,7 +107,7 @@
         offset: res.data.offset,
         limit: res.data.limit,
         searchQuery: searchQuery ?? "",
-        totalItems: res.data.total_counts,
+        totalCounts: res.data.total_counts,
       };
 
       if (offset > 0) {

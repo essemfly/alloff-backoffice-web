@@ -77,7 +77,7 @@
   <Pagination
     limit={searchFilter.limit}
     offset={searchFilter.offset}
-    totalItems={searchFilter.totalItems}
+    totalCounts={searchFilter.totalCounts}
     on:change={handlePageChange}
   />
   <DataTable

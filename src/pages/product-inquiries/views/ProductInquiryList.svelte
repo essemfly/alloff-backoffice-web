@@ -117,7 +117,7 @@
   <!-- Need expandable improvement -->
   <!-- <DataTable data={inquiries} columns={productInquiryColumns} {isMobile} /> -->
   <Pagination
-    totalItems={searchFilter.totalItems}
+    totalItems={searchFilter.totalCounts}
     bind:page={searchFilter.page}
     bind:pageSize={searchFilter.size}
   />

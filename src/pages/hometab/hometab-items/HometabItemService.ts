@@ -15,7 +15,7 @@ type HomeTabItem = HomeTabItemDto & { id: string };
 export type SearchQueryParam = ListRequest & {
   offset: number;
   limit: number;
-  totalItems: number;
+  totalCounts: number;
 };
 
 export default class HometabItemService extends Service<HomeTabItem> {
@@ -24,7 +24,7 @@ export default class HometabItemService extends Service<HomeTabItem> {
   private searchFilter: SearchQueryParam = {
     offset: 0,
     limit: 50,
-    totalItems: 0,
+    totalCounts: 0,
   };
 
   constructor() {
@@ -51,7 +51,7 @@ export default class HometabItemService extends Service<HomeTabItem> {
       this.searchFilter = {
         offset: res.data.offset,
         limit: res.data.limit,
-        totalItems: res.data.total_counts,
+        totalCounts: res.data.total_counts,
       };
     } catch (e) {
       this.catchError(e);

@@ -1,4 +1,10 @@
 <script lang="ts">
+  import { Product } from "@lessbutter/alloff-backoffice-api";
+  import { onMount } from "svelte";
+  import { navigate, useLocation } from "svelte-navigator";
+  import { Button, Column, Grid, Row, Search } from "carbon-components-svelte";
+  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
+
   import { AutocompleteItem } from "@app/components/autocomplete";
   import BrandSelect from "@app/components/BrandSelect.svelte";
   import CategorySelect from "@app/components/CategorySelect.svelte";
@@ -7,11 +13,7 @@
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
   import { formatQueryString } from "@app/helpers/query-string";
-  import { Product } from "@lessbutter/alloff-backoffice-api";
-  import { Button, Column, Grid, Row, Search } from "carbon-components-svelte";
-  import DocumentAdd16 from "carbon-icons-svelte/lib/DocumentAdd16";
-  import { onMount } from "svelte";
-  import { navigate, useLocation } from "svelte-navigator";
+
   import { SearchQueryParam, useProductService } from "../ProductService";
   import ProductCard from "./components/ProductCard.svelte";
 
@@ -170,7 +172,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            totalItems={searchFilter.totalItems}
+            totalCounts={searchFilter.totalCounts}
             on:change={handlePageChange}
           />
         </Column>
@@ -189,7 +191,7 @@
           <Pagination
             limit={searchFilter.limit}
             offset={searchFilter.offset}
-            totalItems={searchFilter.totalItems}
+            totalCounts={searchFilter.totalCounts}
             on:change={handlePageChange}
           />
         </Column>
