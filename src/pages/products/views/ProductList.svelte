@@ -22,7 +22,10 @@
   import GridTile from "@app/components/GridTile.svelte";
   import Nav from "@app/components/Nav.svelte";
   import Pagination from "@app/components/Pagination.svelte";
-  import { formatQueryString } from "@app/helpers/query-string";
+  import {
+    formatQueryString,
+    parseQueryString,
+  } from "@app/helpers/query-string";
 
   import { SearchQueryParam, useProductService } from "../ProductService";
   import ProductCard from "./components/ProductCard.svelte";
@@ -43,7 +46,10 @@
     { label: "미설정", value: "false" },
   ];
 
-  onMount(() => handleSearch());
+  onMount(() => {
+    searchFilter = parseQueryString($location.search);
+    handleSearch();
+  });
 
   const load = async (params: SearchQueryParam) => {
     if (isLoading) return;
