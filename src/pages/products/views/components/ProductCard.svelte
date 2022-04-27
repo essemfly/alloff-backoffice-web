@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Product } from "@lessbutter/alloff-backoffice-api";
   import { toast } from "@zerodevx/svelte-toast";
+  import { createEventDispatcher } from "svelte";
   import { navigate } from "svelte-navigator";
   import {
     Button,
@@ -14,6 +15,7 @@
   } from "carbon-components-svelte";
   import Share16 from "carbon-icons-svelte/lib/Share16";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
+  import Checkmark32 from "carbon-icons-svelte/lib/Checkmark32";
 
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
   import { useProductService } from "../../ProductService";
@@ -21,6 +23,10 @@
   const productService = useProductService();
 
   export let product: Product;
+  export let selectable = false;
+  export let selected = false;
+
+  const dispatch = createEventDispatcher();
 
   let open = false;
 
@@ -52,7 +58,7 @@
       });
       toast.push("상품이 삭제되었습니다.");
       handleModalToggle(false);
-      window.location.reload();
+      dispatch("delete", product.alloff_product_id);
     } catch (e) {
       toast.push(`상품 삭제에 오류가 발생했습니다.`);
     }
@@ -63,10 +69,30 @@
   };
 
   const handleModalClose = () => handleModalToggle(false);
+
+  const handleSelect = (event: MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    selected = !selected;
+    dispatch("select", { product, selected });
+  };
 </script>
 
 <ClickableTile on:click={handleCardClick}>
   <div class="product">
+    {#if selectable}
+      <div class="button-selectable-wrapper">
+        <Button
+          tooltipPosition="bottom"
+          tooltipAlignment="start"
+          iconDescription={selected ? "선택 취소" : "선택"}
+          icon={Checkmark32}
+          kind={selected ? "primary" : "tertiary"}
+          size="small"
+          on:click={handleSelect}
+        />
+      </div>
+    {/if}
     <div class="button-wrapper">
       <Button
         tooltipPosition="bottom"
@@ -147,6 +173,18 @@
     right: 10px;
     display: flex;
     flex-direction: column;
+  }
+
+  .product > .button-selectable-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product > .button-selectable-wrapper :global(.bx--btn--primary) {
+    background-color: green;
   }
 
   .product > .button-wrapper :global(button) {
