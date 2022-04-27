@@ -34,6 +34,11 @@
   const handleSubmit = async () => {
     isSubmitting = true;
     try {
+      const isValid = await formStore.validate($formStore.fields);
+      if (!isValid) {
+        toast.push("일부 항목값이 올바르지 않습니다.");
+        return;
+      }
       await productService.edit(productId, $formStore.fields);
       toast.push("상품 수정이 완료되었습니다.");
       navigate(-1);
