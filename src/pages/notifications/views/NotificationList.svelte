@@ -21,12 +21,17 @@
   let notifications: Array<Noti & { id: string }> = [];
   let offset = 0;
   let limit = 50;
-  let searchQuery = "";
   let totalCounts = 0;
   let isLoading = false;
+  let searchFilter: SearchQueryParam;
 
   const notificationApi = new NotificationsApi(apiConfig);
   const location = useLocation<SearchQueryParam>();
+
+  onMount(async () => {
+    searchFilter = parseQueryString<SearchQueryParam>($location.search);
+    handleSearch();
+  });
 
   const load = async (params: SearchQueryParam) => {
     if (isLoading) return;
@@ -37,8 +42,6 @@
         limit: params.limit ?? 50,
       });
       const { data } = res;
-      console.log({ data });
-
       notifications = data.notis.map((x: Noti) => ({
         ...x,
         id: x.notification_id,
@@ -54,11 +57,6 @@
     }
   };
 
-  onMount(async () => {
-    const params = parseQueryString<SearchQueryParam>($location.search);
-    await load(params);
-  });
-
   const handleAddClick = (event: MouseEvent) => {
     event.preventDefault();
     navigate("/notifications/add");
@@ -68,12 +66,20 @@
     event: CustomEvent<{ offset: number; limit: number }>,
   ) => {
     const { offset, limit } = event.detail;
-    const queryString = formatQueryString({
+    searchFilter = {
       offset,
       limit,
-      query: searchQuery,
-    });
-    navigate(`${$location.pathname}?${queryString}`);
+      // query: searchQuery,
+    };
+    handleSearch();
+  };
+
+  const handleSearch = () => {
+    const queryString = formatQueryString({ ...searchFilter });
+    if (`?${queryString}` !== $location.search) {
+      navigate(`${$location.pathname}?${queryString}`);
+    }
+    load(searchFilter);
   };
 
   const handleSendClick = async (event: CustomEvent<{ id: string }>) => {
@@ -90,11 +96,6 @@
       toast.push("푸시알림 발송을 실패했습니다.");
     }
   };
-
-  $: if ($location) {
-    const params = parseQueryString<SearchQueryParam>($location.search);
-    load(params);
-  }
 </script>
 
 <Nav title="푸시알림 목록">

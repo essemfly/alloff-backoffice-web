@@ -124,7 +124,9 @@
 
   const handleSearch = () => {
     const queryString = formatQueryString({ ...searchFilter });
-    navigate(`${$location.pathname}?${queryString}`);
+    if (`?${queryString}` !== $location.search) {
+      navigate(`${$location.pathname}?${queryString}`);
+    }
     load(searchFilter);
     selectedProductIds = [];
   };
