@@ -15,6 +15,7 @@
   import NotificationForm from "./components/NotificationForm.svelte";
   import { formStore } from "../models/schema";
   import { apiConfig } from "@app/store";
+  import { NotificationTypeEnum } from "../models/Notification";
 
   let isSubmitting = false;
 
@@ -33,6 +34,12 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
+      if (
+        $formStore.fields.notiType === NotificationTypeEnum.GeneralNotification
+      ) {
+        formStore.update({ referenceId: "/" });
+      }
+      console.log(formStore);
       await notificationApi.notificationsCreate({
         createNotiRequest: convertToSnakeCase<CreateNotiRequest>(
           $formStore.fields,
