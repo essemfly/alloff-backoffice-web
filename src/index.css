@@ -41,11 +41,17 @@ html, body {
   --text-04: #ffffff;
   --gray-10: #f4f4f4;
   --gray-20: #e0e0e0;
+  --gray-70: #525252;
   --gray-80: #393939;
+  --gray-100: #161616;
   --blue-60: #0f62fe;
   --red-60: #da1e28;
   --green-60: #198038;
   --yellow: #f1c21b;
+
+
+  --text-primary: var(--gray-100);
+  --text-secondary: var(--gray-70);
 
   --support-02: var(--green-60);
   --support-03: var(--yellow);

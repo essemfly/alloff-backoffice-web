@@ -176,6 +176,19 @@
       />
     </Column>
   </Row>
+  <Row>
+    <Column>
+      <ToggleField
+        schema={schema.fields.isSpecial}
+        errorText={$formStore.errors.isSpecial}
+        bind:value={$formStore.fields.isSpecial}
+      />
+      <p class="info-text">
+        * 특별 상품설정이 되면 일부 기획전에만 표시되며 일반 상품 목록에 보이지
+        않습니다.
+      </p>
+    </Column>
+  </Row>
   <Row padding>
     <Column>
       {#if !isAdding}
@@ -453,5 +466,18 @@
     height: 2.5rem;
     min-height: auto;
     padding: 10px;
+  }
+
+  .info-text {
+    margin-top: 5px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.33333;
+    letter-spacing: 0.32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--text-secondary);
+    cursor: pointer;
   }
 </style>

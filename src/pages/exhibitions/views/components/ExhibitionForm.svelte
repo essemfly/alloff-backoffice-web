@@ -312,6 +312,36 @@
   {/if}
 </ContentBox>
 
+{#if $formStore.fields.exhibitionType === ExhibitionTypeEnum.Groupdeal}
+  <ContentBox title={`팀 섹션`}>
+    <Row padding>
+      <Column>
+        <TextField
+          schema={schema.fields.numUsersRequired}
+          bind:value={$formStore.fields.numUsersRequired}
+          errorText={$formStore.errors.numUsersRequired}
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column>
+        <TextField
+          schema={schema.fields.totalGroups}
+          value={$formStore.fields.totalGroups}
+          readonly
+        />
+      </Column>
+      <Column>
+        <TextField
+          schema={schema.fields.totalParticipants}
+          value={$formStore.fields.totalParticipants}
+          readonly
+        />
+      </Column>
+    </Row>
+  </ContentBox>
+{/if}
+
 <ContentBox title={`${label} 섹션 목록`}>
   <StructuredList>
     <StructuredListHead>

@@ -4,6 +4,7 @@ import {
   ArraySchema,
   InferType,
   number,
+  NumberSchema,
   object,
   string,
   StringSchema,
@@ -64,6 +65,15 @@ export const schema = object({
       then: (schema: ArraySchema<AnyObjectSchema>) => schema.required(),
       otherwise: (schema: ArraySchema<AnyObjectSchema>) => schema.notRequired(),
     }),
+  numUsersRequired: number()
+    .label("필요한 팀원 수")
+    .when("exhibitionType", {
+      is: (exhibitionType: ExhibitionTypeEnum) =>
+        exhibitionType === ExhibitionTypeEnum.Groupdeal,
+      then: (schema: NumberSchema) => schema.required(),
+    }),
+  totalGroups: number().label("전체 팀 수"),
+  totalParticipants: number().label("전체 참가자 수"),
 });
 
 export type FormSchema = InferType<typeof schema>;
