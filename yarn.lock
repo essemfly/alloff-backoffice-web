@@ -1283,10 +1283,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@lessbutter/alloff-backoffice-api@0.15.1":
-  version "0.15.1"
-  resolved "https://npm.pkg.github.com/download/@lessbutter/alloff-backoffice-api/0.15.1/c7c74f09b687172ec2d3f8327e5dd364c914837854f2abfc7fba8027962fbd42#7f33248144923a499a9fe8bd88917904cf99019e"
-  integrity sha512-/JXxnVC86GEauFszGdYiLSy4qnj8V2YGHJJ/e3KOu71xUxdcBvW6lzksiyk/HDwNuaAdO3pLwhAdDuHIRp2X0w==
+"@lessbutter/alloff-backoffice-api@0.16.0":
+  version "0.16.0"
+  resolved "https://npm.pkg.github.com/download/@lessbutter/alloff-backoffice-api/0.16.0/07a80a1ec813ea98ae8f8fcb7d1500ce8afe9f3ea57d6446595d4c515f1d4b08#c4ac08849f0aba8454404d8ba0b1510fe7de257d"
+  integrity sha512-SxQRzWMIqhjKp3y28o0LPZWyB0LxTex5ToiXp6cAPJhUd6rrYAycx2rNdzc5+VSsA88T4xxKkvpm9GPnw81b7w==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
