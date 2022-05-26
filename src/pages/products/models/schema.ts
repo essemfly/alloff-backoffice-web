@@ -1,6 +1,7 @@
 import { array, boolean, InferType, number, object, string } from "yup";
 
 import { Form, useForm } from "@app/helpers/useForm";
+import { ProductTypesEnum } from "@lessbutter/alloff-backoffice-api";
 
 export const schema = object({
   alloffProductId: string().label("상품 ID"),
@@ -19,10 +20,8 @@ export const schema = object({
   isRefundPossible: boolean().label("반품가능 여부").default(true).required(),
   isRemoved: boolean().label("판매불가 여부").default(false),
   isSoldout: boolean().label("품절 여부").default(false),
-  isSpecial: boolean().label("특별 상품 여부").default(false),
   originalPrice: number().label("원가").required(),
   discountedPrice: number().label("할인가").required(),
-  specialPrice: number().label("우선적용가").nullable().notRequired(),
   earliestDeliveryDays: number()
     .label("가장 빠른 도착예정일")
     .default(2)
@@ -57,6 +56,7 @@ export const schema = object({
   productInfos: object().required().default({}),
   descriptionInfos: object().required().default({}),
   thumbnailImage: string().label("대표 이미지"),
+  productTypes: array().label("상품 종류").of(string().oneOf(Object.values(ProductTypesEnum)).required()).default([ProductTypesEnum.Female])
 });
 
 export type FormSchema = InferType<typeof schema>;

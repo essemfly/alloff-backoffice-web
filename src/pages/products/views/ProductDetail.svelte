@@ -7,10 +7,12 @@
 
   import Nav from "@app/components/Nav.svelte";
   import { convertToCamelCase } from "@app/helpers/change-case";
+  import { ProductTypesEnum } from "@lessbutter/alloff-backoffice-api";
 
   import ProductForm from "./components/ProductForm.svelte";
   import { formStore } from "../models/schema";
   import { useProductService } from "../ProductService";
+  import { getProductTypeByIndex, getProductTypeIndex } from "../commands/helpers";
 
   const productService = useProductService();
 
@@ -24,6 +26,9 @@
     if (res) {
       const product = convertToCamelCase({
         ...res,
+        productTypes: res.product_types.map((key) => {
+          return getProductTypeByIndex(key as unknown as number)
+        }),
         thumbnail_image: res.main_image_url ?? res.thumbnail_image ?? undefined,
       });
       formStore.update(product);
@@ -39,6 +44,9 @@
         toast.push("일부 항목값이 올바르지 않습니다.");
         return;
       }
+      
+      console.log("before", $formStore.fields.productTypes)
+
       await productService.edit(productId, $formStore.fields);
       toast.push("상품 수정이 완료되었습니다.");
       navigate(-1);

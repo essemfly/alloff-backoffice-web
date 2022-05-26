@@ -22,10 +22,15 @@
     ToggleField,
     BrandSelectField,
     CategorySelectField,
+    CheckboxGroupField,
   } from "@app/components/form";
+  import { ProductTypesEnum } from "@lessbutter/alloff-backoffice-api";
 
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
   import { FormSchema, formStore, schema } from "../../models/schema";
+  import {
+    getProductTypeLabel,
+  } from "../../commands/helpers";
 
   export let isAdding: boolean = false;
 
@@ -36,6 +41,14 @@
   let useHtml = false;
   let html = $formStore.fields.rawHtml ?? "";
   let inventorySum = 0;
+
+  const productTypeOptions = Object.keys(ProductTypesEnum).map((key) => ({
+    key,
+    label: getProductTypeLabel(
+      ProductTypesEnum[key as keyof typeof ProductTypesEnum],
+    ),
+    value: ProductTypesEnum[key as keyof typeof ProductTypesEnum]
+  }));
 
   onMount(() => sumInventories());
 
@@ -137,6 +150,15 @@
   {/if}
   <Row padding>
     <Column>
+      <FormGroup>
+        <CheckboxGroupField
+          options={productTypeOptions}
+          schema={schema.fields.productTypes}
+          bind:value={$formStore.fields.productTypes}
+        />
+      </FormGroup>
+    </Column>
+    <Column>
       <TextField
         schema={schema.fields.alloffName}
         errorText={$formStore.errors.alloffName}
@@ -167,26 +189,6 @@
         bind:value={$formStore.fields.discountedPrice}
         label={`할인가 (할인율: ${discountRate}%)`}
       />
-    </Column>
-    <Column>
-      <TextField
-        schema={schema.fields.specialPrice}
-        errorText={$formStore.errors.specialPrice}
-        bind:value={$formStore.fields.specialPrice}
-      />
-    </Column>
-  </Row>
-  <Row>
-    <Column>
-      <ToggleField
-        schema={schema.fields.isSpecial}
-        errorText={$formStore.errors.isSpecial}
-        bind:value={$formStore.fields.isSpecial}
-      />
-      <p class="info-text">
-        * 특별 상품설정이 되면 일부 기획전에만 표시되며 일반 상품 목록에 보이지
-        않습니다.
-      </p>
     </Column>
   </Row>
   <Row padding>

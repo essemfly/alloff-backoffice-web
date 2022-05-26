@@ -2,6 +2,6 @@ export interface Option {
   key: string;
   label: string;
   description?: string;
-  value: string | undefined;
+  value: string | number | undefined;
   disabled?: boolean;
 }

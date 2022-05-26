@@ -9,7 +9,7 @@
   export let options: Option[];
   export let name: string = "";
   export let errorText: string = "";
-  export let value: string[] = [];
+  export let value: Option['value'][] = [];
   export let disabled: boolean = false;
   export let hideLabel: boolean = false;
   export let schema: AnySchema;

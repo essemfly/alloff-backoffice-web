@@ -29,6 +29,7 @@ export const schema = object({
   title: string().label("제목").required(),
   subtitle: string().label("부제목").required(),
   description: string().label("설명").required(),
+  tags: array().of(string().required()).label("딜 태그").required(),
   bannerImage: string()
     .label("배너 이미지")
     .when("exhibitionType", {
@@ -53,27 +54,6 @@ export const schema = object({
     .oneOf(Object.values(ExhibitionTypeEnum))
     .label("기획전 종류")
     .required(),
-  targetSales: number().label("목표 판매량").default(1),
-  currentSales: number().label("현재 판매량").default(0),
-  banners: array()
-    .label("배너 이미지")
-    .of(bannerSchema.required())
-    .default([])
-    .when("exhibitionType", {
-      is: (exhibitionType: ExhibitionTypeEnum) =>
-        exhibitionType === ExhibitionTypeEnum.Timedeal,
-      then: (schema: ArraySchema<AnyObjectSchema>) => schema.required(),
-      otherwise: (schema: ArraySchema<AnyObjectSchema>) => schema.notRequired(),
-    }),
-  numUsersRequired: number()
-    .label("필요한 팀원 수")
-    .when("exhibitionType", {
-      is: (exhibitionType: ExhibitionTypeEnum) =>
-        exhibitionType === ExhibitionTypeEnum.Groupdeal,
-      then: (schema: NumberSchema) => schema.required(),
-    }),
-  totalGroups: number().label("전체 팀 수"),
-  totalParticipants: number().label("전체 참가자 수"),
 });
 
 export type FormSchema = InferType<typeof schema>;
@@ -89,8 +69,6 @@ const defaultValues = {
   startTime: "",
   finishTime: "",
   pgIds: [],
-  targetSales: 1,
-  banners: [],
 };
 
 export const formStore: Form<FormSchema> = useForm<FormSchema>(

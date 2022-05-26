@@ -51,6 +51,7 @@
     sectionFormStore,
   } from "../../models/schema";
   import { useExhibitionService } from "../../ExhibitionService";
+import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
 
   const exhibitionService = useExhibitionService();
 
@@ -73,14 +74,6 @@
     selectedSectionIds = selectedSections.map(
       ({ product_group_id }) => product_group_id,
     );
-    if (isTimedeal) {
-      $formStore.fields.banners.forEach((x: BannerFormSchema) => {
-        if (!bannerImages[x.productGroupId]) {
-          bannerImages[x.productGroupId] = [];
-        }
-        bannerImages[x.productGroupId].push(x.imgUrl);
-      });
-    }
   });
 
   const handleSectionSelect = (event: CustomEvent<ProductGroup>) => {
@@ -103,37 +96,6 @@
     const newSections = selectedSections.slice();
     const [removed] = newSections.splice(index, 1);
     selectedSections = newSections;
-    if (isTimedeal && bannerImages[removed.product_group_id]) {
-      const banners = $formStore.fields.banners.filter(
-        (x: BannerFormSchema) => x.productGroupId !== removed.product_group_id,
-      );
-      formStore.update({ banners });
-      if (bannerImages[removed.product_group_id]) {
-        delete bannerImages[removed.product_group_id];
-      }
-    }
-  };
-
-  const handleBannerAdd = (
-    event: CustomEvent<string[]>,
-    section: ProductGroup,
-  ) => {
-    const newBanners = event.detail.map((imgUrl) => ({
-      title: section.title,
-      subtitle: section.brand.keyname ?? section.short_title ?? section.title,
-      imgUrl,
-      productGroupId: section.product_group_id,
-    }));
-    const banners = [
-      ...$formStore.fields.banners.filter(
-        (x: BannerFormSchema) => x.productGroupId !== section.product_group_id,
-      ),
-      ...newBanners,
-    ].filter((x) => !isEmpty(x.imgUrl));
-    bannerImages[section.product_group_id] = event.detail;
-    formStore.update({
-      banners,
-    });
   };
 
   $: if (selectedSections) {
@@ -270,6 +232,9 @@
     />
   </FormGroup>
   <FormGroup>
+    <MultilineTextInput label="태그" bind:value={$formStore.fields.tags} />
+  </FormGroup>
+  <FormGroup>
     <TextAreaField
       schema={schema.fields.description}
       bind:value={$formStore.fields.description}
@@ -292,55 +257,7 @@
       />
     </Column>
   </Row>
-  {#if $formStore.fields.exhibitionType === ExhibitionTypeEnum.Groupdeal}
-    <Row padding>
-      <Column>
-        <TextField
-          schema={schema.fields.targetSales}
-          bind:value={$formStore.fields.targetSales}
-          errorText={$formStore.errors.targetSales}
-        />
-      </Column>
-      <Column>
-        <TextField
-          schema={schema.fields.currentSales}
-          value={$formStore.fields.currentSales}
-          readonly
-        />
-      </Column>
-    </Row>
-  {/if}
 </ContentBox>
-
-{#if $formStore.fields.exhibitionType === ExhibitionTypeEnum.Groupdeal}
-  <ContentBox title={`팀 섹션`}>
-    <Row padding>
-      <Column>
-        <TextField
-          schema={schema.fields.numUsersRequired}
-          bind:value={$formStore.fields.numUsersRequired}
-          errorText={$formStore.errors.numUsersRequired}
-        />
-      </Column>
-    </Row>
-    <Row>
-      <Column>
-        <TextField
-          schema={schema.fields.totalGroups}
-          value={$formStore.fields.totalGroups}
-          readonly
-        />
-      </Column>
-      <Column>
-        <TextField
-          schema={schema.fields.totalParticipants}
-          value={$formStore.fields.totalParticipants}
-          readonly
-        />
-      </Column>
-    </Row>
-  </ContentBox>
-{/if}
 
 <ContentBox title={`${label} 섹션 목록`}>
   <StructuredList>
@@ -377,16 +294,6 @@
               No products
             {/if}
           </StructuredListCell>
-          {#if isTimedeal}
-            <StructuredListCell>
-              <ImageUploadInput
-                label={"배너 이미지"}
-                value={bannerImages[section.product_group_id] ?? []}
-                multiple
-                on:change={(event) => handleBannerAdd(event, section)}
-              />
-            </StructuredListCell>
-          {/if}
           <StructuredListCell>
             <Button
               tooltipPosition="bottom"
