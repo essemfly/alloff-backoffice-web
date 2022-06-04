@@ -197,26 +197,24 @@ import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
       />
     </FormGroup>
   {/if}
-  {#if !isTimedeal}
-    <FormGroup>
-      <ImageUploadField
-        schema={isTimedeal
-          ? schema.fields.bannerImage.notRequired()
-          : schema.fields.bannerImage.required()}
-        bind:value={$formStore.fields.bannerImage}
-        errorText={$formStore.errors.bannerImage}
-      />
-    </FormGroup>
-    <FormGroup>
-      <ImageUploadField
-        schema={isTimedeal
-          ? schema.fields.thumbnailImage.notRequired()
-          : schema.fields.thumbnailImage.required()}
-        bind:value={$formStore.fields.thumbnailImage}
-        errorText={$formStore.errors.thumbnailImage}
-      />
-    </FormGroup>
-  {/if}
+  <FormGroup>
+    <ImageUploadField
+      schema={isTimedeal
+        ? schema.fields.bannerImage.notRequired()
+        : schema.fields.bannerImage.required()}
+      bind:value={$formStore.fields.bannerImage}
+      errorText={$formStore.errors.bannerImage}
+    />
+  </FormGroup>
+  <FormGroup>
+    <ImageUploadField
+      schema={isTimedeal
+        ? schema.fields.thumbnailImage.notRequired()
+        : schema.fields.thumbnailImage.required()}
+      bind:value={$formStore.fields.thumbnailImage}
+      errorText={$formStore.errors.thumbnailImage}
+    />
+  </FormGroup>
   <FormGroup>
     <TextField
       schema={schema.fields.title}
