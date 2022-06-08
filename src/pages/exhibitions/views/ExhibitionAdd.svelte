@@ -32,6 +32,7 @@
       });
       if (!isValid) {
         toast.push("일부 항목값이 올바르지 않습니다.");
+        console.log($formStore.errors);
         return;
       }
       await exhibitionService.create($formStore.fields);

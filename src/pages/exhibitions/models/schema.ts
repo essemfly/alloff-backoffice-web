@@ -29,7 +29,7 @@ export const schema = object({
   title: string().label("제목").required(),
   subtitle: string().label("부제목").required(),
   description: string().label("설명").required(),
-  tags: array().of(string().required()).label("딜 태그").required(),
+  tags: array().of(string().required()).min(1).label("태그").required(),
   bannerImage: string()
     .label("배너 이미지")
     .when("exhibitionType", {

@@ -28,9 +28,7 @@
 
   import ProductCategoryClassifiedTag from "./ProductCategoryClassifiedTag.svelte";
   import { FormSchema, formStore, schema } from "../../models/schema";
-  import {
-    getProductTypeLabel,
-  } from "../../commands/helpers";
+  import { getProductTypeLabel } from "../../commands/helpers";
 
   export let isAdding: boolean = false;
 
@@ -47,7 +45,7 @@
     label: getProductTypeLabel(
       ProductTypesEnum[key as keyof typeof ProductTypesEnum],
     ),
-    value: ProductTypesEnum[key as keyof typeof ProductTypesEnum]
+    value: ProductTypesEnum[key as keyof typeof ProductTypesEnum],
   }));
 
   onMount(() => sumInventories());
@@ -468,18 +466,5 @@
     height: 2.5rem;
     min-height: auto;
     padding: 10px;
-  }
-
-  .info-text {
-    margin-top: 5px;
-    font-size: 0.75rem;
-    font-weight: 400;
-    line-height: 1.33333;
-    letter-spacing: 0.32px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    color: var(--text-secondary);
-    cursor: pointer;
   }
 </style>

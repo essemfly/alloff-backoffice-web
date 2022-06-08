@@ -5,7 +5,6 @@
     ProductInGroup,
     ExhibitionTypeEnum,
   } from "@lessbutter/alloff-backoffice-api";
-  import { isEmpty } from "lodash";
   import { DateTime } from "luxon";
   import { toast } from "@zerodevx/svelte-toast";
   import { onMount } from "svelte";
@@ -36,22 +35,16 @@
   import {
     DateTimeField,
     ImageUploadField,
+    MultilineTextField,
     TextAreaField,
     TextField,
   } from "@app/components/form";
   import { convertToSnakeCase } from "@app/helpers/change-case";
-  import ImageUploadInput from "@app/components/ImageUploadInput.svelte";
 
   import SectionForm from "./SectionForm.svelte";
   import SectionSearchSection from "./SectionSearchSection.svelte";
-  import {
-    BannerFormSchema,
-    formStore,
-    schema,
-    sectionFormStore,
-  } from "../../models/schema";
+  import { formStore, schema, sectionFormStore } from "../../models/schema";
   import { useExhibitionService } from "../../ExhibitionService";
-import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
 
   const exhibitionService = useExhibitionService();
 
@@ -64,7 +57,6 @@ import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
   let selectedSectionIds: string[] = [];
   let productInGroups: ProductInGroup[] = [];
   let isSubmitting = false;
-  let bannerImages: Record<string, string[]> = {};
   let isTimedeal = type === ExhibitionTypeEnum.Timedeal;
 
   onMount(async () => {
@@ -94,7 +86,7 @@ import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
 
   const handleSectionRemove = (index: number) => () => {
     const newSections = selectedSections.slice();
-    const [removed] = newSections.splice(index, 1);
+    newSections.splice(index, 1);
     selectedSections = newSections;
   };
 
@@ -230,7 +222,11 @@ import MultilineTextInput from "@app/components/MultilineTextInput.svelte";
     />
   </FormGroup>
   <FormGroup>
-    <MultilineTextInput label="태그" bind:value={$formStore.fields.tags} />
+    <MultilineTextField
+      schema={schema.fields.tags}
+      bind:value={$formStore.fields.tags}
+      errorText={$formStore.errors.tags}
+    />
   </FormGroup>
   <FormGroup>
     <TextAreaField
